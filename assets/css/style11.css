@@ -1,0 +1,145 @@
+@font-face {
+	font-family: 'Open Sans';
+	src: url('fonts/OpenSans-Light.eot');
+	src: url('fonts/OpenSans-Light.eot?#iefix') format('embedded-opentype'), url('fonts/OpenSans-Light.woff') format('woff'), url('fonts/OpenSans-Light.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Open Sans';
+	src: url('fonts/OpenSans.eot');
+	src: url('fonts/OpenSans.eot?#iefix') format('embedded-opentype'), url('fonts/OpenSans.woff') format('woff'), url('fonts/OpenSans.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+body{
+	font-family: 'Open Sans';
+}
+header{
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ddd;
+}
+.login_header{
+	margin-top: 10px;
+	text-align: right;
+}
+.login_header span{
+	padding-right: 5px;
+	padding-left: 5px;
+}
+.panel-default{
+	border: 0px;
+}
+.navbar-default{
+	background-color: transparent;
+	border: 0px;
+}
+.top_menu > li > a{
+	border: 1px solid #ddd;
+	border-top:0px;
+}
+.home_item_seection{
+	margin-top: 30px
+}
+.home_item_box{
+	border: 1px solid #ddd;
+}
+.home_item_title{
+	font-size: 16px;
+	font-weight: bold;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+
+.home_price_seection{
+	margin-top: 30px
+}
+.home_price_box{
+	border: 1px solid #ddd;
+}
+.home_price_title{
+	font-size: 16px;
+	font-weight: bold;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.home_price_amount{
+	font-size: 30px
+}
+.home_price_list{
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 25px;
+	list-style: none;
+	margin-top: 20px;
+	padding: 0px;
+}
+.home_tab_section{
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+
+
+
+
+
+.nav-tabs>li>a, .nav-tabs>li>a:focus, .nav-tabs>li>a:hover{
+	    border: 1px solid #ddd;
+	border-right: 0px;
+	border-top: 0px;
+	border-radius: 0px;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+	border: 0px;
+	border-left: 1px solid #ddd;
+	border-bottom: 1px solid #fff !important;
+}
+
+.nav-tabs>li>a{
+	margin-right: 0px;
+}
+
+.nav>li>a{
+	  padding: 11px 67px;
+}
+.footer_top_head_tile{
+	color: blue;
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 12px;
+}
+
+.footer_top_tile{
+	font-size: 18px;
+	color: red;
+	font-weight: bold;
+}
+footer{
+	border-top: 1px solid #ddd;
+	padding-top: 15px;
+	padding-bottom: 5px;
+}
+.footer_menu{
+	list-style: none;
+	padding: 0px;
+}
+.footer_menu li{
+	display: inline-block;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+.flot-right{
+	float: right;
+}
+.flot-left{
+	float: left;
+}
+
+@media(max-width:992px){
+	.footer_top_box{
+		margin-top: 15px;
+	}
+}
