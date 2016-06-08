@@ -36,17 +36,19 @@
 }
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
     border-color: #333;
-    background-color: black;
+/*    background-color: black;*/
     color: white;
 }
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
-    color: #333;
-    background-color: blue;
+    color: #000;
+    background-color: #f1f1f1;
+    font-weight: bold;
 }
 </style>
 <?php
   $file=$_SERVER["SCRIPT_NAME"]; ?>
-<div class="container">
+<section class="menu_section">
+    <div class="container">
     <nav class="navbar navbar-default" role="navigation">
 	  <!-- Brand and toggle get grouped for better mobile display -->
 	  <div class="navbar-header">
@@ -77,3 +79,4 @@
 	  </div><!-- /.navbar-collapse -->
 	</nav>
 </div>
+</section>

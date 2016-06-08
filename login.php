@@ -4,39 +4,43 @@ session_start();
 include "nav_before_login.php";?>
 
 <div class="container">
+            <div class="login_form_page">
 				<div class="row">
 					<div class="col-sm-12 text-center">
-						<h1><br class="hidden-xs">Log In</h1>
+						<h1 class="login_title"><br class="hidden-xs">Log In</h1>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-8">
-                            <form method='post' action='login.php' class="form-horizontal">
+				    
+					<div class="col-sm-12">
+                           
+                               <form method='post' action='login.php' class="form-horizontal login_form">
 							<fieldset>
 								<div class="form-group">
-									<label for="login_email" class="control-label col-sm-6">Email address</label>
-									<div class="col-sm-6 input"><input name='email'  type="text" placeholder="Please Enter Email"  class="form-control" required=""></div>
+<!--									<label for="login_email" class="control-label col-sm-6">Email address</label>-->
+									<div class="col-sm-12 input"><input name='email'  type="text" placeholder="Please Enter Email"  class="form-control" required=""></div>
 								</div>
 								
 								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">Password</label>
-									<div class="col-sm-6 input"><input type='password' name='pass'  placeholder="Please Enter password"  class="form-control" required=""></div>
+<!--									<label for="login_password" class="control-label col-sm-6">Password</label>-->
+									<div class="col-sm-12 input"><input type='password' name='pass'  placeholder="Please Enter password"  class="form-control" required=""></div>
 								</div>
 							</fieldset>
 							<div class="form-group">
-								<label for="" class="control-label col-sm-6 back hidden-xs">&nbsp;</label>
-								<div class="col-sm-6 input text-center">
-                                <button class="btn btn-lg btn-block btn-success" type="submit" name="Login" value="Login">Log in <i class="glyphicon glyphicon-chevron-right"></i></button>
+								<div class="col-sm-12 input text-center">
+                                <button class="btn btn-md btn-block btn-success" type="submit" name="Login" value="Login">Log in <i class="glyphicon glyphicon-chevron-right"></i></button>
 								</div>
 							</div>
 						 </form>
-						
+						   
 					</div>
 					<div class="col-sm-12 text-center">
-						<a href="#">Forgot your password?</a> | Not Registered yet??<a href='registration.php'>Sign Up</a>
+						<a href="#">Forgot your password?</a> | Not Registered yet?<a href='registration.php'>Sign Up</a>
 					</div>
+                   
 				</div>
-			</div>
+            </div>
+</div>
  
  <?php include "footer.php";?>
 

@@ -6,6 +6,7 @@
 	$baseurl = HOSTNAME; ?>
 	<meta charset="UTF-8">
 	<title>TBF Sports gaming</title>
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="<?php echo $baseurl; ?>assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo $baseurl; ?>assets/css/style.css">
 	<script src="<?php echo $baseurl; ?>assets/js/jquery.min.js" type="text/javascript"></script>

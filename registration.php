@@ -22,39 +22,40 @@ include "nav_before_login.php";?>
 
         </script>
 <div class="container">
+            <div class="signup_form_page">
 				<div class="row">
 					<div class="col-sm-12 text-center">
-						<h1><br class="hidden-xs">Sign up</h1>
+						<h1 class="signup_title"><br class="hidden-xs">Sign up</h1>
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="col-sm-8">
+					<div class="col-sm-12">
                             <form method='post' action='registration.php' class="form-horizontal">
 							<fieldset>
 								<div class="form-group">
-									<label for="login_email" class="control-label col-sm-6">User Name</label>
-									<div class="col-sm-6 input"><input name='name'  type="text" placeholder="Please Enter User Name"  class="form-control" required=""></div>
+									<label for="login_email" class="control-label col-sm-4">User Name</label>
+									<div class="col-sm-7 input"><input name='name'  type="text" placeholder="Please Enter User Name"  class="form-control" required=""></div>
 								</div>
 								
 								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">User Email</label>
-									<div class="col-sm-6 input"><input name='email'  placeholder="Please Enter Email"  class="form-control" required=""></div>
+									<label for="login_password" class="control-label col-sm-4">User Email</label>
+									<div class="col-sm-7 input"><input name='email'  placeholder="Please Enter Email"  class="form-control" required=""></div>
 								</div>
 
 								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">User Password</label>
-									<div class="col-sm-6 input"><input type='password' name='pass'  placeholder="Please Enter password"  class="form-control" required=""></div>
+									<label for="login_password" class="control-label col-sm-4">User Password</label>
+									<div class="col-sm-7 input"><input type='password' name='pass'  placeholder="Please Enter password"  class="form-control" required=""></div>
 								</div>
 
 								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">Address</label>
-									<div class="col-sm-6 input"><input name='Address'  placeholder="Please Enter Address"  class="form-control" required=""></div>
+									<label for="login_password" class="control-label col-sm-4">Address</label>
+									<div class="col-sm-7 input"><input name='Address'  placeholder="Please Enter Address"  class="form-control" required=""></div>
 								</div>
 
 								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">DOB</label>
-									<div class="col-sm-6 input"><input name='DOB' id='DOB' placeholder="Please Enter DOB"  class="form-control" required=""></div>
+									<label for="login_password" class="control-label col-sm-4">DOB</label>
+									<div class="col-sm-7 input"><input name='DOB' id='DOB' placeholder="Please Enter DOB"  class="form-control" required=""></div>
 								</div>
 
 <!--                                                            <div class="form-group">
@@ -89,40 +90,42 @@ include "nav_before_login.php";?>
 								</div>
 								</div>-->
                                                                  <div class="form-group">
-									<label for="Country" class="control-label col-sm-6">Country</label>
-									<div class="col-sm-6 input"><input name='Country'  placeholder="Please Enter Country"  class="form-control" required=""></div>
+									<label for="Country" class="control-label col-sm-4">Country</label>
+									<div class="col-sm-7 input"><input name='Country'  placeholder="Please Enter Country"  class="form-control" required=""></div>
 								</div>
                                                                 <div class="form-group">
-									<label for="State" class="control-label col-sm-6">State</label>
-									<div class="col-sm-6 input"><input name='State'  placeholder="Please Enter State"  class="form-control" required=""></div>
+									<label for="State" class="control-label col-sm-4">State</label>
+									<div class="col-sm-7 input"><input name='State'  placeholder="Please Enter State"  class="form-control" required=""></div>
 								</div>
 
                                                                <div class="form-group">
-									<label for="city" class="control-label col-sm-6">City</label>
-									<div class="col-sm-6 input"><input name='city'  placeholder="Please Enter city"  class="form-control" required=""></div>
+									<label for="city" class="control-label col-sm-4">City</label>
+									<div class="col-sm-7 input"><input name='city'  placeholder="Please Enter city"  class="form-control" required=""></div>
 								</div>
 								<div class="form-group">
-									<label for="pin" class="control-label col-sm-6">Pin</label>
-									<div class="col-sm-6 input"><input name='Pincode'  placeholder="Please Enter Pin"  class="form-control" required=""></div>
+									<label for="pin" class="control-label col-sm-4">Pin</label>
+									<div class="col-sm-7 input"><input name='Pincode'  placeholder="Please Enter Pin"  class="form-control" required=""></div>
 								</div>
 								
 								
 								
 								
 							</fieldset>
-                         <div class="form-group">
+                            <div class="col-sm-12 text-center">
+                                <p><input type="checkbox" required name="terms"> I accept the Privacy <u>Terms and Conditions</u></p>
+                            </div>
+                             <div class="form-group">
 								<label for="" class="control-label col-sm-6 back hidden-xs">&nbsp;</label>
-								<div class="col-sm-6 input text-center">
-                                <button class="btn btn-lg btn-block btn-success" type="submit" name="submit" value="Sign Up">Sign Up <i class="glyphicon glyphicon-chevron-right"></i></button>
+								<div class="col-sm-12 input text-center">
+                                <button class="btn btn-md btn-block btn-success sign_up_button" type="submit" name="submit" value="Sign Up">Sign Up <i class="glyphicon glyphicon-chevron-right"></i></button>
 								</div>
 							</div>
 						 </form>
 							
 					</div>
-					<div class="col-sm-12 text-center">
-						<p><input type="checkbox" required name="terms"> I accept the Privacy <u>Terms and Conditions</u></p>
-					</div>
+					
 				</div>
+            </div>
 
 </div>
 
