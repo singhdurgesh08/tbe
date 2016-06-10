@@ -1,6 +1,6 @@
 <style>
 .dropbtn {
-    background-color: #4CAF50;
+    background-color: #f9f9f9;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -13,6 +13,7 @@
 }
 .dropdown-content {
     display: none;
+    color: black;
     position: absolute;
     right: 0;
     background-color: #f9f9f9;
@@ -31,16 +32,22 @@
 }
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+
 }
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
     border-color: #333;
-    background-color: black;
+/*    background-color: black;*/
     color: white;
 }
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
-    color: #333;
-    background-color: blue;
+    color: #000;
+    background-color: #f1f1f1;
+    font-weight: bold;
 }
+.nav>li>a {
+    padding: 11px 50px;
+}
+
 </style>
 <?php
   $file=$_SERVER["SCRIPT_NAME"];
@@ -59,6 +66,7 @@ $userid = $_SESSION['user_data']['id'];
 	  
 	 // echo "<pre>111111111111111111111==============="; print_r($withdraw);
 ?>
+<section class="menu_section">
 <div class="container">
     <nav class="navbar navbar-default" role="navigation">
 	  <!-- Brand and toggle get grouped for better mobile display -->
@@ -88,8 +96,8 @@ $userid = $_SESSION['user_data']['id'];
 			<a href="faq.php">Faq</a>
 		</div>
 		  </li>
-		  <li class="dropdown">
-			<a class="dropbtn" style="color:white;" > <b><?php echo substr($_SESSION['user_data']['user_name'],0,10);?> &nbsp;$ <?php echo  number_format($sum) - number_format($withdraw);?> </b></a>  
+		  <li class="dropdown selected">
+			<a class="dropbtn" style="color:red;" > <b><?php echo substr($_SESSION['user_data']['user_name'],0,20);?> &nbsp;$ <?php echo  number_format($sum) - number_format($withdraw);?> </b></a>  
 			<div class="dropdown-content" style="z-index:999;">
 			<a href="myprofile.php">My Profile</a>
 			<a href="home.php">Home</a>
@@ -103,3 +111,4 @@ $userid = $_SESSION['user_data']['id'];
 		</ul>
 	  </div><!-- /.navbar-collapse -->
 	</nav></div>
+    </section>

@@ -20,7 +20,7 @@ if (isset($_POST['update'])) {
     }
 }
 ?>
-
+<div class="home_tab_section">
 <div class="container">
     <div class="row">
         <div class="col-sm-12 text-center">
@@ -82,10 +82,7 @@ if (isset($_POST['update'])) {
         </div>
     </div>
 </div>
-
-<?php
-?>
-
+</div>
 
 <?php
 include "footer.php";

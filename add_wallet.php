@@ -42,6 +42,8 @@ mysql_query($query);
 		//{
 			//echo "<pre>"; print_r($row);
 	?>
+<div class="home_tab_section">
+    <div class="container">
     <div class="row">
        <div class="col-sm-12 text-center">
                <h2>Deposit Funds in TBE Player Account</h2>
@@ -118,6 +120,8 @@ mysql_query($query);
 	</div>
 					
 	</div>
+        </div>
+    </div>
     <?php // } 
 		
 	}

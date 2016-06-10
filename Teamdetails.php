@@ -23,6 +23,7 @@ tbody td {
 }
 Ha
 </style>
+<div class="home_tab_section">
 <div class="container">
     <div class="row">
         
@@ -201,7 +202,7 @@ Ha
 
     
 </div>
-
+</div>
 <?php
 
 if (isset($_POST['Team_details'])) 

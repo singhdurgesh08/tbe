@@ -38,11 +38,7 @@ $teamid = $_GET['teamid'];
 			}
 ?>
 
-<html>
-<head>
-	<h1>Pending work</h1>
-</head>
-</html>
+<div class="home_tab_section">
 <div class="container">
 				<div class="row">
 					<div class="col-sm-12 text-center">
@@ -130,11 +126,7 @@ $teamid = $_GET['teamid'];
 				</div>
 
 </div>
-
-<?php
-
-?>
-
+</div>
 
 <?php
 include "footer.php";

@@ -6,7 +6,7 @@ $user = $_SESSION['email'];
 include "login-header.php";?>
 <?php include "nav.php";?>
 
-
+<div class="home_tab_section">
 <div class="container">
 				<div class="row">_
 					<div class="col-sm-12 text-center">
@@ -41,7 +41,7 @@ include "login-header.php";?>
 					
 				</div>
 			</div>
-
+</div>
 <?php	include "footer.php";?>
 
 <?php

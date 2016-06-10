@@ -20,6 +20,7 @@ $matid = $_GET['Matchid'];
 $res = mysql_query("Select * from ps4_match where id= $matid");
 $r = mysql_fetch_array($res);
 ?>
+<div class="home_tab_section">
 <div class="container">
     <div class="row">
 

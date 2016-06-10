@@ -9,13 +9,14 @@ if ($_SESSION['user_data']['user_name'] == '') {
 
 include "login-header.php";?>
 <?php include "nav.php";?>
-
+<div class="home_tab_section">
 <div class="container">
 				
-			 <div class="row">
-                   <div class="col-sm-2">
-                       <img src="<?php echo HOSTNAME; ?>assets/images/PS4.jpg" width="150" class="img-responsive" alt="" >
-             </div>
+        <div class="row">
+        <div class="col-sm-2">
+        <img src="<?php echo HOSTNAME; ?>assets/images/PS4.jpg" width="150" class="img-responsive" alt="" >
+        </div>
+        </div>
 			
 	<div class="row">
 		<div> 
@@ -130,6 +131,8 @@ include "login-header.php";?>
 				</div>
 
 </div>
+    </div>
+      </div>
 <?php
 
 include "config.php";

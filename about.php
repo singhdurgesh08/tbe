@@ -1,6 +1,6 @@
 <?php 
  session_start();
-include "login-header.php";?>
+include "header.php"; ?>
 <?php 
 if ($_SESSION['user_data']['user_name'] == '') {
     include "nav_before_login.php";
@@ -9,7 +9,7 @@ if ($_SESSION['user_data']['user_name'] == '') {
 }
 
 include "config.php"; ?>
-
+<div class="home_tab_section">
 <div class="container">
 <div class="row">
         <div class="col-sm12 text-center">
@@ -75,7 +75,7 @@ containing Lorem Ipsum passages, and more recently with desktop publishing softw
 </div>
 							
 
-
+</div>
 
 
 

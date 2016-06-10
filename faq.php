@@ -3,7 +3,7 @@
 include "login-header.php";?>
 <?php include "nav.php";?>
 <?php include "config.php"; ?>
-
+<div class="home_tab_section">
 <div class="container">
 <div class="row">
         <div class="col-sm12 text-center">
@@ -71,9 +71,8 @@ containing Lorem Ipsum passages, and more recently with desktop publishing softw
 				
 </div>
 							
+</div>
 
-</body>
-</html>
 
 <?php
 

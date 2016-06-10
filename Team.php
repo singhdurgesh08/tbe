@@ -2,7 +2,7 @@
 
 include "login-header.php";
 ?>
-
+<div class="home_tab_section">
 <div class="container">
 				<div class="row">
 					<div class="col-sm-12 text-center">
@@ -62,7 +62,7 @@ include "login-header.php";
 
 </div>
 
-
+</div>
 <?php
 include "config.php";
 if(isset($_POST['submit']))

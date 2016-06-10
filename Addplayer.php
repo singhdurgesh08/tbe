@@ -18,7 +18,7 @@ if ($_GET['action'] =='add')
 	}
 
  ?>
-
+<div class="home_tab_section">
 <div class="container">
 				<div class="row">
 					<div class="col-sm-4 text-center">
@@ -72,7 +72,7 @@ if ($_GET['action'] =='add')
 			</div>
 		</div>
 </div>
-							
+</div>							
 <script>
 $(document).ready(function() {
 $('#example').DataTable();

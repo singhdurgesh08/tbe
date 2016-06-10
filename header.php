@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php 
+    <?php  error_reporting(0);
 	include "constant.php";
 	$baseurl = HOSTNAME; ?>
 	<meta charset="UTF-8">
@@ -16,7 +16,7 @@
 	<header>
 		<div class="container">
 			<div class="col-sm-12 login_header">
-				<span><a href="<?php echo $baseurl; ?>login.php">login</a></span>/<span><a href="<?php echo $baseurl; ?>registration.php">Signup</a></span>
+				<span><a href="<?php echo $baseurl; ?>login.php" class="btn btn-info">Login</a></span>/<span><a href="<?php echo $baseurl; ?>registration.php" class="btn btn-info">Signup</a></span>
 			</div>
 			<div><a href="index.php"><center><img src="<?php echo $baseurl; ?>assets/images/logo.png" class="img-responsive" alt="" style="width: 385px;border:none;"></a></center></div>
 		</div>

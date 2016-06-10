@@ -8,7 +8,7 @@ include "login-header.php";
 include "nav.php";
 include "config.php";
 ?>
-
+<div class="home_tab_section">
 
 <div class="container">
     <div class="row">
@@ -28,7 +28,7 @@ include "config.php";
          </div>
       </div>
  </div>                 
-
+</div>
 <?php include "footer.php"?>
 
 

@@ -8,7 +8,7 @@ include "login-header.php";
 include "nav.php";
 include "config.php";
 ?>
-
+<div class="home_tab_section">
 <div class="container">
     <div class="row">
         <div class="col-sm-12 text-center">
@@ -80,7 +80,7 @@ include "config.php";
 
 
 </div>
-
+</div>
 
 <?php
 if (isset($_POST['Save'])) {
