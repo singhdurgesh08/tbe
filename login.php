@@ -2,6 +2,42 @@
 session_start();
  include "header.php";
 include "nav_before_login.php";?>
+<head>
+<script>
+$(document).ready(function(){
+  $("#login").validate({
+    
+        rules: {
+           email: {
+                required: true,
+                email: true
+            },
+            pass: {
+                required: true,
+                minlength: 5
+            }
+        },
+        
+        // Specify the validation error messages
+        messages: {
+            email: {
+                required: "Please provide a email ",
+                minlength: "Please enter a valid email address"
+            },
+             pass: {
+                required: "Please provide a password",
+                minlength: "Your password must be at least 5 characters long"
+            }
+        },
+        
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+});
+</script>
+ 
+</head>
 
 <div class="container">
             <div class="login_form_page">
@@ -14,11 +50,11 @@ include "nav_before_login.php";?>
 				    
 					<div class="col-sm-12">
                            
-                               <form method='post' action='login.php' class="form-horizontal login_form">
+                               <form method='post' action='login.php' id="login" class="form-horizontal login_form">
 							<fieldset>
 								<div class="form-group">
 <!--									<label for="login_email" class="control-label col-sm-6">Email address</label>-->
-									<div class="col-sm-12 input"><input name='email'  type="text" placeholder="Please Enter Email"  class="form-control" required=""></div>
+									<div class="col-sm-12 input"><input name='email'  type="text" placeholder="Please Enter Email"  class="form-control email" required=""></div>
 								</div>
 								
 								<div class="form-group">

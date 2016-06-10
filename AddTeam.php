@@ -4,10 +4,27 @@
     header("location: login.php");
     exit();
 }
+
 include "login-header.php";?>
 <?php include "nav.php";?>
 <?php include "config.php"; ?>
-<div class="home_tab_section">
+
+<head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+  <script>
+
+  $(document).ready(function(){
+    $("#addteam").validate();
+  });
+  </script>
+</head>
+
+
+<style>
+.error {color:red;}
+</style>
+
 <div class="container">
 				<div class="row">
 					<div class="col-sm-12 text-center">
@@ -16,7 +33,7 @@ include "login-header.php";?>
 				</div>
 				<div class="row">
 					<div class="col-sm-8">
-                            <form method='post' action='AddTeam.php' class="form-horizontal">
+                            <form method='post' id="addteam" action='AddTeam.php' class="form-horizontal">
 							<fieldset>
 							<div class="form-group">
 									<label for="login_password" class="control-label col-sm-6">Team Name</label>
@@ -26,7 +43,8 @@ include "login-header.php";?>
 								<div class="form-group">
 									<label for="Platform" class="control-label col-sm-6">Gamertag </label>
 									<div class="col-sm-6 input"> 
-									                        <select name="Platform" id="Platform" class="form-control">
+									                        <select name="Platform" id="Platform" class="form-control" required="">
+															   	<option></option>
 															    <option value="XB1">XB1</option>
 															    <option value="PS4">PS4</option>
 	 															 </select>
@@ -41,8 +59,8 @@ include "login-header.php";?>
 
 								<div class="form-group">
 									<label for="login_password" class="control-label col-sm-6">Game Mode</label>
-									<div class="col-sm-6 input"> <select name="Game_Mode" id="Platform" class="form-control">
-															    <option> -----ALL-------</option>
+									<div class="col-sm-6 input"> <select name="Game_Mode" id="Game_mode" class="form-control" required="">
+															    <option></option>
 															    <option value="1v1 Mycourt">1v1 Mycourt</option>
 															    <option value="2v2 Mycourt">2v2 Mycourt</option>
 															    <option value="3v3 Mycourt">3v3 Mycourt</option>
@@ -53,7 +71,7 @@ include "login-header.php";?>
 
 								<div class="form-group">
 									<label for="login_password" class="control-label col-sm-6">Description</label>
-									<div class="col-sm-6 input"><textarea name='Description' style="width: 360px; height: 50px;" placeholder="Enter Description"></textarea></div>
+									<div class="col-sm-6 input"><textarea name='Description' style="width: 360px; height: 50px;" placeholder="Enter Description" required=""></textarea></div>
 								</div>
 
 							</fieldset>
@@ -73,11 +91,12 @@ include "login-header.php";?>
 			</div>
 		</div>
 </div>
-</div>
+
 
 <?php
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit'])) 
+{
 
     $Team_Name = $_POST['Team_Name'];
     $Team_Size = $_POST['Team_Size'];

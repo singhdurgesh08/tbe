@@ -42,36 +42,24 @@ include "login-header.php";?>
 				</div>
 			</div>
 </div>
-<?php	include "footer.php";?>
+
 
 <?php
 	include "config.php";	
 	if(isset($_POST['submit']))
 	{
 
-             $id = $_POST['id'];
+            $userid = $_SESSION['user_data']['id'];
             $Playstation = $_POST['Playstation'];
             $Description = $_POST['Description'];
             $user_id = $_POST['user_id'];
 
-            if ($Playstation == '') {
-                echo "<script>alert('please enter GamerTag ')</script>";
-                exit();
-            }
-
-//            if ($Description == '') {
-//                echo "<script>alert('Enter Description')</script>";
-//                exit();
-//            }
-
-            $query = "INSERT INTO `playstation` (`id`, `playstation_name`, `plastation_detail`, `user_id`) VALUES (NULL, '$Playstation', '$Description', '1')";
+       
+            $query = "INSERT INTO `playstation` (`id`, `playstation_name`, `plastation_detail`, `user_id`) VALUES (NULL, '$Playstation', '$Description', '$userid')";
             if (mysql_query($query)) {
                 echo"<script>alert('Playstation Added successfullly')</script>";
                 exit();
-            } else {
-                echo "error";
-                exit();
-            }
+            } 
 }
 
 		if(isset($_POST['cancel']))
@@ -81,3 +69,4 @@ include "login-header.php";?>
 		}
 
 ?>
+<?php	include "footer.php";?>

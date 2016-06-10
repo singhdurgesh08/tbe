@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="<?php echo $baseurl; ?>assets/css/style.css">
 	<script src="<?php echo $baseurl; ?>assets/js/jquery.min.js" type="text/javascript"></script>
 	<script src="<?php echo $baseurl; ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+       <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 </head>
 <body>
 	<header>

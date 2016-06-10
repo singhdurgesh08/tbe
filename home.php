@@ -1,5 +1,9 @@
 <?php 
  session_start();
+ if ($_SESSION['user_data']['user_name'] == '') {
+    header("location: login.php");
+    exit();
+}
  //echo "<pre>"; print_r($_SESSION);
 include "login-header.php";?>
 <?php include "nav.php";?>

@@ -82,7 +82,22 @@ $userid = $_SESSION['user_data']['id'];
 	  <!-- Collect the nav links, forms, and other content for toggling -->
 	  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav top_menu">
-		  <li class="<?php if(ereg("teamlist.php",$file)>0) echo " active"; ?>"><a href="teamlist.php">Team</a></li>
+		  <li class=" dropdown <?php if(ereg("leadership.php",$file)>0 || ereg("staff.php",$file)>0  || ereg("faq.php",$file)>0) echo " active"; ?>"><a class="active">Team</a>
+		  <div class="dropdown-content" style="z-index:999;">
+          
+            	<?php
+            	   	$res = mysql_query("Select * from team where created_by = '$userid'"); 
+					
+					while($r = mysql_fetch_array($res))
+					{
+						echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'</a>');
+					} 
+					
+	   			 
+	   			 ?>
+          
+		</div>
+		  </li>
 
 		  
 		  <li class="<?php if(ereg("ps4.php",$file)>0) echo " active"; ?>"><a href="ps4.php">PS4</a></li>

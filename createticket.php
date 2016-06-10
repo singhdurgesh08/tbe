@@ -7,6 +7,23 @@
 include "login-header.php";?>
 <?php include "nav.php";?>
 <?php include "config.php"; ?>
+
+<head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+  <script>
+
+  $(document).ready(function(){
+    $("#createticket").validate();
+  });
+  </script>
+</head>
+
+
+<style>
+.error {color:red;}
+</style>
+
 <div class="home_tab_section">
 <div class="container">
                 <div class="row">
@@ -16,17 +33,16 @@ include "login-header.php";?>
                 </div>
                 <div class="row">
                     <div class="col-sm-8">
-                            <form method='post' class="form-horizontal">
+                            <form method='post' id="createticket" class="form-horizontal">
                             <fieldset>
                             <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">Name</label>
                                     <div class="col-sm-6 input"><input name='name'  placeholder="Please Enter Team Name"  class="form-control" required=""></div>
                                 </div>
                
-
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">Description</label>
-                                    <div class="col-sm-6 input"><textarea name='Description' style="width: 360px; height: 50px;" placeholder="Enter Description"></textarea></div>
+                                    <div class="col-sm-6 input"><textarea name='Description' style="width: 360px; height: 50px;" placeholder="Enter Description" required=""></textarea></div>
                                 </div>
 
                             </fieldset>
@@ -56,11 +72,10 @@ include "login-header.php";?>
 
 if (isset($_POST['submit'])) {
 
-    //echo "kkdjlaj";die();
     $name = $_POST['name'];
     $Description = $_POST['Description'];
     $userid = $_SESSION['user_data']['id'];
-    //var_dump($userid);die();
+  
    
     $query= "INSERT INTO `ticket` (`id`, `name`, `description`, `created_by`, `created_date`) VALUES (NULL, '$name', '$Description', '$userid' , CURRENT_TIMESTAMP)";
 

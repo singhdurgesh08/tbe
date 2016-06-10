@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php 
+    <?php error_reporting(0);
 	include "constant.php";
 	$baseurl = HOSTNAME;
- error_reporting(0);
+         
 	?>
 	<meta charset="UTF-8">
 	<title>TBF Sports gaming</title>
@@ -15,7 +15,8 @@
 	<script src="<?php echo $baseurl; ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="<?php echo $baseurl; ?>assets/js/jquery-1.12.3.min.js" type="text/javascript"></script>
         <script src="<?php echo $baseurl; ?>assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
         
   
 </head>

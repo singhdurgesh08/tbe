@@ -1,14 +1,14 @@
-<?php 
- session_start();
-include "header.php"; ?>
-<?php 
+<?php session_start();    error_reporting(0);
+
 if ($_SESSION['user_data']['user_name'] == '') {
+    include "header.php";
     include "nav_before_login.php";
 }else{
+  include "login-header.php";
  include "nav.php";
 }
 
-include "config.php"; ?>
+?>
 <div class="home_tab_section">
 <div class="container">
 <div class="row">
