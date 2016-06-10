@@ -100,6 +100,7 @@ $userid = $_SESSION['user_data']['id'];
 			<a class="dropbtn" style="color:red;" > <b><?php echo substr($_SESSION['user_data']['user_name'],0,20);?> &nbsp;$ <?php echo  number_format($sum) - number_format($withdraw);?> </b></a>  
 			<div class="dropdown-content" style="z-index:999;">
 			<a href="myprofile.php">My Profile</a>
+                        <a href="editprofile.php">Edit Profile</a>
 			<a href="home.php">Home</a>
 			<a href="wallet.php">Wallet</a>
 			<a href="subscribe_membership.php">Membership</a>

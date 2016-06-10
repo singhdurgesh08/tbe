@@ -11,18 +11,13 @@ include "login-header.php";?>
 <?php include "nav.php";?>
 <div class="home_tab_section">
 <div class="container">
-				
-        <div class="row">
-        <div class="col-sm-2">
-        <img src="<?php echo HOSTNAME; ?>assets/images/PS4.jpg" width="150" class="img-responsive" alt="" >
-        </div>
-        </div>
-			
+     <div class="col-sm-12 text-center"><h3 class="index_memberTitle">Personal Information</h3></div>	
 	<div class="row">
-		<div> 
-		<br class="col-sm-4"><center><u><h2>Personal Information</h2></u>
-		</div>
-                    <div class="col-sm-9">
+		
+                <div class="col-sm-3">
+                <img src="<?php echo HOSTNAME; ?>assets/images/profile.jpg" width="150" class="img-responsive" alt="" >
+                </div>
+                    <div class="col-sm-8">
                          <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead class="thead-inverse">
                                 <tr>
@@ -33,23 +28,13 @@ include "login-header.php";?>
                                 </tr>
                             </thead>
                             <tbody>
-	                                   <tr>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>Yes</td>
-                                            <td>123</td>
-                                        </tr>
-                                        <tr>
-                                            <td>hello</td>
-                                            <td>hello</td>
-                                            <td>Player</td>
-                                            <td>Yes</td>
-                                        </tr><tr>
-                                            <td>hello</td>
-                                            <td>hello</td>
-                                            <td>Player</td>
-                                            <td>Yes</td>
-                                        </tr>
+                                <tr>
+                                 <td>1</td>
+                                 <td>1</td>
+                                 <td>Yes</td>
+                                 <td>123</td>
+                             </tr>
+                                        
                                          
                              </tbody>
                         </table>
@@ -60,75 +45,66 @@ include "login-header.php";?>
 
 <div class="row">
 				
-				<div class="row">
-					&nbsp;
-				</div>
+				
+    <div class="row">
+        <div class="col-sm-11">
+            <form method='post' action='myprofile.php' class="form-horizontal">
+                <fieldset>
+                    <div>
+                        <?php
+                        $userid = $_SESSION['user_data']['id'];
+                        $res = mysql_query("Select * from users where id= $userid");
+                        $r = mysql_fetch_array($res);
+                        //  echo print_r($r);
+                        ?></div>
+                    <div class="form-group">
+                        <label for="login_password" class="control-label col-sm-6">First Name :</label>
+                        <div class="control-label col-sm-4"><?php echo $r['first_name']; ?></div>
+                    </div>
 
-				<div class="row">
-						<div class="col-sm-11">
-                           <form method='post' action='myprofile.php' class="form-horizontal">
-							<fieldset>
-								<div>
-								<?php
-										$userid = $_SESSION['user_data']['id'];
-                                     	$res=mysql_query("Select * from users where id= $userid");
-                                     	 $r=mysql_fetch_array($res);
-                                    //  echo print_r($r);
-                                  ?></div>
-								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">First Name :</label>
-									<div class="control-label col-sm-1"><?php echo $r['first_name']; ?></div>
-								</div>
+                    <div class="form-group">
+                        <label for="login_password" class="control-label col-sm-6">Last Name :</label>
+                        <div class="control-label col-sm-4"><?php echo $r['last_name']; ?></div>
+                    </div>
 
-								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">Last Name :</label>
-									<div class="control-label col-sm-1"><?php echo $r['last_name']; ?></div>
-								</div>
+                    <div class="form-group">
+                        <label for="login_password" class="control-label col-sm-6">Address :</label>
+                        <div class="control-label col-sm-4"><?php echo $r['Address']; ?></div>
+                    </div>
 
-       							<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">Address :</label>
-									<div class="control-label col-sm-1"><?php echo $r['Address']; ?></div>
-								</div>
+                    <div class="form-group">
+                        <label for="login_password" class="control-label col-sm-6">City :</label>
+                        <div class="control-label col-sm-4"><?php echo $r['city']; ?></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="login_password" class="control-label col-sm-6">State :</label>
+                        <div class="control-label col-sm-4"><?php echo $r['State']; ?></div>
+                    </div>
 
-								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">City :</label>
-									<div class="control-label col-sm-1"><?php echo $r['city']; ?></div>
-								</div>
-								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">State :</label>
-									<div class="control-label col-sm-1"><?php echo $r['State']; ?></div>
-								</div>
+                    <div class="form-group">
+                        <label for="login_password" class="control-label col-sm-6">Zip :</label>
+                        <div class="control-label col-sm-4"><?php echo $r['zip']; ?></div>
+                    </div>
 
-								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">Zip :</label>
-									<div class="control-label col-sm-1"><?php echo $r['zip']; ?></div>
-								</div>
+                    <div class="form-group">
+                        <label for="login_password" class="control-label col-sm-6">Country :</label>
+                        <div class="control-label col-sm-4"><?php echo $r['Country']; ?></div>
+                    </div>
 
-								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">Country :</label>
-									<div class="control-label col-sm-1"><?php echo $r['Country']; ?></div>
-								</div>
-							    
-							    <div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">Paypal Email :</label>
-									<div class="control-label col-sm-1"><?php echo $r['paypal_email']; ?></div>
-								</div>
+                    <div class="form-group">
+                        <label for="login_password" class="control-label col-sm-6">Paypal Email :</label>
+                        <div class="control-label col-sm-4"><?php echo $r['paypal_email']; ?></div>
+                    </div>
 
-							</fieldset>
-							
+                </fieldset>
 
- 							<div class="form-group">
-									&nbsp;
-									&nbsp;
-									&nbsp;
-									&nbsp;
 
-								</div>
-													
-						 </form>
-					</div>
-					
-				</div>
+                
+
+            </form>
+        </div>
+
+    </div>
 
 </div>
     </div>
