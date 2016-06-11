@@ -46,7 +46,8 @@ include "login-header.php";?>
 								<td><img src="assets/images/ps4_list.jpg" width="40" class="img-responsive" alt="" style="display:inline;" /><?php echo $r[game_title]; ?></td>
 								<td><?php echo $r[platform]; ?></td>
 								<td><?php echo $r[amount]; ?></td>
-								<td><a href="matchdetails.php?Matchid=<?php echo $r[0]; ?>"> Accept </a>   |  
+								<td><a href="javascript:void();" data-toggle="modal" data-target="#join_team">Accept</a>
+                                                                          |  
 									<a href="matchdetails.php?Matchid=<?php echo $r[0]; ?>"> View Match </a>   | 
 								     <a href="javascript:delete_id(<?php echo $r[0]; ?>)">Delete</a>
 
@@ -80,7 +81,59 @@ include "login-header.php";?>
 		</div>
 </div>
 </div>							
+<div id="join_team" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Accept Match</h4>
+            </div>
+            <form method='post' action='join.php' class="form-horizontal">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="select_team" class="control-label col-sm-6">Select Team</label>
+                        <div class="col-sm-6 input"> 
+                            <select name="select_team" id="select_team"  class="form-control" required="" >
+                                <option value="">Select Team</option>
+                                <?php
+                                $userid = $_SESSION['user_data']['id'];
+                                if ($des == "") {
+                                    $res = mysql_query("Select * from team where created_by = '$userid'");
+                                } $i = 1;
+                                while ($result = mysql_fetch_array($res)) {
+                                    ?>
+                                    <option value="<?php echo $result['id']; ?>"><?php echo $result['team_name']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="join_fee" class="control-label col-sm-6">Registration Fee ($)</label>
+                        <div class="col-sm-6 input"> 
+                            <input type='text' readonly='readonly' class="form-control" required="" name='claim_title' id='claim_title' value='0'/>
+                        </div>
+                    </div>
+                    <input type="hidden" name='matchid' id='matchid' value='<?php echo $matid; ?>'/>
+                    <div class="form-group">
+                        <label for="" class="control-label col-sm-6 back hidden-xs">&nbsp;</label>
+                        <div class="col-sm-2 input text-center">
+                            <button class="btn btn-primary" type="submit" name="submit" value="Join">Save</button>
+                        </div>
+                        <div class="col-sm-2 input text-center">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+
+    </div>
+</div>
 <script>
 $(document).ready(function() {
 $('#example').DataTable();
