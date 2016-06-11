@@ -9,7 +9,7 @@ include "login-header.php";?>
 <?php include "config.php"; ?>
 
 
-
+<div class="home_tab_section">
 <div class="container">
     <div class="row">
         <div class="col-sm-10 text-center">
@@ -29,7 +29,7 @@ include "login-header.php";?>
 
 
     <div class="row">
-        <div class="col-sm-9">
+       <div class="col-sm-12">
 
 
             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -66,9 +66,13 @@ include "login-header.php";?>
     </div>
 </div>
 
+</div>
 
 <script>
-
+$(document).ready(function() {
+$('#example').DataTable();
+} );
+</script>
 
 
 <?php 
