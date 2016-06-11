@@ -54,17 +54,17 @@ include "login-header.php";?>
 				
 								
 
-								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">Game Mode</label>
-									<div class="col-sm-6 input"> <select name="Game_Mode" id="Game_mode" class="form-control" required="">
-															    <option></option>
-															    <option value="1v1 Mycourt">1v1 Mycourt</option>
-															    <option value="2v2 Mycourt">2v2 Mycourt</option>
-															    <option value="3v3 Mycourt">3v3 Mycourt</option>
-															     <option value="Quick Match">Quick Match</option>
-															      <option value="Myteam">Myteam</option>
-	 															 </select></div>
-								</div>
+                                                            <div class="form-group">
+                                                                <label for="login_password" class="control-label col-sm-6">Game Mode</label>
+                                                                <div class="col-sm-6 input"> <select name="Game_Mode" id="Game_mode" class="form-control" required="">
+                                                                        <option value=""> select game mode</option>
+                                                                        <option value="1v1 Mycourt">1v1 Mycourt</option>
+                                                                        <option value="2v2 Mycourt">2v2 Mycourt</option>
+                                                                        <option value="3v3 Mycourt">3v3 Mycourt</option>
+                                                                        <option value="Quick Match">Quick Match</option>
+                                                                        <option value="Myteam">Myteam</option>
+                                                                    </select></div>
+                                                            </div>
 							
 
 							</fieldset>

@@ -19,7 +19,7 @@ include "login-header.php";?>
 <div class="container">
                 <div class="row">
                     <div class="col-sm-12 text-center">
-                        <h1><br class="hidden-xs">Create Team</h1>
+                        <h1><br class="hidden-xs">Create Ticket</h1>
                     </div>
                 </div>
                 <div class="row">
@@ -37,9 +37,7 @@ include "login-header.php";?>
                                                     $query =mysql_query("select id,game_title from ps4_match");
                                                     while($r = mysql_fetch_array($query))
                                                     {
-                                                       // echo "<pre>"; print_r($r);
-                                                        
-                                                               // $c_id = $r[0];
+                                                       
                                                                 echo '<option value="'.$r["id"].'">'.$r["game_title"].'( Match Id - '.$r["id"].')</option>';
                                                         //echo ($r[team_name]);
                                                     } 
@@ -90,10 +88,11 @@ if (isset($_POST['submit'])) {
 
     $name = $_POST['name'];
     $Description = $_POST['Description'];
+    $Platform = $_POST['Platform'];
     $userid = $_SESSION['user_data']['id'];
   
    
-    $query= "INSERT INTO `ticket` (`id`, `name`, `description`, `created_by`, `created_date`) VALUES (NULL, '$name', '$Description', '$userid' , CURRENT_TIMESTAMP)";
+    $query= "INSERT INTO `ticket` (`id`, `name`, `description`, `created_by`, `ticket_status`,`created_date`,`match_id` ) VALUES (NULL, '$name', '$Description', '$userid' ,'1', CURRENT_TIMESTAMP,'$Platform')";
 
     if (mysql_query($query)) 
     {

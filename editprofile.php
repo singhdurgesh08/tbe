@@ -58,11 +58,20 @@ $(document).ready(function(){
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">State</label>
                                     <div class="col-sm-6 input"><select name="State" id="state" class="form-control" required="">   
-                                                                 <option value="">--Please Select ---</option>
-                                                                <option value="Delhi">Delhi</option>
-                                                                <option value="Banglore">Banglore</option>
-                                                                <option value="Chennai">Chennai</option>
-                                                                 </select></div>
+                                                                 <option>
+                                                                     <?php 
+                                                    $query =mysql_query("select name from states");
+                                                    while($result = mysql_fetch_array($query))
+                                                    {
+                                                       
+                                                                //echo '<option value="'.$r["id"].'">'.$r["game_title"].'( Match Id - '.$r["id"].')</option>';
+                                                                echo "<option value='" . $result['name'] ."'>" . $result['name'] ."</option>";
+                                                        //echo ($r[team_name]);
+                                                    } 
+                                                ?>
+                                                                 </option>
+                                                                
+                                                                  </select></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">Zip</label>
@@ -71,7 +80,20 @@ $(document).ready(function(){
 
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">Country</label>
-                                    <div class="col-sm-6 input"><input name='Country' value="<?php echo $r['Country']; ?>" id="country"  placeholder="Please Enter City"  class="form-control" required="" ></div>
+                                    <div class="col-sm-6 input"><select name="Country" id="Country" class="form-control" required="">   
+                                                                 <option>
+                                                                    <?php 
+                                                    $query =mysql_query("select name from countries");
+                                                    while($res = mysql_fetch_array($query))
+                                                    {
+                                                       
+                                                                //echo '<option value="'.$r["id"].'">'.$r["game_title"].'( Match Id - '.$r["id"].')</option>';
+                                                                echo "<option value='" . $res['name'] ."'>" . $res['name'] ."</option>";
+                                                        //echo ($r[team_name]);
+                                                    } 
+                                                ?>
+                                                                 </option>
+                                                         </select></div>
                                 </div>
 
                                 <div class="form-group">
