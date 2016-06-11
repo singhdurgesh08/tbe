@@ -10,18 +10,20 @@ include "config.php";
 ?>
 
 
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+<!--        <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
         <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-        <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+        <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>-->
         <script src="<?php echo HOSTNAME; ?>assets/js/jquery.timepicker.js" type="text/javascript"></script>
         <link rel="stylesheet" href="<?php echo HOSTNAME; ?>assets/css/jquery.timepicker.css" />
-
+        <link rel="stylesheet" type="text/css" href="<?php echo HOSTNAME; ?>assets/css/jquery.datetimepicker.css"/>
+        <script src="<?php echo HOSTNAME; ?>assets/build/jquery.datetimepicker.full.js"></script>
         <script>
 
             $(function() {
-                $("#datepicker").datepicker();
-                $("#datepicker1").datepicker();
-                $("#timepicker").timepicker();
+               // $("#datepicker").datepicker();
+             //   $("#datepicker1").datepicker();
+                //$("#timepicker").timepicker();
+                $('.some_class').datetimepicker();
             });
         </script>
     
@@ -59,7 +61,7 @@ include "config.php";
                             <div class="col-sm-6 input"><input name='Match_Name'  type="text" placeholder="Please Enter Match Name"  class="form-control" required="" ></div>
                         </div>
 
-                          <div class="form-group">
+<!--                          <div class="form-group">
                             <label for="login_password" class="control-label col-sm-6">Date</label>
                             <div class="col-sm-6 input" >
                             <select name="month" id="month" required="">
@@ -142,7 +144,15 @@ include "config.php";
                             <label for="login_password" class="control-label col-sm-6">Match Time</label>
                             <div class="col-sm-6 input"><input type="text" id="timepicker" name="match_time"  class="form-control" required=""></div>
                         </div>
-                  
+                  -->
+                        <div class="form-group">
+                            <label for="match_start_date" class="control-label col-sm-6">Start date & Time</label>
+                            <div class="col-sm-6 input"><input type="text" id="timepicker" name="match_start_date"  class="form-control some_class" required=""></div>
+                         </div>
+                          <div class="form-group">
+                            <label for="match_close_date" class="control-label col-sm-6">Close date & Time</label>
+                            <div class="col-sm-6 input"><input type="text" id="timepicker" name="match_close_date"  class="form-control some_class" required=""></div>
+                         </div>
                           <div class="form-group">
                                 <label for="platform" class="control-label col-sm-6">Platform</label>
                                 <div class="col-sm-6 input"><select name="platform" id="platform" class="form-control" required="">    
@@ -196,13 +206,20 @@ include "config.php";
                                         </thead>
 
                                         <tbody>
+                                            <?php $userid = $_SESSION['user_data']['id'];
+                                            if ($des == "") {
+                                            $res = mysql_query("Select * from team where created_by = '$userid'");
+                                            } $i =1;
+                                            while ($r = mysql_fetch_array($res)) { // echo "<pre>"; print_r($r);
+                                            ?>
                                             <tr>
-                                                <td>hello </td>
+                                                <td><?php echo $r['team_name']; ?> </td>
                                                 <td>
-                                                    <input type="checkbox" name="addteam" id="addteam"/>
+                                                    <input type="radio" name="addteam_id" id="addteam_id" value="<?php echo $r['id']; ?>" selected="selected"/>
                                                 </td>
                                             </tr>
-
+                                <?php }
+                                ?>
                                         </tbody>
 
                                     </table>

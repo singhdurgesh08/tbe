@@ -58,7 +58,7 @@ $(document).ready(function(){
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">State</label>
                                     <div class="col-sm-6 input"><select name="State" id="state" class="form-control" required="">   
-                                                                 <option>
+                                                   <option value=""> Please select State </option>
                                                                      <?php 
                                                     $query =mysql_query("select name from states");
                                                     while($result = mysql_fetch_array($query))
@@ -69,7 +69,7 @@ $(document).ready(function(){
                                                         //echo ($r[team_name]);
                                                     } 
                                                 ?>
-                                                                 </option>
+                                                                
                                                                 
                                                                   </select></div>
                                 </div>
@@ -81,7 +81,8 @@ $(document).ready(function(){
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">Country</label>
                                     <div class="col-sm-6 input"><select name="Country" id="Country" class="form-control" required="">   
-                                                                 <option>
+                                           <option value=""> Please select Country </option>
+                                                                 
                                                                     <?php 
                                                     $query =mysql_query("select name from countries");
                                                     while($res = mysql_fetch_array($query))
@@ -92,7 +93,7 @@ $(document).ready(function(){
                                                         //echo ($r[team_name]);
                                                     } 
                                                 ?>
-                                                                 </option>
+                                                                
                                                          </select></div>
                                 </div>
 

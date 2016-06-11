@@ -61,7 +61,23 @@ if (isset($_GET['delete_id'])) {
                         ?>
                         <tr>
                             <td><?php echo $i++; ?></td>
-                            <td><?php echo $r['team_name']; ?></td>
+                            <td> 
+                                <?php
+                                    if($r['platform']== PS4) 
+                                    {
+                                      echo '<img src="assets/images/ps4_list.jpg" width="40" class="img-responsive" alt="" style="display:inline;" />  '.$r['team_name'];     
+                                    //    echo $r['team_name']; 
+                                    }
+                                    else
+                                    {
+                                       echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/>  '. $r['team_name'];      
+                                      
+                                    }
+                                    
+                                ?>
+
+                            </td>
+
                              <td><?php echo $r['platform']; ?></td>
                              <td><?php echo $r['game_Mode']; ?></td>
                                <td><?php echo date ("d-M-Y",strtotime($r['date_added'])); ?></td>
