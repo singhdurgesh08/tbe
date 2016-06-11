@@ -7,7 +7,7 @@
 include "login-header.php";?>
 <?php include "nav.php";?>
 <?php include "config.php"; ?>
-
+<div class="home_tab_section">
 <div class="container">
 				<div class="row">
 					<div class="col-sm-4 text-center">
@@ -64,7 +64,7 @@ include "login-header.php";?>
 		</div>
 </div>
 							
-
+</div>
 <script>
 $(document).ready(function() {
 $('#example').DataTable();

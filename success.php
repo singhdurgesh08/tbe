@@ -16,14 +16,41 @@ if($payid){
       mysql_query("UPDATE `payments` SET `txn_id`='$txn_id', `payment_status`='1' WHERE `payment_id`='$payid'");
 }
 ?>
- <div class="row">
-<div class="col-sm-12 text-center">
-<h1>Your payment has been successful.</h1>
-    <!--<h1>Your Payment ID - <?php echo $txn_id; ?>.</h1>
+<div class="home_tab_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+               <h1>Your payment has been successful.</h1>
+                <!--<h1>Your Payment ID - <?php echo $txn_id; ?>.</h1>
 	<h1>Your Payment Status - <?php echo $payment_status; ?>.</h1> -->
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8"> &nbsp;  </div>
+    </div>
+      <div class="row">
+        <div class="col-sm-8"> &nbsp;  </div>
+    </div>
+      <div class="row">
+        <div class="col-sm-8"> &nbsp;  </div>
+    </div>
+      <div class="row">
+        <div class="col-sm-8"> &nbsp;  </div>
+    </div>
+      <div class="row">
+        <div class="col-sm-8"> &nbsp;  </div>
+    </div>
+      <div class="row">
+        <div class="col-sm-8"> &nbsp;  </div>
+    </div>
+      <div class="row">
+        <div class="col-sm-8"> &nbsp;  </div>
+    </div>
+     
 </div>
-					
-	</div>
+ 
 	
 <?php
 include "footer.php";

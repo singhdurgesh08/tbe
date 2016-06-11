@@ -7,22 +7,13 @@
 include "login-header.php";?>
 <?php include "nav.php";?>
 <?php include "config.php"; ?>
-
-<head>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-  <script>
+<script>
 
   $(document).ready(function(){
     $("#createticket").validate();
   });
-  </script>
-</head>
+</script>
 
-
-<style>
-.error {color:red;}
-</style>
 
 <div class="home_tab_section">
 <div class="container">
@@ -35,6 +26,31 @@ include "login-header.php";?>
                     <div class="col-sm-8">
                             <form method='post' id="createticket" class="form-horizontal">
                             <fieldset>
+                            
+                            <div class="form-group">
+                                    <label for="Platform" class="control-label col-sm-6">Match</label>
+                                    <div class="col-sm-6 input"> 
+                                             <select name="Platform" id="Platform" class="form-control" required="">
+                                              <option>
+
+                                                <?php 
+                                                    $query =mysql_query("select id,game_title from ps4_match");
+                                                    while($r = mysql_fetch_array($query))
+                                                    {
+                                                       // echo "<pre>"; print_r($r);
+                                                        
+                                                               // $c_id = $r[0];
+                                                                echo '<option value="'.$r["id"].'">'.$r["game_title"].'( Match Id - '.$r["id"].')</option>';
+                                                        //echo ($r[team_name]);
+                                                    } 
+                                                ?>
+                                                            
+                                                         
+                                             </option>
+                                           </select>
+                                            </div>
+                                </div>
+
                             <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">Name</label>
                                     <div class="col-sm-6 input"><input name='name'  placeholder="Please Enter Team Name"  class="form-control" required=""></div>

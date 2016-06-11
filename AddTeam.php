@@ -41,7 +41,7 @@ include "login-header.php";?>
 								</div>
 
 								<div class="form-group">
-									<label for="Platform" class="control-label col-sm-6">Gamertag </label>
+									<label for="Platform" class="control-label col-sm-6">Playstation</label>
 									<div class="col-sm-6 input"> 
 									                        <select name="Platform" id="Platform" class="form-control" required="">
 															   	<option></option>
@@ -52,10 +52,7 @@ include "login-header.php";?>
 								</div>
 
 				
-								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">Team Captain</label>
-									<div class="col-sm-6 input"><input name='Team_Caption'  placeholder="Please Enter Team Caption"  class="form-control" required=""></div>
-								</div>
+								
 
 								<div class="form-group">
 									<label for="login_password" class="control-label col-sm-6">Game Mode</label>
@@ -68,11 +65,7 @@ include "login-header.php";?>
 															      <option value="Myteam">Myteam</option>
 	 															 </select></div>
 								</div>
-
-								<div class="form-group">
-									<label for="login_password" class="control-label col-sm-6">Description</label>
-									<div class="col-sm-6 input"><textarea name='Description' style="width: 360px; height: 50px;" placeholder="Enter Description" required=""></textarea></div>
-								</div>
+							
 
 							</fieldset>
 

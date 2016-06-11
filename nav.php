@@ -47,21 +47,17 @@
 .nav>li>a {
     padding: 11px 50px;
 }
-
+.home_tab_section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background: #f5f4f4;
+}
 </style>
 <?php
   $file=$_SERVER["SCRIPT_NAME"];
-$userid = $_SESSION['user_data']['id'];
+   $userid = $_SESSION['user_data']['id'];
 
-	//$rows = mysql_fetch_row($run1);
-	include "config.php"; 
-	 $result = mysql_query("select sum(payment_gross) AS value_sum from payments where user_id ='$userid' and payment_type ='ADD' and payment_status ='1'"); 
-	  $row = mysql_fetch_array($result);
-      $sum = $row['value_sum'];
-	  
-	  $result2 = mysql_query("select sum(payment_gross) AS value_sum_withdraw from payments where user_id ='$userid' and payment_type ='Withdrawal' and payment_status ='1'"); 
-	  $row2 = mysql_fetch_array($result2);
-      $withdraw = $row2['value_sum_withdraw'];
+	
 	  
 	  
 	 // echo "<pre>111111111111111111111==============="; print_r($withdraw);
@@ -82,7 +78,7 @@ $userid = $_SESSION['user_data']['id'];
 	  <!-- Collect the nav links, forms, and other content for toggling -->
 	  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav top_menu">
-		  <li class=" dropdown <?php if(ereg("leadership.php",$file)>0 || ereg("staff.php",$file)>0  || ereg("faq.php",$file)>0) echo " active"; ?>"><a class="active">Team</a>
+		  <li class=" dropdown <?php if(ereg("leadership.php",$file)>0 || ereg("staff.php",$file)>0  || ereg("faq.php",$file)>0) echo " active"; ?>"><a class="active"  href="teamlist.php">Team</a>
 		  <div class="dropdown-content" style="z-index:999;">
           
             	<?php
@@ -112,7 +108,7 @@ $userid = $_SESSION['user_data']['id'];
 		</div>
 		  </li>
 		  <li class="dropdown selected">
-			<a class="dropbtn" style="color:red;" > <b><?php echo substr($_SESSION['user_data']['user_name'],0,20);?> &nbsp;$ <?php echo  number_format($sum) - number_format($withdraw);?> </b></a>  
+			<a class="dropbtn" style="color:red;background-color: yellow;" > <b><?php echo substr($_SESSION['user_data']['user_name'],0,20);?> &nbsp;</b></a>  
 			<div class="dropdown-content" style="z-index:999;">
 			<a href="myprofile.php">My Profile</a>
                         <a href="editprofile.php">Edit Profile</a>

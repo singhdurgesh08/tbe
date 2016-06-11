@@ -22,7 +22,7 @@ if (isset($_GET['delete_id'])) {
 <div class="container">
     <div class="row">
         <div class="col-sm-4 text-center">
-            <h1>Team List</h1>
+            <h1>Team </h1>
         </div>
         <div class="col-sm-6 text-center">
             <h1></h1>
@@ -44,7 +44,7 @@ if (isset($_GET['delete_id'])) {
                     <tr>
                         <th>ID</th>
                         <th>Team Name</th>
-                        <th>Gamertag</th>
+                        <th>Playstation</th>
                         <th>Game Mode</th>
                         <th>Added Date</th>
                         <th>Action</th>
@@ -65,7 +65,7 @@ if (isset($_GET['delete_id'])) {
                              <td><?php echo $r['platform']; ?></td>
                              <td><?php echo $r['game_Mode']; ?></td>
                                <td><?php echo date ("d-M-Y",strtotime($r['date_added'])); ?></td>
-                            <td> <a href="Teamdetails.php?teamid=<?php echo $r[0]; ?>"> Team Detail </a>   | 
+                            <td> <a href="Teamdetails.php?teamid=<?php echo $r[0]; ?>"> View Team </a>   | 
                                 <a href="javascript:delete_id(<?php echo $r[0]; ?>)">Delete</a>
 
                                 <script type="text/javascript">

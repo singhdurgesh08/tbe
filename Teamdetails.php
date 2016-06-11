@@ -59,20 +59,17 @@ Ha
                                         </div>
                                         <div class="row">
                                         <div class="col-sm-6">
-                                           GamerTag :- <?php echo $r['platform']; ?>
-                                        </div> 
-                                          <div class="col-sm-6">
-                                          Team Caption :- <?php echo $r['team_caption']; ?>
+                                           PlayStation :- <?php echo $r['platform']; ?>
                                         </div> 
                                         </div>
                                         <div class="row">
                                         <div class="col-sm-6">
                                           Game Mode :- <?php echo $r['game_Mode']; ?>
                                         </div> 
-                                          <div class="col-sm-6">
+                                        <div class="col-sm-6">
                                          Register Date :- <?php echo date ("d-M-Y",strtotime($r['date_added'])); ?>
                                         </div> 
-                                        </div> 
+                                      </div> 
                                        
   
                                       
