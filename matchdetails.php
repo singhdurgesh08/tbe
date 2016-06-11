@@ -72,31 +72,7 @@ $r = mysql_fetch_array($res);
                                 <b> Start Time :- </b><?php echo date("H:I:s A", strtotime($r['5'])); ?><br>
                             </div> 
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <b> Min team Size :- </b><?php echo $r[6]; ?><br>
-                            </div> 
-                            <div class="col-sm-6">
-                                <b> Max team Size :-</b><?php echo $r[7]; ?><br>
-                            </div> 
-                        </div>                                                                                    
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <b> Prize1 :- </b><?php echo $r[8]; ?><br>
-                            </div> 
-                            <div class="col-sm-6">
-                                <b> Prize2 :- </b><?php echo $r[9]; ?><br>
-                            </div> 
-                        </div>   
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <b> Prize3 :- </b><?php echo $r[10]; ?><br>
-                            </div> 
-                            <div class="col-sm-6">
-                                <b> Bracket Type :- </b><?php echo $r[11]; ?><br>
-                            </div> 
-                        </div>   
+                             
 
 
 
@@ -158,10 +134,9 @@ $r = mysql_fetch_array($res);
                 <div class="well">
                     <ul class="nav ">
                         <li class="nav-header"></li>
-                        <li class="active"><a href="javascript:void();" data-toggle="modal" data-target="#join_team">Join Match</a></li>
+                        
                         <li><a href="javascript:void();" data-toggle="modal" data-target="#report_match">Report Match</a></li>
-                        <li><a href="javascript:void();" data-toggle="modal" data-target="#match_status">Match Status</a><li>
-                        <li><a href="javascript:void();" data-toggle="modal" data-target="#dispute">Dispute</a></li>
+                        <li><a href="Ticket.php">Dispute</a></li>
                         <li><a href="javascript:void();" data-toggle="modal" data-target="#claim_money">Claim Money</a></li>
                     </ul>
                 </div>

@@ -11,7 +11,7 @@ include "login-header.php";?>
 <div class="container">
 				<div class="row">
 					<div class="col-sm-10 text-center">
-						<h1> PS4 Match List</h1>
+						<h1> PS4 Matchs</h1>
 					</div>
 					
 					<div class="col-sm-2 text-center">
@@ -24,9 +24,12 @@ include "login-header.php";?>
 		                     <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 									<thead>
 									<tr>
-									<th>ID</th>
+									<th>Match Time</th>
 									<th>Match Name</th>
+									<th>Game Mode</th>
+									<th>Amount ($)</th>
 									<th>Action</th>
+									
 									</tr>
 									</thead>
  									
@@ -34,14 +37,17 @@ include "login-header.php";?>
  							<?php
 							  if($des=="")
 							         { 
-							             $res=mysql_query("Select * from ps4_match where game_mode ='PS4'");
+							             $res=mysql_query("Select * from ps4_match where platform ='PS4'");
 							         }  $i =1;
 						  		 while($r=mysql_fetch_array($res))
 						        { ?>
 								<tr>
-								<td><?php echo $i++; ?></td>
-								<td><?php echo $r[1]; ?></td>
-								<td> <a href="matchdetails.php?Matchid=<?php echo $r[0]; ?>"> Match Details </a>   | 
+								<td><?php  echo date("d-M-Y h:i:s A", strtotime($r['open_date'])).'&nbsp; To &nbsp;'.date("d-M-Y h:i:s A", strtotime($r['close_date'])); ?></td>
+								<td><img src="assets/images/ps4_list.jpg" width="40" class="img-responsive" alt="" style="display:inline;" /><?php echo $r[game_title]; ?></td>
+								<td><?php echo $r[platform]; ?></td>
+								<td><?php echo $r[amount]; ?></td>
+								<td><a href="matchdetails.php?Matchid=<?php echo $r[0]; ?>"> Accept </a>   |  
+									<a href="matchdetails.php?Matchid=<?php echo $r[0]; ?>"> View Match </a>   | 
 								     <a href="javascript:delete_id(<?php echo $r[0]; ?>)">Delete</a>
 
 								     <script type="text/javascript">

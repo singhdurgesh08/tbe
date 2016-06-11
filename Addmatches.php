@@ -215,7 +215,7 @@ include "config.php";
                                             <tr>
                                                 <td><?php echo $r['team_name']; ?> </td>
                                                 <td>
-                                                    <input type="radio" name="addteam_id" id="addteam_id" value="<?php echo $r['id']; ?>" selected="selected"/>
+                                                    <input type="radio" name="addteam_id" id="addteam_id" value="<?php echo $r['id']; ?>" checked="checked" />
                                                 </td>
                                             </tr>
                                 <?php }
@@ -285,33 +285,36 @@ include "config.php";
     </div>
 </div>
     <?php
-    if (isset($_POST['Save'])) {
+    if (isset($_POST['Save'])) { //echo "<pre>"; print_r($_POST); die;
        
         $Match_Name = $_POST['Match_Name'];
         //$Date = $_POST['Month'];
         $Game_Mode = $_POST['Game_Mode'];
         $Amount = $_POST['Amount'];
-        $match_time = $_POST['match_time'];
-        $rule = $_POST['rule'];
-        $userid = $_SESSION['user_data']['id'];
-
-        $date = $_POST['year']."-". $_POST['day']."-".$_POST['month'];
-        $date = mysql_real_escape_string($date);
+        //$match_time = $_POST['match_time'];
+        //$rule = $_POST['rule'];
+         $userid = $_SESSION['user_data']['id'];
+         $match_start_date = $_POST['match_start_date'];
+         $match_close_date = $_POST['match_close_date'];
+         $match_start_date =  date("Y-m-d H:i:s", strtotime($match_start_date)); 
+         $match_close_date =  date("Y-m-d H:i:s", strtotime($match_close_date));  
+        $add_itemId = $_POST['addteam_id'];
+        $platform = $_POST['platform'];
+       // $date = $_POST['year']."-". $_POST['day']."-".$_POST['month'];
+        //$date = mysql_real_escape_string($date);
         //var_dump($date);die();
-        $query ="INSERT INTO `ps4_match` (`id`, `game_title`, `game_mode`, `amount`, `Date`, `match_time` ,`created_by`,`rule`) VALUES (NULL, '$Match_Name', '$Game_Mode', '$Amount', '$date' , '$match_time', '$userid', '$rule')";
-
-        if (mysql_query($query)) {
+       // $query ="INSERT INTO `ps4_match` (`id`, `game_title`, `game_mode`, `amount`, `Date`, `match_time` ,`created_by`,`rule`) VALUES (NULL, '$Match_Name', '$Game_Mode', '$Amount', '$date' , '$match_time', '$userid', '$rule')";
+       $query ="INSERT INTO `ps4_match` (`id`, `game_title`, `game_mode`, `amount`, `open_date`, `close_date`, `created_date`, `created_by`, `rule`, `platform`, `match_status`) VALUES (NULL, '$Match_Name', '$Game_Mode', '$Amount', '$match_start_date', '$match_close_date', now(), $userid, '11', '$platform', '1')"; 
+       if (mysql_query($query)) {
             echo"<script>alert('Match Added successfullly')</script>";
         }
     }
-
-    
-    ?>
+   ?>
 
 
     <script>
         function goback(){
-        window.location.href = 'ps4.php'
+            window.location.href = 'ps4.php'
         }
     </script>
   &nbsp;&nbsp;&nbsp;
