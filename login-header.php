@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="<?php echo $baseurl; ?>assets/css/jquery.dataTables.min.css">
 	<script src="<?php echo $baseurl; ?>assets/js/jquery.min.js" type="text/javascript"></script>
 	<script src="<?php echo $baseurl; ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="<?php echo $baseurl; ?>assets/js/jquery-1.12.3.min.js" type="text/javascript"></script>
+<!--        <script src="<?php //echo $baseurl; ?>assets/js/jquery-1.12.3.min.js" type="text/javascript"></script>-->
         <script src="<?php echo $baseurl; ?>assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
      
         <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>

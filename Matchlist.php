@@ -46,7 +46,13 @@ include "login-header.php";?>
 								<td><img src="assets/images/ps4_list.jpg" width="40" class="img-responsive" alt="" style="display:inline;" /><?php echo $r[game_title]; ?></td>
 								<td><?php echo $r[platform]; ?></td>
 								<td><?php echo $r[amount]; ?></td>
-								<td><a href="javascript:void();" data-toggle="modal" data-target="#join_team">Accept</a>
+                                                                <td>
+                                                                    <?php if($r['match_status']=="2"){   ?>
+                                                                    <a href="javascript:void();" class="btn btn-info">Accepted</a>
+                                                                    <?php }else {   ?>
+                                                                    <a href="javascript:void();" onclick="acceptMatch('<?php echo $r[amount]; ?>','<?php echo $r[id]; ?>');">Accept</a>
+                                                                    <?php }   ?>
+                                                                    
                                                                           |  
 									<a href="matchdetails.php?Matchid=<?php echo $r[0]; ?>"> View Match </a>   | 
 								     <a href="javascript:delete_id(<?php echo $r[0]; ?>)">Delete</a>
@@ -59,6 +65,7 @@ include "login-header.php";?>
 										        window.location.href='matchlist.php?delete_id='+id;
 										     }
 										}
+                                                                               
 										</script>
 
 									<?php
@@ -81,7 +88,7 @@ include "login-header.php";?>
 		</div>
 </div>
 </div>							
-<div id="join_team" class="modal fade" role="dialog">
+<div id="join_team" class="modal fade">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -115,7 +122,7 @@ include "login-header.php";?>
                             <input type='text' readonly='readonly' class="form-control" required="" name='claim_title' id='claim_title' value='0'/>
                         </div>
                     </div>
-                    <input type="hidden" name='matchid' id='matchid' value='<?php echo $matid; ?>'/>
+                    <input type="hidden" name='matchid' id='matchid' value=''/>
                     <div class="form-group">
                         <label for="" class="control-label col-sm-6 back hidden-xs">&nbsp;</label>
                         <div class="col-sm-2 input text-center">
@@ -137,7 +144,14 @@ include "login-header.php";?>
 <script>
 $(document).ready(function() {
 $('#example').DataTable();
+//$("#join_team").modal("show");
 } );
+function acceptMatch(str,id){
+    $("#join_team").modal("show");
+    $("#claim_title").val(str);
+    $("#matchid").val(id);
+
+}
 </script>
 
 <?php

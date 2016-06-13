@@ -52,7 +52,13 @@ include "login-header.php";?>
                 <fieldset>
                     <div>
                         <?php
-                        $userid = $_SESSION['user_data']['id'];
+                        
+                        if($_GET['profileid'] !=''){
+                            $userid = $_GET['profileid'];
+                        }else {
+                            $userid = $_SESSION['user_data']['id'];
+                        }
+                        
                         $res = mysql_query("Select * from users where id= $userid");
                         $r = mysql_fetch_array($res);
                         //  echo print_r($r);

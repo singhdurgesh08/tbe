@@ -169,7 +169,7 @@ if (isset($_POST['submit'])) {
 
     //	$query = "INSERT into users (user_name,user_email,user_pass,Address,Membership,DOB,State,Country) VALUES('$user_name','$user_email','$user_pass','$Address',$Membership,'$DOB','$State','$Country')";
 
-     $query ="INSERT INTO `users` (`id`, `first_name`, `last_name`, `user_name`, `user_email`, `user_pass`, `Address`, `paypal_email`, `DOB`, `city`, `State`, `zip`, `Country`, `membership_id`, `createddate`, `status`, `agree`) VALUES (NULL, NULL, NULL, '$user_name', '$user_email', '$user_pass', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, now(), NULL, '1')";
+     $query ="INSERT INTO `users` (`id`, `first_name`, `last_name`, `user_name`, `user_email`, `user_pass`, `Address`, `paypal_email`, `DOB`, `city`, `State`, `zip`, `Country`, `membership_id`, `createddate`, `status`, `agree`, `is_admin`) VALUES (NULL, NULL, NULL, '$user_name', '$user_email', '$user_pass', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, now(), NULL, '1','0')";
     //$query = "INSERT INTO `users` (`id`, `user_name`, `user_email`, `user_pass`, `Address`, `DOB`, `State`, `Country`, `membership_id`, `createddate`) VALUES (NULL, '$user_name', '$user_email', '$user_pass', '$Address', '$DOB', '$State', '$Country', '$Membership', now())";
 
     if (mysql_query($query)) {

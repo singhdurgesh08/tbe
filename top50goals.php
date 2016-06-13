@@ -11,7 +11,7 @@ include "login-header.php";?>
 <div class="container">
 				<div class="row">
 					<div class="col-sm-4 text-center">
-						<h1>Top 50Goals List</h1>
+						<h1>Top 50 Goats</h1>
 					</div>
 					<div class="col-sm-6 text-center">
 						 <h1></h1>
@@ -31,10 +31,10 @@ include "login-header.php";?>
                               <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 									<thead>
 									<tr>
-                                                                            <th>ID</th>
+                                                                            
                                                                             <th>User Name</th>
                                                                             <th>User Email</th>
-                                                                            <th>Action</th>
+                                                                            <th>Wins</th>
 									</tr>
 									</thead>
  									
@@ -47,11 +47,11 @@ include "login-header.php";?>
 							         while($r=mysql_fetch_row($res))
 							         { ?>
 							                <tr>
-							                 <td><?php echo $r[0];?></td>
-							                 <td><?php echo $r[1];?></td>
+                                                                            <td><a href="myprofile.php?profileid=<?php echo $r[0];?>"><?php echo $r[1];?></a></td>
+							                 
 							                 <td><?php echo $r[2];?></td>
 								                <td>
-                   							<a href="#">Delete </a>
+                   							   10
 						                 	   </td>
 							                 </tr>
 

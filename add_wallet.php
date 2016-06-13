@@ -26,7 +26,7 @@ if (isset($_POST['add']))
 VALUES ('', 'ADD Wallet', '1', 'ADD', '$userid', '$amount', 'USD', '0', CURRENT_TIMESTAMP, '$email')";
 mysql_query($query); 
 
- $lastisertId =  mysql_insert_id();;
+ $lastisertId =  mysql_insert_id();
 	
 
 	$payment ="select * from payments where payment_id ='$lastisertId'";

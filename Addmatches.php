@@ -304,8 +304,11 @@ include "config.php";
         //$date = mysql_real_escape_string($date);
         //var_dump($date);die();
        // $query ="INSERT INTO `ps4_match` (`id`, `game_title`, `game_mode`, `amount`, `Date`, `match_time` ,`created_by`,`rule`) VALUES (NULL, '$Match_Name', '$Game_Mode', '$Amount', '$date' , '$match_time', '$userid', '$rule')";
-       $query ="INSERT INTO `ps4_match` (`id`, `game_title`, `game_mode`, `amount`, `open_date`, `close_date`, `created_date`, `created_by`, `rule`, `platform`, `match_status`) VALUES (NULL, '$Match_Name', '$Game_Mode', '$Amount', '$match_start_date', '$match_close_date', now(), $userid, '11', '$platform', '1')"; 
-       if (mysql_query($query)) {
+        $query ="INSERT INTO `ps4_match` (`id`, `game_title`, `game_mode`, `amount`, `open_date`, `close_date`, `created_date`, `created_by`, `rule`, `platform`, `match_status`) VALUES (NULL, '$Match_Name', '$Game_Mode', '$Amount', '$match_start_date', '$match_close_date', now(), $userid, '11', '$platform', '1')"; 
+       if (mysql_query($query)) { 
+            $lastisertId =  mysql_insert_id();
+            $query1 = "INSERT INTO `join_match` (`match_id`, `team_id`, `Match_play_status`, `status`, `created_by`, `created_date`, `join_fee`,`opponent_id`) VALUES ('$lastisertId', '$add_itemId', '0', '1', '$userid', now(), '$Amount','0')";
+            mysql_query($query1);
             echo"<script>alert('Match Added successfullly')</script>";
         }
     }
