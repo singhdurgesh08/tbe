@@ -71,7 +71,7 @@ $(document).ready(function(){
 						   
 					</div>
 					<div class="col-sm-12 text-center">
-						<a href="#">Forgot your password?</a> | Not Registered yet?<a href='registration.php'>Sign Up</a>
+						<a href="forgot.php">Forgot your password?</a> | Not Registered yet?<a href='registration.php'>Sign Up</a>
 					</div>
                    
 				</div>

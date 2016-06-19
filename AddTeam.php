@@ -41,7 +41,7 @@ include "login-header.php";?>
 								</div>
 
 								<div class="form-group">
-									<label for="Platform" class="control-label col-sm-6">Playstation</label>
+									<label for="Platform" class="control-label col-sm-6">Platform</label>
 									<div class="col-sm-6 input"> 
 									                        <select name="Platform" id="Platform" class="form-control" required="">
 															   	<option></option>

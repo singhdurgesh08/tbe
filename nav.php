@@ -86,7 +86,32 @@
 					
 					while($r = mysql_fetch_array($res))
 					{
-						echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'</a>');
+						
+						if ($r['platform']== PS4) 
+							{
+								$var = '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline; " />';
+								
+
+								echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'&nbsp;&nbsp;'. $var .'</a>');
+//								echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'</a>');
+							}
+						else
+							{
+							//echo ('<img src="assets/images/xb1_list.jpg" width="10"  class="img-responsive" alt="" style="display:inline; " />' . '<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'</a>');
+							$var1 = '<img src="assets/images/xb1_list.jpg" width="10" class="img-responsive" alt="" style="display:inline; " />';
+							echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'&nbsp;&nbsp;'.  $var1 .'</a>');
+							}
+						
+						/*if($r['platform']== PS4) 
+                                    {
+                                      echo '<img src="assets/images/ps4_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;" />  '.$r['team_name'];     
+                                    	echo '<br>';
+                                    }
+                                    else
+                                    {
+                                       echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/>  '. $r['team_name'];      
+                                      	echo '<br>';
+                                    }*/
 					} 
 					
 	   			 
@@ -98,12 +123,12 @@
 		  
 		  <li class="<?php if(ereg("ps4.php",$file)>0) echo " active"; ?>"><a href="ps4.php">PS4</a></li>
 		  <li class="<?php if(ereg("xb1.php",$file)>0) echo " active"; ?>"><a href="xb1.php">XB1</a></li>
-		  <li class="<?php if(ereg("top50goals.php",$file)>0) echo " active"; ?>"><a href="top50goals.php">Top 50 Goats</a></li>
+		  <li class="<?php if(ereg("top50goals.php",$file)>0) echo " active"; ?>"><a href="top50goals.php">Tournaments</a></li>
 		  <li class=" dropdown <?php if(ereg("leadership.php",$file)>0 || ereg("staff.php",$file)>0  || ereg("faq.php",$file)>0) echo " active"; ?>"><a class="active">Support</a>
 		  <div class="dropdown-content" style="z-index:999;">
                         <a href="ticket.php">Ticket</a>
-			<a href="leadership.php">Leadership</a>
-			<a href="staff.php">Tournament Staff</a>
+			<!--<a href="leadership.php">Leadership</a>-->
+			<!--<a href="staff.php">Tournament Staff</a>-->
 			<a href="faq.php">Faq</a>
 		</div>
 		  </li>
@@ -111,11 +136,12 @@
 			<a class="dropbtn" style="color:red;background-color: yellow;" > <b><?php echo substr($_SESSION['user_data']['user_name'],0,20);?> &nbsp;</b></a>  
 			<div class="dropdown-content" style="z-index:999;">
 			<a href="myprofile.php">My Profile</a>
-                        <a href="editprofile.php">Edit Profile</a>
+            <a href="editprofile.php">Edit Profile</a>
+			<a href="teaminvite.php">Team Invite</a>
 			<a href="home.php">Home</a>
 			<a href="wallet.php">Wallet</a>
 			<a href="subscribe_membership.php">Membership</a>
-			<a href="Addplaystation.php">Gamertag</a>
+			<!--<a href="Addplaystation.php">Gamertag</a>-->
 			<a href="logout.php">Logout</a>
 		</div>
 		

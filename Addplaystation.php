@@ -8,7 +8,7 @@ include "login-header.php";?>
 
 <div class="home_tab_section">
 <div class="container">
-				<div class="row">_
+				<div class="row">
 					<div class="col-sm-12 text-center">
 						<h1><br class="hidden-xs">Add Gamertag here!</h1>
 					</div>

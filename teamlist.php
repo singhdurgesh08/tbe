@@ -32,10 +32,7 @@ if (isset($_GET['delete_id'])) {
         </div>
     </div>
 
-
-
-
-    <div class="row">
+   <div class="row">
         <div class="col-sm-12">
 
 
@@ -44,7 +41,7 @@ if (isset($_GET['delete_id'])) {
                     <tr>
                         <th>ID</th>
                         <th>Team Name</th>
-                        <th>Playstation</th>
+                        <th>Platform</th>
                         <th>Game Mode</th>
                         <th>Added Date</th>
                         <th>Action</th>
@@ -53,11 +50,14 @@ if (isset($_GET['delete_id'])) {
 
                 <tbody>
                     <?php
+                                        
                     $userid = $_SESSION['user_data']['id'];
+                    $is_admin = $_SESSION['user_data']['is_admin'];
+
                     if ($des == "") {
                         $res = mysql_query("Select * from team where created_by = '$userid'");
                     } $i =1;
-                    while ($r = mysql_fetch_array($res)) { // echo "<pre>"; print_r($r);
+                    while ($r = mysql_fetch_array($res)) {  // echo "<pre>"; print_r($r);
                         ?>
                         <tr>
                             <td><?php echo $i++; ?></td>
@@ -65,38 +65,42 @@ if (isset($_GET['delete_id'])) {
                                 <?php
                                     if($r['platform']== PS4) 
                                     {
-                                      echo '<img src="assets/images/ps4_list.jpg" width="40" class="img-responsive" alt="" style="display:inline;" />  '.$r['team_name'];     
-                                    //    echo $r['team_name']; 
+                                      echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" />  '.$r['team_name'];     
                                     }
                                     else
                                     {
                                        echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/>  '. $r['team_name'];      
-                                      
                                     }
-                                    
-                                ?>
+                                   ?>
 
                             </td>
 
                              <td><?php echo $r['platform']; ?></td>
                              <td><?php echo $r['game_Mode']; ?></td>
                                <td><?php echo date ("d-M-Y",strtotime($r['date_added'])); ?></td>
-                            <td> <a href="Teamdetails.php?teamid=<?php echo $r[0]; ?>"> View Team </a>   | 
-                                <a href="javascript:delete_id(<?php echo $r[0]; ?>)">Delete</a>
+                            <td>
+                                <a href="Teamdetails.php?teamid=<?php echo $r[0]; ?>"> View Team </a>  
+                                 <?php 
+                                    if ($is_admin == "1") {
+                                        echo ('| <a href=teamlist.php?teamid='. $r[id] . ' >Delete</a>');
 
-                                <script type="text/javascript">
-                                    function delete_id(id)
-                                    {
-                                        if (confirm('Sure To Remove This Record ?'))
-                                        {
-                                            window.location.href = 'teamlist.php?delete_id=' + id;
-                                        }
+                                        if (isset($_GET['teamid']) && is_numeric($_GET['teamid']))
+                                            {
+                                                  $ids = $_GET['teamid'];
+                                                   
+                                                   $result = mysql_query("DELETE FROM team WHERE id = '$ids'");
+                                                                                                     
+                                            }
+
                                     }
-                                </script>
+                                 
+                                  ?>
+                             
+                                  
 
                                
+                            </td>
                         </tr>
-
 <?php }
 ?>
                 </tbody>
@@ -107,12 +111,12 @@ if (isset($_GET['delete_id'])) {
 </div>
 </div>
 
-<script>
+<!--<script>
 $(document).ready(function() {
 $('#example').DataTable();
 } );
 </script>
-
+-->
 
 
 <?php

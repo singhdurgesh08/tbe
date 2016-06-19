@@ -11,7 +11,11 @@
                     
                     <div>
                         <ul class="home_price_list">
-                            <li>20% of winnings will be taken for free membership</li>
+                            <!--<li>20% of winnings will be taken for free membership</li>-->
+                            <li>Ticket Reviews by TBE specialists</li>
+                            <li>Free-To-enter Competitive matches</li>
+                            <li>Free Forever</li>
+
 
                         </ul>
                     </div>
@@ -28,13 +32,10 @@
                         <ul class="home_price_list">
                             <li>Keep all earnings</li>
                             <li>Faster response</li>
-                            <li>Custom profile</li>
                             <li>Challenge teams</li>
-                            <li>Instant teams disband</li>
-                            <li>username change</li>
                             <li>Premium support</li>
                         </ul>
-                        <form id="add_wallet" name="add_wallet" action="add_wallet.php" method="post">
+                        <form id="add_wallet" name="add_wallet" action="subscribe.php" method="post">
                             <input type="hidden" id="add_amount" name="add_amount"  value="9.99"/>
                             <button type="submit" name="add" class="btn btn-success member_submit">Subscribe Membership</button> 
                         </form>

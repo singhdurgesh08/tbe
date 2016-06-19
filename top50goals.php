@@ -1,6 +1,6 @@
 <?php 
  session_start();
-  if ($_SESSION['user_data']['user_name'] == '') {
+ if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login.php");
     exit();
 }
@@ -10,77 +10,38 @@ include "login-header.php";?>
 <div class="home_tab_section">
 <div class="container">
 				<div class="row">
-					<div class="col-sm-4 text-center">
-						<h1>Top 50 Goats</h1>
+					<div class="col-sm-12 text-center">
+						<h1>Tournaments</h1>
 					</div>
-					<div class="col-sm-6 text-center">
-						 <h1></h1>
+				</div>
+                  <div class="row">
+					<div class="col-sm-12">
+						<P>
+						    Here we are going to offer a option where your favorite Youtubers,Streamers, and competive players can host their own Tournaments. Any Suggestions to add to this section 
+							Please Tweet us at @TBESportsGaming on Twitter as we made this for you to have a better experience for you guys. 
+							Please Give us some time to implement this to the community.  This will only be for Diamond members only who are allowed to participate.
+					   </P>
 					</div>
-					<div class="col-sm-2 text-center">
-<!--						 <a href="#" class="btn btn-lg btn-block btn-success"> Add Top50 </a> -->
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<P>
+						   <img src="assets/images/NY.jpg" class="img-responsive" alt="" style="display:inline; " />
+					   </P>
 					</div>
 				</div>
 
-				
 
 
-				<div class="row">
-					<div class="col-sm-12">
-                          
-
-                              <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-									<thead>
-									<tr>
-                                                                            
-                                                                            <th>User Name</th>
-                                                                            <th>User Email</th>
-                                                                            <th>Wins</th>
-									</tr>
-									</thead>
- 									
- 							 <tbody>
- 							<?php
-							  if($des=="")
-							         { 
-							             $res=mysql_query("Select * from users");
-							         }
-							         while($r=mysql_fetch_row($res))
-							         { ?>
-							                <tr>
-                                                                            <td><a href="myprofile.php?profileid=<?php echo $r[0];?>"><?php echo $r[1];?></a></td>
-							                 
-							                 <td><?php echo $r[2];?></td>
-								                <td>
-                   							   10
-						                 	   </td>
-							                 </tr>
-
-							       <?php  }
-						?>
-							</tbody>
-			     		</table>
 		    	
 			</div>
 		</div>
-</div>
-							
-</div>
+
 <script>
 $(document).ready(function() {
 $('#example').DataTable();
 } );
 </script>
-<?php
-
-if (isset($_POST['Team_details'])) 
-	{
-		 
-	}
-if (isset($_POST['Delete'])) 
-	{
-		//Delete also remains.		
-	}
-?>
 
 
 

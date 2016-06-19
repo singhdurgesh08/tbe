@@ -42,7 +42,7 @@ include "login-header.php";
                             ?>
                             <tr>
                                 <td><?php echo date("d-M-Y h:i:s A", strtotime($r['open_date'])) . '&nbsp; To &nbsp;' . date("d-M-Y h:i:s A", strtotime($r['close_date'])); ?></td>
-                                <td><img src="assets/images/xb1_list.jpg" width="40" class="img-responsive" alt="" style="display:inline;" /><?php echo $r[game_title]; ?></td>
+                                <td><img src="assets/images/xb1_list.jpg" width="30" class="img-responsive" alt="" style="display:inline;" /><?php echo $r[game_title]; ?></td>
                                 <td><?php echo $r[platform]; ?></td>
                                 <td><?php echo $r[amount]; ?></td>
                                 <td>

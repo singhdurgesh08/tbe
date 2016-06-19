@@ -59,7 +59,7 @@ Ha
                                         </div>
                                         <div class="row">
                                         <div class="col-sm-6">
-                                           PlayStation :- <?php echo $r['platform']; ?>
+                                          Platform :- <?php echo $r['platform']; ?>
                                         </div> 
                                         </div>
                                         <div class="row">
@@ -84,7 +84,7 @@ Ha
          </div>
                 <div class="row">
                    <div class="col-sm-6">
-                     <button class="btn btn-lg btn-block btn-success" type="button" name="submit">Team Rank : Top</button>
+                     <button class="btn btn-lg btn-block btn-success" type="button" name="submit" onclick="window.location='myprofile.php';">Team Record</button>
                    </div>
                    
          </div>
@@ -99,10 +99,10 @@ Ha
 
 
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                            <caption class="text-center"> <h3>Player Name</h3></caption>  
+                            <caption class="text-center"> <h3>Roster</h3></caption>  
                             <thead class="thead-inverse">
                                 <tr>
-                                    <th>Id</th>
+                                    
                                     <th>Roster</th>
                                     <th>Role</th>
                                     <th>Eligibilty</th>
@@ -115,11 +115,18 @@ Ha
                                      $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.team_id= $teamid");
                                       while($r=mysql_fetch_assoc($res))
                                   { 
-                  //echo "<pre>"; print_r($r);
-                  ?>
-                                         <tr>
-                                            <td><?php echo $i++; ?></td>
-                                            <td><?php echo $r['user_name']; ?></td>
+                         //echo "<pre>"; print_r($r);
+                           ?>
+                                           <tr>
+                                            <td>
+                                                <?php 
+                                                    
+                                                    echo $r['user_name']; 
+                                                ?>
+
+                                            </td>
+
+
                                             <td>Player</td>
                                             <td> Yes</td>
                                             <td><?php echo date ("d-M-Y",strtotime($r['join_date'])); ?></td>
@@ -151,13 +158,21 @@ Ha
                                     <th>Result</th>
                                     <th>Date</th>
                                     <th>Info</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                
+                                  
                                     <tr>
-                                        <td colspan="4">No Match found</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                          <?php echo '<a href="#">Match Details</a> ' ?>
+                                        </td>
                                         
                                     </tr>
                                </tbody>
@@ -182,6 +197,9 @@ Ha
                         <li class="nav-header"></li>
                         <li class="active"><a href="xb1matchlist.php">Match Finder</a></li>
                         <li><a href="Addplayer.php?teamid=<?php echo $teamid;?>">Add Member</a></li>
+
+
+
                         <li><a href="Teamdetails.php?teamid=<?php echo $teamid; ?>&action=DisableHere">Disable Team</a><li>
                         <li><a href="Editteam.php?teamid=<?php echo $teamid; ?>">Edit Team</a></li>
 <!--                        <li><a href="EditRoster.php?teamid=<?php echo $teamid; ?>">Edit Roster</a></li>-->

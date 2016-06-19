@@ -49,6 +49,11 @@ $(document).ready(function(){
                                     <div class="col-sm-6 input"><input name='Address' id="address" value="<?php echo $r['Address']; ?>" placeholder="Please Enter Street address"  class="form-control" required="" ></div>
                                 </div>
 
+                                 <div class="form-group">
+                                    <label for="login_password" class="control-label col-sm-6">Gamertag</label>
+                                    <div class="col-sm-6 input"><input name='Gamertag' id="Gamertag" value="<?php echo $r['gamertag']; ?>" placeholder="Please Enter Street address"  class="form-control" required="" ></div>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">City</label>
                                     <div class="col-sm-6 input"><input name='City' id="city" value="<?php echo $r['city']; ?>"  placeholder="Please Enter City"  class="form-control" required="" ></div>
@@ -127,6 +132,7 @@ if(isset($_POST['Update']))
                      $First_Name = $_POST['First_Name'];
                      $Last_Name = $_POST['Last_Name'];
                      $Address = $_POST['Address'];
+                     $Gamertag = $_POST['Gamertag'];
                      $City = $_POST['City'];
                      $State = $_POST['State'];
                      $zip = $_POST['zip'];
@@ -135,7 +141,7 @@ if(isset($_POST['Update']))
                      
                     $userid = $_SESSION['user_data']['id'];
 
-                    $sql="UPDATE users SET First_Name='$First_Name', Last_Name='$Last_Name', Address='$Address',City='$City',State='$State',Country='$Country',zip='$zip', paypal_email = '$paypal_email' WHERE id='$userid'";   
+                    $sql="UPDATE users SET First_Name='$First_Name', Last_Name='$Last_Name', Address='$Address',Gamertag='$Gamertag',City='$City',State='$State',Country='$Country',zip='$zip', paypal_email = '$paypal_email' WHERE id='$userid'";   
                     mysql_query($sql);
                 {
                     echo"<script>alert('Update profile successfully')</script>";

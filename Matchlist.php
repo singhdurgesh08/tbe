@@ -11,7 +11,7 @@ include "login-header.php";?>
 <div class="container">
 				<div class="row">
 					<div class="col-sm-10 text-center">
-						<h1> PS4 Matchs</h1>
+						<h1>PS4 match finder</h1>
 					</div>
 					
 					<div class="col-sm-2 text-center">
@@ -25,7 +25,7 @@ include "login-header.php";?>
 									<thead>
 									<tr>
 									<th>Match Time</th>
-									<th>Match Name</th>
+									<th>Best out of</th>
 									<th>Game Mode</th>
 									<th>Amount ($)</th>
 									<th>Action</th>
@@ -42,9 +42,16 @@ include "login-header.php";?>
 						  		 while($r=mysql_fetch_array($res))
 						        { ?>
 								<tr>
-								<td><?php  echo date("d-M-Y h:i:s A", strtotime($r['open_date'])).'&nbsp; To &nbsp;'.date("d-M-Y h:i:s A", strtotime($r['close_date'])); ?></td>
-								<td><img src="assets/images/ps4_list.jpg" width="40" class="img-responsive" alt="" style="display:inline;" /><?php echo $r[game_title]; ?></td>
-								<td><?php echo $r[platform]; ?></td>
+								<!--<td><?php  //echo date("d-M-Y h:i:s A", strtotime($r['open_date'])).'&nbsp; To &nbsp;'.date("d-M-Y h:i:s A", strtotime($r['close_date'])); ?></td>-->
+								<td><?php  echo date("d-M-Y", strtotime($r['open_date']));?><br>
+									<?php  echo date("h:i:s A", strtotime($r['open_date']))?>
+
+								</td>
+								<td>
+								<!--	<img src="assets/images/ps4_list.jpg" width="40" class="img-responsive" alt="" style="display:inline;" /><?php //echo $r[game_title]; ?>-->
+									1
+								</td>
+								<td><?php echo $r[game_mode]; ?></td>
 								<td><?php echo $r[amount]; ?></td>
                                                                 <td>
                                                                     <?php if($r['match_status']=="2"){   ?>
@@ -54,7 +61,7 @@ include "login-header.php";?>
                                                                     <?php }   ?>
                                                                     
                                                                           |  
-									<a href="matchdetails.php?Matchid=<?php echo $r[0]; ?>"> View Match </a>   | 
+									<!--<a href="matchdetails.php?Matchid=<?php echo $r[0]; ?>"> View Match </a>   | -->
 								     <a href="javascript:delete_id(<?php echo $r[0]; ?>)">Delete</a>
 
 								     <script type="text/javascript">
@@ -141,11 +148,12 @@ include "login-header.php";?>
 
     </div>
 </div>
+
 <script>
-$(document).ready(function() {
-$('#example').DataTable();
-//$("#join_team").modal("show");
-} );
+//$(document).ready(function() {
+//$('#example').DataTable();
+////$("#join_team").modal("show");
+//} );
 function acceptMatch(str,id){
     $("#join_team").modal("show");
     $("#claim_title").val(str);
@@ -153,6 +161,7 @@ function acceptMatch(str,id){
 
 }
 </script>
+
 
 <?php
 	

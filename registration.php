@@ -107,7 +107,7 @@ include "nav_before_login.php";
 
                     </fieldset>
                     <div class="col-sm-12 text-center">
-                        <p><input type="checkbox" required name="terms"> I accept the Privacy <u>Terms and Conditions to tbesportsgaming</u></p>
+                        <p><input type="checkbox" required name="terms"><u><a href="#"</u> I accept the Privacy Terms and Conditions to tbesportsgaming</p>
                     </div>
                     <div class="form-group">
                         <label for="" class="control-label col-sm-6 back hidden-xs">&nbsp;</label>
@@ -134,10 +134,11 @@ if (isset($_POST['submit'])) {
     $user_name = $_POST['name'];
     $user_email = $_POST['email'];
     $user_pass = $_POST['pass'];
-    $Address = $_POST['Address'];
-    $DOB = $_POST['DOB'];
-    $State = $_POST['State'];
-    $Country = $_POST['Country'];
+    $confirm_pass = $_POST['confirm_pass'];
+  //  $Address = $_POST['Address'];
+    //$DOB = $_POST['DOB'];
+    //$State = $_POST['State'];
+    //$Country = $_POST['Country'];
     $Membership = "1";
 
     if ($user_name == '') {
@@ -169,8 +170,10 @@ if (isset($_POST['submit'])) {
 
     //	$query = "INSERT into users (user_name,user_email,user_pass,Address,Membership,DOB,State,Country) VALUES('$user_name','$user_email','$user_pass','$Address',$Membership,'$DOB','$State','$Country')";
 
-     $query ="INSERT INTO `users` (`id`, `first_name`, `last_name`, `user_name`, `user_email`, `user_pass`, `Address`, `paypal_email`, `DOB`, `city`, `State`, `zip`, `Country`, `membership_id`, `createddate`, `status`, `agree`, `is_admin`) VALUES (NULL, NULL, NULL, '$user_name', '$user_email', '$user_pass', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, now(), NULL, '1','0')";
+//     $query ="INSERT INTO `users` (`id`, `first_name`, `last_name`, `user_name`, `user_email`, `user_pass`, `Address`, `paypal_email`, `DOB`, `city`, `State`, `zip`, `Country`, `membership_id`, `createddate`, `status`, `agree`, `is_admin`) VALUES (NULL, NULL, NULL, '$user_name', '$user_email', '$user_pass', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, now(), NULL, '1','0')";
     //$query = "INSERT INTO `users` (`id`, `user_name`, `user_email`, `user_pass`, `Address`, `DOB`, `State`, `Country`, `membership_id`, `createddate`) VALUES (NULL, '$user_name', '$user_email', '$user_pass', '$Address', '$DOB', '$State', '$Country', '$Membership', now())";
+     $query="INSERT INTO `users` (`id`,`user_name`, `user_email`, `user_pass`, `confirm_pass`, `membership_id`, `createddate`, `is_admin`) VALUES (NULL, '$user_name', '$user_email', '$user_pass', '$confirm_pass','1',CURRENT_TIMESTAMP, '0')";
+
 
     if (mysql_query($query)) {
         echo"<script>alert('Registration successfullly completed')</script>";

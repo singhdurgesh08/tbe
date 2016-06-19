@@ -95,7 +95,7 @@ a:active, a:hover {
                         <a href="#1" data-toggle="tab">Deposit</a>
                     </li>
                     <li role="presentation" class="ng-isolate-scope">
-                        <a href="#2" data-toggle="tab">Withdraw</a>
+                        <a href="#2" data-toggle="tab">Enter your Paypal Email</a>
                     </li>
                     <li role="presentation" class="ng-isolate-scope">
                         <a href="#3" data-toggle="tab">Transfer</a>

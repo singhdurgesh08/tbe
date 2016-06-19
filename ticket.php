@@ -1,7 +1,8 @@
 <?php 
  session_start();
   if ($_SESSION['user_data']['user_name'] == '') {
-    header("location: login.php");
+    
+     header("location: login.php");
     exit();
 }
 include "login-header.php";?>
@@ -62,7 +63,6 @@ include "login-header.php";?>
 
 <?php }
 ?>
-
                 </tbody>
             </table>
 
