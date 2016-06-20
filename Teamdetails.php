@@ -112,7 +112,7 @@ Ha
 
                             <tbody>
                                 <?php $i = 1;
-                                     $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.team_id= $teamid");
+                                     $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.player_status ='1' and team_list.team_id= $teamid");
                                       while($r=mysql_fetch_assoc($res))
                                   { 
                          //echo "<pre>"; print_r($r);
