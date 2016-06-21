@@ -25,7 +25,7 @@ include "login-header.php";
                     <thead>
                         <tr>
                             <th>Match Time</th>
-                            <th>Match Name</th>
+                            <th>Best out of</th>
                             <th>Game Mode</th>
                             <th>Amount ($)</th>
                             <th>Action</th>
@@ -41,21 +41,30 @@ include "login-header.php";
                         while ($r = mysql_fetch_array($res)) {
                             ?>
                             <tr>
-                                <td><?php echo date("d-M-Y h:i:s A", strtotime($r['open_date'])) . '&nbsp; To &nbsp;' . date("d-M-Y h:i:s A", strtotime($r['close_date'])); ?></td>
-                                <td><img src="assets/images/xb1_list.jpg" width="30" class="img-responsive" alt="" style="display:inline;" /><?php echo $r[game_title]; ?></td>
+                                <td>
+                                    <!--<?php //echo date("d-M-Y h:i:s A", strtotime($r['open_date'])) . '&nbsp; To &nbsp;' . date("d-M-Y h:i:s A", strtotime($r['close_date'])); ?>-->
+                                        <?php  echo date("d-M-Y", strtotime($r['open_date']));?><br>
+                                        <?php  echo date("h:i:s A", strtotime($r['open_date']))?>
+                                </td>
+                               
+                                <td>
+                                 <!--   <img src="assets/images/xb1_list.jpg" width="30" class="img-responsive" alt="" style="display:inline;" /><?php //echo $r[game_title]; ?>-->
+                                 1
+                                </td>
                                 <td><?php echo $r[platform]; ?></td>
                                 <td><?php echo $r[amount]; ?></td>
                                 <td>
                                    
-                                                               <?php if($r['match_status']=="2"){   ?>
-                                                                    <a href="javascript:void();" class="btn btn-info">Accepted</a>
-                                                                    <?php }else {   ?>
-                                                                    <a href="javascript:void();" onclick="acceptMatch('<?php echo $r[amount]; ?>','<?php echo $r[id]; ?>');">Accept</a>
-                                                                    <?php }   ?>
+                                        <?php if($r['match_status']=="2"){   ?>
+                                                    <a href="javascript:void();" class="btn btn-info">Accepted</a>
+                                                    <?php }else {   ?>
+                                                    <a href="javascript:void();" onclick="acceptMatch('<?php echo $r[amount]; ?>','<?php echo $r[id]; ?>');">Accept</a>
+                                                     <?php }   ?>
+								 <?php if($_SESSION['user_data']['is_admin'] ==1) { ?>
                                     |  
-                                    <a href="matchdetails.php?Matchid=<?php echo $r[0]; ?>"> View Match </a>   | 
+                                    <a href="matchdetails.php?Matchid=<?php //echo $r[0]; ?>"> View Match </a>   | 
                                     <a href="javascript:delete_id(<?php echo $r[0]; ?>)">Delete</a>
-
+								 <?php } ?>
                                     <script type="text/javascript">
                                         function delete_id(id)
                                         {
@@ -139,10 +148,11 @@ include "login-header.php";
 
     </div>
 </div>
+
 <script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    });
+    //$(document).ready(function() {
+      //  $('#example').DataTable();
+    //});
     function acceptMatch(str,id){
     $("#join_team").modal("show");
     $("#claim_title").val(str);

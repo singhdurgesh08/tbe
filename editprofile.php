@@ -107,12 +107,6 @@ $(document).ready(function(){
                                     <div class="col-sm-6 input"><input name='paypal_email' value="<?php echo $r['paypal_email']; ?>" id="paypal"  placeholder="Please Enter City"  class="form-control email" required="" ></div>
                                 </div> 
 
-
-
-
-
-
-
                                 <div class="form-group">
                                     <label for="" class="control-label col-sm-6 back hidden-xs">&nbsp;</label>
                                     <div class="col-sm-6 input text-center">

@@ -5,7 +5,9 @@ if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login.php");
     exit();
  }
-include "login-header.php";?>
+include "login-header.php";
+
+?>
 <?php include "nav.php";?>
 
 <head>
@@ -18,8 +20,6 @@ include "login-header.php";?>
   });
   </script>
 </head>
-
-
 
 <style>
  thead th {
@@ -43,12 +43,9 @@ tbody td {
               &nbsp;
           </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-5">
                        <h2><b> Checkout</b></h2>
-                   </div>
-                </div>
-             
-         </div>
+               </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -61,7 +58,6 @@ tbody td {
                                     <th>Total</th>
                                                                     </tr>
                             </thead>
-
                             <tbody>
                                 <tr>
                                         <td>fff</td>
@@ -73,16 +69,9 @@ tbody td {
                             </tbody>
                         </table>
                     </div>
-    </div>
-                
-               
-                
-                   
-         </div>
             </div>
-      </div>
-        
-    </div>
+                 
+         
     <!--/row-->
 </div>
 
@@ -186,12 +175,12 @@ tbody td {
     </div>
   </div>
 </div>
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div></div></div></div>
 <?php
 
 ?>
 
-<?php include "footer.php";?>
+<?php include "footer.php"?>
 
 

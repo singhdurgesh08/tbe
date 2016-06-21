@@ -53,15 +53,14 @@ include "login-header.php";?>
 								</td>
 								<td><?php echo $r[game_mode]; ?></td>
 								<td><?php echo $r[amount]; ?></td>
-                                                                <td>
-                                                                    <?php if($r['match_status']=="2"){   ?>
-                                                                    <a href="javascript:void();" class="btn btn-info">Accepted</a>
-                                                                    <?php }else {   ?>
-                                                                    <a href="javascript:void();" onclick="acceptMatch('<?php echo $r[amount]; ?>','<?php echo $r[id]; ?>');">Accept</a>
-                                                                    <?php }   ?>
-                                                                    
-                                                                          |  
-									<!--<a href="matchdetails.php?Matchid=<?php echo $r[0]; ?>"> View Match </a>   | -->
+                                <td>
+                                    <?php if($r['match_status']=="2"){   ?>
+                                    <a href="javascript:void();" class="btn btn-info">Accepted</a>
+                                    <?php }else {   ?>
+                                    <a href="javascript:void();" onclick="acceptMatch('<?php echo $r[amount]; ?>','<?php echo $r[id]; ?>');">Accept</a>
+                                    <?php }   ?>
+                                     |  
+									<!--<a href="matchdetails.php?Matchid=<?php //echo $r[0]; ?>"> View Match </a>   | -->
 								     <a href="javascript:delete_id(<?php echo $r[0]; ?>)">Delete</a>
 
 								     <script type="text/javascript">
@@ -164,12 +163,7 @@ function acceptMatch(str,id){
 
 
 <?php
-	
-    
-
-?>
-
-
+	?>
 
 <?php
 include "footer.php";
