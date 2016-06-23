@@ -35,7 +35,7 @@ include "login-header.php";?>
 								<li>Username changes</li>
 								<li>Premun support</li>
 							</ul>
-                                                    <form id="add_wallet" name="add_wallet" action="add_wallet.php" method="post">
+                                                    <form id="add_wallet" name="add_wallet" action="subscribe_dimond_membership.php" method="post">
 
 				                    <input type="hidden" id="add_amount" name="add_amount"  value="9.99"/>
 					

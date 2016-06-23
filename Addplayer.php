@@ -5,16 +5,26 @@ include "login-header.php";?>
 <?php include "nav.php";?>
 <?php include "config.php";
 $teamid = $_GET['teamid'];
+
 if ($_GET['action'] =='add') 
 	{  //echo "11"; die;
 		$id = $_GET['id'];
+
 		$userid = $_SESSION['user_data']['id'];
 		
-		 $sql_query ="INSERT INTO `team_list` (`user_id`, `team_id`, `join_date`, `created_by`,`player_status`) VALUES ('$id', '$teamid',now(),'$userid',1)";
-                   mysql_query($sql_query);
-	      header("Location: Teamdetails.php?teamid=".$teamid);
-
-
+		$check="select * from team_list where user_id = '$id' AND team_id = $teamid";
+		
+		$result = mysql_query($check);
+		if ( mysql_num_rows ( $result ) > 0 )
+				{
+				      //echo 'Username already exists';
+				}
+			else
+				{
+				   $sql_query ="INSERT INTO `team_list` (`user_id`, `team_id`, `join_date`, `created_by`,`player_status`) VALUES ('$id', '$teamid',now(),'$userid',1)";
+				   mysql_query($sql_query);
+				   header("Location: Teamdetails.php?teamid=".$teamid);
+				}
 	}
 
  ?>
@@ -40,10 +50,10 @@ if ($_GET['action'] =='add')
                               <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 									<thead>
 									<tr>
-                                                                            <th>ID</th>
-                                                                            <th>User Name</th>
-                                                                            <th>User Email</th>
-                                                                            <th>Action</th>
+                                        <th>ID</th>
+                                        <th>User Name</th>
+                                        <th>User Email</th>
+                                        <th>Action</th>
 									</tr>
 									</thead>
  									
@@ -56,11 +66,11 @@ if ($_GET['action'] =='add')
 							         while($r=mysql_fetch_row($res))
 							         { ?>
 							                <tr>
-							                 <td><?php echo $r[0];?></td>
-							                 <td><?php echo $r[1];?></td>
-							                 <td><?php echo $r[2];?></td>
+							                 <td><?php echo $r[0]; ?> </td>
+							                 <td><?php echo $r[3];?> </td>
+							                 <td><?php echo $r[4]; ?> </td>
 								                <td>
-                   							<a href="Addplayer.php?teamid=<?php echo $teamid; ?>&id=<?php echo $r[0];?>&action=add">Click Here To ADD In Team </a>
+                   									<a href="Addplayer.php?teamid=<?php echo $teamid; ?>&id=<?php echo $r[0];?>&action=add">Click Here To ADD In Team </a>
 						                 	   </td>
 							                 </tr>
 

@@ -1,4 +1,4 @@
 <?php
 mysql_connect("localhost","root","");
-mysql_select_db("inetglobal2");
+mysql_select_db("inetglobal21");
 ?>

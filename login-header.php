@@ -13,13 +13,26 @@
 	  $result2 = mysql_query("select sum(payment_gross) AS value_sum_withdraw from payments where user_id ='$userid' and payment_type ='Withdrawal' and payment_status ='1'"); 
 	  $row2 = mysql_fetch_array($result2);
       $withdraw = $row2['value_sum_withdraw']; 
+	  
+	  $result3 = mysql_query("select *  from payments where user_id ='$userid' and payment_type ='Subscribe' and payment_status ='1' order By payment_id desc limit 1"); 
+	  $row3 = mysql_fetch_array($result3);
+         // print_r($row3);
+          if(strtotime($row3['end_date'])){
+	  $enddate = strtotime($row3['end_date']); 
+          }else { $enddate ="";}
+	  $currentdate = strtotime(date("Y-m-d H:i:s"));
+	  
+		  
+	  
 	?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
 	<meta charset="UTF-8">
-	<title>TBF Sports gaming</title>
+	<title>TBESportsGaming</title>
+        <link rel="shortcut icon" href="<?php echo $baseurl; ?>assets/images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="<?php echo $baseurl; ?>assets/images/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="<?php echo $baseurl; ?>assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo $baseurl; ?>assets/css/style.css">
         <link rel="stylesheet" href="<?php echo $baseurl; ?>assets/css/jquery.dataTables.min.css">
@@ -36,10 +49,10 @@
 <header>
         <div class="container">
                 <div class="col-sm-12 login_header">
-
-	             <img src="assets/images/diamond.png" width="50" class="img-responsive" alt="" style="display:inline;" /></span> <span><a href="#login.php" class="btn btn-info">Credit $ <?php echo  number_format($sum) - number_format($withdraw);?> </a></span>/<span><a href="<?php echo $baseurl; ?>logout.php" class="btn btn-info">Logout</a></span>
+                <?php if($currentdate <  $enddate  && $enddate !=''){ ?>
+				<img src="<?php echo $baseurl; ?>assets/images/Diamond-icon.png" width="50" class="img-responsive" title="Dimond User" alt="Dimond User" style="display:inline;" /> <?php } ?></span> <span><a href="#login.php" class="btn btn-info">Credit $ <?php echo  number_format($sum) - number_format($withdraw);?> </a></span>/<span><a href="<?php echo $baseurl; ?>logout.php" class="btn btn-info">Logout</a></span>
                 </div>
-                <div><center><a href="home.php"><img src="<?php echo ""; ?>assets/images/logo.png" class="img-responsive" alt="" style="width: 385px;border:none;"></a></center></div>
+                <div><center><a href="home.php"><img src="<?php echo $baseurl; ?>assets/images/logo.png" class="img-responsive" alt="" style="width: 385px;border:none;"></a></center></div>
                 <div></div>
         </div>
 </header>

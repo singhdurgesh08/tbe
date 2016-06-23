@@ -35,7 +35,7 @@
                             <li>Challenge teams</li>
                             <li>Premium support</li>
                         </ul>
-                        <form id="add_wallet" name="add_wallet" action="subscribe.php" method="post">
+                        <form id="add_wallet" name="add_wallet" action="subscribe_dimond_membership.php" method="post">
                             <input type="hidden" id="add_amount" name="add_amount"  value="9.99"/>
                             <button type="submit" name="add" class="btn btn-success member_submit">Subscribe Membership</button> 
                         </form>

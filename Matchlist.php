@@ -35,6 +35,8 @@ include "login-header.php";?>
  									
  							 <tbody>
  							<?php
+ 								  $is_admin = $_SESSION['user_data']['is_admin'];
+ 								  //var_dump($is_admin);die();
 							  if($des=="")
 							         { 
 							             $res=mysql_query("Select * from ps4_match where platform ='PS4'");
@@ -54,35 +56,29 @@ include "login-header.php";?>
 								<td><?php echo $r[game_mode]; ?></td>
 								<td><?php echo $r[amount]; ?></td>
                                 <td>
+
                                     <?php if($r['match_status']=="2"){   ?>
                                     <a href="javascript:void();" class="btn btn-info">Accepted</a>
                                     <?php }else {   ?>
                                     <a href="javascript:void();" onclick="acceptMatch('<?php echo $r[amount]; ?>','<?php echo $r[id]; ?>');">Accept</a>
                                     <?php }   ?>
-                                     |  
+                                     
 									<!--<a href="matchdetails.php?Matchid=<?php //echo $r[0]; ?>"> View Match </a>   | -->
-								     <a href="javascript:delete_id(<?php echo $r[0]; ?>)">Delete</a>
+								     <?php 
+                                    if ($is_admin == "1") {
+                                        echo ('| <a href=Matchlist.php?teamid='. $r[id] . ' >Delete</a>');
 
-								     <script type="text/javascript">
-										function delete_id(id)
-										{
-										     if(confirm('Sure To Remove This Record ?'))
-										     {
-										        window.location.href='matchlist.php?delete_id='+id;
-										     }
-										}
-                                                                               
-										</script>
+                                        if (isset($_GET['teamid']) && is_numeric($_GET['teamid']))
+                                            {
+                                                  $ids = $_GET['teamid'];
+                                                   //var_dump($ids);die();
+                                                   $result = mysql_query("DELETE FROM ps4_match WHERE id = '$ids'");
+                                                                                                     
+                                            }
 
-									<?php
-										if(isset($_GET['delete_id']))
-										{
-										    $sql_query="DELETE FROM ps4_match WHERE id=".$_GET['delete_id'];
-											mysql_query($sql_query);
-										    header("Location: matchlist.php");
-										  
-										}
-										?>
+                                    }
+                                 
+                                  ?>
 								</tr>
 							      
 							     <?php    }

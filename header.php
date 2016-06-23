@@ -5,7 +5,9 @@
 	include "constant.php";
 	$baseurl = HOSTNAME; ?>
 	<meta charset="UTF-8">
-	<title>TBF Sports gaming</title>
+	<title>TBESportsGaming</title>
+        <link rel="shortcut icon" href="<?php echo $baseurl; ?>assets/images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="<?php echo $baseurl; ?>assets/images/favicon.ico" type="image/x-icon">
 	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="<?php echo $baseurl; ?>assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo $baseurl; ?>assets/css/style.css">

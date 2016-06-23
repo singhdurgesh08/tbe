@@ -107,7 +107,7 @@ include "nav_before_login.php";
 
                     </fieldset>
                     <div class="col-sm-12 text-center">
-                        <p><input type="checkbox" required name="terms"><u><a href="#"</u> I accept the Privacy Terms and Conditions to tbesportsgaming</p>
+                        <p><input type="checkbox" required name="terms"><u></u> I accept the Privacy <a href="term-service.php" target="_blank">Terms of service </a> of tbesportsgaming</p>
                     </div>
                     <div class="form-group">
                         <label for="" class="control-label col-sm-6 back hidden-xs">&nbsp;</label>

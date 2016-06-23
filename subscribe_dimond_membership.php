@@ -21,9 +21,12 @@ if (isset($_POST['add']))
 	$email = $_SESSION['user_data']['user_email'];
 	$userid = $_SESSION['user_data']['id'];
 	$amount = $_POST['add_amount'];
-	$query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
+	$currentdate = date("Y-m-d H:i:s");
+	$enddate = date('Y-m-d H:i:s', strtotime($currentdate . "+1 months") );
+
+ $query = " INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
 `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`, `start_date`, `end_date`) 
-VALUES ('', 'ADD Wallet', '1', 'ADD', '$userid', '$amount', 'USD', '0', now(), '$email',now(),now())";
+VALUES (null, 'Subscibe Dimond Membership', '1', 'Subscribe', '$userid', '$amount', 'USD', '0', now(), '$email',now(),'$enddate') ";
 mysql_query($query); 
 
  $lastisertId =  mysql_insert_id();
@@ -127,7 +130,7 @@ mysql_query($query);
 	}
 	else
 	{
-		echo "<script>alert('Enter valid Amount ')</script>";
+		
 		header("location: wallet.php");
 		exit();
 	}
