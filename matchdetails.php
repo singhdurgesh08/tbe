@@ -192,7 +192,7 @@ $userid = $_SESSION['user_data']['id'];
 </div>
 
 
- <div class="row">
+<!-- <div class="row">
   <ul class="nav nav-tabs">
     <li class="bg-primary">Xb1 Player</a></li>
     <div>
@@ -227,7 +227,7 @@ $userid = $_SESSION['user_data']['id'];
   </ul>
   <br>
  
-</div>
+</div>-->
 
 </div>
 </div>

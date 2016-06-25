@@ -175,7 +175,7 @@ function joinMatch(){
                       if(d ==='error'){
                          $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! You have No credit Please add credit from Wallet .</b> ');
                       }else {
-                        window.location.href =' <?php echo HOSTNAME;?>/matchdetails.php?Matchid='+d; 
+                        window.location.href =' <?php echo HOSTNAME;?>matchdetails.php?Matchid='+d; 
                       }
                     }
                 });              

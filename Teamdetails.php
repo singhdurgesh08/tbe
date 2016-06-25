@@ -184,28 +184,41 @@ Ha
                                     <th>Result</th>
                                     <th>Date</th>
                                     <th>Info</th>
-                                    <th>Action</th>
-                                </tr>
+                               </tr>
                             </thead>
 
                             <tbody>
-                                  
-                                    <?php $i = 1;
-                                //var_dump($teamid);die();
-                                 $res=mysql_query("SELECT * FROM join_match where team_id = $teamid and ");
-                                      while($r=mysql_fetch_assoc($res))
-                                  { 
-                                     ?>
+                             <?php 
+                                 $res=mysql_query("Select * from users  
+                                                left join join_match on join_match.created_by = users.id 
+                                                left join ps4_match on ps4_match.id = join_match.match_id 
+                                                where join_match.created_by = '$userid' ");
+                              
+                                   while($r=mysql_fetch_assoc($res))
+                                  {   //  print_r($r);
+                              ?>      
                                            <tr>
-                                                <td>fgsd</td>
-                                                <td>gfdgfd</td>
-                                                <td>fsdg</td>
-                                                <td>fgs</td>
-                                                <td>fgs</td>
+                                                <td><?php echo $r[platform] ?></td>
+                                                <td><?php if( $r[Match_play_status] == 0 )
+                                                            {
+                                                              echo "pending";
+                                                            }else if( $r[Match_play_status] == 1){
+                                                              echo "Win";
+                                                            }
+                                                            else
+                                                            {
+                                                              echo "Loss";
+                                                            }
+                                                 ?></td>
+                                                <td><?php echo $r[open_date] ?></td>
+                                                <td><a href="matchdetails.php?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
+                                                 
                                            </tr>
                                          <?php    }
-                                        ?>
-                               </tbody>
+                                ?>
+                                        
+                            </tbody>
+
                         </table>
 
 
