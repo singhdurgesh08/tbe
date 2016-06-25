@@ -4,14 +4,21 @@
 			<div class="col-md-6 flot-right">
 				<ul class="footer_menu">
 					<li><a href="term-service.php">Terms of Service</a></li>
-                                        <li><a href="privacy.php">Privacy Policy</a></li>
-                                       <!-- <li><a href="about.php">About Us</a></li>-->
-                                        <li><a href="contact.php">Contact Us</a></li>
+         <li><a href="privacy.php">Privacy Policy</a></li>
+         <li><a href="contact.php">Contact Us</a></li>
 				</ul>
 			</div>
 			<div class="col-md-6 right-text flot-left">©2016 TBESportsGaming, LLC</div>
 		</div>
     </footer>
+
+    <style>
+#test {
+  display : block;
+  width:100px;
+  height:40px;
+}
+    </style>
 
 
     

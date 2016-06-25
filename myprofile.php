@@ -15,7 +15,15 @@ include "login-header.php";?>
 	<div class="row">
 		
                 <div class="col-sm-3">
-                <img src="<?php echo HOSTNAME; ?>assets/images/profile.jpg" width="150" class="img-responsive" alt="" >
+                <img src="<?php echo HOSTNAME; ?>assets/images/profile.jpg" width="150" class="img-responsive" alt="" />
+                <form action="myprofile.php"
+                                enctype="multipart/form-data" method="post">
+                                <p> <br> <input type="file" name="file" size="40"> </p>
+                                <div>
+                                <input type="submit" name="btn-upload" value="Upload" class="btn btn-primary"/>
+                                </div>
+                        </form>
+                
                 </div>
                     <div class="col-sm-8">
                          <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -40,15 +48,30 @@ include "login-header.php";?>
                         </table>
 
                     </div>
-    </div>
+                    <div class="col-sm-8">
+                    <table class="table">
+    
+     <tbody>
+        <tr class="bg-primary">
+        <th></th>
+        <th>General Information</th>
+         <th>&nbsp;&nbsp;</th>
+         <th>&nbsp;&nbsp;</th>
+         <th>&nbsp;&nbsp;</th>
+         <th>&nbsp;&nbsp;</th>
+         <th>&nbsp;&nbsp;</th>
+        <th class="right">Social Media</th>
+      </tr>
 
+       </tbody>
+</table>
+           
+</div>
 
-<div class="row">
-				
-				
-    <div class="row">
-        <div class="col-sm-11">
+</div>
+     <div class="col-sm-8">
             <form method='post' action='myprofile.php' class="form-horizontal">
+
                 <fieldset>
                     <div>
                         <?php
@@ -64,57 +87,124 @@ include "login-header.php";?>
                         //  echo print_r($r);
                         ?></div>
                     <div class="form-group">
-                        <label for="login_password" class="control-label col-sm-6">First Name :</label>
-                        <div class="control-label col-sm-4"><?php echo $r['first_name']; ?></div>
+                        <label for="login_password" class="control-label col-sm-7"></label>
+                        <div class="col-md-4 col-md-push-1"></div>
+                    </div> 
+                        
+                    <div class="form-group">
+                        <label for="login_password" class="control-label col-sm-7">First Name :</label>
+                        <div class="col-md-4 col-md-push-1"><?php echo $r['first_name']; ?></div>
                     </div>
 
                     <div class="form-group">
-                        <label for="login_password" class="control-label col-sm-6">Last Name :</label>
-                        <div class="control-label col-sm-4"><?php echo $r['last_name']; ?></div>
+                        <label for="login_password" class="control-label col-sm-7">Last Name :</label>
+                        <div class="col-md-4 col-md-push-1"><?php echo $r['last_name']; ?></div>
                     </div>
 
                     <div class="form-group">
-                        <label for="login_password" class="control-label col-sm-6">Address :</label>
-                        <div class="control-label col-sm-4"><?php echo $r['Address']; ?></div>
+                        <label for="login_password" class="control-label col-sm-7">Address :</label>
+                        <div class="col-md-4 col-md-push-1"><?php echo $r['Address']; ?></div>
                     </div>
 
                     <div class="form-group">
-                        <label for="login_password" class="control-label col-sm-6">City :</label>
-                        <div class="control-label col-sm-4"><?php echo $r['city']; ?></div>
+                        <label for="login_password" class="control-label col-sm-7">City :</label>
+                        <div class="col-md-4 col-md-push-1"><?php echo $r['city']; ?></div>
                     </div>
                     <div class="form-group">
-                        <label for="login_password" class="control-label col-sm-6">State :</label>
-                        <div class="control-label col-sm-4"><?php echo $r['State']; ?></div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="login_password" class="control-label col-sm-6">Zip :</label>
-                        <div class="control-label col-sm-4"><?php echo $r['zip']; ?></div>
+                        <label for="login_password" class="control-label col-sm-7">State :</label>
+                        <div class="col-md-4 col-md-push-1"><?php echo $r['State']; ?></div>
                     </div>
 
                     <div class="form-group">
-                        <label for="login_password" class="control-label col-sm-6">Country :</label>
-                        <div class="control-label col-sm-4"><?php echo $r['Country']; ?></div>
+                        <label for="login_password" class="control-label col-sm-7">Zip :</label>
+                        <div class="col-md-4 col-md-push-1"><?php echo $r['zip']; ?></div>
                     </div>
 
                     <div class="form-group">
-                        <label for="login_password" class="control-label col-sm-6">Paypal Email :</label>
-                        <div class="control-label col-sm-4"><?php echo $r['paypal_email']; ?></div>
+                        <label for="login_password" class="control-label col-sm-7">Country :</label>
+                        <div class="col-md-4 col-md-push-1"><?php echo $r['Country']; ?></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login_password" class="control-label col-sm-7">Paypal Email :</label>
+                        <div class="col-md-4 col-md-push-1"><?php echo $r['paypal_email']; ?></div>
                     </div>
 
                 </fieldset>
-
-
-                
-
             </form>
         </div>
 
+                    <div class="row">
+                    <div class="col-sm-3"><span class="right">
+
+                        <form method='post' id="editform" class="form-horizontal">
+                        <fieldset>
+                                <div class="form-group">
+                                    <label for="login_password" class="control-label col-sm-6">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/XboxLogo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label>
+                                    <div class="col-sm-6 input"><input name='Gamertag' id="name" value="<?php echo $r['Gamertag'];?>" placeholder="Gamertag" class="form-control" required=""></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="login_password" class="control-label col-sm-6">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/playstation final.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value=""<?php echo $r['playstation'];?>" placeholder="playstation"  class="form-control" required=""></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="login_password" class="control-label col-sm-6">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/facebook.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $r['facebook']; ?>" placeholder="facebook`"  class="form-control" required=""></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="login_password" class="control-label col-sm-6">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/Twitter.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $r['Twitter']; ?>" placeholder="twitter".`"  class="form-control" required=""></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="login_password" class="control-label col-sm-6">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/twitch logo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $r['twitch']; ?>" placeholder="twitch`.`"  class="form-control" required=""></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="login_password" class="control-label col-sm-6">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/steam.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $r['steam']; ?>" placeholder="steam`.`"  class="form-control" required=""></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="login_password" class="control-label col-sm-6">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/skype.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $r['skype']; ?>" placeholder="skype"  class="form-control" required=""></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="login_password" class="control-label col-sm-6">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/youtube.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $r['youtube']; ?>" placeholder="youtube"  class="form-control" required=""></div>
+                                </div>
+
+                               </div>
+                            </div>
+                        </fieldset>
+                </form>
+
+                </div>
+            </span>
     </div>
 
-</div>
-    </div>
-      </div>
+
+
+
+
+   
+
+
+    
+
 <?php
 
 include "config.php";
@@ -182,7 +272,29 @@ if(isset($_POST['Update']))
 			 			echo"<script>alert('your data is not updated successfullly')</script>";
 			 }
    		}	
+                
+                if (isset($_POST['btn-upload'])) {
+    $file = rand(1000, 100000) . "-" . $_FILES['file']['name'];
+    $file_loc = $_FILES['file']['tmp_name'];
+    $file_size = $_FILES['file']['size'];
+    $file_type = $_FILES['file']['type'];
+    $folder = "uploads/";
 
+    $new_size = $file_size / 1024;
+    $new_file_name = strtolower($file);
+    $final_file = str_replace(' ', '-', $new_file_name);
 
+    if (move_uploaded_file($file_loc, $folder . $final_file)) {
+        // $sql="INSERT INTO profile_image(file,type,size) VALUES('$final_file','$file_type','$new_size')";
+        // mysql_query($sql);
+        ?>
+                      <script>
+                      alert('successfully uploaded');
+                            window.location.href='myprofile.php?success';
+                            </script>
+        <?php
+    }
+}
 ?>
+<div>&nbsp;</div>
 <?php include "footer.php";?>

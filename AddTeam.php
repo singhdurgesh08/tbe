@@ -44,7 +44,7 @@ include "login-header.php";?>
 									<label for="Platform" class="control-label col-sm-6">Platform</label>
 									<div class="col-sm-6 input"> 
 									                        <select name="Platform" id="Platform" class="form-control" required="">
-															   	<option></option>
+															   	<option>Please Select Plaltform</option>
 															    <option value="XB1">XB1</option>
 															    <option value="PS4">PS4</option>
 	 															 </select>

@@ -31,20 +31,16 @@ include "login-header.php";?>
                                     <label for="Platform" class="control-label col-sm-6">Match</label>
                                     <div class="col-sm-6 input"> 
                                              <select name="Platform" id="Platform" class="form-control" required="">
+                                             <option>Please select Match</option>
                                               <option>
-
-                                                <?php 
-                                                    $query =mysql_query("select id,game_title from ps4_match");
-                                                    while($r = mysql_fetch_array($query))
-                                                    {
-                                                       
-                                                                echo '<option value="'.$r["id"].'">'.$r["game_title"].'( Match Id - '.$r["id"].')</option>';
-                                                        //echo ($r[team_name]);
-                                                    } 
-                                                ?>
-                                                            
-                                                         
-                                             </option>
+                                                        <?php 
+                                                            $query =mysql_query("select id,game_title from ps4_match");
+                                                            while($r = mysql_fetch_array($query))
+                                                            {
+                                                               echo '<option value="'.$r["id"].'">'.$r["game_title"].'( Match Id - '.$r["id"].')</option>';
+                                                            } 
+                                                        ?>
+                                              </option>
                                            </select>
                                             </div>
                                 </div>
@@ -52,6 +48,18 @@ include "login-header.php";?>
                             <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">Name</label>
                                     <div class="col-sm-6 input"><input name='name'  placeholder="Please Enter Team Name"  class="form-control" required=""></div>
+                                </div>
+
+
+                                 <div class="form-group">
+                                    <label for="Platform" class="control-label col-sm-6">Ticket Type</label>
+                                    <div class="col-sm-6 input"> 
+                                             <select name="type" id="type" class="form-control" required="">
+                                             <option>Please select Ticket Type</option>
+                                              <option>Match Dispute </option>
+                                               <option>Ticket Dispute</option>
+                                           </select>
+                                            </div>
                                 </div>
 
                                  <div class="form-group">
@@ -112,6 +120,7 @@ include "login-header.php";?>
 if (isset($_POST['submit'])) {
 
     $name = $_POST['name'];
+    $type = $_POST['type'];
     $Description = $_POST['Description'];
     $Platform = $_POST['Platform'];
     $userid = $_SESSION['user_data']['id'];
@@ -127,7 +136,7 @@ if (isset($_POST['submit'])) {
    
    // $query= "INSERT INTO `ticket` (`id`, `name`, `description`, `created_by`, `ticket_status`,`created_date`,`match_id` ) VALUES (NULL, '$name', '$Description', '$userid' ,'1', CURRENT_TIMESTAMP,'$Platform')";
 
-     $query= "INSERT INTO `ticket` (`id`, `name`, `description`, `created_by`, `ticket_status`, `created_date`, `match_id`, `url1`, `url2`, `url3`, `url4`, `url5`, `url6`) VALUES (NULL, '$name', '$Description', '$userid', '1', CURRENT_TIMESTAMP, '3', '$URL1', '$URL2', '$URL4', '$URL4', '$URL5', '$URL6')";
+     $query= "INSERT INTO `ticket` (`id`, `name`, `ticket_type`, `description`, `created_by`, `ticket_status`, `created_date`, `match_id`, `url1`, `url2`, `url3`, `url4`, `url5`, `url6`) VALUES (NULL, '$name', '$type' ,'$Description', '$userid', '1', CURRENT_TIMESTAMP, '3', '$URL1', '$URL2', '$URL4', '$URL4', '$URL5', '$URL6')";
 
     if (mysql_query($query)) 
     {

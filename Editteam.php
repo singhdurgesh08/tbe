@@ -5,20 +5,28 @@ include "nav.php";
 include "config.php";
 $teamid = $_GET['teamid'];
 
-if (isset($_POST['update'])) {
-
+if (isset($_POST['update'])) 
+{
     $Team_Name = $_POST['Team_Name'];
     $Gamertag = $_POST['Gamertag'];
     $Team_Caption = $_POST['Team_Caption'];
     $Game_Mode = $_POST['Game_Mode'];
     $Description = $_POST['Description'];
-    //$date_added = $_POST['date_added'];
-
+    
     $sql_query = mysql_query("update team set team_name = '$Team_Name', platform ='$Gamertag', team_caption ='$Team_Caption', Game_Mode='$Game_Mode', description ='$Description'  where id = $teamid");
-    if ($sql_query) {
-        header("Location: Teamdetails.php?teamid=" . $teamid);
+    if ($sql_query)
+    {
+         header("Location: Teamdetails.php?teamid=" . $teamid);
+         echo"<script>alert('Team Updated Successfully')</script>";
     }
 }
+
+
+$res = mysql_query("Select * from team where id= $teamid");
+$r = mysql_fetch_array($res);
+
+
+
 ?>
 <div class="home_tab_section">
 <div class="container">
@@ -33,11 +41,11 @@ if (isset($_POST['update'])) {
                 <fieldset>
                     <div class="form-group">
                         <label for="login_password" class="control-label col-sm-6">Team Name</label>
-                        <div class="col-sm-6 input"><input type = "text" name='Team_Name'  placeholder="Please Enter Team Name"  class="form-control"></div>
+                        <div class="col-sm-6 input"><input type = "text" name='Team_Name' value="<?php echo $r['team_name']; ?>" class="form-control"></div>
                     </div>
 
                     <div class="form-group">
-                                    <label for="Platform" class="control-label col-sm-6">Gamertag</label>
+                                    <label for="Platform" class="control-label col-sm-6">Platform</label>
                                     <div class="col-sm-6 input"> 
                                                             <select name="Gamertag" class="form-control">
                                                                 <option value="XB1">XB1</option>
@@ -45,26 +53,22 @@ if (isset($_POST['update'])) {
                                                                  </select>
                                             </div>
                                      </div>
-
-                    
-                     <div class="form-group">
-                        <label for="login_password" class="control-label col-sm-6">Team Captain</label>
-                        <div class="col-sm-6 input"><input name='Team_Caption'  placeholder="Please Enter Team Name"  class="form-control"></div>
-                    </div>
+         
 
 
                    <div class="form-group">
                         <label for="login_password" class="control-label col-sm-6">Game Mode</label>
                         <div class="col-sm-6 input"> <select name="Game_Mode" id="Membership"  class="form-control">
-                                <option value="Free">Free</option>
-                                <option value="Diamond_membership">Diamond Membership</option>
+                                <option value="1v1 Mycourt">1v1 Mycourt</option>
+                                <option value="2v2 Mycourt">2v2 Mycourt</option>
+                                <option value="3v3 Mycourt">3v3 Mycourt</option>
+                                <option value="Quick Match">Quick Match</option>
+                                <option value="Myteam">Myteam</option>
+                                
                             </select></div>
                     </div>
 
-                   <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">Description</label>
-                                    <div class="col-sm-6 input"><textarea name='Description' style="width: 360px; height: 50px;" placeholder="Enter Description"></textarea></div>
-                                </div>
+                 
                     </fieldset>
 
                 <div class="form-group">

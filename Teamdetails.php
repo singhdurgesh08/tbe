@@ -2,6 +2,7 @@
 include "login-header.php";
 include "nav.php";
 include "config.php"; 
+
 $teamid = $_GET['teamid'];
 
 if ($_GET['action'] =='DisableHere') 
@@ -9,7 +10,8 @@ if ($_GET['action'] =='DisableHere')
          $sql_query ="UPDATE team SET status = 0 WHERE id = $teamid";
          mysql_query($sql_query);
          header("Location: Teamdetails.php?teamid=".$teamid);
- }
+  }
+//$userid = $_SESSION['user_data']['id'];
 
 ?>
 <style>
@@ -31,7 +33,7 @@ Ha
         <div class="col-md-9">
             <div class="jumbotron">
                 <div class="col-sm-12 text-center">
-                        <h2>  Team Detail</h2>
+                       
                     </div>
                 <div class="row">
                    <div class="col-sm-12">
@@ -40,7 +42,7 @@ Ha
                     </div>
                <div class="row">
                    <div class="col-sm-4">
-                       <img src="<?php echo HOSTNAME; ?>assets/images/team.jpg" class="img-responsive" alt="" >
+                       <img src="<?php echo HOSTNAME; ?>assets/images/camera.jpg" class="img-responsive" alt="" >
                    </div>
                    <div class="col-sm-8 ">
 
@@ -50,17 +52,13 @@ Ha
                                      // echo "<pre>"; print_r($r);
                                   ?>
                                       <div class="row">
-                                        <div class="col-sm-6">
-                                            Team ID  :- 0000<?php echo $r['id']; ?>
-                                        </div> 
-                                          <div class="col-sm-6">
-                                           Team Name:- <?php echo $r['team_name']; ?>
-                                        </div> 
-                                        </div>
-                                        <div class="row">
-                                        <div class="col-sm-6">
-                                          Platform :- <?php echo $r['platform']; ?>
-                                        </div> 
+                                        
+                                        <div class="col-sm-12">
+                                                 <h3> <?php echo $r['team_name']; ?></h3>
+                                                 Team ID  :- 0000<?php echo $r['id']; ?>
+                                                 &nbsp;&nbsp;&nbsp; Platform :- <?php echo $r['platform']; ?>
+                                              </div>
+                                
                                         </div>
                                         <div class="row">
                                         <div class="col-sm-6">
@@ -84,9 +82,9 @@ Ha
          </div>
                 <div class="row">
                    <div class="col-sm-6">
-                     <button class="btn btn-lg btn-block btn-success" type="button" name="submit" onclick="window.location='myprofile.php';">Team Record</button>
+                     <button class="btn btn-lg btn-block btn-success" type="button" name="submit" >Team Record    2L - 2W</button>
                    </div>
-                   
+                  
          </div>
                 <div class="row">
                    <div class="col-sm-12">
@@ -102,11 +100,10 @@ Ha
                             <caption class="text-center"> <h3>Roster</h3></caption>  
                             <thead class="thead-inverse">
                                 <tr>
-                                    
-                                    <th>Roster</th>
+                                   <th>Roster</th>
                                     <th>Role</th>
-                                    <th>Eligibilty</th>
                                     <th>Date Joined</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
 
@@ -115,22 +112,52 @@ Ha
                                      $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.player_status ='1' and team_list.team_id= $teamid");
                                       while($r=mysql_fetch_assoc($res))
                                   { 
-                         //echo "<pre>"; print_r($r);
-                           ?>
+                                    
+                                ?>
                                            <tr>
-                                            <td>
-                                                <?php 
-                                                    
-                                                    echo $r['user_name']; 
+                                                <td> <?php echo $r['user_name']; ?></td>
+                                                <td>
+                                                    <?php
+                                            
+                                                          $var =$r['team_id'];
+                                                          //var_dump($r['user_id']);die();
+
+                                                          if($r['team_id']== $var && $r['created_by']==$r['user_id'])
+                                                            {
+                                                                echo "Captain";
+                                                            }
+                                                            else
+                                                            {
+                                                              echo "Player";
+                                                            }
+                                                      ?>
+
+                                                </td>
+                                                <td><?php echo date ("d-M-Y",strtotime($r['join_date'])); ?></td>
+                                                <td>
+                                                 <?php 
+                                                       // var_dump($teamid);die();
+                                                       
+                                                      
+
+                                                       //$url = "http://localhost/teamdetails.php?email=" . $r[team_id] . "&eventid=" . $r[user_id];
+
+                                                        echo ('<a href=teamdetails.php?teamid='. $r[team_id] .'&userid=' . $r[user_id].' >Disband Team</a>');
+                                                         
+                                                          if (isset($_GET['teamid']) && is_numeric($_GET['teamid']) AND isset($_GET['userid']) && is_numeric($_GET['userid']) )
+                                                               {
+
+                                                                 $tid = $_GET['teamid'];
+                                                                 $uid = $_GET['userid'];
+                                                                 //var_dump($tid);die();
+                                                                 $result = mysql_query("DELETE FROM team_list WHERE user_id = '$uid' and team_id='$tid' ");
+                                                               }
+
+                                                        
+                                 
                                                 ?>
-
-                                            </td>
-
-
-                                            <td>Player</td>
-                                            <td> Yes</td>
-                                            <td><?php echo date ("d-M-Y",strtotime($r['join_date'])); ?></td>
-                                         </tr>
+                                                  </td>
+                                           </tr>
                                          <?php    }
                                         ?>
                                </tbody>
@@ -153,7 +180,6 @@ Ha
                             <caption class="text-center"> <h3>Recent Matches</h3></caption>  
                             <thead>
                                 <tr>
-                                    <th>Id</th>
                                     <th>Recent Match</th>
                                     <th>Result</th>
                                     <th>Date</th>
@@ -164,20 +190,51 @@ Ha
 
                             <tbody>
                                   
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                          <?php echo '<a href="#">Match Details</a> ' ?>
-                                        </td>
-                                        
-                                    </tr>
+                                    <?php $i = 1;
+                                //var_dump($teamid);die();
+                                 $res=mysql_query("SELECT * FROM join_match where team_id = $teamid and ");
+                                      while($r=mysql_fetch_assoc($res))
+                                  { 
+                                     ?>
+                                           <tr>
+                                                <td>fgsd</td>
+                                                <td>gfdgfd</td>
+                                                <td>fsdg</td>
+                                                <td>fgs</td>
+                                                <td>fgs</td>
+                                           </tr>
+                                         <?php    }
+                                        ?>
                                </tbody>
                         </table>
 
+
+                         <div class="login_form_page">
+                            <div class="row">
+                              <div class="col-sm-12 text-center">
+                                <h6 class="login_title"><br class="hidden-xs">Team invite's </h6>
+                              </div>
+                            </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                                <form method='post' id="login" class="form-horizontal login_form">
+                                  <fieldset>
+                                    <div class="form-group">
+                                      <div class="col-sm-12 input"><input name='name'  type="text" placeholder="Please Enter user name"  class="form-control email" required=""></div>
+                                    </div>
+            
+                            <div class="form-group">
+                              <div class="col-sm-12 input text-center">
+                                 <button class="btn btn-md btn-block btn-success" type="submit" name="submit" value="submit">Submit <i class="glyphicon glyphicon-chevron-right"></i></button>
+                              </div>
+                            </div>
+                         </form>
+                      </fieldset>   
+                  </div>
+                          
+                   
+        </div>
+            </div>
                     </div>
     </div>
                 <div class="row">
@@ -189,6 +246,8 @@ Ha
             </div>
            
         </div>
+
+
         <!--/span-->
         <div class="col-md-3">
             <div class="sidebar-nav-fixed pull-right">
@@ -220,17 +279,42 @@ Ha
 </div>
 <?php
 
-if (isset($_POST['Team_details'])) 
-  {
-     
-  }
-if (isset($_POST['Delete'])) 
-  {
-    //Delete also remains.    
-  }
+
+
 ?>
+<script>
+//$(document).ready(function() {
+//$('#example').DataTable();
+////$("#join_team").modal("show");
+//} );
+function acceptMatch(str,id){
+    $("#join_team").modal("show");
+    $("#claim_title").val(str);
+    $("#matchid").val(id);
 
+}
+</script>
 
+<?php 
+if (isset($_POST['submit'])) 
+  {
+       $name = $_POST['name'];
+       $res = mysql_query("Select id from users where user_name ='$name'");
+       $r = mysql_fetch_array($res);
+         $result = $r['id'];
+          if ($result != '') 
+            { 
+               $query ="INSERT INTO `team_list` (`user_id`, `team_id`, `join_date`, `created_by`,`player_status`) VALUES ('$r[id]', '$teamid',now(),'$userid',0)";
+                echo"<script>alert('Team Invited successfullly')</script>";
+             }
+             else
+             {
+                   echo"<script>alert('Please Invite Valid user')</script>";
+             }
+                
+  }
+
+?>
 
 <?php
 include "footer.php";

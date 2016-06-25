@@ -113,7 +113,8 @@ header{
 .home_tab_section{
 	padding-top: 80px;
 	padding-bottom: 80px;
-    background: #fff;
+        background: #fff;
+        min-height: 380px;
 }
 .member_submit{
         margin-bottom: 20px;

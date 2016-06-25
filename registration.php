@@ -163,7 +163,7 @@ if (isset($_POST['submit'])) {
     $check_email = "select * from users where user_email ='$user_email'";
     $run = mysql_query($check_email);
     //echo "1212 ".mysql_num_rows($run);
-    if (mysql_num_rows($run) > 1) {
+    if (mysql_num_rows($run) >= 1) {
         echo "<script>alert('Email $user_email is already exits')</script>";
         exit();
     }

@@ -4,6 +4,7 @@ if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login.php");
     exit();
 }
+$userid = $_SESSION['user_data']['id'];
 include "login-header.php";
 ?>
 <?php include "nav.php"; ?>
@@ -16,7 +17,7 @@ include "login-header.php";
             </div>
 
             <div class="col-sm-2 text-center">
-                <a href="Addmatches.php" class="btn btn-lg btn-block btn-success"> Add Matches </a> 
+                <a href="Addmatches.php" class="btn btn-lg btn-block btn-success"> Post Matches </a> 
             </div>
         </div>
         <div class="row">
@@ -41,7 +42,8 @@ include "login-header.php";
                         if ($des == "") {
                             $res = mysql_query("Select * from ps4_match where platform ='XB1'");
                         } $i = 1;
-                        while ($r = mysql_fetch_array($res)) {
+                        while ($r = mysql_fetch_array($res)) { 
+                            if(strtotime($r['open_date']) < strtotime(date("d-M-Y h:i:s A"))  || $r['match_status'] =="2") {  continue; } 
                             ?>
                             <tr>
                                 <td>
@@ -103,8 +105,9 @@ include "login-header.php";
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Accept Match</h4>
             </div>
-            <form method='post' action='join.php' class="form-horizontal">
+            <form method='post' id="accept_match" name="accept_match"  class="form-horizontal">
                 <div class="modal-body">
+                    <div id="div_wait"></div>
                     <div class="form-group">
                         <label for="select_team" class="control-label col-sm-6">Select Team</label>
                         <div class="col-sm-6 input"> 
@@ -132,7 +135,7 @@ include "login-header.php";
                     <div class="form-group">
                         <label for="" class="control-label col-sm-6 back hidden-xs">&nbsp;</label>
                         <div class="col-sm-2 input text-center">
-                            <button class="btn btn-primary" type="submit" name="submit" value="Join">Save</button>
+                            <button class="btn btn-primary" type="submit" name="submit" value="Join" onclick="joinMatch();">Save</button>
                         </div>
                         <div class="col-sm-2 input text-center">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -157,6 +160,28 @@ include "login-header.php";
     $("#claim_title").val(str);
     $("#matchid").val(id);
 
+}
+function joinMatch(){
+   $('#accept_match').validate({
+      submitHandler: function(form) {
+               $.ajax({
+                    url: "ajax_file.php?action=accept_match&user_id=<?php echo $userid; ?>",
+                    type: "post",
+                    data: $("#accept_match").serialize(),
+                     beforeSend: function(d) {
+                      $("#div_wait").html("Please wait we Accepting match .....");
+                     },
+                     success: function(d) {
+                      if(d ==='error'){
+                         $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! You have No credit Please add credit from Wallet .</b> ');
+                      }else {
+                        window.location.href =' <?php echo HOSTNAME;?>/matchdetails.php?Matchid='+d; 
+                      }
+                    }
+                });              
+        }
+    }); 
+    
 }
 </script>
 

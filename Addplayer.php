@@ -17,13 +17,13 @@ if ($_GET['action'] =='add')
 		$result = mysql_query($check);
 		if ( mysql_num_rows ( $result ) > 0 )
 				{
-				      //echo 'Username already exists';
+				       echo "<script>alert('Player already exists in your team')</script>";
 				}
 			else
 				{
 				   $sql_query ="INSERT INTO `team_list` (`user_id`, `team_id`, `join_date`, `created_by`,`player_status`) VALUES ('$id', '$teamid',now(),'$userid',1)";
 				   mysql_query($sql_query);
-				   header("Location: Teamdetails.php?teamid=".$teamid);
+				   echo "<script>alert('Player added successfully in your team')</script>";
 				}
 	}
 

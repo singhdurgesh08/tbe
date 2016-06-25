@@ -10,6 +10,7 @@ include "login-header.php";
 ?>
 <?php include "nav.php"; ?>
 <?php include "config.php";
+
 if (isset($_GET['delete_id'])) {
     $sql_query = "DELETE FROM team WHERE id=" . $_GET['delete_id'];
     mysql_query($sql_query);
@@ -87,8 +88,7 @@ if (isset($_GET['delete_id'])) {
                                         if (isset($_GET['teamid']) && is_numeric($_GET['teamid']))
                                             {
                                                   $ids = $_GET['teamid'];
-                                                   
-                                                   $result = mysql_query("DELETE FROM team WHERE id = '$ids'");
+                                                  $result = mysql_query("DELETE FROM team WHERE id = '$ids'");
                                                                                                      
                                             }
 

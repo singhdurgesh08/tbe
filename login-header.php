@@ -1,8 +1,8 @@
-<?php
+<?php 
    error_reporting(0);
 	include "constant.php";
 	$baseurl = HOSTNAME;
-    $userid = $_SESSION['user_data']['id'];
+        $userid = $_SESSION['user_data']['id'];
 
 	//$rows = mysql_fetch_row($run1);
 	include "config.php"; 
@@ -21,6 +21,9 @@
 	  $enddate = strtotime($row3['end_date']); 
           }else { $enddate ="";}
 	  $currentdate = strtotime(date("Y-m-d H:i:s"));
+          
+         $totalcredit  = number_format($sum) - number_format($withdraw);
+         $_SESSION['totalcredit'] = $totalcredit;
 	  
 		  
 	  
@@ -49,8 +52,9 @@
 <header>
         <div class="container">
                 <div class="col-sm-12 login_header">
-                <?php if($currentdate <  $enddate  && $enddate !=''){ ?>
-				<img src="<?php echo $baseurl; ?>assets/images/Diamond-icon.png" width="50" class="img-responsive" title="Dimond User" alt="Dimond User" style="display:inline;" /> <?php } ?></span> <span><a href="#login.php" class="btn btn-info">Credit $ <?php echo  number_format($sum) - number_format($withdraw);?> </a></span>/<span><a href="<?php echo $baseurl; ?>logout.php" class="btn btn-info">Logout</a></span>
+                <?php if($currentdate <  $enddate  && $enddate !=''){  $_SESSION['dimond_user'] = "dimond"; ?>
+                                <img src="<?php echo $baseurl; ?>assets/images/Diamond-icon.png" width="50" class="img-responsive" title="Dimond User" alt="Dimond User" style="display:inline;" /> <?php }  else {  $_SESSION['dimond_user'] = "normal"; }?></span> 
+                <span><a href="#login.php" class="btn btn-info">Credit $ <?php echo  number_format($sum) - number_format($withdraw);?> </a></span>/<span><a href="<?php echo $baseurl; ?>logout.php" class="btn btn-info">Logout</a></span>
                 </div>
                 <div><center><a href="home.php"><img src="<?php echo $baseurl; ?>assets/images/logo.png" class="img-responsive" alt="" style="width: 385px;border:none;"></a></center></div>
                 <div></div>
