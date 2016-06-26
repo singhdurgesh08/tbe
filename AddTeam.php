@@ -9,22 +9,19 @@ include "login-header.php";?>
 <?php include "nav.php";?>
 <?php include "config.php"; ?>
 
-<head>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
   <script>
 
   $(document).ready(function(){
     $("#addteam").validate();
   });
   </script>
-</head>
+
 
 
 <style>
 .error {color:red;}
 </style>
-
+<div class="home_tab_section">
 <div class="container">
 				<div class="row">
 					<div class="col-sm-12 text-center">
@@ -86,7 +83,7 @@ include "login-header.php";?>
 			</div>
 		</div>
 </div>
-
+</div>
 
 <?php
 
@@ -102,7 +99,11 @@ if (isset($_POST['submit']))
     $userid = $_SESSION['user_data']['id'];
 
     $query = "INSERT INTO `team` (`id`, `team_name`, `team_size`, `platform`, `team_caption`, `game_Mode`, `description`, `date_added`,`created_by`) VALUES (NULL, '$Team_Name', ' $Team_Size', '$Platform', '$Team_Caption', '$Game_Mode', '$Description', now(),'$userid')";
-    if (mysql_query($query)) {
+    if (mysql_query($query)) { 
+         $teamid = mysql_insert_id();
+         $sql_query ="INSERT INTO `team_list` (`user_id`, `team_id`, `join_date`, `created_by`,`player_status`) "
+                 . " VALUES ('$userid', '$teamid',now(),'$userid',1)";
+           mysql_query($sql_query);
         echo"<script>alert('Team Added successfullly')</script>";
     }
 }

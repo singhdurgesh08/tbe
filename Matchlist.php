@@ -16,7 +16,7 @@ include "login-header.php";?>
 					</div>
 					
 					<div class="col-sm-2 text-center">
-						 <a href="Addmatches.php" class="btn btn-lg btn-block btn-success"> Post Matches </a> 
+						 <a href="Addmatches.php?matchtype=PS4" class="btn btn-lg btn-block btn-success"> Post Matches </a> 
 					</div>
 					
 				</div>

@@ -8,6 +8,7 @@ include "login-header.php";
 include "nav.php";
 include "config.php";
 $userid = $_SESSION['user_data']['id'];
+$matchtype = $_GET['matchtype'];
 
 
  ?>
@@ -63,7 +64,7 @@ $userid = $_SESSION['user_data']['id'];
         </div>
         <div class="row">
             <div class="col-sm-12 text-center">
-                <h1><br class="hidden-xs">Post a Match</h1>
+                <h1><br class="hidden-xs">Post a Match - <?php echo $matchtype;?></h1>
             </div>
         </div>
  <form method='post' action="addmatches.php" id="addmatches" name="addmatches" class="form-horizontal">
@@ -79,12 +80,12 @@ $userid = $_SESSION['user_data']['id'];
                                 <select name="month" id="month" class="form-control" required="">   
                                         <option value="">Month </option>
                                         <?php
-                                         $selected = "";
+                                         
                                         $month = array('01'=>"january",'02'=>"february",'03'=>"march", '04'=>"April", '05'=>"May", '06'=>"June", '07'=>"July", '08'=>"August", '09'=>"September", '10'=>"October", '11'=>"November", '12'=>"December");
                                         foreach ($month as $key => $value)
                                         { 
-                                           if($key == date("m")) { $selected = 'slected = "selected"'; }
-                                          echo '<option '. $selected.' value="'.$key.'">'.$value.'</option>';
+                                           if($key == date("m")) { $selected = 'selected = "selected"'; }
+                                          echo '<option  value="'.$key.'"  '. $selected.'>'.$value.'</option>';
                                          $selected = "";
                                         }
                                         ?>
@@ -96,8 +97,9 @@ $userid = $_SESSION['user_data']['id'];
                                     <?php
                                            $month = array('01'=>"01",'02'=>"02",'03'=>"03", '04'=>"04", '05'=>"05", '06'=>"06", '07'=>"07", '08'=>"08", '09'=>"09", '10'=>"10", '11'=>"11", '12'=>"12",'13'=>"13",'14'=>"14", '15'=>"15", '16'=>"16", '17'=>"17", '18'=>"18", '19'=>"19", '20'=>"20", '21'=>"21", '22'=>"22", '23'=>"23",'24'=>"24", '25'=>"25", '26'=>"26",'27'=>"27", '28'=>"28", '29'=>"29", '30'=>"30", '31'=>"31");
                                            foreach ($month as $key => $value)
-                                           {
-                                             echo '<option value="'.$key.'">'.$value.'</option>';
+                                           {  if($key == date("d")) { $selected = 'selected = "selected"'; }
+                                             echo '<option value="'.$key.'" '. $selected.'>'.$value.'</option>';
+                                              $selected = "";
                                            }
                                     ?>
                                 </select>  
@@ -107,8 +109,9 @@ $userid = $_SESSION['user_data']['id'];
                                     <?php
                                        $month = array('01'=>"2016",'02'=>"2017",'03'=>"2018", '04'=>"2019", '05'=>"2020", '06'=>"2021", '07'=>"2022", '08'=>"2023", '09'=>"2024", '10'=>"2025", '11'=>"2026", '12'=>"2027");
                                        foreach ($month as $key => $value)
-                                       {
-                                         echo '<option value="'.$value.'">'.$value.'</option>';
+                                       { if($value == date("Y")) { $selected = 'selected = "selected"'; }
+                                         echo '<option value="'.$value.'" '. $selected.'>'.$value.'</option>';
+                                          $selected = "";
                                        }
                                     ?>
                                </select>
@@ -131,7 +134,9 @@ $userid = $_SESSION['user_data']['id'];
                                            $month = array('01'=>"01",'02'=>"02",'03'=>"03", '04'=>"04", '05'=>"05", '06'=>"06", '07'=>"07", '08'=>"08", '09'=>"09", '10'=>"10", '11'=>"11", '12'=>"12");
                                            foreach ($month as $key => $value)
                                            {
-                                             echo '<option value="'.$key.'">'.$value.'</option>';
+                                            if($value == date("h")) { $selected = 'selected = "selected"'; }
+                                             echo '<option value="'.$key.'" '. $selected.'>'.$value.'</option>';
+                                             $selected = "";
                                            }
                                     ?>
 
@@ -159,10 +164,9 @@ $userid = $_SESSION['user_data']['id'];
                         </div>
 
                          <div class="form-group">
-                            <label for="login_password" class="control-label col-sm-6"> Est Time</label>
+                            <label for="login_password" class="control-label col-sm-6"> Time Zone</label>
                             <div class="col-sm-6 input" >
                             <select name="EST" id="EST" class="form-control" required="">
-                            <option value="">Please select time Zone</option>
                             <option timeZoneId="15" gmtAdjustment="GMT-05:00" useDaylightTime="1" value="-5">(GMT-05:00) Eastern Time (US & Canada)</option>
                             </select>
     
@@ -171,12 +175,23 @@ $userid = $_SESSION['user_data']['id'];
 
                           <div class="form-group">
                                 <label for="platform" class="control-label col-sm-6">Platform</label>
-                                <div class="col-sm-6 input"><select name="platform" id="platform" class="form-control" required="">    
+                                
+                                <div class="col-sm-6 input">
+                                    <select name="platform" id="platform" class="form-control" required="">    
                                         <option value="">Please select Platform</option>
-                                        <option value="PS4">PS4</option>
-                                        <option value="XB1">XB1</option>
-
-                                    </select></div>
+                                         <?php
+                                           $plat = array('PS4'=>"PS4",'XB1'=>"XB1");
+                                           
+                                           foreach ($plat as $key => $value)
+                                           {
+                                             if($value == $matchtype) { $selected = 'selected = "selected"'; }
+                                             echo '<option value="'.$key.'" '. $selected.'>'.$value.'</option>';
+                                             $selected = "";
+                                           }
+                                    ?>
+                                        
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -203,7 +218,7 @@ $userid = $_SESSION['user_data']['id'];
                                 <div class="col-sm-6 input">&nbsp;</div>
                                 <div class="col-sm-6 input">
                                     <div>
-                                    <center><h3> Select Team</h3></center>
+                                    <center><h3> Select <?php echo $matchtype; ?> Team</h3></center>
                                 </div>
                                 </div>
                                 
@@ -226,8 +241,10 @@ $userid = $_SESSION['user_data']['id'];
                                         <tbody>
                                             <?php $userid = $_SESSION['user_data']['id'];
                                             if ($des == "") {
-                                            $res = mysql_query("Select * from team where created_by = '$userid'");
+                                            $res = mysql_query("Select * from team where created_by = '$userid' and platform ='$matchtype'");
                                             } $i =1;
+                                            $count = mysql_num_rows($res);
+                                            if($count > 0 ){
                                             while ($r = mysql_fetch_array($res)) { // echo "<pre>"; print_r($r);
                                             ?>
                                             <tr>
@@ -238,8 +255,15 @@ $userid = $_SESSION['user_data']['id'];
                                                     <input type="radio" name="addteam_id" id="addteam_id" value="<?php echo $r['id']; ?>" checked="checked" />
                                                 </td>
                                             </tr>
-                                <?php }
-                                ?>
+                                            <?php }}else {  ?>
+                                            <tr>
+                                                <td colspan="3">No team found Please <a href="AddTeam.php">Add Team </a> </td>
+                                                
+                                                <td>
+                                                    <input type="text" name="addteam_id" id="addteam_id" required=""  readonly="readonly"/>
+                                                </td>
+                                            </tr>
+                                            <?php } ?>
                                         </tbody>
 
                                     </table>

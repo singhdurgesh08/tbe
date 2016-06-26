@@ -31,7 +31,7 @@ include "config.php";
                        <br/>
                        <a href="xb1matchlist.php" class="btn btn-lg btn-block btn-success"> Match Finder </a> 
                        <br/>
-                       <a href="Addmatches.php" class="btn btn-lg btn-block btn-success"> Post a Match</a> 
+                       <a href="Addmatches.php?matchtype=XB1" class="btn btn-lg btn-block btn-success"> Post a Match</a> 
                    </div>
                    
                  

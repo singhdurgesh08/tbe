@@ -130,25 +130,27 @@ $userid = $_SESSION['user_data']['id'];
         <th>Result</th>
       </tr>
     
-      <tr>
-        <td ><b>TBE</b></td>
-         <th>&nbsp;</th>
-          
-         <th>&nbsp;</th>
-        <td>-</td>
-      </tr>
-      <tr>
-        <td><b>TBE1 Player</b></td>
-         <th>&nbsp;</th>
-         <th>&nbsp;</th>
-         <td>-</td>
-      </tr>
-      <tr>
-        <td><b>Game mode</b></td>
-         <th>&nbsp;</th>
-         <th>Game1 host:Xb1 Player</th>
-         <td></td>
-      </tr>
+      <?php
+      $resteam = mysql_query("SELECT * FROM join_match left join team on team.id = join_match.team_id where join_match.match_id = $matid");
+
+      while ($rteam = mysql_fetch_assoc($resteam)) {   // print_r($r);
+          ?> 
+          <tr>
+              <td><b><?php echo $rteam['team_name']; ?></b></td>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+              <td><?php
+                      if ($rteam[Match_play_status] == 0) {
+                          echo "pending";
+                      } else if ($rteam[Match_play_status] == 1) {
+                          echo "Win";
+                      } else {
+                          echo "Loss";
+                      }
+                      ?></td>
+          </tr>
+      <?php }
+      ?>
     </tbody>
 </table>
 
@@ -169,19 +171,21 @@ $userid = $_SESSION['user_data']['id'];
         <th></th>
       </tr>
     
+      <?php
+      $resteamtag = mysql_query("SELECT * FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid");
+
+      while ($rteamtag = mysql_fetch_assoc($resteamtag)) {   // print_r($r);
+          ?> 
+          <tr>
+              <td><b><?php echo $rteamtag['user_name']; ?></b></td>
+              <th>&nbsp;</th>
+              <th>&nbsp;</th>
+              <td><?php echo $rteamtag['gamertag']; ?></td>
+          </tr>
+      <?php }
+      ?>
       
-      <tr>
-        <td><b>aasutosh</b></td>
-         <th>&nbsp;</th>
-         <th>&nbsp;</th>
-         <td>-</td>
-      </tr>
-      <tr>
-        <td><b>Game mode</b></td>
-         <th>&nbsp;</th>
-         <th>Game1 host:Xb1 Player</th>
-         <td></td>
-      </tr>
+      
     </tbody>
 </table>
 </div>
@@ -345,8 +349,8 @@ $userid = $_SESSION['user_data']['id'];
                             <label for="yoorteam" class="control-label col-sm-6">Your Team Game Won :</label>
                             <div class="col-sm-2 input">
                                 <select name="yourteam" id="yoorteam" class="form-control" required="">    
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
+                                    <option value="1">Win</option>
+                                    <option value="2">Loss</option>
                                 </select>
                             </div>
                         </div>
@@ -354,8 +358,8 @@ $userid = $_SESSION['user_data']['id'];
                             <label for="opponentteam" class="control-label col-sm-6">Opponent Team Game Won :</label>
                             <div class="col-sm-2 input">
                                 <select name="opponentteam" id="opponentteam" class="form-control" required="">    
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
+                                    <option value="1">WIN</option>
+                                    <option value="2">LOSS</option>
                                 </select>
                             </div>
                         </div>
@@ -431,8 +435,8 @@ $userid = $_SESSION['user_data']['id'];
                             <label for="yoorteam" class="control-label col-sm-6">Host Game Won :</label>
                             <div class="col-sm-2 input">
                                 <select name="yourteam" id="yoorteam" class="form-control" required="">    
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
+                                    <option value="1">Win</option>
+                                    <option value="2">Loss</option>
                                 </select>
                             </div>
                         </div>
@@ -440,8 +444,8 @@ $userid = $_SESSION['user_data']['id'];
                             <label for="opponentteam" class="control-label col-sm-6">Opponent Team Game Won :</label>
                             <div class="col-sm-2 input">
                                 <select name="opponentteam" id="opponentteam" class="form-control" required="">    
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
+                                    <option value="1">Win</option>
+                                    <option value="2">Loss</option>
                                 </select>
                             </div>
                         </div>

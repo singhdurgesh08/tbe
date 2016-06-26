@@ -121,7 +121,8 @@ if ($_GET['action'] == "postmatch") {
         die;
     }
 }
-if ($_GET['action'] == "accept_match") { 
+if ($_GET['action'] == "accept_match") {  
+   // echo "<pre>"; print_r($_POST); die;
     if ($_POST['submit'] == 'Join') {
         
         $userid = $_GET['user_id'];

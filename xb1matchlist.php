@@ -17,7 +17,7 @@ include "login-header.php";
             </div>
 
             <div class="col-sm-2 text-center">
-                <a href="Addmatches.php" class="btn btn-lg btn-block btn-success"> Post Matches </a> 
+                <a href="Addmatches.php?matchtype=XB1" class="btn btn-lg btn-block btn-success"> Post Matches </a> 
             </div>
         </div>
         <div class="row">
@@ -105,7 +105,7 @@ include "login-header.php";
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Accept Match</h4>
             </div>
-            <form method='post' id="accept_match" name="accept_match"  class="form-horizontal">
+            <form  id="accept_match_xb1" name="accept_match_xb1"  class="form-horizontal" method='post'>
                 <div class="modal-body">
                     <div id="div_wait"></div>
                     <div class="form-group">
@@ -162,12 +162,12 @@ include "login-header.php";
 
 }
 function joinMatch(){
-   $('#accept_match').validate({
+   $('#accept_match_xb1').validate({
       submitHandler: function(form) {
                $.ajax({
                     url: "ajax_file.php?action=accept_match&user_id=<?php echo $userid; ?>",
                     type: "post",
-                    data: $("#accept_match").serialize(),
+                    data: $("#accept_match_xb1").serialize(),
                      beforeSend: function(d) {
                       $("#div_wait").html("Please wait we Accepting match .....");
                      },
@@ -175,7 +175,7 @@ function joinMatch(){
                       if(d ==='error'){
                          $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! You have No credit Please add credit from Wallet .</b> ');
                       }else {
-                        window.location.href =' <?php echo HOSTNAME;?>matchdetails.php?Matchid='+d; 
+                        //window.location.href =' <?php echo HOSTNAME;?>matchdetails.php?Matchid='+d; 
                       }
                     }
                 });              

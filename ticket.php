@@ -48,9 +48,14 @@ include "login-header.php";?>
 
                 <tbody>
                          <?php
-                    $userid = $_SESSION['user_data']['id'];
+                          $userid = $_SESSION['user_data']['id'];
+                          $is_admin = $_SESSION['user_data']['is_admin'];
                     if ($des == "") {
+                        if($is_admin) {
+                           $res = mysql_query("Select ticket.id,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id ");  
+                        }else {
                         $res = mysql_query("Select ticket.id,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id where ticket.created_by = '$userid'");
+                        }
                     } $i =1;
                     while ($r = mysql_fetch_array($res)) { // echo "<pre>"; print_r($r);
                         ?>

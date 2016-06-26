@@ -82,7 +82,7 @@ Ha
          </div>
                 <div class="row">
                    <div class="col-sm-6">
-                     <button class="btn btn-lg btn-block btn-success" type="button" name="submit" >Team Record    2L - 2W</button>
+                     <button class="btn btn-lg btn-block btn-success" type="button" name="submit" >Team Record    L - W</button>
                    </div>
                   
          </div>
@@ -174,7 +174,50 @@ Ha
          </div>
                  <div class="row">
                     <div class="col-sm-12">
+                      <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <caption class="text-center"> <h3>All Matches</h3></caption>  
+                            <thead>
+                                <tr>
+                                    <th>Recent Match</th>
+                                    <th>Result</th>
+                                    <th>Date</th>
+                                    <th>Info</th>
+                               </tr>
+                            </thead>
 
+                            <tbody>
+                             <?php 
+                                 $res=mysql_query("Select * from users  
+                                                left join join_match on join_match.created_by = users.id 
+                                                left join ps4_match on ps4_match.id = join_match.match_id 
+                                                where join_match.created_by = '$userid'");
+                              
+                                   while($r=mysql_fetch_assoc($res))
+                                  {    //print_r($r);
+                              ?>      
+                                           <tr>
+                                                <td><?php echo $r[platform] ?></td>
+                                                <td><?php if( $r[Match_play_status] == 0 )
+                                                            {
+                                                              echo "pending";
+                                                            }else if( $r[Match_play_status] == 1){
+                                                              echo "Win";
+                                                            }
+                                                            else
+                                                            {
+                                                              echo "Loss";
+                                                            }
+                                                 ?></td>
+                                                <td><?php echo $r[open_date] ?></td>
+                                                <td><a href="matchdetails.php?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
+                                                 
+                                           </tr>
+                                         <?php    }
+                                ?>
+                                        
+                            </tbody>
+
+                        </table>
 
                         <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <caption class="text-center"> <h3>Recent Matches</h3></caption>  
@@ -192,10 +235,10 @@ Ha
                                  $res=mysql_query("Select * from users  
                                                 left join join_match on join_match.created_by = users.id 
                                                 left join ps4_match on ps4_match.id = join_match.match_id 
-                                                where join_match.created_by = '$userid' ");
+                                                where join_match.created_by = '$userid' and  ps4_match.open_date >= NOW();");
                               
                                    while($r=mysql_fetch_assoc($res))
-                                  {   //  print_r($r);
+                                  {    //print_r($r);
                               ?>      
                                            <tr>
                                                 <td><?php echo $r[platform] ?></td>

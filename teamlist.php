@@ -11,13 +11,12 @@ include "login-header.php";
 <?php include "nav.php"; ?>
 <?php include "config.php";
 
-if (isset($_GET['delete_id'])) {
-    $sql_query = "DELETE FROM team WHERE id=" . $_GET['delete_id'];
-    mysql_query($sql_query);
-    header("Location:teamlist.php");
-    exit;
+ if (isset($_GET['teamid']) && is_numeric($_GET['teamid'])) {
+    $ids = $_GET['teamid'];
+    $result = mysql_query("DELETE FROM team WHERE id = '$ids'");
+    header("location: teamlist.php");
+    //EXIT;
 }
- 
 ?>
 <div class="home_tab_section">
 <div class="container">
@@ -56,7 +55,12 @@ if (isset($_GET['delete_id'])) {
                     $is_admin = $_SESSION['user_data']['is_admin'];
 
                     if ($des == "") {
-                        $res = mysql_query("Select * from team where created_by = '$userid'");
+                        if($is_admin){ 
+                           $res = mysql_query("Select * from team order by id desc"); 
+                        }else {
+                          $res = mysql_query("Select * from team where created_by = '$userid'");  
+                        }
+                        
                     } $i =1;
                     while ($r = mysql_fetch_array($res)) {  // echo "<pre>"; print_r($r);
                         ?>
@@ -82,13 +86,14 @@ if (isset($_GET['delete_id'])) {
                             <td>
                                 <a href="Teamdetails.php?teamid=<?php echo $r[0]; ?>"> View Team </a>  
                                  <?php 
-                                    if ($is_admin == "1") {
+                                    if ($is_admin == "1" || $userid ==$r['created_by']) {
                                         echo ('| <a href=teamlist.php?teamid='. $r[id] . ' >Delete</a>');
 
                                         if (isset($_GET['teamid']) && is_numeric($_GET['teamid']))
                                             {
                                                   $ids = $_GET['teamid'];
                                                   $result = mysql_query("DELETE FROM team WHERE id = '$ids'");
+                                                    header("location: teamlist.php");
                                                                                                      
                                             }
 
