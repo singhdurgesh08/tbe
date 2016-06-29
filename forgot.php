@@ -71,50 +71,54 @@ $(document).ready(function(){
  
 
 
+
 <?php
 session_start();
 include "config.php";
 if (isset($_POST['submit']))
  {
-	//echo "hello";die();
-	$email = $_POST['email'];
 	
+	$email = $_POST['email'];
 	$query="select * from users where user_email='$email'";
 	$run = mysql_query($query);
 	$count=mysql_num_rows($run);
+	//print_r($count);die();
+
 	
 	if ($count==1)
 	 {
-		$rows=mysql_fetch_array($run);
-		$pass  =  $rows['user_pass'];//FETCHING PASS
-	    $to = $rows['user_email'];
-        $from = "Coding Cyber";
-        $url = "http://www.codingcyber.com/";
-	    $body  =  "Coding Cyber password recovery Script
-	      Url : $url;
-	      email Details is : $to;
-	      Here is your password  : $pass;
-	      Sincerely,
-	      Coding Cyber";
-	    $from = "Your-email-address@domaindotcom";
+					ini_set("SMTP", "smtp.server.com");
+						$rows=mysql_fetch_array($run);
+						$pass  =  $rows['user_pass'];//FETCHING PASS
+					    $to = $rows['user_email'];
+				        $from =  "From: Admin\r\n";
+				        $subject = " Password recovered";
+					    $content = "Your Password is : = " . $pass;
+					    $headers1 = "From: $from\n";
+					    $headers1 .= "Content-type: text/html;charset=iso-8859-1\r\n";
+					    $headers1 .= "X-Priority: 1\r\n";
+					    $headers1 .= "X-MSMail-Priority: High\r\n";
+					    $headers1 .= "X-Mailer: Just My Server\r\n";
+					    $sentmail = mail ( $to, $subject, $content, $headers1 );
 
-	        $subject = "CodingCyber Password recovered";
-	        $headers1 = "From: $from\n";
-	        $headers1 .= "Content-type: text/html;charset=iso-8859-1\r\n";
-	    	$headers1 .= "X-Priority: 1\r\n";
-	        $headers1 .= "X-MSMail-Priority: High\r\n";
-	        $headers1 .= "X-Mailer: Just My Server\r\n";
-	        $sentmail = mail ( $to, $subject, $body, $headers1 );
+					    if ($sentmail==1) {
+					    	
+					    	echo"<script>alert('Your password sent to your emailid')</script>";
+					    }
+					    else
+					    {
+					    	echo"<script >alert('Problem to send your password')</script>";
+					    }
+
 
 	}
 	else {
+				
+				echo"<script>alert('Entered email id not valid ')</script>";
+		}
 
-	   
-	  if($sentmail==1)
+}
+	
+?>	   
 
-	    {
-	        echo "<span style='color: #ff0000;'> Invitation Has Been Sent To Your Email Address.</span>";
-	    }
-	   
-?>
  <?php include "footer.php";?>

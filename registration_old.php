@@ -4,15 +4,10 @@ session_start();
 include "header.php";
 include "nav_before_login.php";
 ?>
-<!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>-->
+
 <script>
     var rootpath = '<?php echo HOSTNAME; ?>';
 </script>
-<script src="<?php echo HOSTNAME; ?>assets/js/jquery.timepicker.js" type="text/javascript"></script>
-<script src="<?php echo HOSTNAME; ?>assets/js/location.js" type="text/javascript"></script>
-<link rel="stylesheet" href="<?php echo HOSTNAME; ?>assets/css/jquery.timepicker.css" />
 
 <script>
 
@@ -35,7 +30,8 @@ include "nav_before_login.php";
                 },
                  confirm_pass: {
                     required: true,
-                    minlength: 5
+                    minlength: 5,
+                    equalTo : '[name="pass"]'
                     
                 },
                 
@@ -55,7 +51,8 @@ include "nav_before_login.php";
                 },
                  confirm_pass: {
                     required: "Please provide a confirm password",
-                    minlength: "Your confirm password must be at least 5 characters long"
+                    minlength: "Your confirm password must be at least 5 characters long",
+                    equalTo : 'Please enter password and confirm password same'
                     
                 },
                 
@@ -107,8 +104,8 @@ include "nav_before_login.php";
 
                     </fieldset>
                     <div class="col-sm-12 text-center">
-                        <p><input type="checkbox" required name="terms"><u></u> I accept the <a href="term-service.php">terms of condition</a>&nbsp;&&nbsp;<a href="privacy.php">privacy policy</a></p>
-                    </div>                                                                       
+                        <p><input type="checkbox" required name="terms"><u></u> I accept the Privacy <a href="term-service.php" target="_blank">Terms of service </a> of tbesportsgaming</p>
+                    </div>
                     <div class="form-group">
                         <label for="" class="control-label col-sm-6 back hidden-xs">&nbsp;</label>
                         <div class="col-sm-12 input text-center">
@@ -158,59 +155,25 @@ if (isset($_POST['submit'])) {
    
     $check_name = "select * from users where user_name ='$user_name'";
     $run = mysql_query($check_name);
-        if (mysql_num_rows($run) >= 1) {
+    
+    if (mysql_num_rows($run) >= 1) {
         echo "<script>alert('Name $user_name is already exits')</script>";
         exit();
     }
+
     $check_email = "select * from users where user_email ='$user_email'";
     $run = mysql_query($check_email);
+    
     if (mysql_num_rows($run) >= 1) {
         echo "<script>alert('Email $user_email is already exits')</script>";
         exit();
     }
-    
+  
      $query="INSERT INTO `users` (`id`,`user_name`, `user_email`, `user_pass`, `confirm_pass`, `membership_id`, `createddate`, `is_admin`) VALUES (NULL, '$user_name', '$user_email', '$user_pass', '$confirm_pass','1',CURRENT_TIMESTAMP, '0')";
-     if (mysql_query($query)) {
+
+
+    if (mysql_query($query)) {
         echo"<script>alert('Registration successfullly completed')</script>";
     }
-
-      $used_id = mysql_insert_id();
-      if(!empty($used_id)) {
-           // ini_set("SMTP", "smtpout.secureserver.net");
-            ini_set("SMTP", "smtp.server.com");
-            $actual_link = "http://$_SERVER[HTTP_HOST]/tbe/"."registration.php?id=" . $used_id;
-            //var_dump($actual_link);die();
-            $toEmail = $user_email;
-            $subject = "User Registration Activation Email";
-            $content = "Click this link to activate your account. <a href='" . $actual_link . "'>" . $actual_link . "</a>";
-            echo $content;
-            $content1 = "Your Registered mail id = " . $user_email ;
-            $content2 = "Your password =".$user_pass ;
-         //   var_dump($content);die();    
-            $mailHeaders = "From: Admin\r\n";
-
-           // $headers = "&quot;From: admin@infotuts.com \r\n&quot;";
-            //$headers .= "&quot;MIME-Version: 1.0\r\n&quot;";
-            //$headers .= "&quot;Content-Type: text/html; charset=ISO-8859-1\r\n&quot;";
-            
-            //var_dump($mailHeaders);die();
-            if(mail($toEmail, $subject, $content,$content1,$content2, $mailHeaders)) {
-                $message = "You have registered and the activation mail is sent to your email. Click the activation link to activate you account."; 
-            }
-            //unset($_POST);
-
 }
-
-    
-}
-if(!empty($_GET["id"])) {
-    $query = "UPDATE users set status = 'active' WHERE id='" . $_GET["id"]. "'";
-    $result = mysql_query($query);
-        if(!empty($result)) {
-            echo"<script>alert('Registration successfullly completed')</script>";
-        } else {
-            echo"<script>alert('Problem')</script>";
-        }
-    }
 ?>
-

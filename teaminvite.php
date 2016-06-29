@@ -50,7 +50,7 @@ include "login-header.php";?>
                                             <td><?php echo $r['team_name']; ?></td>
                                             <td>
                                              
-                                            <a href="Teaminvite.php?action=add" class="r"> Accept </a> 
+                                            <a href="Teaminvite.php?action=add" class="r"> Accept | Decline </a> 
                                               
                                       <?php 
                                        }

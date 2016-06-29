@@ -39,7 +39,14 @@ if ($_GET['action'] == "changewinner") {
 
     $email = $detail1['user_email'];
     $userid = $detail1['created_by'];
-    $amount = $detail1['amount'] * 2;
+    if($_SESSION['dimond_user'] == "dimond"){
+       //$amount = $detail1['amount'] * 2;
+       $amount = (float)$detail1['amount'] + (float)$detail1['amount'];
+    }else {
+        $winner = $detail1['amount'] * 80 / 100;
+        $amount = $detail1['amount'] + (float)$winner;
+        //$amount = $detail1['amount'] * 2;
+    }
     $query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
             `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`, `start_date`, `end_date`) 
             VALUES ('', 'Winner', '1', 'ADD', '$userid', '$amount', 'USD', '1', now(), '$email',now(),now())";
@@ -123,7 +130,7 @@ if ($_GET['action'] == "postmatch") {
 }
 if ($_GET['action'] == "accept_match") {  
    // echo "<pre>"; print_r($_POST); die;
-    if ($_POST['submit'] == 'Join') {
+    //if ($_POST['submit'] == 'Join') {
         
         $userid = $_GET['user_id'];
         $result = mysql_query("select sum(payment_gross) AS value_sum from payments where user_id ='$userid' and payment_type ='ADD' and payment_status ='1'");
@@ -158,7 +165,7 @@ if ($_GET['action'] == "accept_match") {
             //header("Location: matchdetails.php?Matchid=" . $matchid);
             echo $matchid;  exit;
         }
-    }
+   // }
     //echo "<pre>"; print_r($_POST); die;
     
 }

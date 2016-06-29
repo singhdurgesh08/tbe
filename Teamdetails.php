@@ -103,8 +103,7 @@ Ha
                                    <th>Roster</th>
                                     <th>Role</th>
                                     <th>Date Joined</th>
-                                    <th>Action</th>
-                                </tr>
+                                    </tr>
                             </thead>
 
                             <tbody>
@@ -118,11 +117,8 @@ Ha
                                                 <td> <?php echo $r['user_name']; ?></td>
                                                 <td>
                                                     <?php
-                                            
-                                                          $var =$r['team_id'];
-                                                          //var_dump($r['user_id']);die();
-
-                                                          if($r['team_id']== $var && $r['created_by']==$r['user_id'])
+                                                           $var =$r['team_id'];
+                                                           if($r['team_id']== $var && $r['created_by']==$r['user_id'])
                                                             {
                                                                 echo "Captain";
                                                             }
@@ -134,29 +130,7 @@ Ha
 
                                                 </td>
                                                 <td><?php echo date ("d-M-Y",strtotime($r['join_date'])); ?></td>
-                                                <td>
-                                                 <?php 
-                                                       // var_dump($teamid);die();
-                                                       
-                                                      
-
-                                                       //$url = "http://localhost/teamdetails.php?email=" . $r[team_id] . "&eventid=" . $r[user_id];
-
-                                                        echo ('<a href=teamdetails.php?teamid='. $r[team_id] .'&userid=' . $r[user_id].' >Disband Team</a>');
-                                                         
-                                                          if (isset($_GET['teamid']) && is_numeric($_GET['teamid']) AND isset($_GET['userid']) && is_numeric($_GET['userid']) )
-                                                               {
-
-                                                                 $tid = $_GET['teamid'];
-                                                                 $uid = $_GET['userid'];
-                                                                 //var_dump($tid);die();
-                                                                 $result = mysql_query("DELETE FROM team_list WHERE user_id = '$uid' and team_id='$tid' ");
-                                                               }
-
-                                                        
-                                 
-                                                ?>
-                                                  </td>
+                                               
                                            </tr>
                                          <?php    }
                                         ?>

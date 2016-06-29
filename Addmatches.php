@@ -118,10 +118,6 @@ $matchtype = $_GET['matchtype'];
 
                             </div>
 
-
-
-
-
                         </div>
 
                         <div class="form-group">
@@ -134,27 +130,26 @@ $matchtype = $_GET['matchtype'];
                                            $month = array('01'=>"01",'02'=>"02",'03'=>"03", '04'=>"04", '05'=>"05", '06'=>"06", '07'=>"07", '08'=>"08", '09'=>"09", '10'=>"10", '11'=>"11", '12'=>"12");
                                            foreach ($month as $key => $value)
                                            {
-                                            if($value == date("h")) { $selected = 'selected = "selected"'; }
+                                           // if($value == date("h")) { $selected = 'selected = "selected"'; }
                                              echo '<option value="'.$key.'" '. $selected.'>'.$value.'</option>';
-                                             $selected = "";
+                                             // $selected = "";
                                            }
                                     ?>
 
                                 </select>
                             </div>
-                            <div class="col-sm-2 input"><select name="Minute" id="Minute" class="form-control" required="">
+                            <div class="col-sm-2 input">
+                              <select name="Minute" id="Minute" class="form-control" required="">
                                     <option value="">Minutes</option>
                                     <option value="00">00</option>
                                     <option value="15">15</option>
                                     <option value="30">30</option>
                                     <option value="45">45</option>
                                     <option value="60">60</option>
-
                                 </select>
                             </div>  
 
-         
-                            <div class="col-sm-2 input">
+                             <div class="col-sm-2 input">
                                    <select name="Session" id="session" class="form-control" required="">
                                    <option value="AM">AM</option>
                                     <option value="PM">PM</option>

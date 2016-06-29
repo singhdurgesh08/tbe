@@ -1,5 +1,5 @@
 <?php 
-   error_reporting(0);
+      error_reporting(0);
 	include "constant.php";
 	$baseurl = HOSTNAME;
         $userid = $_SESSION['user_data']['id'];
@@ -60,3 +60,12 @@
                 <div></div>
         </div>
 </header>
+<?php 
+//$detail1['amount'] = 1;
+// if($_SESSION['dimond_user'] == "dimond"){
+//      echo  $amount = (float)$detail1['amount'] + (float)$detail1['amount'];
+//    }else {
+//         $winner = $detail1['amount'] * 80 / 100;
+//         echo $amount = $detail1['amount'] + (float)$winner;
+//    }
+?>

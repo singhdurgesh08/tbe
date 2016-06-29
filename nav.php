@@ -127,20 +127,20 @@
 		  <li class=" dropdown <?php if(ereg("leadership.php",$file)>0 || ereg("staff.php",$file)>0  || ereg("faq.php",$file)>0) echo " active"; ?>"><a class="active">Support</a>
 		  <div class="dropdown-content" style="z-index:999;">
                         <a href="ticket.php">Ticket</a>
-			<!--<a href="leadership.php">Leadership</a>-->
-			<!--<a href="staff.php">Tournament Staff</a>-->
-			<a href="faq.php">Faq</a>
+						<a href="faq.php">Faq</a>
 		</div>
 		  </li>
 		  <li class="dropdown selected">
 			<a class="dropbtn" style="color:red;background-color: yellow;" > <b><?php echo substr($_SESSION['user_data']['user_name'],0,20);?> &nbsp;</b></a>  
 			<div class="dropdown-content" style="z-index:999;">
-			<a href="myprofile.php">My Profile</a>
+			<a href="myprofile.php?userid=<?php echo $userid ?>">My Profile</a>
+			<a href="wallet.php">Wallet</a>    
+			<a href="subscribe_membership.php">Membership</a> 
+			<a href="teaminvite.php">Team Invite</a>      
             <a href="editprofile.php">Edit Profile</a>
-			<a href="teaminvite.php">Team Invite</a>
 			<a href="home.php">Home</a>
-			<a href="wallet.php">Wallet</a>
-			<a href="subscribe_membership.php">Membership</a>
+			
+			
 			<!--<a href="Addplaystation.php">Gamertag</a>-->
 			<a href="logout.php">Logout</a>
 		</div>

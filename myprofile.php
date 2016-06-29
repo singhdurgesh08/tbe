@@ -6,6 +6,8 @@ if ($_SESSION['user_data']['user_name'] == '') {
     exit();
  }
  
+//$userid = $_GET['userid'];
+//var_dump($userid);die();
 
 include "login-header.php";?>
 <?php include "nav.php";?>
@@ -15,14 +17,24 @@ include "login-header.php";?>
 	<div class="row">
 		
                 <div class="col-sm-3">
+                <?php 
+                $query = mysql_query("Select * from user_profile_image where userid=$userid");
+                $result = mysql_fetch_array($query);
+                $finalimage =  $result ['user_image'];
+                echo '<img src="images/jpeg;base64,'.base64_encode( $finalimage['user_image'] ).'"/>';
+               
+                ?>
                 <img src="<?php echo HOSTNAME; ?>assets/images/profile.jpg" width="150" class="img-responsive" alt="" />
                 <form action="myprofile.php"
                                 enctype="multipart/form-data" method="post">
-                                <p> <br> <input type="file" name="file" size="40"> </p>
+                                <p> <br> <input type="file" name="image" size="40"> </p>
                                 <div>
                                 <input type="submit" name="btn-upload" value="Upload" class="btn btn-primary"/>
                                 </div>
-                        </form>
+               
+                
+                                
+                </form>
                 
                 </div>
                     <div class="col-sm-8">
@@ -142,7 +154,7 @@ include "login-header.php";?>
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">
                                         <img src="<?php echo HOSTNAME; ?>assets/images/XboxLogo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label>
-                                    <div class="col-sm-6 input"><input name='Gamertag' id="name" value="<?php echo $r['Gamertag'];?>" placeholder="Gamertag" class="form-control" required=""></div>
+                                    <div class="col-sm-6 input"><input name='Gamertag' id="name" value="<?php echo $r['Gamertag'];?>" placeholder="xbox" class="form-control" required=""></div>
                                 </div>
 
                                 <div class="form-group">
@@ -251,15 +263,6 @@ if(isset($_POST['Update']))
 			 $Time_zone = $_POST['Time_zone'];
 			 $Date_of_Birth = $_POST['Date_of_Birth'];
 			
-
-
-
-
-
-
-
-
-
 			 $sql="UPDATE user_profile SET First_Name='$First_Name', Last_Name='$Last_Name', Street_Address='$Street_Address',City='$City',Country='$Country',State='$State',Postal_Code='$Postal_Code',Gender='$Gender',Time_zone='$Time_zone',Date_of_Birth='$Date_of_Birth' WHERE Email_address='$user'";
 
 			 $result =mysql_query($sql);
@@ -273,28 +276,31 @@ if(isset($_POST['Update']))
 			 }
    		}	
                 
-                if (isset($_POST['btn-upload'])) {
-    $file = rand(1000, 100000) . "-" . $_FILES['file']['name'];
-    $file_loc = $_FILES['file']['tmp_name'];
-    $file_size = $_FILES['file']['size'];
-    $file_type = $_FILES['file']['type'];
-    $folder = "uploads/";
+    
+ if(isset($_POST['btn-upload']))
+ {          
 
-    $new_size = $file_size / 1024;
-    $new_file_name = strtolower($file);
-    $final_file = str_replace(' ', '-', $new_file_name);
-
-    if (move_uploaded_file($file_loc, $folder . $final_file)) {
-        // $sql="INSERT INTO profile_image(file,type,size) VALUES('$final_file','$file_type','$new_size')";
-        // mysql_query($sql);
-        ?>
-                      <script>
-                      alert('successfully uploaded');
-                            window.location.href='myprofile.php?success';
-                            </script>
-        <?php
-    }
+       $image =addslashes(file_get_contents($_FILES['image']['tmp_name']));
+       $image_name = addslashes($_FILES['image']['name']);
+       $image_size = getimagesize($_FILES['image']['tmp_name']);
+       if ($image_size==FALSE) {
+           echo "That's not an image";
+       }
+       else
+       {
+           if(!$query =mysql_query("INSERT INTO `user_profile_image` VALUES ('','$userid',' $image','$image_name')"))
+           {
+                echo "problem to upload your profile image"; 
+           } 
+           else
+           {
+                echo "Your image successfullly uploaded";
+           }
+            
+        }  
+            
 }
+
 ?>
 <div>&nbsp;</div>
 <?php include "footer.php";?>

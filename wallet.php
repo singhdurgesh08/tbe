@@ -118,7 +118,7 @@ a:active, a:hover {
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input name="agree" type="checkbox" required="" class="required">
-                                    I have read and agree to the tbeGaming <a href="term-service.php" translate="" target="_blank">Terms and Conditions</a>
+                                    <a href="term-service.php" translate="" target="_blank"> I have read the privacy policy & terms of condition.</a>
 
                                 </div>
                             </div>
@@ -142,7 +142,7 @@ a:active, a:hover {
 
                             <div class="row">
                                 <div class="col-sm-8 text-center">
-                                    <input type="text" id="email" name="email" class="form-control" placeholder="Enter Partner Paypal Email" required=""/>
+                                    <input type="text" id="email" name="email" class="form-control" placeholder="Enter your paypal email" required=""/>
                                 </div>
                             </div>
                              <div class="row">

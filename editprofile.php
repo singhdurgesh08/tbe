@@ -6,19 +6,21 @@ if ($_SESSION['user_data']['user_name'] == '') {
     exit();
  }
 include "login-header.php";?>
-<?php include "nav.php";?>
- <?php
-$userid = $_SESSION['user_data']['id'];
-$res = mysql_query("Select * from users where id= $userid");
-$r = mysql_fetch_array($res);
-//  echo print_r($r);
-?>
-
+        <?php include "nav.php";?>
+         <?php
+        $userid = $_SESSION['user_data']['id'];
+        $res = mysql_query("Select * from users where id= $userid");
+        $r = mysql_fetch_array($res);
+        //echo print_r($r);
+        ?>
 <script>
 $(document).ready(function(){
   $("#editform").validate();
     });
 </script>
+
+
+
 <div class="home_tab_section">
 <div class="container">
                 <div class="row">
@@ -29,10 +31,10 @@ $(document).ready(function(){
                 <div>
                     &nbsp;
                 </div>
-
+        
                 <div class="row">
                     <div class="col-sm-8">
-                        <form method='post' id="editform" class="form-horizontal">
+                        <form method='post' id="editform"  action='editprofile.php?userid=<?php echo $userid; ?>' class="form-horizontal">
                         <fieldset>
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">First Name</label>
@@ -85,10 +87,9 @@ $(document).ready(function(){
 
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">Country</label>
-                                    <div class="col-sm-6 input"><select name="Country" id="Country" class="form-control" required="">   
+                                    <div class="col-sm-6 input"><select name="Country"  id="Country" class="form-control" required="">   
                                            <option value=""> Please select Country </option>
-                                                                 
-                                                                    <?php 
+                                                 <?php 
                                                     $query =mysql_query("select name from countries");
                                                     while($res = mysql_fetch_array($query))
                                                     {
