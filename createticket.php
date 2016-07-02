@@ -1,5 +1,5 @@
-<?php 
- session_start();
+<?php ob_start(); 
+    session_start();
   if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login.php");
     exit();
@@ -145,14 +145,16 @@ if (isset($_POST['submit'])) {
 
 
 $query ="INSERT INTO `ticket` (`id`, `name`, `ticket_type`, `description`, `created_by`, `ticket_status`, `created_date`, `match_id`, `url1`, `url2`, `url3`, `url4`, `url5`, `url6`) 
-VALUES ('NULL', '$team', '$category', '$Description', '$userid', '1', CURRENT_TIMESTAMP, '$mid', '$URL1', '$URL2', '$URL3', '$URL4', '$URL5', '$URL6')";
+VALUES ('NULL', '$team', '$category', '$Description', '$userid', '1', now(), '$mid', '$URL1', '$URL2', '$URL3', '$URL4', '$URL5', '$URL6')";
 //mysql_query($query);
    if (mysql_query($query)) 
     {
         //  $yourURL="http://localhost/tbe/ticket.php";
          //$var = "http://$_SERVER[HTTP_HOST]/tbe/"."ticket.php";
          //  echo ("<script>location.href='$var'</script>");
-         header("location: ticket.php");
+       //echo "sssssss"; die;
+         ob_start();
+         header("location:ticket.php");
          exit();
     }
 }

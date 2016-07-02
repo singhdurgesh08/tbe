@@ -33,7 +33,7 @@ Ha
         <div class="col-md-9">
             <div class="jumbotron">
                 <div class="col-sm-12 text-center">
-                       
+                    <a href="sentinvite.php">Sent Invite's</a>   
                     </div>
                 <div class="row">
                    <div class="col-sm-12">
@@ -41,7 +41,9 @@ Ha
                    </div>
                     </div>
                <div class="row">
+                    
                    <div class="col-sm-4">
+
                        <img src="<?php echo HOSTNAME; ?>assets/images/camera.jpg" class="img-responsive" alt="" >
                    </div>
                    <div class="col-sm-8 ">
@@ -114,7 +116,7 @@ Ha
                                     
                                 ?>
                                            <tr>
-                                                <td> <?php echo $r['user_name']; ?></td>
+                                                <td><a href="myprofile.php"><?php echo $r['user_name']; ?></a></td>
                                                 <td>
                                                     <?php
                                                            $var =$r['team_id'];
@@ -141,57 +143,11 @@ Ha
     </div>
                 
                 <div class="row">
-                   <div class="col-sm-12">
-                    &nbsp;
-                   </div>
-                   
+                                     
          </div>
                  <div class="row">
                     <div class="col-sm-12">
-                      <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                            <caption class="text-center"> <h3>All Matches</h3></caption>  
-                            <thead>
-                                <tr>
-                                    <th>Recent Match</th>
-                                    <th>Result</th>
-                                    <th>Date</th>
-                                    <th>Info</th>
-                               </tr>
-                            </thead>
-
-                            <tbody>
-                             <?php 
-                                 $res=mysql_query("Select * from users  
-                                                left join join_match on join_match.created_by = users.id 
-                                                left join ps4_match on ps4_match.id = join_match.match_id 
-                                                where join_match.created_by = '$userid'");
-                              
-                                   while($r=mysql_fetch_assoc($res))
-                                  {    //print_r($r);
-                              ?>      
-                                           <tr>
-                                                <td><?php echo $r[platform] ?></td>
-                                                <td><?php if( $r[Match_play_status] == 0 )
-                                                            {
-                                                              echo "pending";
-                                                            }else if( $r[Match_play_status] == 1){
-                                                              echo "Win";
-                                                            }
-                                                            else
-                                                            {
-                                                              echo "Loss";
-                                                            }
-                                                 ?></td>
-                                                <td><?php echo $r[open_date] ?></td>
-                                                <td><a href="matchdetails.php?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
-                                                 
-                                           </tr>
-                                         <?php    }
-                                ?>
-                                        
-                            </tbody>
-
-                        </table>
+                     
 
                         <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <caption class="text-center"> <h3>Recent Matches</h3></caption>  
@@ -286,12 +242,9 @@ Ha
                         <li class="nav-header"></li>
                         <li class="active"><a href="xb1matchlist.php">Match Finder</a></li>
                         <li><a href="Addplayer.php?teamid=<?php echo $teamid;?>">Add Member</a></li>
-
-
-
-                        <li><a href="Teamdetails.php?teamid=<?php echo $teamid; ?>&action=DisableHere">Disable Team</a><li>
+                       <!-- <li><a href="Teamdetails.php?teamid=<?php echo $teamid; ?>&action=DisableHere">Disable Team</a><li>-->
                         <li><a href="Editteam.php?teamid=<?php echo $teamid; ?>">Edit Team</a></li>
-<!--                        <li><a href="EditRoster.php?teamid=<?php echo $teamid; ?>">Edit Roster</a></li>-->
+                        <li><a href="allmatch.php">All Matches</a></li>
                         
                     </ul>
                 </div>

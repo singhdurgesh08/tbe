@@ -68,7 +68,7 @@ $ticketid = $_GET['ticketid'];
                              <td><?php echo $r['id']; ?></td>
                              <td><?php echo $r['ticket_type']; ?></td>
                              <td><?php echo $r['description']; ?></td>
-                             <td><?php echo $r['created_date']; ?></td>
+                             <td><?php echo date("Ym-d h:i:s A",strtotime($r['created_date'])); ?></td>
 
                              <td><a href="view_ticket.php?ticketid=<?php echo $r[id]; ?>">View</a> &nbsp; |
                              &nbsp;
