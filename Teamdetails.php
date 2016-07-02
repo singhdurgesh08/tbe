@@ -23,7 +23,84 @@ if ($_GET['action'] =='DisableHere')
 tbody td {
     background-color: #EEEEEE;
 }
-Ha
+
+.nav.nav-tabs li:first-child a {
+    margin-left: 0;
+}
+.nav.nav-tabs li.active a {
+    background: #fff;
+    border-bottom: 0 !important;
+    border-color: #d9d9d9;
+    border-top: 0;
+    color: #DF0A0A;
+    position: relative;
+    top: 1px;
+    z-index: 1;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+    cursor: default;
+}
+
+
+.nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.428571429;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+.nav.nav-tabs li a {
+    -webkit-border-top-left-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+    -moz-border-radius-top-left: 4px;
+    -moz-border-radius-top-right: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background:  #006DCC;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    padding: 10px 25px;
+    position: relative;
+    text-align: center;
+    top: -1px;
+}
+a:active, a:hover {
+    outline: 10;
+}
+.tab-content>.tab-pane {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    border-top-left-radius: 0 !important;
+    margin-bottom: 10px;
+    padding: 10px;
+    padding-bottom: 0;
+}
+.nav.nav-tabs li.active a::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-border-top-left-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+    -moz-border-radius-top-left: 4px;
+    -moz-border-radius-top-right: 4px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 4px;
+    background:  #006DCC;
+    height: 5px;
+    width: 100%;
+}
+
 </style>
 <div class="home_tab_section">
 <div class="container">
@@ -32,9 +109,7 @@ Ha
         <!--/span-->
         <div class="col-md-9">
             <div class="jumbotron">
-                <div class="col-sm-12 text-center">
-                    <a href="sentinvite.php">Sent Invite's</a>   
-                    </div>
+                
                 <div class="row">
                    <div class="col-sm-12">
                     &nbsp;
@@ -43,8 +118,16 @@ Ha
                <div class="row">
                     
                    <div class="col-sm-4">
-
+                       <?php
+                        $res = mysql_query("Select * from team where id= $teamid");
+                        $r = mysql_fetch_array($res);
+                        $finalimage = $r['team_image'];
+                       // echo "<pre>"; print_r($r);
+                       if($finalimage) {  ?>
+                              <img src="<?php echo HOSTNAME; ?>upload/<?php echo $finalimage;?>" width="150" class="img-responsive" alt="" />
+                      <?php } else { ?>
                        <img src="<?php echo HOSTNAME; ?>assets/images/camera.jpg" class="img-responsive" alt="" >
+                       <?php }  ?>
                    </div>
                    <div class="col-sm-8 ">
 
@@ -149,6 +232,23 @@ Ha
                     <div class="col-sm-12">
                      
 
+                        
+  <div class="home_tab_section">
+    <div class="container">
+        <div class="row">
+            <div class="tabset-cashier col-md-12 ng-isolate-scope">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="ng-isolate-scope active">
+                        <a href="#1" data-toggle="tab">Recent Matches</a>
+                    </li>
+                    <li role="presentation" class="ng-isolate-scope">
+                        <a href="#2" data-toggle="tab">All Matches</a>
+                    </li>
+                    
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="1">
+              
                         <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <caption class="text-center"> <h3>Recent Matches</h3></caption>  
                             <thead>
@@ -193,6 +293,100 @@ Ha
                             </tbody>
 
                         </table>
+                    </div>
+                    <div class="tab-pane" id="2">
+                        <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <caption class="text-center"> <h3>All Matches</h3></caption>  
+                            <thead>
+                                <tr>
+                                    <th>Recent Match</th>
+                                    <th>Result</th>
+                                    <th>Date</th>
+                                    <th>Info</th>
+                               </tr>
+                            </thead>
+
+                            <tbody>
+                             <?php 
+                                 $res=mysql_query("Select * from users  
+                                                left join join_match on join_match.created_by = users.id 
+                                                left join ps4_match on ps4_match.id = join_match.match_id 
+                                                where join_match.created_by = '$userid'");
+                              
+                                   while($r=mysql_fetch_assoc($res))
+                                  {    //print_r($r);
+                              ?>      
+                                           <tr>
+                                                <td><?php echo $r[platform] ?></td>
+                                                <td><?php if( $r[Match_play_status] == 0 )
+                                                            {
+                                                              echo "pending";
+                                                            }else if( $r[Match_play_status] == 1){
+                                                              echo "Win";
+                                                            }
+                                                            else
+                                                            {
+                                                              echo "Loss";
+                                                            }
+                                                 ?></td>
+                                                <td><?php echo $r[open_date] ?></td>
+                                                <td><a href="matchdetails.php?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
+                                                 
+                                           </tr>
+                                         <?php    }
+                                ?>
+                                        
+                            </tbody>
+
+                        </table>
+                        
+                    </div>
+                   
+                </div>
+                
+            </div>
+        </div><!--row end-->
+    </div>
+                 <div class="row">
+                    <div class="col-sm-12">
+                        
+
+
+                         <div class="login_form_page">
+                            <div class="row">
+                              <div class="col-sm-12 text-center">
+                                <h6 class="login_title"><br class="hidden-xs">Team invite's </h6>
+                              </div>
+                            </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                                <form method='post' id="login" class="form-horizontal login_form">
+                                  <fieldset>
+                                    <div class="form-group">
+                                      <div class="col-sm-12 input"><input name='name'  type="text" placeholder="Please Enter user name"  class="form-control email" required=""></div>
+                                    </div>
+            
+                            <div class="form-group">
+                              <div class="col-sm-12 input text-center">
+                                 <button class="btn btn-md btn-block btn-success" type="submit" name="submit" value="submit">Submit <i class="glyphicon glyphicon-chevron-right"></i></button>
+                              </div>
+                            </div>
+                         </form>
+                      </fieldset>   
+                  </div>
+                          
+                   
+        </div>
+            </div>
+                    </div>
+    </div>
+                <div class="row">
+                   <div class="col-sm-12">
+                    &nbsp;
+                   </div>
+                   
+         </div>
+            </div>
 
 
                          <div class="login_form_page">

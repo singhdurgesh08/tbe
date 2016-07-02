@@ -4,6 +4,9 @@ if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login.php");
     exit();
 }
+
+//var_dump($platform);die();
+
 include "login-header.php";
 include "nav.php";
 include "config.php";
@@ -27,7 +30,7 @@ include "config.php";
                    <div class="col-sm-3">
                         <br/>
                          <br/>
-                       <a href="AddTeam.php" class="btn btn-lg btn-block btn-success"> Create Team </a> 
+                       <a href="AddTeam.php?platform=PS4" class="btn btn-lg btn-block btn-success"> Create Team </a> 
                        <br/>
                        <a href="Matchlist.php" class="btn btn-lg btn-block btn-success"> Match Finder </a> 
                        <br/>

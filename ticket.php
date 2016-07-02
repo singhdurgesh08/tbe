@@ -56,9 +56,9 @@ $ticketid = $_GET['ticketid'];
                           //var_dump($is_admin);die();
                     if ($des == "") {
                         if($is_admin) {
-                           $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id order by ticket.id desc");  
+                           $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id order by ticket.created_date desc");  
                         }else {
-                        $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id where ticket.created_by = '$userid' order by ticket.id desc");
+                        $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id where ticket.created_by = '$userid' order by ticket.created_date desc");
                         }
                     } $i =1;
                     while ($r = mysql_fetch_array($res)) { 

@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 session_start();
 include "login-header.php";
 include "nav.php";
@@ -16,7 +16,7 @@ if (isset($_POST['update']))
     $sql_query = mysql_query("update team set team_name = '$Team_Name', platform ='$Gamertag', team_caption ='$Team_Caption', Game_Mode='$Game_Mode', description ='$Description'  where id = $teamid");
     if ($sql_query)
     {
-         header("Location: Teamdetails.php?teamid=" . $teamid);
+         header("Location:teamdetails.php?teamid=" . $teamid);
          echo"<script>alert('Team Updated Successfully')</script>";
     }
 }
@@ -28,13 +28,73 @@ $r = mysql_fetch_array($res);
 
 
 ?>
+<script src="<?php echo $baseurl; ?>assets/js/script.js"></script>
+<?php 
+
+if ($_POST['submit']=="Upload") {
+$msg = "";
+$validextensions = array("jpeg", "jpg", "png");
+$temporary = explode(".", $_FILES["file"]["name"]);
+$file_extension = end($temporary);
+
+if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") || ($_FILES["file"]["type"] == "image/jpeg")
+    ) && ($_FILES["file"]["size"] < 100000)//Approx. 100kb files can be uploaded.
+    && in_array($file_extension, $validextensions)) {
+
+if ($_FILES["file"]["error"] > 0) {
+    echo "Return Code: " . $_FILES["file"]["error"] . "<br/><br/>";
+} else {
+           $ext = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
+            $filename = time() . "." . $ext;
+
+
+           
+if (file_exists("upload/" . $filename)) {
+         echo $filename . " <b>already exists.</b> ";
+} else {
+              move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $filename);
+                $query = "UPDATE team set team_image = '$filename' WHERE id='" . $teamid . "'";
+                $result = mysql_query($query);
+                header("location:teamdetails.php?teamid=" . $teamid);
+                exit();
+            }
+}
+} else {
+    $msg = "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong>  ***Invalid file Size or Type***
+                </div>";
+    }
+}
+?>
 <div class="home_tab_section">
 <div class="container">
+        <?php
+       if (isset($msg)) {
+           echo $msg;
+       }  
+       ?>
     <div class="row">
         <div class="col-sm-12 text-center">
             <h1><br class="hidden-xs">Edit Team</h1>
         </div>
     </div>
+    <div class="col-sm-3">
+               
+                    <div id="clear"></div>
+                     <div id="preview"><img id="previewimg" src="" height="80" width="80" /><img id="deleteimg" src="<?php echo $baseurl; ?>assets/images/delete.png" />
+                     <span class="pre">IMAGE PREVIEW</span>
+                     </div>
+                  <form id="form" action="" method="post"enctype="multipart/form-data">
+
+                        <div id="upload">
+                            <input type="file" name="file" id="file"/>
+                        </div>
+                        <br/>
+                        <input type="submit" id="submit" name="submit" value="Upload" class="btn btn-primary" style="margin-left:58px;"/>
+                    </form>
+                     
+                </div>
     <div class="row">
         <div class="col-sm-8">
             <form method='post' action='Editteam.php?teamid=<?php echo $teamid; ?>' class="form-horizontal">

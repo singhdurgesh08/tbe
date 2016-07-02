@@ -1,10 +1,11 @@
-<?php 
+<?php ob_start();
 include "config.php";
 session_start();
 if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login.php");
     exit();
  }
+ $userid = $_SESSION['user_data']['id'];
 include "login-header.php";?>
         <?php include "nav.php";?>
          <?php
@@ -18,11 +19,52 @@ $(document).ready(function(){
   $("#editform").validate();
     });
 </script>
+<?php 
+
+if ($_POST['submit']=="Upload") {
+$msg = "";
+$validextensions = array("jpeg", "jpg", "png");
+$temporary = explode(".", $_FILES["file"]["name"]);
+$file_extension = end($temporary);
+
+if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") || ($_FILES["file"]["type"] == "image/jpeg")
+    ) && ($_FILES["file"]["size"] < 100000)//Approx. 100kb files can be uploaded.
+    && in_array($file_extension, $validextensions)) {
+
+if ($_FILES["file"]["error"] > 0) {
+    echo "Return Code: " . $_FILES["file"]["error"] . "<br/><br/>";
+} else {
+    $ext = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
+            $filename = time() . "." . $ext;
 
 
+           
+if (file_exists("upload/" . $filename)) {
+    echo $filename . " <b>already exists.</b> ";
+} else {
+    move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $filename);
+    $query = "UPDATE users set user_image = '$filename' WHERE id='" . $userid . "'";
+    $result = mysql_query($query);
+    header("location:myprofile.php?userid=".$userid);
+    exit();
+}
+}
+} else {
+    $msg = "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong>  ***Invalid file Size or Type***
+                </div>";
+    }
+}
+?>
 
+<script src="<?php echo $baseurl; ?>assets/js/script.js"></script>
 <div class="home_tab_section">
 <div class="container">
+    <?php
+    if (isset($msg)) {
+        echo $msg;
+    }  ?>
                 <div class="row">
                     <div class="col-sm-12 text-center">
                         <h1><br class="hidden-xs">Personal Information</h1>
@@ -33,21 +75,20 @@ $(document).ready(function(){
                 </div>
 
                 <div class="col-sm-3">
-                <?php 
-                $query = mysql_query("Select * from user_profile_image where userid=$userid");
-                $result = mysql_fetch_array($query);
-                $finalimage =  $result ['user_image'];
-                
                
-                ?>
-                <img src="<?php echo HOSTNAME; ?>assets/images/profile.jpg" width="150" class="img-responsive" alt="" />
-                <form action="myprofile.php"
-                                enctype="multipart/form-data" method="post">
-                                <p> <br> <input type="file" name="image" size="40"> </p>
-                                <div>
-                                <input type="submit" name="btn-upload" value="Upload" class="btn btn-primary"/>
-                                </div>
-                </form>      
+                    <div id="clear"></div>
+                     <div id="preview"><img id="previewimg" src="" height="80" width="80" /><img id="deleteimg" src="<?php echo $baseurl; ?>assets/images/delete.png" />
+                     <span class="pre">IMAGE PREVIEW</span>
+                     </div>
+                  <form id="form" action="" method="post"enctype="multipart/form-data">
+
+                        <div id="upload">
+                            <input type="file" name="file" id="file"/>
+                        </div>
+                        <br/>
+                        <input type="submit" id="submit" name="submit" value="Upload" class="btn btn-primary" style="margin-left:58px;"/>
+                    </form>
+                     
                 </div>
                 <div class="row">
                     <div class="col-sm-8">

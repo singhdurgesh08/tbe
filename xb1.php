@@ -27,7 +27,7 @@ include "config.php";
                    <div class="col-sm-3">
                         <br/>
                          <br/>
-                       <a href="AddTeam.php" class="btn btn-lg btn-block btn-success"> Create Team </a> 
+                       <a href="AddTeam.php?platform=XB1" class="btn btn-lg btn-block btn-success"> Create Team </a> 
                        <br/>
                        <a href="xb1matchlist.php" class="btn btn-lg btn-block btn-success"> Match Finder </a> 
                        <br/>

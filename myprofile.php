@@ -17,15 +17,15 @@ include "login-header.php";?>
 	<div class="row">
 		
                 <div class="col-sm-3">
-                <?php 
-                $query = mysql_query("Select * from user_profile_image where userid=$userid");
-                $result = mysql_fetch_array($query);
-                $finalimage =  $result ['user_image'];
-            //    echo '<img src="images/jpeg;base64,'.base64_encode( $finalimage['user_image'] ).'"/>';
-               
-                ?>
-                <img src="<?php echo HOSTNAME; ?>assets/images/profile.jpg" width="150" class="img-responsive" alt="" />
-                
+               <?php 
+                    $query = mysql_query("Select * from users where id=$userid");
+                    $result = mysql_fetch_array($query);
+                    $finalimage =  $result ['user_image'];
+                    if($finalimage) {  ?>
+                            <img src="<?php echo HOSTNAME; ?>upload/<?php echo $finalimage;?>" width="150" class="img-responsive" alt="" />
+                      <?php } else { ?>
+                       <img src="<?php echo HOSTNAME; ?>assets/images/match_profile.png" class="img-responsive" alt="" >
+                       <?php }  ?>
                 
                 </div>
                     <div class="col-sm-8">

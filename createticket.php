@@ -149,10 +149,7 @@ VALUES ('NULL', '$team', '$category', '$Description', '$userid', '1', now(), '$m
 //mysql_query($query);
    if (mysql_query($query)) 
     {
-        //  $yourURL="http://localhost/tbe/ticket.php";
-         //$var = "http://$_SERVER[HTTP_HOST]/tbe/"."ticket.php";
-         //  echo ("<script>location.href='$var'</script>");
-       //echo "sssssss"; die;
+       
          ob_start();
          header("location:ticket.php");
          exit();
