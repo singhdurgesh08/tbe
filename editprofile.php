@@ -31,40 +31,52 @@ $(document).ready(function(){
                 <div>
                     &nbsp;
                 </div>
-        
+
+                <div class="col-sm-3">
+                <?php 
+                $query = mysql_query("Select * from user_profile_image where userid=$userid");
+                $result = mysql_fetch_array($query);
+                $finalimage =  $result ['user_image'];
+                
+               
+                ?>
+                <img src="<?php echo HOSTNAME; ?>assets/images/profile.jpg" width="150" class="img-responsive" alt="" />
+                <form action="myprofile.php"
+                                enctype="multipart/form-data" method="post">
+                                <p> <br> <input type="file" name="image" size="40"> </p>
+                                <div>
+                                <input type="submit" name="btn-upload" value="Upload" class="btn btn-primary"/>
+                                </div>
+                </form>      
+                </div>
                 <div class="row">
                     <div class="col-sm-8">
                         <form method='post' id="editform"  action='editprofile.php?userid=<?php echo $userid; ?>' class="form-horizontal">
                         <fieldset>
                                 <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">First Name</label>
-                                    <div class="col-sm-6 input"><input name='First_Name' id="name" value="<?php echo $r['first_name']; ?>" placeholder="Please Enter First Name" class="form-control" required=""></div>
+                                    <label for="login_password" class="control-label col-sm-2">First Name</label>
+                                    <div class="col-sm-4 input"><input name='First_Name' id="name" value="<?php echo $r['first_name']; ?>" placeholder="Please Enter First Name" class="form-control" required=""></div>
+
+                                    <label for="login_password" class="control-label col-sm-2">Last Name</label>
+                                    <div class="col-sm-4 input"><input name='Last_Name' id="lname" value="<?php echo $r['last_name']; ?>" placeholder="Please Enter Last Name"  class="form-control" required=""></div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">Last Name</label>
-                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $r['last_name']; ?>" placeholder="Please Enter Last Name"  class="form-control" required=""></div>
+                                    <label for="login_password" class="control-label col-sm-2">Address</label>
+                                    <div class="col-sm-4 input"><input name='Address' id="address" value="<?php echo $r['Address']; ?>" placeholder="Please Enter Street address"  class="form-control" required="" ></div>
+                             
+                                    <label for="login_password" class="control-label col-sm-2">Gamertag</label>
+                                    <div class="col-sm-4 input"><input name='Gamertag' id="Gamertag" value="<?php echo $r['gamertag']; ?>" placeholder="Please Enter Street address"  class="form-control" required="" ></div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">Address</label>
-                                    <div class="col-sm-6 input"><input name='Address' id="address" value="<?php echo $r['Address']; ?>" placeholder="Please Enter Street address"  class="form-control" required="" ></div>
-                                </div>
-
-                                 <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">Gamertag</label>
-                                    <div class="col-sm-6 input"><input name='Gamertag' id="Gamertag" value="<?php echo $r['gamertag']; ?>" placeholder="Please Enter Street address"  class="form-control" required="" ></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">City</label>
-                                    <div class="col-sm-6 input"><input name='City' id="city" value="<?php echo $r['city']; ?>"  placeholder="Please Enter City"  class="form-control" required="" ></div>
-                                </div>
+                                    <label for="login_password" class="control-label col-sm-2">City</label>
+                                    <div class="col-sm-4 input"><input name='City' id="city" value="<?php echo $r['city']; ?>"  placeholder="Please Enter City"  class="form-control" required="" ></div>
 
                                 
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">State</label>
-                                    <div class="col-sm-6 input"><select name="State" id="state" class="form-control" required="">   
+                                
+                                    <label for="login_password" class="control-label col-sm-2">State</label>
+                                    <div class="col-sm-4 input"><select name="State" id="state" class="form-control" required="">   
                                                    <option value=""> Please select State </option>
                                                                      <?php 
                                                     $query =mysql_query("select name from states");
@@ -81,13 +93,13 @@ $(document).ready(function(){
                                                                   </select></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">Zip</label>
-                                    <div class="col-sm-6 input"><input name='zip' value="<?php echo $r['zip']; ?>" id="zip"  placeholder="Please Enter City" class="form-control" required="" ></div>
-                                </div>
+                                    <label for="login_password" class="control-label col-sm-2">Zip</label>
+                                    <div class="col-sm-4 input"><input name='zip' value="<?php echo $r['zip']; ?>" id="zip"  placeholder="Please Enter City" class="form-control" required="" ></div>
+                                
 
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">Country</label>
-                                    <div class="col-sm-6 input"><select name="Country"  id="Country" class="form-control" required="">   
+                                
+                                    <label for="login_password" class="control-label col-sm-2">Country</label>
+                                    <div class="col-sm-4 input"><select name="Country"  id="Country" class="form-control" required="">   
                                            <option value=""> Please select Country </option>
                                                  <?php 
                                                     $query =mysql_query("select name from countries");
@@ -103,14 +115,68 @@ $(document).ready(function(){
                                                          </select></div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">Paypal Email</label>
-                                    <div class="col-sm-6 input"><input name='paypal_email' value="<?php echo $r['paypal_email']; ?>" id="paypal"  placeholder="Please Enter City"  class="form-control email" required="" ></div>
+                               <div class="form-group">
+                                    <label for="login_password" class="control-label col-sm-2">Paypal Email</label>
+                                    <div class="col-sm-4 input"><input name='paypal_email' value="<?php echo $r['paypal_email']; ?>" id="paypal"  placeholder="Please Enter City"  class="form-control email" required="" ></div>
                                 </div> 
 
+        <div class="row">
+             <div class="col-sm-12 text-center"><h3> <br class="hidden-xs">Social Media</h3></div>
+                    <div class="col-sm-12 text-center">
+                        
+                    </div>
+                </div>
+
+             <div class="row">
+                    <div class="col-sm-12">
+                        <fieldset>
                                 <div class="form-group">
-                                    <label for="" class="control-label col-sm-6 back hidden-xs">&nbsp;</label>
-                                    <div class="col-sm-6 input text-center">
+                                    <label for="login_password" class="control-label col-sm-2">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/XboxLogo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label>
+                                    <div class="col-sm-4 input"><input name='Gamertag' id="name" value="<?php echo $r['Gamertag'];?>" placeholder="xbox" class="form-control" required=""></div>
+                             <div class="form-group">
+
+                                    <label for="login_password" class="control-label col-sm-2">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/playstation final.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-4 input"><input name='Last_Name' id="lname" value="<?php echo $r['playstation'];?>" placeholder="playstation"  class="form-control" required=""></div>
+                                </div>
+
+                              
+                                    <label for="login_password" class="control-label col-sm-2">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/facebook.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-4 input"><input name='Last_Name' id="lname" value="<?php echo $r['facebook']; ?>" placeholder="facebook`"  class="form-control" required=""></div>
+                                <div class="form-group">
+                                    <label for="login_password" class="control-label col-sm-2">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/Twitter.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-4 input"><input name='Last_Name' id="lname" value="<?php echo $r['Twitter']; ?>" placeholder="twitter"  class="form-control" required=""></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="login_password" class="control-label col-sm-2">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/twitch logo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-4 input"><input name='Last_Name' id="lname" value="<?php echo $r['twitch']; ?>" placeholder="twitch`.`"  class="form-control" required=""></div>
+                               
+                                    <label for="login_password" class="control-label col-sm-2">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/steam.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-4 input"><input name='Last_Name' id="lname" value="<?php echo $r['steam']; ?>" placeholder="steam`.`"  class="form-control" required=""></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="login_password" class="control-label col-sm-2">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/skype.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-4 input"><input name='Last_Name' id="lname" value="<?php echo $r['skype']; ?>" placeholder="skype"  class="form-control" required=""></div>
+                                
+                                    <label for="login_password" class="control-label col-sm-2">
+                                        <img src="<?php echo HOSTNAME; ?>assets/images/youtube.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                                    <div class="col-sm-4 input"><input name='Last_Name' id="lname" value="<?php echo $r['youtube']; ?>" placeholder="youtube"  class="form-control" required=""></div>
+                                </div>
+                                <div class="form-group">
+
+
+                               </div>
+                               <div class="form-group">
+                                    <label for="" class="control-label col-sm-4 back hidden-xs">&nbsp;</label>
+                                    <div class="col-sm-5 input text-center">
                                     <button class="btn btn-lg btn-block btn-success" type="submit" name="Update" id="Update" value="Update">Update <i class="glyphicon glyphicon-chevron-right"></i></button>
                                
                                 </div>
@@ -118,8 +184,11 @@ $(document).ready(function(){
                         </fieldset>
                 </form>
                 </div>
-                </div>
-</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
 <?php
 include "config.php";
 if(isset($_POST['Update']))

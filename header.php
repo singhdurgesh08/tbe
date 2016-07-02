@@ -1,7 +1,14 @@
+<?php  error_reporting(0);
+ session_start();
+ if ($_SESSION['user_data']['user_name'] != '') {
+    header("location: home.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php  error_reporting(0);
+    <?php 
 	include "constant.php";
 	$baseurl = HOSTNAME; ?>
 	<meta charset="UTF-8">
@@ -12,8 +19,8 @@
 	<link rel="stylesheet" href="<?php echo $baseurl; ?>assets/css/style.css">
 	<script src="<?php echo $baseurl; ?>assets/js/jquery.min.js" type="text/javascript"></script>
 	<script src="<?php echo $baseurl; ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
-       <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+        <script src="<?php echo $baseurl; ?>assets/js/jquery-latest.js"></script>
+       <script type="text/javascript" src="<?php echo $baseurl; ?>assets/js/jquery.validate.min.js"></script>
 </head>
 <body>
 	<header>

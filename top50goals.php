@@ -26,7 +26,7 @@ include "login-header.php";?>
 				<div class="row">
 					<div class="col-sm-12">
 						<P>
-						   <img src="assets/images/NY.jpg" class="img-responsive" alt="" style="display:inline; " />
+						   <img src="<?php echo $baseurl; ?>assets/images/tbecs1.png" class="img-responsive" alt="" style="display:inline; " />
 					   </P>
 					</div>
 				</div>

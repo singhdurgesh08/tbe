@@ -36,10 +36,51 @@ $(document).ready(function(){
     });
 });
 </script>
- 
-</head>
+<?php
+
+include "config.php";
+if (isset($_POST['Login']))
+ {
+	
+	$email = $_POST['email'];
+	$password = $_POST['pass'];
+
+	$check_user ="select * from users where user_email ='$email' AND user_pass = '$password' and status = '1'";
+	$run = mysql_query($check_user);
+	if(mysql_num_rows($run)>0)
+	{
+		$_SESSION['email']=$email;
+		$_SESSION['id']=$id;
+		
+		$user_check=$_SESSION['email'];
+		$ses_sql=mysql_query("select * from users where user_email='$user_check'");
+		$row = mysql_fetch_assoc($ses_sql);
+		$login_session =$row['user_email'];
+
+		$userid =$row['id'];
+	
+		if(isset($login_session))
+		{
+			$_SESSION['user_data'] =  $row; // Initializing Session
+			header("location: home.php");
+		} 
+	}
+	else
+	{
+            $msg = "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong>  please enter Valid Email and password . 
+                </div>";
+		
+	}
+}
+?>
 
 <div class="container">
+      <?php
+    if (isset($msg)) {
+        echo $msg;
+    }  ?>
             <div class="login_form_page">
 				<div class="row">
 					<div class="col-sm-12 text-center">
@@ -80,39 +121,4 @@ $(document).ready(function(){
  
  <?php include "footer.php";?>
 
-<?php
 
-include "config.php";
-if (isset($_POST['Login']))
- {
-	
-	$email = $_POST['email'];
-	$password = $_POST['pass'];
-
-	$check_user ="select * from users where user_email ='$email' AND user_pass = '$password'";
-	$run = mysql_query($check_user);
-	if(mysql_num_rows($run)>0)
-	{
-		$_SESSION['email']=$email;
-		$_SESSION['id']=$id;
-		
-		$user_check=$_SESSION['email'];
-		$ses_sql=mysql_query("select * from users where user_email='$user_check'");
-		$row = mysql_fetch_assoc($ses_sql);
-		$login_session =$row['user_email'];
-
-		$userid =$row['id'];
-	
-		if(isset($login_session))
-		{
-			$_SESSION['user_data'] =  $row; // Initializing Session
-			header("location: home.php");
-		} 
-	}
-	else
-	{
-		echo "<script>alert('please enter Valid id and password ')</script>";
-		exit();
-	}
-}
-?>

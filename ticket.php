@@ -7,14 +7,17 @@
 }
 include "login-header.php";?>
 <?php include "nav.php";?>
-<?php include "config.php"; ?>
+<?php include "config.php";
+
+$ticketid = $_GET['ticketid'];
+ ?>
 
 
 <div class="home_tab_section">
 <div class="container">
     <div class="row">
         <div class="col-sm-10 text-center">
-            <h1>Ticket</h1>
+            <h1>Ticket's</h1>
         </div>
 
         <div class="col-sm-2 text-center">
@@ -37,11 +40,11 @@ include "login-header.php";?>
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
                         <th>Ticket type</th>
                         <th>Description</th>
                         <th>Date</th>
-                        <th>Match Name</th>
+                        <th>Action</th>
+
                     </tr>
                 
                 </thead>
@@ -50,22 +53,63 @@ include "login-header.php";?>
                          <?php
                           $userid = $_SESSION['user_data']['id'];
                           $is_admin = $_SESSION['user_data']['is_admin'];
+                          //var_dump($is_admin);die();
                     if ($des == "") {
                         if($is_admin) {
-                           $res = mysql_query("Select ticket.id,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id ");  
+                           $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id ");  
                         }else {
-                        $res = mysql_query("Select ticket.id,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id where ticket.created_by = '$userid'");
+                        $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id where ticket.created_by = '$userid'");
                         }
                     } $i =1;
-                    while ($r = mysql_fetch_array($res)) { // echo "<pre>"; print_r($r);
+                    while ($r = mysql_fetch_array($res)) { 
+                      //echo "<pre>"; print_r($r);
                         ?>
                         <tr>
                              <td><?php echo $r['id']; ?></td>
-                             <td><?php echo $r['name']; ?></td>
                              <td><?php echo $r['ticket_type']; ?></td>
                              <td><?php echo $r['description']; ?></td>
                              <td><?php echo $r['created_date']; ?></td>
-                            <td><?php echo $r['game_title']; ?></td>                             
+
+                             <td><a href="view_ticket.php?ticketid=<?php echo $r[id]; ?>">View</a> &nbsp; |
+                             &nbsp;
+                             <?php
+
+                                if ($r[ticket_status] == 0) {
+                                  ?><a href="">Close</a><?php
+                                }
+                                else
+                                {
+                                  ?><a href="">New</a> <?php 
+                                }
+                             ?>
+                             <?php
+                             if ($is_admin ==1 and $r[ticket_status] == 1) {
+                              ?>&nbsp; | &nbsp;&nbsp;
+                                 <a href="ticket.php?ticketid=<?php echo $r[id]?>&action=Closeticket">Close Ticket</a> 
+                               <?php
+                                    if ($_GET['action'] =='Closeticket') 
+                                      {
+                                        echo"<script>alert('Sure you want to Close ticket')</script>";
+                                        $query =mysql_query("UPDATE ticket SET ticket_status='0' WHERE id = $ticketid ");
+
+                                      }
+                              }
+
+                              if ($is_admin ==1 and $r[ticket_status] == 0) {
+                              ?>&nbsp; | &nbsp;&nbsp;
+                                 <a href="ticket.php?ticketid=<?php echo $r[id]?>&action=Activeticket">Active Ticket</a> 
+                               <?php
+                                    if ($_GET['action'] =='Activeticket') 
+                                      {
+                                        echo"<script>alert('Sure you want to Active Ticket')</script>";
+                                        $query =mysql_query("UPDATE ticket SET ticket_status='1' WHERE id = $ticketid ");
+                                      }
+                                    
+                              }
+
+                                                              
+                             ?>
+                             </td>
                         </tr>
 
 <?php }

@@ -40,7 +40,7 @@ include "login-header.php";?>
                 <tbody>
                      <?php $i = 1;
                                       $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.user_id= $userid and team_list.Player_status = 0;");
-                                      while($r=mysql_fetch_assoc($res))
+                                      while($r=mysql_fetch_assoc($res)) 
                                       { 
                                          ?>
                                             <tr>

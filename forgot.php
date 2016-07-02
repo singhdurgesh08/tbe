@@ -33,13 +33,90 @@ $(document).ready(function(){
 });
 </script>
  
-</head>
+<?php
+
+include "config.php";
+if (isset($_POST['submit']))
+ {
+	
+	$email = $_POST['email'];
+	$query="select * from users where user_email='$email'";
+	$run = mysql_query($query);
+	$count=mysql_num_rows($run);
+	 if ($count==1)
+	 {
+           
+                    $rows = mysql_fetch_array($run);
+                $pass = $rows['user_pass']; //FETCHING PASS
+                $to = $rows['user_email'];
+                $from = "From: Admin\r\n";
+                $subject = " Forgot Password";
+                //  $content = "Your Password is : = " . $pass;
+                $message = "
+                        Hello , $email
+                        <br /><br />
+                         We got requested to reset for  password,
+                        <br /><br />
+                        <br /><br />
+                        Your login Credential.
+                        <br />Email    : $to 
+                        <br />Password : $pass
+
+                        <br />
+                        if you have any query to Please contact me support@tbesportsgaming.com.
+                        <br /><br />
+
+                        <br /><br />
+                        thank you :)<br />Support
+                        ";
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                // More headers
+                $headers .= 'From: support@tbesportsgaming.com' . "\r\n";
+                $sentmail = mail($to, $subject, $message, $headers);
+
+                if ($sentmail == 1) {
+
+                $msg = "<div class='alert alert-success'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                We've sent an email to $to.
+                         There you can see your detail. 
+                </div>";
+            } else {
+                $msg = "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong>  this email not found. 
+                </div>";
+            }
+}
+	else {
+				
+				$msg = "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong>  this email not found. 
+                </div>";
+		}
+
+}
+	
+?>	
 
 <div class="container">
+      <?php
+    if (isset($msg)) {
+        echo $msg;
+    } else {
+        ?>
+        <div class='alert alert-info'>
+            Please enter your Registered email address. You will receive Your TBE credential  via email.!
+        </div>  
+    <?php
+}
+?>
             <div class="login_form_page">
 				<div class="row">
 					<div class="col-sm-12 text-center">
-						<h6 class="login_title"><br class="hidden-xs">Please Enter your email </h6>
+						<h6 class="login_title"><br class="hidden-xs">Forgot Password </h6>
 					</div>
 				</div>
 				
@@ -72,53 +149,6 @@ $(document).ready(function(){
 
 
 
-<?php
-session_start();
-include "config.php";
-if (isset($_POST['submit']))
- {
-	
-	$email = $_POST['email'];
-	$query="select * from users where user_email='$email'";
-	$run = mysql_query($query);
-	$count=mysql_num_rows($run);
-	//print_r($count);die();
-
-	
-	if ($count==1)
-	 {
-					ini_set("SMTP", "smtp.server.com");
-						$rows=mysql_fetch_array($run);
-						$pass  =  $rows['user_pass'];//FETCHING PASS
-					    $to = $rows['user_email'];
-				        $from =  "From: Admin\r\n";
-				        $subject = " Password recovered";
-					    $content = "Your Password is : = " . $pass;
-					    $headers1 = "From: $from\n";
-					    $headers1 .= "Content-type: text/html;charset=iso-8859-1\r\n";
-					    $headers1 .= "X-Priority: 1\r\n";
-					    $headers1 .= "X-MSMail-Priority: High\r\n";
-					    $headers1 .= "X-Mailer: Just My Server\r\n";
-					    $sentmail = mail ( $to, $subject, $content, $headers1 );
-
-					    if ($sentmail==1) {
-					    	
-					    	echo"<script>alert('Your password sent to your emailid')</script>";
-					    }
-					    else
-					    {
-					    	echo"<script >alert('Problem to send your password')</script>";
-					    }
-
-
-	}
-	else {
-				
-				echo"<script>alert('Entered email id not valid ')</script>";
-		}
-
-}
-	
-?>	   
+   
 
  <?php include "footer.php";?>

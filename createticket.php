@@ -28,36 +28,49 @@ include "login-header.php";?>
                             <fieldset>
                             
                             <div class="form-group">
-                                    <label for="Platform" class="control-label col-sm-6">Match</label>
+                                    <label for="Platform" class="control-label col-sm-6">Category</label>
                                     <div class="col-sm-6 input"> 
-                                             <select name="Platform" id="Platform" class="form-control" required="">
-                                             <option>Please select Match</option>
-                                              <option>
-                                                        <?php 
-                                                            $query =mysql_query("select id,game_title from ps4_match");
-                                                            while($r = mysql_fetch_array($query))
-                                                            {
-                                                               echo '<option value="'.$r["id"].'">'.$r["game_title"].'( Match Id - '.$r["id"].')</option>';
-                                                            } 
-                                                        ?>
-                                              </option>
+                                             <select name="category" id="category" class="form-control" required="">
+                                             <option value="">Please select category</option>
+                                              <option value="Match dispute">Match dispute</option>
+                                              <option value="Ticket">Ticket</option>
                                            </select>
                                             </div>
                                 </div>
 
-                            <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">Name</label>
-                                    <div class="col-sm-6 input"><input name='name'  placeholder="Please Enter Team Name"  class="form-control" required=""></div>
-                                </div>
-
-
-                                 <div class="form-group">
-                                    <label for="Platform" class="control-label col-sm-6">Ticket Type</label>
+                                  <div class="form-group">
+                                    <label for="Platform" class="control-label col-sm-6">Team </label>
                                     <div class="col-sm-6 input"> 
-                                             <select name="type" id="type" class="form-control" required="">
-                                             <option>Please select Ticket Type</option>
-                                              <option>Match Dispute </option>
-                                               <option>Ticket Dispute</option>
+                                             <select name="team" id="team" class="form-control" required="">
+                                             <option  value=""> select Team</option>
+                                             <?php 
+                                                    $query=mysql_query("select team_name from team where created_by = $userid");
+                                                    while($r=mysql_fetch_assoc($query))
+                                                    {
+                                                      $tname=$r["team_name"];
+                                                      echo "<option>$tname</option>";
+                                                    }
+                                             
+                                             ?> 
+                                     
+                                           </select>
+                                            </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label for="Platform" class="control-label col-sm-6">Match Id</label>
+                                    <div class="col-sm-6 input"> 
+                                            <select name="mid" id="mid" class="form-control" required="">
+                                             <option  value=""> select Team</option>
+                                             <?php 
+                                                    $query=mysql_query("select id from ps4_match where created_by = $userid");
+                                                    while($r=mysql_fetch_assoc($query))
+                                                    {
+                                                      $mid=$r["id"];
+                                                      echo "<option>$mid</option>";
+                                                    }
+                                             
+                                             ?> 
+                                     
                                            </select>
                                             </div>
                                 </div>
@@ -68,23 +81,23 @@ include "login-header.php";?>
                                 </div>
                                  <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">URL2</label>
-                                    <div class="col-sm-6 input"><input name='URL2'  placeholder="Please Enter URL2"  class="form-control" required=""></div>
+                                    <div class="col-sm-6 input"><input name='URL2'  placeholder="Please Enter URL2"  class="form-control"></div>
                                 </div>
                                  <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">URL3</label>
-                                    <div class="col-sm-6 input"><input name='URL3'  placeholder="Please Enter URL3"  class="form-control" required=""></div>
+                                    <div class="col-sm-6 input"><input name='URL3'  placeholder="Please Enter URL3"  class="form-control"></div>
                                 </div>
                                  <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">URL4</label>
-                                    <div class="col-sm-6 input"><input name='URL4'  placeholder="Please Enter URL4"  class="form-control" required=""></div>
+                                    <div class="col-sm-6 input"><input name='URL4'  placeholder="Please Enter URL4"  class="form-control"></div>
                                 </div>
                                  <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">URL5</label>
-                                    <div class="col-sm-6 input"><input name='URL5'  placeholder="Please Enter URL5"  class="form-control" required=""></div>
+                                    <div class="col-sm-6 input"><input name='URL5'  placeholder="Please Enter URL5"  class="form-control"></div>
                                 </div>
                                  <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">URL6</label>
-                                    <div class="col-sm-6 input"><input name='URL6'  placeholder="Please Enter URL6"  class="form-control" required=""></div>
+                                    <div class="col-sm-6 input"><input name='URL6'  placeholder="Please Enter URL6"  class="form-control"></div>
                                 </div>
                
                                 <div class="form-group">
@@ -97,12 +110,10 @@ include "login-header.php";?>
                     <div class="form-group">
                         <label for="" class="control-label col-sm-7 back hidden-xs">&nbsp;</label>
                         
-
-                            <div class="col-sm-2 input text-center">
-
-                                <button class="btn btn-lg btn-block btn-success" type="submit" name="submit" value="submit">Save<i class="glyphicon glyphicon-chevron-right"></i></button>
+                           <div class="col-sm-2 input text-center">
+                                 <button   class="btn btn-lg btn-block btn-success" type="submit" name="submit" value="submit">Save<i class="glyphicon glyphicon-chevron-right"></i></button>
                             </div>
-                        
+                       
                             <div class="col-sm-2 input text-center">
                                 <a href="teamlist.php" class="btn btn-lg btn-danger">Cancel<i class="glyphicon glyphicon-chevron-right"></i></a>
                             </div>
@@ -119,10 +130,10 @@ include "login-header.php";?>
 
 if (isset($_POST['submit'])) {
 
-    $name = $_POST['name'];
-    $type = $_POST['type'];
+    $category = $_POST['category'];
+    $team = $_POST['team'];
     $Description = $_POST['Description'];
-    $Platform = $_POST['Platform'];
+    $mid = $_POST['mid'];
     $userid = $_SESSION['user_data']['id'];
 
     $URL1 = $_POST['URL1'];
@@ -131,16 +142,18 @@ if (isset($_POST['submit'])) {
     $URL4 = $_POST['URL4'];
     $URL5 = $_POST['URL5'];
     $URL6 = $_POST['URL6'];
-   
-  
-   
-   // $query= "INSERT INTO `ticket` (`id`, `name`, `description`, `created_by`, `ticket_status`,`created_date`,`match_id` ) VALUES (NULL, '$name', '$Description', '$userid' ,'1', CURRENT_TIMESTAMP,'$Platform')";
 
-     $query= "INSERT INTO `ticket` (`id`, `name`, `ticket_type`, `description`, `created_by`, `ticket_status`, `created_date`, `match_id`, `url1`, `url2`, `url3`, `url4`, `url5`, `url6`) VALUES (NULL, '$name', '$type' ,'$Description', '$userid', '1', CURRENT_TIMESTAMP, '3', '$URL1', '$URL2', '$URL4', '$URL4', '$URL5', '$URL6')";
 
-    if (mysql_query($query)) 
+$query ="INSERT INTO `ticket` (`id`, `name`, `ticket_type`, `description`, `created_by`, `ticket_status`, `created_date`, `match_id`, `url1`, `url2`, `url3`, `url4`, `url5`, `url6`) 
+VALUES ('NULL', '$team', '$category', '$Description', '$userid', '1', CURRENT_TIMESTAMP, '$mid', '$URL1', '$URL2', '$URL3', '$URL4', '$URL5', '$URL6')";
+//mysql_query($query);
+   if (mysql_query($query)) 
     {
-        echo"<script>alert('Created ticket successfullly')</script>";
+        //  $yourURL="http://localhost/tbe/ticket.php";
+         //$var = "http://$_SERVER[HTTP_HOST]/tbe/"."ticket.php";
+         //  echo ("<script>location.href='$var'</script>");
+         header("location: ticket.php");
+         exit();
     }
 }
 ?>

@@ -21,20 +21,11 @@ include "login-header.php";?>
                 $query = mysql_query("Select * from user_profile_image where userid=$userid");
                 $result = mysql_fetch_array($query);
                 $finalimage =  $result ['user_image'];
-                echo '<img src="images/jpeg;base64,'.base64_encode( $finalimage['user_image'] ).'"/>';
+            //    echo '<img src="images/jpeg;base64,'.base64_encode( $finalimage['user_image'] ).'"/>';
                
                 ?>
                 <img src="<?php echo HOSTNAME; ?>assets/images/profile.jpg" width="150" class="img-responsive" alt="" />
-                <form action="myprofile.php"
-                                enctype="multipart/form-data" method="post">
-                                <p> <br> <input type="file" name="image" size="40"> </p>
-                                <div>
-                                <input type="submit" name="btn-upload" value="Upload" class="btn btn-primary"/>
-                                </div>
-               
                 
-                                
-                </form>
                 
                 </div>
                     <div class="col-sm-8">
@@ -43,7 +34,6 @@ include "login-header.php";?>
                                 <tr>
                                     <th>Win</th>
                                     <th>Loss</th>
-                                    <th>Life Time</th>
                                     <th>Earn Points</th>
                                 </tr>
                             </thead>
@@ -51,7 +41,6 @@ include "login-header.php";?>
                                 <tr>
                                  <td>1</td>
                                  <td>1</td>
-                                 <td>Yes</td>
                                  <td>123</td>
                              </tr>
                                         
@@ -85,19 +74,7 @@ include "login-header.php";?>
             <form method='post' action='myprofile.php' class="form-horizontal">
 
                 <fieldset>
-                    <div>
-                        <?php
-                        
-                        if($_GET['profileid'] !=''){
-                            $userid = $_GET['profileid'];
-                        }else {
-                            $userid = $_SESSION['user_data']['id'];
-                        }
-                        
-                        $res = mysql_query("Select * from users where id= $userid");
-                        $r = mysql_fetch_array($res);
-                        //  echo print_r($r);
-                        ?></div>
+                    
                     <div class="form-group">
                         <label for="login_password" class="control-label col-sm-7"></label>
                         <div class="col-md-4 col-md-push-1"></div>
@@ -137,11 +114,7 @@ include "login-header.php";?>
                         <div class="col-md-4 col-md-push-1"><?php echo $r['Country']; ?></div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="login_password" class="control-label col-sm-7">Paypal Email :</label>
-                        <div class="col-md-4 col-md-push-1"><?php echo $r['paypal_email']; ?></div>
-                    </div>
-
+                   
                 </fieldset>
             </form>
         </div>
