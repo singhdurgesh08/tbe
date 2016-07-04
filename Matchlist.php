@@ -107,7 +107,7 @@ include "login-header.php";?>
                                 <?php
                                 $userid = $_SESSION['user_data']['id'];
                                 if ($des == "") {
-                                    $res = mysql_query("Select * from team where created_by = '$userid'");
+                                    $res = mysql_query("Select * from team where created_by = '$userid'  and platform ='PS4'");
                                 } $i = 1;
                                 while ($result = mysql_fetch_array($res)) {
                                     ?>
@@ -166,6 +166,9 @@ function joinMatch(){
                      success: function(d) {
                       if(d ==='error'){
                          $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! You have No credit Please add credit from Wallet .</b> ');
+                     }else if(d ==='error1'){
+                         $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! Sorry ! Please Update GamerTag from profile .</b> ');
+                      
                       }else {
                         window.location.href =' <?php echo HOSTNAME;?>matchdetails.php?Matchid='+d; 
                       }

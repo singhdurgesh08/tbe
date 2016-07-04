@@ -5,11 +5,8 @@ if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login.php");
     exit();
  }
- 
-//$userid = $_GET['userid'];
-//var_dump($userid);die();
-
-include "login-header.php";?>
+  $usersid = $_GET['usersid'];
+ include "login-header.php";?>
 <?php include "nav.php";?>
 <div class="home_tab_section">
 <div class="container">
@@ -18,7 +15,7 @@ include "login-header.php";?>
 		
                 <div class="col-sm-3">
                <?php 
-                    $query = mysql_query("Select * from users where id=$userid");
+                    $query = mysql_query("Select * from users where id= $usersid ");
                     $result = mysql_fetch_array($query);
                     $finalimage =  $result ['user_image'];
                     if($finalimage) {  ?>
@@ -68,13 +65,10 @@ include "login-header.php";?>
 </table>
            
 </div>
-
 </div>
      <div class="col-sm-8">
             <form method='post' action='myprofile.php' class="form-horizontal">
-
                 <fieldset>
-                    
                     <div class="form-group">
                         <label for="login_password" class="control-label col-sm-7"></label>
                         <div class="col-md-4 col-md-push-1"></div>
@@ -82,36 +76,36 @@ include "login-header.php";?>
                         
                     <div class="form-group">
                         <label for="login_password" class="control-label col-sm-7">First Name :</label>
-                        <div class="col-md-4 col-md-push-1"><?php echo $r['first_name']; ?></div>
+                        <div class="col-md-4 col-md-push-1"><?php echo $result['first_name']; ?></div>
                     </div>
 
                     <div class="form-group">
                         <label for="login_password" class="control-label col-sm-7">Last Name :</label>
-                        <div class="col-md-4 col-md-push-1"><?php echo $r['last_name']; ?></div>
+                        <div class="col-md-4 col-md-push-1"><?php echo $result['last_name']; ?></div>
                     </div>
 
                     <div class="form-group">
                         <label for="login_password" class="control-label col-sm-7">Address :</label>
-                        <div class="col-md-4 col-md-push-1"><?php echo $r['Address']; ?></div>
+                        <div class="col-md-4 col-md-push-1"><?php echo $result['Address']; ?></div>
                     </div>
 
                     <div class="form-group">
                         <label for="login_password" class="control-label col-sm-7">City :</label>
-                        <div class="col-md-4 col-md-push-1"><?php echo $r['city']; ?></div>
+                        <div class="col-md-4 col-md-push-1"><?php echo $result['city']; ?></div>
                     </div>
                     <div class="form-group">
                         <label for="login_password" class="control-label col-sm-7">State :</label>
-                        <div class="col-md-4 col-md-push-1"><?php echo $r['State']; ?></div>
+                        <div class="col-md-4 col-md-push-1"><?php echo $result['State']; ?></div>
                     </div>
 
                     <div class="form-group">
                         <label for="login_password" class="control-label col-sm-7">Zip :</label>
-                        <div class="col-md-4 col-md-push-1"><?php echo $r['zip']; ?></div>
+                        <div class="col-md-4 col-md-push-1"><?php echo $result['zip']; ?></div>
                     </div>
 
                     <div class="form-group">
                         <label for="login_password" class="control-label col-sm-7">Country :</label>
-                        <div class="col-md-4 col-md-push-1"><?php echo $r['Country']; ?></div>
+                        <div class="col-md-4 col-md-push-1"><?php echo $result['Country']; ?></div>
                     </div>
 
                    

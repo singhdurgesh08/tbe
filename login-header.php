@@ -1,4 +1,5 @@
 <?php 
+     date_default_timezone_set('US/Eastern');
       error_reporting(0);
 	include "constant.php";
 	$baseurl = HOSTNAME;

@@ -11,7 +11,7 @@ $userid = $_SESSION['user_data']['id'];
 $matchtype = $_GET['matchtype'];
 
 
- ?>
+?>
 
 
        
@@ -21,6 +21,19 @@ $matchtype = $_GET['matchtype'];
   $(document).ready(function(){
    
     $('#addmatches').validate({
+        rules: {
+        Amount: {
+        required: true,
+        range: [0, 100]
+        }
+        },
+        messages: {
+        Amount: {
+        required: "Amount is required",
+        range: "Please Enter Amount Between 0 - 100"
+        }
+        },
+  
       submitHandler: function(form) {
                $.ajax({
                     url: "ajax_file.php?action=postmatch&user_id=<?php echo $userid; ?>",
@@ -30,11 +43,18 @@ $matchtype = $_GET['matchtype'];
                       $("#div_wait").html("Please wait we posting match .....");
                      },
                      success: function(d) {
-                      if(d ==='success'){
-                         $("#div_wait").html('<b  style="background-color:green;color:white;"> Thank you ! Your Match has been Posted Successfully.</b> ');
-                     }else  if(d ==='error'){
-                         $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! You have No credit Please add credit from Wallet .</b> ');
-                     }else {   $("#div_wait").html('<b  style="background-color:red;color:white;"> Error in post match.</b> ');}
+                         if(d ==='PS4'){
+                              window.location.href = 'Matchlist.php';
+                         }else if(d ==='XB1'){
+                              window.location.href = 'xb1matchlist.php';
+                        }else{
+                             $("#div_wait").html('<b  style="background-color:red;color:white;"> '+d+'</b> ');
+                        }
+//                      if(d ==='success'){
+//                         $("#div_wait").html('<b  style="background-color:green;color:white;"> Thank you ! Your Match has been Posted Successfully.</b> ');
+//                     }else  if(d ==='error'){
+//                         $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! You have No credit Please add credit from Wallet .</b> ');
+//                     }else {   $("#div_wait").html('<b  style="background-color:red;color:white;"> Error in post match.</b> ');}
                     }
                 });              
         }
@@ -160,29 +180,29 @@ $matchtype = $_GET['matchtype'];
     
                             </div>
                         </div>
-
-                          <div class="form-group">
+                        <input type="hidden" name="platform" id="platform" value="<?php echo $matchtype;?>" />
+<!--                          <div class="form-group">
                                 <label for="platform" class="control-label col-sm-6">Platform</label>
                                 
                                 <div class="col-sm-6 input">
                                     <select name="platform" id="platform" class="form-control" required="">    
                                         <option value="">Please select Platform</option>
                                          <?php
-                                           $plat = array('PS4'=>"PS4",'XB1'=>"XB1");
-                                           
-                                           foreach ($plat as $key => $value)
-                                           {
-                                             if($value == $matchtype) { $selected = 'selected = "selected"'; }
-                                             echo '<option value="'.$key.'" '. $selected.'>'.$value.'</option>';
-                                             $selected = "";
-                                           }
+//                                           $plat = array('PS4'=>"PS4",'XB1'=>"XB1");
+//                                           
+//                                           foreach ($plat as $key => $value)
+//                                           {
+//                                             if($value == $matchtype) { $selected = 'selected = "selected"'; }
+//                                             echo '<option value="'.$key.'" '. $selected.'>'.$value.'</option>';
+//                                             $selected = "";
+//                                           }
                                     ?>
                                         
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
 
-                            <div class="form-group">
+<!--                            <div class="form-group">
                                 <label for="login_password" class="control-label col-sm-6">Game Mode</label>
                                 <div class="col-sm-6 input">
                                     <select name="Game_Mode" id="Game_mode" class="form-control" required="">
@@ -195,7 +215,7 @@ $matchtype = $_GET['matchtype'];
                                     </select>
                                    
                                 </div>
-                            </div>
+                            </div>-->
 
                         <div class="form-group">
                             <label for="login_password" class="control-label col-sm-6">Amount $</label>
@@ -245,7 +265,7 @@ $matchtype = $_GET['matchtype'];
                                             </tr>
                                             <?php }}else {  ?>
                                             <tr>
-                                                <td colspan="3">No team found Please <a href="AddTeam.php">Add Team </a> </td>
+                                                <td colspan="3">No team found Please <a href="AddTeam.php?platform=<?php echo $matchtype;?>">Add Team </a> </td>
                                                 
                                                 <td>
                                                     <input type="text" name="addteam_id" id="addteam_id" required=""  readonly="readonly"/>

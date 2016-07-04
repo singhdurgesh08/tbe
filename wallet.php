@@ -109,7 +109,7 @@ a:active, a:hover {
 
                             <div class="row">
                                 <div class="col-sm-8 text-center">
-                                    <input type="text" id="add_amount" name="add_amount" class="form-control" placeholder="Enter Amount ($5 minimum)" required="" min="10"/>
+                                    <input type="text" id="add_amount" name="add_amount" class="form-control" placeholder="Enter Amount ($5 minimum)" required=""/>
                                 </div>
                             </div>
                              <div class="row">
@@ -138,11 +138,11 @@ a:active, a:hover {
                         </form>
                     </div>
                     <div class="tab-pane" id="2">
-                        <form id="add_wallet" name="add_wallet" action="withdrawal_wallet.php" method="post"  class="form-horizontal">
+                        <form id="withdrawal" name="withdrawal" action="withdrawal_wallet.php" method="post"  class="form-horizontal">
 
                             <div class="row">
                                 <div class="col-sm-8 text-center">
-                                    <input type="text" id="email" name="email" class="form-control" placeholder="Enter your paypal email" required=""/>
+                                    <input type="text" id="email" name="email" class="form-control email" placeholder="Enter your paypal email" required=""/>
                                 </div>
                             </div>
                              <div class="row">
@@ -150,7 +150,7 @@ a:active, a:hover {
                             </div>
                              <div class="row">
                                 <div class="col-sm-8 text-center">
-                                    <input type="text" id="add_amount" name="add_amount"   class="form-control" placeholder="Enter Amount ($5 minimum)" required="" min="10"/>
+                                    <input type="text" id="add_amount" name="add_amount"   class="form-control" placeholder="Enter Amount ($5 minimum)" required="" />
                                 </div>
                             </div>
                              <div class="row">
@@ -159,7 +159,7 @@ a:active, a:hover {
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input name="agree" type="checkbox" required="" class="required">
-                                    I have read and agree to the tbeGaming <a href="term-service.php" translate="" target="_blank">Terms and Conditions</a>
+                                     I accept the <a href="term-service.php">terms of condition</a>&nbsp;&&nbsp;<a href="privacy.php">privacy policy</a>
 
                                 </div>
                             </div>
@@ -180,7 +180,7 @@ a:active, a:hover {
                         
                     </div>
                     <div class="tab-pane" id="3">
-                        <form id="add_wallet" name="add_wallet" action="withdrawal_wallet.php" method="post"  class="form-horizontal">
+                        <form id="transfer" name="transfer" action="withdrawal_wallet.php" method="post"  class="form-horizontal">
 
                             <div class="row">
                                 <div class="col-sm-8 text-center">
@@ -201,7 +201,7 @@ a:active, a:hover {
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input name="agree" type="checkbox" required="" class="required">
-                                    I have read and agree to the tbeGaming <a href="term-service.php" translate="" target="_blank">Terms and Conditions</a>
+                                   I accept the <a href="term-service.php">terms of condition</a>&nbsp;&&nbsp;<a href="privacy.php">privacy policy</a>
 
                                 </div>
                             </div>
@@ -228,104 +228,47 @@ a:active, a:hover {
             </div>
         </div><!--row end-->
     </div>
-<!--<div class="container">
-<div class="row">
-        <div class="col-sm12 text-center">
-                <h1>Wallet</h1>
-        </div>
+    <script>
+        $(document).ready(function(){
+         $('#add_wallet').validate({
+        rules: {
+        add_amount: {
+        required: true,
+        range: [5, 100]
+        }
+        },
+        messages: {
+        add_amount: {
+        required: "Amount is required",
+        range: "Please Enter Amount Between 5 - 100 dollar"
+        }
+        },
+  
+      submitHandler: function(form) {
+                 form.submit(); 
+        }
+    });
+     $('#withdrawal').validate({
+        rules: {
+        add_amount: {
+        required: true,
+        range: [5, 100]
+        }
+        },
+        messages: {
+        add_amount: {
+        required: "Amount is required",
+        range: "Please Enter Amount Between 5 - 100 dollar"
+        }
+        },
+  
+      submitHandler: function(form) {
+                 form.submit(); 
+        }
+    });
+  });
+    </script>
 
-
-</div>
-   
-    <ul class="nav nav-tabs">
-        <li role="presentation" class="active">
-            <a  href="#1" data-toggle="tab">Overview</a>
-        </li>
-        <li role="presentation"><a href="#2" data-toggle="tab">Without clearfix</a>
-        </li>
-        <li role="presentation"><a href="#3" data-toggle="tab">Solution</a>
-        </li>
-    </ul>
-
-    <div class="tab-content ">
-        <div class="tab-pane active" id="1">
-           <form id="add_wallet" name="add_wallet" action="add_wallet.php" method="post">
-
-          <div class="row">
-              <div class="col-sm-4 text-center">
-                  <h1>Add Wallet (USD)</h1>
-              </div>
-              <div class="col-sm-5 text-center">
-                  <h1><input type="text" id="add_amount" name="add_amount"  placeholder="Please Enter Amount"/></h1>
-              </div>
-              <div class="col-sm-2 text-center">
-                  <input type="submit" name="add" value="Add" class="btn btn-lg btn-block btn-success"/> 
-              </div>
-
-          </div>
-      </form>
-        </div>
-        <div class="tab-pane" id="2">
-          <form id="add_wallet" name="add_wallet" action="withdrawal_wallet.php" method="post">
-          <div class="row">
-              <div class="col-sm-4 text-center">
-                  <h1>withdrawal from Wallet (USD)</h1>
-              </div>
-              <div class="col-sm-4 text-center">
-                  <h1><input type="text" id="email" name="email"  placeholder="Please Enter Paypal Email" /></h1>
-              </div>
-              <div class="col-sm-4 text-center">
-                  <h1><input type="text" id="add_amount" name="add_amount"  placeholder="Please Enter Amount"/></h1> 
-              </div>
-
-          </div>
-          <div class="row">
-              <div class="col-sm-4 text-center">
-
-              </div>
-
-              <div class="col-sm-4 text-center">
-                  <input type="submit" name="withdrawal" value="withdrawal" class="btn btn-lg btn-block btn-success"/> 
-              </div>
-
-          </div>
-      </form>
-        </div>
-        <div class="tab-pane" id="3">
-            <h3>add clearfix to tab-content (see the css)</h3>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-sm12 text-center">
-                <h1></h1>
-        </div>
-
-
-</div>
-    <div class="row">
-        <div class="col-sm12 text-center">
-                <h1></h1>
-        </div>
-
-
-</div>
-    <div class="row">
-        <div class="col-sm12 text-center">
-                <h1></h1>
-        </div>
-
-
-</div>
-    <div class="row">
-        <div class="col-sm12 text-center">
-                <h1></h1>
-        </div>
-
-
-</div>
-</div>-->
  </div>
 <?php
 include "footer.php";

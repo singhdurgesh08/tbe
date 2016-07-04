@@ -5,28 +5,10 @@ include "nav.php";
 include "config.php";
 $teamid = $_GET['teamid'];
 
-if (isset($_POST['update'])) 
-{
-    $Team_Name = $_POST['Team_Name'];
-    $Gamertag = $_POST['Gamertag'];
-    $Team_Caption = $_POST['Team_Caption'];
-    $Game_Mode = $_POST['Game_Mode'];
-    $Description = $_POST['Description'];
-    
-    $sql_query = mysql_query("update team set team_name = '$Team_Name', platform ='$Gamertag', team_caption ='$Team_Caption', Game_Mode='$Game_Mode', description ='$Description'  where id = $teamid");
-    if ($sql_query)
-    {
-         header("Location:teamdetails.php?teamid=" . $teamid);
-         echo"<script>alert('Team Updated Successfully')</script>";
-    }
-}
 
 
 $res = mysql_query("Select * from team where id= $teamid");
 $r = mysql_fetch_array($res);
-
-
-
 ?>
 <script src="<?php echo $baseurl; ?>assets/js/script.js"></script>
 <?php 
@@ -76,7 +58,7 @@ if (file_exists("upload/" . $filename)) {
        ?>
     <div class="row">
         <div class="col-sm-12 text-center">
-            <h1><br class="hidden-xs">Edit Team</h1>
+            <h1><br class="hidden-xs">Edit Team - <?php echo $r[team_name]; ?></h1>
         </div>
     </div>
     <div class="col-sm-3">
@@ -105,18 +87,9 @@ if (file_exists("upload/" . $filename)) {
                     </div>
 
                     <div class="form-group">
-                                    <label for="Platform" class="control-label col-sm-6">Platform</label>
-                                    <div class="col-sm-6 input"> 
-                                                            <select name="Gamertag" class="form-control">
-                                                                <option value="XB1">XB1</option>
-                                                                <option value="PS4">PS4</option>
-                                                                 </select>
-                                            </div>
-                                     </div>
-         
-
-
-                   <div class="form-group">
+                            <div class="col-sm-6 input"><input type="hidden" id="platform" name="platform" value='<?php echo $r[platform];  ?>' class="form-control"></div>
+                     </div>
+                    <div class="form-group">
                         <label for="login_password" class="control-label col-sm-6">Game Mode</label>
                         <div class="col-sm-6 input"> <select name="Game_Mode" id="Membership"  class="form-control">
                                 <option value="1v1 Mycourt">1v1 Mycourt</option>
@@ -147,7 +120,36 @@ if (file_exists("upload/" . $filename)) {
     </div>
 </div>
 </div>
-
 <?php
 include "footer.php";
+?>
+<?php 
+if (isset($_POST['update'])) 
+{
+    $Team_Name = $_POST['Team_Name'];
+    $platform = $_POST['platform'];
+    $Team_Caption = $_POST['Team_Caption'];
+    $Game_Mode = $_POST['Game_Mode'];
+    $Description = $_POST['Description'];
+
+        $platquery = mysql_query("select platform, game_Mode from team where created_by = $userid");
+        while($result = mysql_fetch_array($platquery))
+        {
+         $var = $result[platform];
+         $var1 = $result[game_Mode];
+
+            if( $result[game_Mode] == $Game_Mode)
+            {
+                     echo "<script>alert('Game Mode $var1 in platform $var is already exists')</script>";
+                     exit();
+            }
+        }
+            $sql_query = mysql_query("update team set team_name = '$Team_Name', platform ='$platform', team_caption ='$Team_Caption', Game_Mode='$Game_Mode', description ='$Description'  where id = $teamid");
+            if ($sql_query)
+            {
+                 header("Location:teamdetails.php?teamid=" . $teamid);
+                 echo"<script>alert('Team Updated Successfully')</script>";
+            }
+}
+
 ?>

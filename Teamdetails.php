@@ -153,11 +153,7 @@ a:active, a:hover {
                                          Register Date :- <?php echo date ("d-M-Y",strtotime($r['date_added'])); ?>
                                         </div> 
                                       </div> 
-                                       
-  
-                                      
-
-                   </div>
+                         </div>
          </div>
                 <div class="row">
                    <div class="col-sm-12">
@@ -167,7 +163,7 @@ a:active, a:hover {
          </div>
                 <div class="row">
                    <div class="col-sm-6">
-                     <button class="btn btn-lg btn-block btn-success" type="button" name="submit" >Team Record    L - W</button>
+                     <button class="btn btn-lg btn-block btn-success" type="button" name="submit" >Team Record   W - L</button>
                    </div>
                   
          </div>
@@ -179,9 +175,7 @@ a:active, a:hover {
          </div>
                 <div class="row">
                     <div class="col-sm-12">
-
-
-                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <caption class="text-center"> <h3>Roster</h3></caption>  
                             <thead class="thead-inverse">
                                 <tr>
@@ -196,10 +190,10 @@ a:active, a:hover {
                                      $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.player_status ='1' and team_list.team_id= $teamid");
                                       while($r=mysql_fetch_assoc($res))
                                   { 
-                                    
-                                ?>
+                                 ?>
                                            <tr>
-                                                <td><a href="myprofile.php"><?php echo $r['user_name']; ?></a></td>
+                                                <td><a href="myprofile.php?usersid=<?php echo $r['id']; ?>"><?php echo $r['user_name']; ?>
+                                                </a></td>
                                                 <td>
                                                     <?php
                                                            $var =$r['team_id'];
@@ -221,18 +215,15 @@ a:active, a:hover {
                                         ?>
                                </tbody>
                         </table>
-
-                    </div>
-    </div>
+                     </div>
+              </div>
                 
                 <div class="row">
                                      
          </div>
                  <div class="row">
                     <div class="col-sm-12">
-                     
-
-                        
+                                             
   <div class="home_tab_section">
     <div class="container">
         <div class="row">
@@ -248,9 +239,8 @@ a:active, a:hover {
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="1">
-              
                         <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                            <caption class="text-center"> <h3>Recent Matches</h3></caption>  
+                            <caption class="text-center"></caption>  
                             <thead>
                                 <tr>
                                     <th>Recent Match</th>
@@ -259,16 +249,15 @@ a:active, a:hover {
                                     <th>Info</th>
                                </tr>
                             </thead>
-
                             <tbody>
                              <?php 
-                                 $res=mysql_query("Select * from users  
+                                $res=mysql_query("Select * from users  
                                                 left join join_match on join_match.created_by = users.id 
                                                 left join ps4_match on ps4_match.id = join_match.match_id 
-                                                where join_match.created_by = '$userid' and  ps4_match.open_date >= NOW();");
+                                                where join_match.created_by = '$userid' and join_match.team_id ='$teamid'");
                               
                                    while($r=mysql_fetch_assoc($res))
-                                  {    //print_r($r);
+                                  {    
                               ?>      
                                            <tr>
                                                 <td><?php echo $r[platform] ?></td>
@@ -296,7 +285,7 @@ a:active, a:hover {
                     </div>
                     <div class="tab-pane" id="2">
                         <table id="example2" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                            <caption class="text-center"> <h3>All Matches</h3></caption>  
+                            <caption class="text-center"></caption>  
                             <thead>
                                 <tr>
                                     <th>Recent Match</th>
@@ -308,10 +297,11 @@ a:active, a:hover {
 
                             <tbody>
                              <?php 
-                                 $res=mysql_query("Select * from users  
+                             $res=mysql_query("Select * from users  
                                                 left join join_match on join_match.created_by = users.id 
                                                 left join ps4_match on ps4_match.id = join_match.match_id 
-                                                where join_match.created_by = '$userid'");
+                                                where join_match.created_by = '$userid' and  ps4_match.open_date >= NOW() and join_match.team_id ='$teamid'");
+                                 
                               
                                    while($r=mysql_fetch_assoc($res))
                                   {    //print_r($r);
@@ -337,9 +327,8 @@ a:active, a:hover {
                                 ?>
                                         
                             </tbody>
-
                         </table>
-                        
+
                     </div>
                    
                 </div>
@@ -347,36 +336,53 @@ a:active, a:hover {
             </div>
         </div><!--row end-->
     </div>
+                <?php          
+                   $invite = mysql_query("Select * from team where created_by = $userid ");
+                   $result = mysql_fetch_array($invite);
+
+                   if($result[created_by] == $userid)
+                   {
+                ?>
                  <div class="row">
                     <div class="col-sm-12">
-                        
-
-
                          <div class="login_form_page">
-                            <div class="row">
-                              <div class="col-sm-12 text-center">
-                                <h6 class="login_title"><br class="hidden-xs">Team invite's </h6>
-                              </div>
-                            </div>
-                              <div class="row">
-                                  <div class="col-sm-12">
-                                                <form method='post' id="login" class="form-horizontal login_form">
-                                  <fieldset>
-                                    <div class="form-group">
-                                      <div class="col-sm-12 input"><input name='name'  type="text" placeholder="Please Enter user name"  class="form-control email" required=""></div>
+                                    <div class="row">
+                                      <div class="col-sm-12 text-center">
+                                        <h6 class="login_title"><br class="hidden-xs">Team invite's </h6>
+                                      </div>
                                     </div>
-            
-                            <div class="form-group">
-                              <div class="col-sm-12 input text-center">
-                                 <button class="btn btn-md btn-block btn-success" type="submit" name="submit" value="submit">Submit <i class="glyphicon glyphicon-chevron-right"></i></button>
-                              </div>
-                            </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <form method='post' id="login" class="form-horizontal login_form">
+                             <fieldset>
+                                      <div class="form-group">
+                                        <div class="col-sm-12 input"><input name='name'  type="text" placeholder="Please Enter user name"  class="form-control email" required=""></div>
+                                      </div>
+                                       <div class="form-group">
+                                          <div class="col-sm-12 input text-center">
+                                             <button class="btn btn-md btn-block btn-success" type="submit" name="submit" value="submit">Submit <i class="glyphicon glyphicon-chevron-right"></i></button>
+                                          </div>
+                                        </div>
                          </form>
-                      </fieldset>   
-                  </div>
-                          
-                   
+                              </fieldset>   
+                                </div>
+                             </div>
+                        </div>
+                     </div>
+              </div>
+          <?php } ?>
+
+                <div class="row">
+                   <div class="col-sm-12">
+                    &nbsp;
+                   </div>
         </div>
+            </div>
+                        <div>
+                               <div class="row">
+                                  <div>
+                         </div>
+            </div>
             </div>
                     </div>
     </div>
@@ -387,47 +393,7 @@ a:active, a:hover {
                    
          </div>
             </div>
-
-
-                         <div class="login_form_page">
-                            <div class="row">
-                              <div class="col-sm-12 text-center">
-                                <h6 class="login_title"><br class="hidden-xs">Team invite's </h6>
-                              </div>
-                            </div>
-                              <div class="row">
-                                  <div class="col-sm-12">
-                                                <form method='post' id="login" class="form-horizontal login_form">
-                                  <fieldset>
-                                    <div class="form-group">
-                                      <div class="col-sm-12 input"><input name='name'  type="text" placeholder="Please Enter user name"  class="form-control email" required=""></div>
-                                    </div>
-            
-                            <div class="form-group">
-                              <div class="col-sm-12 input text-center">
-                                 <button class="btn btn-md btn-block btn-success" type="submit" name="submit" value="submit">Submit <i class="glyphicon glyphicon-chevron-right"></i></button>
-                              </div>
-                            </div>
-                         </form>
-                      </fieldset>   
-                  </div>
-                          
-                   
-        </div>
-            </div>
-                    </div>
-    </div>
-                <div class="row">
-                   <div class="col-sm-12">
-                    &nbsp;
-                   </div>
-                   
-         </div>
-            </div>
-           
-        </div>
-
-
+     </div>
         <!--/span-->
         <div class="col-md-3">
             <div class="sidebar-nav-fixed pull-right">
@@ -436,9 +402,9 @@ a:active, a:hover {
                         <li class="nav-header"></li>
                         <li class="active"><a href="xb1matchlist.php">Match Finder</a></li>
                         <li><a href="Addplayer.php?teamid=<?php echo $teamid;?>">Add Member</a></li>
-                       <!-- <li><a href="Teamdetails.php?teamid=<?php echo $teamid; ?>&action=DisableHere">Disable Team</a><li>-->
+                       <!-- <li><a href="Teamdetails.php?teamid=<?php  //echo $teamid; ?>&action=DisableHere">Disable Team</a><li>-->
                         <li><a href="Editteam.php?teamid=<?php echo $teamid; ?>">Edit Team</a></li>
-                        <li><a href="allmatch.php">All Matches</a></li>
+                        <!--<li><a href="allmatch.php">All Matches</a></li>-->  
                         
                     </ul>
                 </div>

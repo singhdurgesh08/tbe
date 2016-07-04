@@ -64,7 +64,7 @@ if ($_GET['action'] == "postmatch") {
 
         $Match_Name = $_POST['Match_Name'];
 
-        $Game_Mode = $_POST['Game_Mode'];
+       // $Game_Mode = $_POST['Game_Mode'];
         $Amount = $_POST['Amount'];
         $userid = $_GET['user_id'];
 
@@ -82,6 +82,34 @@ if ($_GET['action'] == "postmatch") {
         $match_start_date =  date("Y-m-d", strtotime($date1)); 
         $realtime =  date("H:i:s", strtotime($mtime)); 
         $opendate = $match_start_date." ".$realtime;
+        
+        $matchdate = strtotime($opendate);
+        $currentdate =  strtotime(date("Y-m-d H:i:s")); 
+        if($currentdate > $matchdate ) { echo "Sorry ! Please post match for future date time";Exit;} 
+        // Game Mode find Here
+      //  echo "select game_Mode from team where id ='$add_itemId'"; die;
+        $teamdetail = mysql_query("select game_Mode from team where id ='$add_itemId'");
+        $rowdetail = mysql_fetch_array($teamdetail);
+       // echo "222222222"; die;
+        $Game_Mode = $rowdetail['game_Mode'];
+        
+        // Gamer Tag check Will Come Here 
+        $userdetail = mysql_query("select gamertag from users where id ='$userid'");
+        $user_detail = mysql_fetch_array($userdetail);
+        if($platform =='PS4') {
+             if(trim($user_detail['gamertag']) =='') {
+                  echo "Sorry ! Please Update GamerTag from profile";die;
+                   
+             }
+        }
+        if($platform =='XB1') {
+           if(trim($user_detail['gamertag']) =='') {
+                  echo "Sorry ! Please Update GamerTag from profile";die;
+                   
+             }
+        }
+       
+
 
         $result = mysql_query("select sum(payment_gross) AS value_sum from payments where user_id ='$userid' and payment_type ='ADD' and payment_status ='1'");
         $row = mysql_fetch_array($result);
@@ -94,10 +122,11 @@ if ($_GET['action'] == "postmatch") {
         
         $totalcredit = ($totalcredit) ? $totalcredit : 0;
         //echo $totalcredit ."Total Credit"; 
-       // echo $Amount ."Amount"; 
+     //  echo $Amount ."Amount"; die;
+       
         
         if ($totalcredit < $Amount) {
-            echo "error";
+            echo "Sorry ! You have No credit Please add credit from Wallet";
             die;
         }
         $query = "INSERT INTO `ps4_match` (`id`, `game_title`, `game_mode`, `amount`, `open_date`, `close_date`, `match_time`, `created_date`, `created_by`, "
@@ -119,7 +148,7 @@ if ($_GET['action'] == "postmatch") {
         VALUES ('', 'post Match', '1', 'Withdrawal', '$userid', '$amount', 'USD', '1', now(), '$email')";
         mysql_query($query); 
             
-            echo "success";
+            echo $platform;
             die;
            
         }
@@ -143,12 +172,32 @@ if ($_GET['action'] == "accept_match") {
         $totalcredit = number_format($sum) - number_format($withdraw);
         $totalcredit = ($totalcredit) ? $totalcredit : 0;
         if ($totalcredit < $Amount) {
-            echo "error";die;
+            echo "error";
+            die;
         }
+         
         $teamid = $_POST['select_team'];
         $matchid = $_POST['matchid'];
         $amount = $_POST['claim_title'];
         $userid = $_SESSION['user_data']['id'];
+        
+         $teamdetail = mysql_query("select platform from team where id ='$teamid'");
+         $rowdetail = mysql_fetch_array($teamdetail);
+         $platform = $teamdetail['platform'];
+         // Gamer Tag check Will Come Here 
+        $userdetail = mysql_query("select gamertag from users where id ='$userid'");
+        $user_detail = mysql_fetch_array($userdetail);
+        if($platform =='PS4') {
+             if(trim($user_detail['gamertag']) =='') {
+                  echo "error1";die;
+                   
+             }
+        }
+        if($platform =='XB1') {
+           if(trim($user_detail['gamertag']) =='') {
+             echo "error1";die;
+           }
+        }
         $query = "INSERT INTO `join_match` (`match_id`, `team_id`, `Match_play_status`, `status`, `created_by`, `created_date`, `join_fee`,`opponent_id`,"
                 . "`amount`,`match_score`,`match_winner`,`opponent_report_match_score`,`opponent_report_match_winner`,`host_report_time`,`opponent_report_time`) "
                 . " VALUES ('$matchid', '$teamid', '0', '1', '$userid', now(), '$amount','1','$amount',0,0,NULL,NULL,NULL,NULL)";

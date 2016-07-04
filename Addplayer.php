@@ -6,27 +6,6 @@ include "login-header.php";?>
 <?php include "config.php";
 $teamid = $_GET['teamid'];
 
-$month = array('0'=>"1v1 Mycourt",'1'=>"2v2 Mycourt",'2'=>"3v3 Mycourt", );
-$checkqq=mysql_query("select * from team where id = $teamid ");
-$r=mysql_fetch_array($checkqq);
-$var=$r[game_Mode];
-
-
-if ($month[0] == $var) {
-	echo "helllo";
-}
-elseif ($month[1] == $var) {
-	echo "helllo1";
-}
-elseif ($month[2] == $var) {
-	echo "hello2";
-}
-else
-{
-	echo "bye";
-	exit();
-}
-
 if ($_GET['action'] =='add') 
 	{ 
 		$id = $_GET['id'];

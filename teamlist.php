@@ -27,10 +27,7 @@ include "login-header.php";
         <div class="col-sm-6 text-center">
             <h1></h1>
         </div>
-        <div class="col-sm-2 text-center">
-            <a href="AddTeam.php" class="btn btn-lg btn-block btn-success"> Add Team </a> 
-        </div>
-    </div>
+   </div>
 
    <div class="row">
         <div class="col-sm-12">
@@ -88,12 +85,11 @@ include "login-header.php";
                                  <?php 
                                     if ($is_admin == "1" || $userid ==$r['created_by']) {
                                         echo ('| <a href=teamlist.php?teamid='. $r[id] . ' >Delete</a>');
-
                                         if (isset($_GET['teamid']) && is_numeric($_GET['teamid']))
                                             {
                                                   $ids = $_GET['teamid'];
                                                   $result = mysql_query("DELETE FROM team WHERE id = '$ids'");
-                                                    header("location: teamlist.php");
+                                                  header("location: teamlist.php");
                                                                                                      
                                             }
 
