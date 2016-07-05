@@ -268,7 +268,7 @@ function getTeamImage($teamid){
                         <li class="nav-header"></li>
                         
                         <li><a  data-toggle="modal" data-target="#report_match" style="cursor: pointer;">Report Match</a></li>
-                        <li><a href="Ticket.php">Dispute</a></li>
+                        <li><a href="createticket.php">Dispute</a></li>
                          <li><a href="javascript:void();">Cancel Match</a></li>
                         <li><a  data-toggle="modal" data-target="#claim_money" style="cursor: pointer;">Change Winner</a></li>
                     </ul>
