@@ -188,7 +188,7 @@ a:active, a:hover {
 
                             <tbody>
                                 <?php $i = 1;
-                                     $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.player_status ='1' and team_list.team_id= $teamid");
+                                      $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.player_status ='1' and team_list.team_id= $teamid");
                                       while($r=mysql_fetch_assoc($res))
                                   { 
                                  ?>
@@ -247,6 +247,7 @@ a:active, a:hover {
                                     <th>Recent Match</th>
                                     <th>Result</th>
                                     <th>Date</th>
+                                    <th>Vs Team</th>
                                     <th>Info</th>
                                </tr>
                             </thead>
@@ -274,6 +275,18 @@ a:active, a:hover {
                                                             }
                                                  ?></td>
                                                 <td><?php echo $r[open_date] ?></td>
+                                                <td>
+                                                    <?php
+                                                    if($r['platform']== PS4) 
+                                                    {
+                                                      echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" /> &nbsp; '.$r['team_name'];     
+                                                    }
+                                                    else
+                                                    {
+                                                       echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/> &nbsp; ' . $r['team_name'];      
+                                                    }
+                                              ?>
+                                                </td>
                                                 <td><a href="matchdetails.php?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
                                                  
                                            </tr>
@@ -292,6 +305,7 @@ a:active, a:hover {
                                     <th>Recent Match</th>
                                     <th>Result</th>
                                     <th>Date</th>
+                                     <th>Vs Team</th>
                                     <th>Info</th>
                                </tr>
                             </thead>
@@ -302,11 +316,9 @@ a:active, a:hover {
                                                 left join join_match on join_match.created_by = users.id 
                                                 left join ps4_match on ps4_match.id = join_match.match_id 
                                                 where join_match.created_by = '$userid' and  ps4_match.open_date >= NOW() and join_match.team_id ='$teamid'");
-                                 
-                              
-                                   while($r=mysql_fetch_assoc($res))
-                                  {    //print_r($r);
-                              ?>      
+                               while($r=mysql_fetch_assoc($res))
+                                  {    
+                                   ?>      
                                            <tr>
                                                 <td><?php echo $r[platform] ?></td>
                                                 <td><?php if( $r[Match_play_status] == 0 )
@@ -321,6 +333,18 @@ a:active, a:hover {
                                                             }
                                                  ?></td>
                                                 <td><?php echo $r[open_date] ?></td>
+                                                <td>
+                                                 <?php
+                                                    if($r['platform']== PS4) 
+                                                    {
+                                                      echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" />';
+                                                    }
+                                                    else
+                                                    {
+                                                       echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/>';      
+                                                    }
+                                                  ?>
+                                                </td>
                                                 <td><a href="matchdetails.php?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
                                                  
                                            </tr>

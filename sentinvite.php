@@ -30,7 +30,7 @@ include "login-header.php";?>
                         <th>Team</th>
                         <th>Game Mode</th>
                         <th>Platform</th>
-                       
+                        <th>Sent Date</th>
                     </tr>
                </thead>
 
@@ -42,16 +42,25 @@ include "login-header.php";?>
                                       { 
                                          ?>
                                             <tr>
-                                            <td><?php echo $r['team_name']; ?> </td>
-                                            <td><?php echo $r['game_Mode']; ?></td>
-                                            <td><?php echo $r['platform']; ?></td>
-                                                                                          
+                                            <td>
+                                                <?php if($r['platform']== PS4) 
+                                                    {
+                                                      echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" /> &nbsp; '.$r['team_name'];     
+                                                    }
+                                                    else
+                                                    {
+                                                       echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/> &nbsp; ' . $r['team_name'];      
+                                                    }
+                                                    ?>
+                                            </td>
+                                            <td><?php echo  $r['game_Mode']; ?></td>
+                                            <td><?php echo  $r['platform']; ?></td>
+                                             <th><?php echo $r['join_date']; ?></th>                                            
                                       <?php 
                                        }
                                    ?>
                                             </td>
-                                      
-                                         </tr>
+                                     </tr>
                                          <?php    
                                         ?>
                 </tbody>

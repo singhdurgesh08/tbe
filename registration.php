@@ -105,8 +105,11 @@ if (isset($_POST['submit'])) {
         echo "<script>alert('Email $user_email is already exits')</script>";
         exit();
     }
-    
-     $query="INSERT INTO `users` (`id`,`user_name`, `user_email`, `user_pass`, `confirm_pass`, `membership_id`, `createddate`, `is_admin`) VALUES (NULL, '$user_name', '$user_email', '$user_pass', '$confirm_pass','1',CURRENT_TIMESTAMP, '0')";
+
+ $query= "INSERT INTO `users` (`id`, `first_name`, `last_name`, `user_name`, `user_email`, `user_pass`, `confirm_pass`, `Address`, `gamertag`, `paypal_email`, `DOB`, `city`, `State`, `zip`, `Country`, `membership_id`, `createddate`, `agree`, `is_admin`, `image_name`, `status`, `xbox`, `plastation`, `facebook`, `twitter`, `twitch`, `steam`, `skype`, `youtube`) 
+             VALUES (NULL, '', '', '$user_name', '$user_email', '$user_pass', '$confirm_pass', '', '', '', '', '', '', '', '', '', now(), '', '0', '', '0', '', '', '', '', '', '', '', '')";
+    //     $query="INSERT INTO `users` (`id`,`user_name`, `user_email`, `user_pass`, `confirm_pass`, `membership_id`, `createddate`, `is_admin`) 
+  //                        VALUES (NULL, '$user_name', '$user_email', '$user_pass', '$confirm_pass','1',CURRENT_TIMESTAMP, '0')";
      if (mysql_query($query)) {
         //echo"<script>alert('Registration successfullly completed')</script>";
     }

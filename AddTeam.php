@@ -5,11 +5,9 @@
     header("location: login.php");
     exit();
 }
-
-$plat = $_GET['platform'];
-
 $userid = $_SESSION['user_data']['id'];
 //var_dump($userid);die();
+$plat = $_GET['platform'];
 
 include "login-header.php";?>
 <?php include "nav.php";?>
@@ -34,7 +32,7 @@ include "login-header.php";?>
 				</div>
 				<div class="row">
 					<div class="col-sm-8">
-                            <form method='post' id="addteam" action='AddTeam.php' class="form-horizontal">
+                            <form method='post' id="addteam" action='AddTeam.php?platform=<?php echo $plat;?>'  class="form-horizontal">
 							<fieldset>
 							<div class="form-group">
 									<label for="login_password" class="control-label col-sm-6">Team Name</label>
@@ -53,8 +51,9 @@ include "login-header.php";?>
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                                                                                    
                                                                <div class="form-group">
-                                                                    <div class="col-sm-6 input"><input type="hidden" id="plat" name="plat" value='<?php echo $plat; ?>' class="form-control"></div>
+                                                                    <div class="col-sm-6 input"><input type="hidden" id="plat" name="plat" value='<?php echo $plat;?>' class="form-control"></div>
                                                               </div>
 
                                                              <div class="form-group">
@@ -96,18 +95,32 @@ if (isset($_POST['submit']))
     $Description = $_POST['Description'];
     $userid = $_SESSION['user_data']['id'];
 
-            $query = "INSERT INTO `team` (`id`, `team_name`, `team_size`, `platform`, `team_caption`, `game_Mode`, `description`, `date_added`,`created_by`) VALUES (NULL, '$Team_Name', ' $Team_Size', '$platform', '$Team_Caption', '$Game_Mode', '$Description', now(),'$userid')";
+   $sql = mysql_query("select game_Mode, platform from team where created_by = $userid ");
+    
+    while($result = mysql_fetch_array($sql))
+    {
+        $new  = $result[platform];
+        $game = $result[game_Mode];
+
+        if($game == $Game_Mode AND $new == $platform)
+         {
+            echo "<script>alert('Game Mode $game in platform $new is already exists')</script>";
+            exit();
+         }
+    }
+        
+         $query = "INSERT INTO `team` (`id`, `team_name`, `team_size`, `platform`, `team_caption`, `game_Mode`, `description`, `date_added`,`created_by`) VALUES (NULL, '$Team_Name', ' $Team_Size', '$platform', '$Team_Caption', '$Game_Mode', '$Description', now(),'$userid')";
             if (mysql_query($query)) { 
                  $teamid = mysql_insert_id();
                  $sql_query ="INSERT INTO `team_list` (`user_id`, `team_id`, `join_date`, `created_by`,`player_status`) "
-                         . " VALUES ('$userid', '$teamid',now(),'$userid',1)";
+                             . " VALUES ('$userid', '$teamid',now(),'$userid',1)";
                    mysql_query($sql_query);
 
                ob_start();
                header("location:teamlist.php");
                exit();
             }
-}
+  }
 ?>
 
 
