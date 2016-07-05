@@ -119,11 +119,12 @@ a:active, a:hover {
                     
                    <div class="col-sm-4">
                        <?php
-                        $res = mysql_query("Select * from team where id= $teamid");
-                        $r = mysql_fetch_array($res);
-                        $finalimage = $r['team_image'];
-                       // echo "<pre>"; print_r($r);
-                       if($finalimage) {  ?>
+                            $res = mysql_query("Select * from team where id= $teamid");
+                            $r = mysql_fetch_array($res);
+                            $finalimage = $r['team_image'];
+                            // echo "<pre>"; print_r($r);
+                            if($finalimage) {  
+                        ?>
                               <img src="<?php echo HOSTNAME; ?>upload/<?php echo $finalimage;?>" width="150" class="img-responsive" alt="" />
                       <?php } else { ?>
                        <img src="<?php echo HOSTNAME; ?>assets/images/camera.jpg" class="img-responsive" alt="" >
@@ -132,8 +133,8 @@ a:active, a:hover {
                    <div class="col-sm-8 ">
 
                                    <?php
-                                     $res=mysql_query("Select * from team where id= $teamid");
-                                      $r=mysql_fetch_array($res);
+                                    // $res=mysql_query("Select * from team where id= $teamid");
+                                     // $r=mysql_fetch_array($res);
                                      // echo "<pre>"; print_r($r);
                                   ?>
                                       <div class="row">
