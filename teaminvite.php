@@ -28,34 +28,34 @@ include "login-header.php";?>
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Email id</th>
-                        <th>User Name</th>
                         <th>Team Name</th>
+                        <th>Game Mode</th>
+                        <th>Platform</th>
                         <th>Date</th>
                         <th>Action</th>
                     </tr>
                  </thead>
                <tbody>
                      <?php $i = 1;
-                                      $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.user_id= $userid and team_list.Player_status = 1;");
-                                      while($r=mysql_fetch_assoc($res)) 
+                           $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.user_id= $userid and team_list.Player_status = 0;");
+                           while($r=mysql_fetch_assoc($res))
                                       { 
                                          ?>
                                             <tr>
                                             <td><?php echo $r['team_id']; ?> </td>
-                                            <td><?php echo $r['user_email']; ?></td>
-                                            <td><?php echo $r['user_name']; ?></td>
                                             <td>
                                               <?php
-                                                    if($r['platform']== PS4) 
+                                                if($r['platform']== PS4) 
                                                     {
                                                       echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" /> &nbsp; '.$r['team_name'];     
                                                     }
-                                                    else
+                                                else
                                                     {
                                                        echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/> &nbsp; ' . $r['team_name'];      
                                                     }
                                               ?>
+                                              <td><?php echo $r['game_Mode']; ?> </td>
+                                               <td><?php echo  $r['platform']; ?></td>
                                                <th><?php echo $r['join_date']; ?></th>                                            
                                             </td>
                                             <td>
@@ -64,7 +64,7 @@ include "login-header.php";?>
                                                   if ($_GET['action'] =='accept')
                                                     {
                                                       $ids = $_GET['teamids'];
-                                                      $query =mysql_query("UPDATE team_list SET player_status='0' WHERE team_id = $ids");
+                                                      $query =mysql_query("UPDATE team_list SET player_status='1' WHERE team_id = $ids");
                                                     }
                                             ?>
                                             <a href="Teaminvite.php?teamid=<?php echo $r[team_id]; ?>"> Decline </a>

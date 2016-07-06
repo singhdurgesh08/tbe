@@ -92,8 +92,7 @@
 
         $(window)
                 .scroll(positionFooter)
-                .resize(positionFooter)
-                .resize(heightFix);
+                .resize(positionFooter);
 
 
 

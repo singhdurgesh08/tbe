@@ -1,32 +1,42 @@
+
 <style>
 .dropbtn {
     background-color: #f9f9f9;
-    color: white;
+    color: red;
     padding: 16px;
     font-size: 16px;
-    border: none;
     cursor: pointer;
 }
 .dropdown {
     position: relative;
     display: inline-block;
+
 }
+
 .dropdown-content {
     display: none;
     color: black;
+    border-bottom: 5px solid #2ba0db;
     position: absolute;
     right: 0;
-    background-color: #f9f9f9;
+    left: 0;
+    background-color: black;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
 }
 .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
+    color: white;
+    padding: 15px 16px;
+   border-bottom: 1px solid #2ba0db;
+    text-decoration: inherit;
     display: block;
 }
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {background-color: #f1f1f1;
+color:red;
+text-decoration: solid;
+
+}
 .dropdown:hover .dropdown-content {
     display: block;
 }
@@ -44,23 +54,43 @@
     background-color: #f1f1f1;
     font-weight: bold;
 }
-.nav>li>a {
-    padding: 11px 50px;
+.nav>li>a { margin: 0; }
+
+.toggle + a,
+ .menu { display: none; }
+
+.toggle {
+  display: block;
+  background-color: #254441;
+  padding: 0 20px;
+  color: #FFF;
+  font-size: 20px;
+  line-height: 60px;
+  text-decoration: none;
+  border: none;
+}
+
+.toggle:hover { background-color: #000000; }
+
+[id^=drop]:checked + ul { display: block; }
 }
 .home_tab_section {
     padding-top: 80px;
     padding-bottom: 80px;
     background: #f5f4f4;
 }
+.nav ul {
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+}
+
 </style>
 <?php
   $file=$_SERVER["SCRIPT_NAME"];
    $userid = $_SESSION['user_data']['id'];
 
-	
-	  
-	  
-	 // echo "<pre>111111111111111111111==============="; print_r($withdraw);
+// echo "<pre>111111111111111111111==============="; print_r($withdraw);
 ?>
 <section class="menu_section">
 <div class="container">
@@ -89,7 +119,7 @@
 						
 						if ($r['platform']== PS4) 
 							{
-								$var = '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline; " />';
+								$var = '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;background-color:#1fd7db; " />';
 								
 
 								echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'&nbsp;&nbsp;'. $var .'</a>');
@@ -133,20 +163,18 @@
 		  <li class="dropdown selected">
 			<a class="dropbtn" style="color:red;background-color: yellow;" > <b><?php echo substr($_SESSION['user_data']['user_name'],0,20);?> &nbsp;</b></a>  
 			<div class="dropdown-content" style="z-index:999;">
-			<a href="myprofile.php?usersid=<?php echo $userid ?>">My Profile</a>
+			<a href="myprofile.php?userid=<?php echo $userid ?>">My Profile</a>
 			<a href="wallet.php">Wallet</a>    
 			<a href="subscribe_membership.php">Membership</a> 
 			<a href="teaminvite.php">Team Invite</a>      
             <a href="editprofile.php">Edit Profile</a>
 			<a href="home.php">Home</a>
-			
-			
 			<!--<a href="Addplaystation.php">Gamertag</a>-->
 			<a href="logout.php">Logout</a>
 		</div>
-		
 		  </li>
 		</ul>
 	  </div><!-- /.navbar-collapse -->
-	</nav></div>
-    </section>
+	</nav>
+ </div>
+ </section>

@@ -1,8 +1,7 @@
-<?php
-
-session_start();
+<?php session_start();
 error_reporting(0);
 include "config.php";
+include "common.php";
 if ($_GET['action'] == "reportmatch") {
 
     $userId = $_GET['user_id'];
@@ -13,17 +12,47 @@ if ($_GET['action'] == "reportmatch") {
     $repot_match_id = $_POST['repot_match_id'];
     $res = mysql_query("Select * from ps4_match where id= $repot_match_id");
     $r = mysql_fetch_array($res);
-    // Self team 
+    // Host reporting Match
+    // if opponent_id equal 0 means Host and if 1 Means Opponent
+     
+    // Get Host id 
+      $host = getHostId($repot_match_id);
+      $opponent = getOpponentId($repot_match_id);
+      $hostId  = $host['id'];
+      $opponentId  = $opponent['id'];
+    
+    
     if ($r['created_by'] == $userId) {
-        mysql_query("Update join_match set host_report_time= now() , match_winner ='$yourteam',match_score='$yourteamscore' where match_id= '$repot_match_id' and opponent_id = '0'");
-        mysql_query("Update join_match set host_report_time= now() , match_winner ='$opponentteam',match_score='$opponentteamscore' where match_id= '$repot_match_id' and opponent_id = '1'");
+        mysql_query("Update join_match set host_report_time= now() , match_winner ='$yourteam',match_score='$yourteamscore' where id = '$hostId' ;");
+        mysql_query("Update join_match set host_report_time= now() , match_winner ='$opponentteam',match_score='$opponentteamscore' where id = '$opponentId' ;");
     } else {
-
-        mysql_query("Update join_match set opponent_report_time = now() , opponent_report_match_winner ='$yourteam',opponent_report_match_score='$yourteamscore' where match_id= '$repot_match_id' and opponent_id = '1'");
-
-        mysql_query("Update join_match set set opponent_report_time = now() , opponent_report_match_winner ='$opponentteam',opponent_report_match_score='$opponentteamscore' where match_id= '$repot_match_id' and opponent_id = '0'");
+        // Opponent reporting Match
+        mysql_query("Update join_match set opponent_report_time = now() , opponent_report_match_winner ='$yourteam',opponent_report_match_score='$yourteamscore'  where id = '$opponentId';");
+        mysql_query("Update join_match set opponent_report_time = now() , opponent_report_match_winner ='$opponentteam',opponent_report_match_score='$opponentteamscore' where id = '$hostId' ;");
     }
-
+    // Host Status Update
+    if(($host['match_winner'] == $host['opponent_report_match_winner']) && $host['match_winner'] =="Win"){
+         mysql_query("Update join_match set  Match_play_status ='1'  where id = '$hostId' ;");
+    }elseif(($host['match_winner'] == $host['opponent_report_match_winner']) && $host['match_winner'] =="Loss"){
+         mysql_query("Update join_match set  Match_play_status ='2'  where id = '$hostId' ;");
+    }else {
+         // Nothing Update
+    }
+  // Opponent Status Update
+    if(($opponent['match_winner'] == $opponent['opponent_report_match_winner']) && $opponent['match_winner'] =="Win"){
+        mysql_query("Update join_match set  Match_play_status ='1'  where id = '$opponentId' ;");
+    }else if(($opponent['match_winner'] == $opponent['opponent_report_match_winner']) && $opponent['match_winner'] =="Loss"){
+      mysql_query("Update join_match set  Match_play_status ='2'  where id = '$opponentId' ;");
+    }else {
+        // Nothing Update
+    }
+    // Trasfer Money To Team
+     $resquery = mysql_query("Select join_match.Match_play_status , join_match.match_id from join_match  left join users on join_match.created_by = users.id where match_id= '$repot_match_id' and Match_play_status = '1'");
+     $win_result = mysql_fetch_array($resquery);
+     if($win_result['Match_play_status'] =='1'){
+       transferMoney($userid,$repot_match_id);
+     }
+    
     echo "success";
     die;
 }
@@ -164,7 +193,7 @@ if ($_GET['action'] == "accept_match") {
         $userid = $_GET['user_id'];
         $teamid = $_POST['select_team'];
         $matchid = $_POST['matchid'];
-        $amount = $_POST['claim_title'];
+        
         $userid = $_SESSION['user_data']['id'];
 
         $matchres = mysql_query("Select * from ps4_match where id ='$matchid' and match_status ='1'");
@@ -175,7 +204,7 @@ if ($_GET['action'] == "accept_match") {
        if($matchdetail['created_by'] ==$userid){
              echo "error2"; die;
         }
-        
+        $amount = $matchdetail['amount'];
         $result = mysql_query("select sum(payment_gross) AS value_sum from payments where user_id ='$userid' and payment_type ='ADD' and payment_status ='1'");
         $row = mysql_fetch_array($result);
         $sum = $row['value_sum'];
@@ -185,7 +214,7 @@ if ($_GET['action'] == "accept_match") {
         $withdraw = $row2['value_sum_withdraw'];
         $totalcredit = number_format($sum) - number_format($withdraw);
         $totalcredit = ($totalcredit) ? $totalcredit : 0;
-        if ($totalcredit < $Amount) {
+        if ($totalcredit < $amount) {
             echo "error";
             die;
         }
@@ -214,17 +243,30 @@ if ($_GET['action'] == "accept_match") {
         if (mysql_query($query)) {
             $email = $_SESSION['user_data']['user_emil'];
             $userid = $_SESSION['user_data']['id'];
-            $amount = $Amount;
+            $amount = $amount;
             $query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
-        `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`) 
-        VALUES ('', 'Accept Match', '1', 'Withdrawal', '$userid', '$amount', 'USD', '1', now(), '$email')";
+                     `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`) 
+                      VALUES ('', 'Accept Match', '1', 'Withdrawal', '$userid', '$amount', 'USD', '1', now(), '$email')";
             mysql_query($query);
             mysql_query("update ps4_match set match_status='2' where id = '$matchid'");
-            //header("Location: matchdetails.php?Matchid=" . $matchid);
             echo $matchid;  exit;
         }
    // }
     //echo "<pre>"; print_r($_POST); die;
     
+}
+if ($_GET['action'] == "updateTeam") {   
+     $userid = $_GET['user_id'];
+     $gamemode = $_GET['gamemode'];
+     $platform = $_GET['platform'];
+     
+     $query = "select id,team_name FROM team where created_by ='$userid' and game_Mode ='$gamemode' and platform ='$platform'";
+     $result = mysql_query($query);
+    $resultArray = array();
+    while ($row = mysql_fetch_assoc($result)) {
+       $resultArray[] = $row;
+    }
+
+    echo json_encode($resultArray); die;
 }
 ?>

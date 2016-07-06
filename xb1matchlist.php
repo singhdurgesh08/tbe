@@ -64,14 +64,14 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                                  <!--   <img src="assets/images/xb1_list.jpg" width="30" class="img-responsive" alt="" style="display:inline;" /><?php //echo $r[game_title]; ?>-->
                                  1
                                 </td>
-                                <td><?php echo $r[platform]; ?></td>
+                                <td><?php echo $r[game_mode]; ?></td>
                                 <td><?php echo $r[amount]; ?></td>
                                 <td>
                                    
                                         <?php if($r['match_status']=="2"){   ?>
                                                     <a href="javascript:void();" class="btn btn-info">Accepted</a>
                                                     <?php }else {   ?>
-                                                    <a href="javascript:void();" onclick="acceptMatch('<?php echo $r[amount]; ?>','<?php echo $r[id]; ?>');">Accept</a>
+                                                    <a href="javascript:void();" onclick="acceptMatch('<?php echo $r['amount']; ?>','<?php echo $r['id']; ?>','<?php echo $r['game_mode']; ?>','<?php echo $r['platform']; ?>');">Accept</a>
                                                      <?php }   ?>
                                     
                                     <!--<a href="matchdetails.php?Matchid=<?php //echo $r[0]; ?>"> View Match </a>   | -->
@@ -108,6 +108,10 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
             <form  id="accept_match_xb1" name="accept_match_xb1"  class="form-horizontal" method='post'>
                 <div class="modal-body">
                     <div id="div_wait"></div>
+                    <div class="form-group">
+                        <label for="help" class="control-label col-sm-12">You need to select same game mode and  same platform type team</label>
+                        
+                    </div>
                     <div class="form-group">
                         <label for="select_team" class="control-label col-sm-6">Select Team</label>
                         <div class="col-sm-6 input"> 
@@ -152,10 +156,18 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
 </div>
 
 <script>
-    //$(document).ready(function() {
-      //  $('#example').DataTable();
-    //});
-    function acceptMatch(str,id){
+    
+   function acceptMatch(str,id,gamemode,platform){
+     $.getJSON("ajax_file.php?action=updateTeam&user_id=<?php echo $userid; ?>&gamemode="+gamemode+"&platform="+platform, function(result){
+        $("#select_team").html(); 
+        var options = '';
+        options += '<option value="">Select Team</option>';
+        for (var i = 0; i < result.length; i++){
+            options += '<option value="' + result[i].id + '">' + result[i].team_name + '</option>';
+        }
+        $("#select_team").html(options);
+            
+    });
     $("#join_team").modal("show");
     $("#claim_title").val(str);
     $("#matchid").val(id);

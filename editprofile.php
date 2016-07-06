@@ -120,18 +120,13 @@ if (file_exists("upload/" . $filename)) {
                                     <div class="col-sm-4 input"><select name="State" id="state" class="form-control" required="">   
                                                    <option value=""> Please select State </option>
                                                                      <?php 
-                                                    $query =mysql_query("select name from states");
+                                                    $query =mysql_query("select name from states where country_id=231");
                                                     while($result = mysql_fetch_array($query))
                                                     {
-                                                       
-                                                                //echo '<option value="'.$r["id"].'">'.$r["game_title"].'( Match Id - '.$r["id"].')</option>';
-                                                                echo "<option value='" . $result['name'] ."'>" . $result['name'] ."</option>";
-                                                        //echo ($r[team_name]);
-                                                    } 
+                                                        echo "<option value='" . $result['name'] ."'>" . $result['name'] ."</option>";
+                                                 } 
                                                 ?>
-                                                                
-                                                                
-                                                                  </select></div>
+                                        </select></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-2">Zip</label>
@@ -143,7 +138,7 @@ if (file_exists("upload/" . $filename)) {
                                     <div class="col-sm-4 input"><select name="Country"  id="Country" class="form-control" required="">   
                                            <option value=""> Please select Country </option>
                                                  <?php 
-                                                    $query =mysql_query("select name from countries");
+                                                    $query =mysql_query("select name from countries where id=231");
                                                     while($res = mysql_fetch_array($query))
                                                     {
                                                        

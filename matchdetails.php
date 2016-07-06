@@ -1,4 +1,4 @@
-<?php
+<?php ob_start();
 session_start();
 include "login-header.php";
 include "nav.php";
@@ -32,43 +32,16 @@ $r = mysql_fetch_array($res);
 //echo "<pre>"; print_r($r);
 $userid = $_SESSION['user_data']['id'];
 
-function getTeamImage($teamid){
-    $resteam1 = mysql_query("Select * from team where id= $teamid");
-    return $rteam1 = mysql_fetch_array($resteam1);
-    //return $rteam1['team_image'];
+
+include "common.php"; 
+
+if ((isset($_GET['Matchid']) && is_numeric($_GET['Matchid'])) && $_GET['action'] == "cancle") {
+    $ids = $_GET['Matchid'];
+    cancleAcceptedMatch($ids);
+   
 }
 ?>
-<script>
-        function report_match(){
-                $.ajax({
-                    url: "ajax_file.php?action=reportmatch&user_id=<?php echo $userid;?>",
-                    type: "post",
-                    data: $("#match_report").serialize(),
-                     beforeSend: function(d) {
-                       $("#match_report_div").html("Please wait we are repoting .....");
-                     },
-                     success: function(d) {
-                      $("#match_report_div").hide();
-                       $("#match_report_success").show();  
-                    }
-                });
-        } 
-        function change_winner_team(){
-                $.ajax({
-                    url: "ajax_file.php?action=changewinner&user_id=<?php echo $userid; ?>",
-                    type: "post",
-                    data: $("#change_winner").serialize(),
-                     beforeSend: function(d) {
-                       $("#change_winner_success").hide();
-                       $("#change_winner_wait").html("Please wait we are repoting .....");
-                     },
-                     success: function(d) {
-                         $("#change_winner_wait").html("");
-                         $("#change_winner_success").show();  
-                    }
-                });
-        } 
-        </script>
+
 <div class="home_tab_section">
  <div class="container">
     <div class="row">
@@ -82,8 +55,6 @@ function getTeamImage($teamid){
                            $detail  = mysql_fetch_array($resquery);
                             $teamid = $detail['team_id'];
                           
-                            // echo "<pre>"; print_r($r);
-                            
                         ?>
                         <div class="row">
                     <div class="col-sm-4 text-center">
@@ -269,8 +240,12 @@ function getTeamImage($teamid){
                         
                         <li><a  data-toggle="modal" data-target="#report_match" style="cursor: pointer;">Report Match</a></li>
                         <li><a href="createticket.php">Dispute</a></li>
-                         <li><a href="javascript:void();">Cancel Match</a></li>
+                         <li><a href="matchdetails.php?action=cancle&Matchid=<?php echo $matid;?>">Cancel Match</a></li>
+                         <?php $is_admin = $_SESSION['user_data']['is_admin']; 
+                               if($is_admin ==1){ 
+                          ?>
                         <li><a  data-toggle="modal" data-target="#claim_money" style="cursor: pointer;">Change Winner</a></li>
+                          <?php } ?>
                     </ul>
                 </div>
                 <!--/.well -->
@@ -287,13 +262,13 @@ function getTeamImage($teamid){
 </div>
 
 
-<div id="report_match" class="modal fade" role="dialog">
+<div id="report_match" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" onclick="closeModal();">&times;</button>
                 <h4 class="modal-title">Report Match</h4>
             </div>
             <div class="modal-body">
@@ -301,52 +276,54 @@ function getTeamImage($teamid){
                 <form method='post'  id="match_report" name="match_report" class="form-horizontal">
                     <div class="row">
                     <div class="col-sm-12 text-center" style="background-color: black;color: white;">
-                        <b> Team A  VS Team B </b>
+                        <b>  <?php echo  ucfirst($finalimage1['team_name'])."   VS   ". ucfirst($finalimage2['team_name']); ?> </b>
                     </div>
                     </div>
-                    <div class="row">
+<!--                    <div class="row">
                     <div class="col-sm-12 text-center" style="background-color: yellowgreen;color: white;">
                         <b> Opponent Team Not replied yet. </b> 
                     </div>
-                    </div>
+                    </div>-->
                      <fieldset>
-                        <legend>Match Final Score</legend>
-
+                        
+                        <legend>Game Information</legend>
                         <div class="form-group">
                             <label for="gamebest" class="control-label col-sm-6">Game (Best of ..)</label>
-                            <div class="col-sm-2 input">1</div>
+                            <div class="col-sm-4 input">1</div>
                         </div>
                         <div class="form-group">
                             <label for="yoorteam" class="control-label col-sm-6">Your Team Game Won :</label>
-                            <div class="col-sm-2 input">
-                                <select name="yourteam" id="yoorteam" class="form-control" required="">    
-                                    <option value="1">Win</option>
-                                    <option value="2">Loss</option>
+                            <div class="col-sm-4 input">
+                                <select name="yourteam" id="yoorteam" class="form-control" required="">   
+                                    <option value="">Select Win / Loss</option>
+                                    <option value="Win">Win</option>
+                                    <option value="Loss">Loss</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="opponentteam" class="control-label col-sm-6">Opponent Team Game Won :</label>
-                            <div class="col-sm-2 input">
-                                <select name="opponentteam" id="opponentteam" class="form-control" required="">    
-                                    <option value="1">WIN</option>
-                                    <option value="2">LOSS</option>
+                            <div class="col-sm-4 input">
+                                <select name="opponentteam" id="opponentteam" class="form-control" required="">   
+                                    <option value="">Select Win / Loss</option>
+                                    <option value="Win">Win</option>
+                                    <option value="Loss">Loss</option>
                                 </select>
                             </div>
                         </div>
                     </fieldset>
                     <fieldset>
-                        <legend>Game1 Information</legend>
+                        <legend>Match Final Score</legend>
                     <div class="form-group">
                         <label for="yourteamscore" class="control-label col-sm-6">Your Team Score :</label>
-                        <div class="col-sm-2 input">
-                           <input type="text" id="yourteamscore" name="yourteamscore"  class="form-control" required=""/>
+                        <div class="col-sm-4 input">
+                           <input type="text" id="yourteamscore" name="yourteamscore"  class="form-control" required="" minimum="1" maximum="3"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="opponentteamscore" class="control-label col-sm-6">Opponent Team Score :</label>
-                        <div class="col-sm-2 input">
-                           <input type="text" id="opponentteamscore" name="opponentteamscore"  class="form-control" required=""/>
+                        <div class="col-sm-4 input">
+                           <input type="text" id="opponentteamscore" name="opponentteamscore"  class="form-control" required=""  minimum="1" maximum="3"/>
                         </div>
                     </div>
                      <input type="hidden" id="repot_match_id" name="repot_match_id" value="<?php echo $matid;?>"/>
@@ -355,7 +332,7 @@ function getTeamImage($teamid){
                             <label for="" class="control-label col-sm-8 back hidden-xs">&nbsp;</label>
                             <div class="col-sm-4 input">
 
-                            <button class="btn btn-lg btn-block btn-success" type="button" name="add_report" id="add_report" value="Save"  onclick="report_match();">Report Score</button>
+                            <button class="btn btn-lg btn-block btn-success" type="submit" name="add_report" id="add_report" value="Save"  onclick="report_match();">Report Score</button>
                             </div>
                             
                     </div>
@@ -441,3 +418,47 @@ function getTeamImage($teamid){
 <?php
 include "footer.php";
 ?>
+<script>
+        function report_match(){
+             $('#match_report').validate({
+              submitHandler: function(form) {
+               $.ajax({
+                    url: "ajax_file.php?action=reportmatch&user_id=<?php echo $userid; ?>",
+                    type: "post",
+                    data: $("#match_report").serialize(),
+                     beforeSend: function(d) {
+                       $("#match_report_div").html("Please wait we are repoting .....");
+                     },
+                     success: function(d) {
+                      $("#match_report_div").hide();
+                       $("#match_report_success").show();  
+                    }
+                });             
+        }
+        }); 
+
+        } 
+        function change_winner_team(){
+         $('#change_winner').validate({
+              submitHandler: function(form) {
+                $.ajax({
+                    url: "ajax_file.php?action=changewinner&user_id=<?php echo $userid; ?>",
+                    type: "post",
+                    data: $("#change_winner").serialize(),
+                     beforeSend: function(d) {
+                       $("#change_winner_success").hide();
+                       $("#change_winner_wait").html("Please wait we are repoting .....");
+                     },
+                     success: function(d) {
+                         $("#change_winner_wait").html("");
+                         $("#change_winner_success").show();  
+                    }
+                });
+                  }
+            }); 
+        } 
+        function closeModal(){
+          $("#report_match").modal("hide");
+           window.location.href =' <?php echo HOSTNAME; ?>matchdetails.php?Matchid=<?php echo $matid; ?>';
+        }
+</script>

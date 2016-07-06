@@ -27,7 +27,8 @@ include "login-header.php";?>
             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Team</th>
+                        <th>Id</th>
+                        <th>Team Name</th>
                         <th>Game Mode</th>
                         <th>Platform</th>
                         <th>Sent Date</th>
@@ -36,12 +37,12 @@ include "login-header.php";?>
 
                 <tbody>
                      <?php $i = 1;
-                          $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id 
-                          WHERE team_list.created_by= $userid ;");
+                          $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.created_by= $userid ;");
                                       while($r=mysql_fetch_assoc($res))
                                       { 
                                          ?>
                                             <tr>
+                                               <td><?php echo $r['team_id']; ?> </td>
                                             <td>
                                                 <?php if($r['platform']== PS4) 
                                                     {

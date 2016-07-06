@@ -368,7 +368,8 @@ a:active, a:hover {
                    if($result[created_by] == $userid)
                    {
                 ?>
-                 <div class="row">
+             
+                  <div class="row">
                     <div class="col-sm-12">
                          <div class="login_form_page">
                                     <div class="row">
@@ -376,20 +377,21 @@ a:active, a:hover {
                                         <h6 class="login_title"><br class="hidden-xs">Team invite's </h6>
                                       </div>
                                     </div>
-                      <div class="row">
-                        <div class="col-sm-12">
-                          <form method='post' id="login" class="form-horizontal login_form">
-                             <fieldset>
-                                      <div class="form-group">
-                                        <div class="col-sm-12 input"><input name='name'  type="text" placeholder="Please Enter user name"  class="form-control email" required=""></div>
-                                      </div>
-                                       <div class="form-group">
-                                          <div class="col-sm-12 input text-center">
-                                             <button class="btn btn-md btn-block btn-success" type="submit" name="submit" value="submit">Submit <i class="glyphicon glyphicon-chevron-right"></i></button>
-                                          </div>
-                                        </div>
-                         </form>
-                              </fieldset>   
+                          <div class="row">
+                            <div class="col-sm-12">
+                                <form method='post' id="login" class="form-horizontal login_form">
+                                       <fieldset>
+                                               <div class="form-group">
+                                                  <div class="col-sm-12 input"><input name='name'  type="text" placeholder="Please Enter user name"  class="form-control email" required=""></div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <div class="col-sm-12 input text-center">
+                                                       <button class="btn btn-md btn-block btn-success" type="submit" name="submit" value="submit">Submit <i class="glyphicon glyphicon-chevron-right"></i></button>
+                                                    </div>
+                                                  </div>
+                                       
+                                       </fieldset> 
+                                </form>
                                 </div>
                              </div>
                         </div>
@@ -459,34 +461,49 @@ function acceptMatch(str,id){
     $("#join_team").modal("show");
     $("#claim_title").val(str);
     $("#matchid").val(id);
-
 }
 </script>
 
 <?php 
-if (isset($_POST['submit'])) 
-  {
-       $name = $_POST['name'];
-       $res = mysql_query("Select id from users where user_name ='$name'");
-       $r = mysql_fetch_array($res);
-         $result = $r['id'];
-          if ($result != '') 
-            { 
-               $query ="INSERT INTO `team_list` (`user_id`, `team_id`, `join_date`, `created_by`,`player_status`) VALUES ('$r[id]', '$teamid',now(),'$userid',0)";
-                echo"<script>alert('Team Invited successfullly')</script>";
-             }
-             else
-             {
-                   echo"<script>alert('Please Invite Valid user')</script>";
-             }
-                
-  }
 
+        $sql =mysql_query("Select * from team where id= $teamid");
+        $result = mysql_fetch_array($sql);
+        $var = $result['game_Mode'];
+        $a = "1v1 Mycourt";$b ="2v2 Mycourt";$c ="3v3 Mycourt";
+
+        $query = "SELECT count(*) AS total FROM team_list where team_id=$teamid"; 
+        $result1 = mysql_query($query); 
+        $values = mysql_fetch_assoc($result1); 
+        $num_rows = $values['total']; 
+         
+              if (isset($_POST['submit'])) 
+                {
+                   if($var ==$b and $num_rows == 2)
+                    {
+                        echo "<script>alert('your team is full in your game mode')</script>";
+                    }
+                    else{
+                           $name = $_POST['name'];
+                           $res = mysql_query("Select id from users where user_name ='$name'");
+                           $record = mysql_fetch_array($res);
+                           $result = $record['id'];
+                           if ($result != '') 
+                              { 
+                                 $query =mysql_query("INSERT INTO `team_list` (`id`,`user_id`, `team_id`, `join_date`, `created_by`,`player_status`) VALUES (NULL,'$result', '$teamid',now(),'$userid',0)");
+                                 echo"<script>alert('Team Invited successfullly')</script>";
+                                 exit();
+                              }
+                          else
+                              {
+                                 echo"<script>alert('Please Invite Valid user')</script>";
+                              }
+                      }
+                            
+               }
+                        
 ?>
 
 <?php
 include "footer.php";
 ?>
-
-
 <!--/.fluid-container-->
