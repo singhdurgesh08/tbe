@@ -118,7 +118,7 @@ a:active, a:hover {
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input name="agree" type="checkbox" required="" class="required">
-                                    <a href="term-service.php" translate="" target="_blank"> I have read the privacy policy & terms of condition.</a>
+                                   I accept the <a href="term-service.php" target="_blank">terms of condition</a>&nbsp;&&nbsp;<a href="privacy.php" target="_blank">privacy policy</a>
 
                                 </div>
                             </div>
@@ -159,7 +159,7 @@ a:active, a:hover {
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input name="agree" type="checkbox" required="" class="required">
-                                     I accept the <a href="term-service.php">terms of condition</a>&nbsp;&&nbsp;<a href="privacy.php">privacy policy</a>
+                                     I accept the <a href="term-service.php" target="_blank">terms of condition</a>&nbsp;&&nbsp;<a href="privacy.php" target="_blank">privacy policy</a>
 
                                 </div>
                             </div>
@@ -201,7 +201,7 @@ a:active, a:hover {
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input name="agree" type="checkbox" required="" class="required">
-                                   I accept the <a href="term-service.php">terms of condition</a>&nbsp;&&nbsp;<a href="privacy.php">privacy policy</a>
+                                   I accept the <a href="term-service.php" target="_blank">terms of condition</a>&nbsp;&&nbsp;<a href="privacy.php" target="_blank">privacy policy</a>
 
                                 </div>
                             </div>
@@ -239,8 +239,8 @@ a:active, a:hover {
         },
         messages: {
         add_amount: {
-        required: "Amount is required",
-        range: "Please Enter Amount Between 5 - 100 dollar"
+        required: "Amount is required.",
+        range: "Please Enter Amount Between 5 to 100 dollar."
         }
         },
   
@@ -257,8 +257,8 @@ a:active, a:hover {
         },
         messages: {
         add_amount: {
-        required: "Amount is required",
-        range: "Please Enter Amount Between 5 - 100 dollar"
+        required: "Amount is required.",
+        range: "Please Enter Amount Between 5 to 100 dollar."
         }
         },
   

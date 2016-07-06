@@ -1,14 +1,22 @@
-<?php
-session_start();
+<?php  ob_start();
+    session_start();
 if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login.php");
     exit();
 }
 $userid = $_SESSION['user_data']['id'];
 include "login-header.php";
+
+include "nav.php"; 
+include "config.php"; 
+include "common.php"; 
+if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action'] == "cancle") {
+    $ids = $_GET['matchid'];
+    cancleMatch($ids);
+    header("location:xb1matchlist.php");
+    exit();
+}
 ?>
-<?php include "nav.php"; ?>
-<?php include "config.php"; ?>
 <div class="home_tab_section">
     <div class="container">
         <div class="row">
@@ -69,16 +77,8 @@ include "login-header.php";
                                     <!--<a href="matchdetails.php?Matchid=<?php //echo $r[0]; ?>"> View Match </a>   | -->
                                     
                                      <?php 
-                                    if ($is_admin == "1") {
-                                        echo ('| <a href=xb1matchlist.php?teamid='. $r[id] . ' >Delete</a>');
-
-                                        if (isset($_GET['teamid']) && is_numeric($_GET['teamid']))
-                                            {
-                                                  $ids = $_GET['teamid'];
-                                                   //var_dump($ids);die();
-                                                   $result = mysql_query("DELETE FROM ps4_match WHERE id = '$ids'");
-                                                                                                     
-                                            }
+                                   if ($is_admin == "1" || $r['created_by'] ==$userid) {
+                                        echo ('| <a href=xb1matchlist.php?action=cancle&matchid='. $r['id'] . '>Delete</a>');
 
                                     }
                                  
@@ -175,10 +175,13 @@ function joinMatch(){
                       if(d ==='error'){
                          $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! You have No credit Please add credit from Wallet .</b> ');
                      }else if(d ==='error1'){
-                         $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! Sorry ! Please Update GamerTag from profile .</b> ');
-                      
+                         $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! Please Update GamerTag from profile .</b> ');
+                      }else if(d ==='error2'){
+                         $("#div_wait").html('<b  style="background-color:red;color:white;">  Sorry ! You can not Accept your Match .</b> '); 
+                      }else if(d ==='error3'){
+                        $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! Match Already Accepted .</b> '); 
                       }else {
-                        window.location.href =' <?php echo HOSTNAME;?>matchdetails.php?Matchid='+d; 
+                        window.location.href =' <?php echo HOSTNAME; ?>matchdetails.php?Matchid='+d; 
                       }
                     }         
                      

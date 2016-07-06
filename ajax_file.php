@@ -162,6 +162,20 @@ if ($_GET['action'] == "accept_match") {
     //if ($_POST['submit'] == 'Join') {
         
         $userid = $_GET['user_id'];
+        $teamid = $_POST['select_team'];
+        $matchid = $_POST['matchid'];
+        $amount = $_POST['claim_title'];
+        $userid = $_SESSION['user_data']['id'];
+
+        $matchres = mysql_query("Select * from ps4_match where id ='$matchid' and match_status ='1'");
+        $matchdetail = mysql_fetch_array($matchres);
+        if($matchdetail['id'] ==""){
+            echo "error3"; die;
+        }
+       if($matchdetail['created_by'] ==$userid){
+             echo "error2"; die;
+        }
+        
         $result = mysql_query("select sum(payment_gross) AS value_sum from payments where user_id ='$userid' and payment_type ='ADD' and payment_status ='1'");
         $row = mysql_fetch_array($result);
         $sum = $row['value_sum'];
@@ -176,11 +190,6 @@ if ($_GET['action'] == "accept_match") {
             die;
         }
          
-        $teamid = $_POST['select_team'];
-        $matchid = $_POST['matchid'];
-        $amount = $_POST['claim_title'];
-        $userid = $_SESSION['user_data']['id'];
-        
          $teamdetail = mysql_query("select platform from team where id ='$teamid'");
          $rowdetail = mysql_fetch_array($teamdetail);
          $platform = $teamdetail['platform'];

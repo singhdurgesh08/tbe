@@ -115,9 +115,11 @@ mysql_query($query);
 
         
         <!-- Display the payment button. -->
+         <!-- Display the payment button. -->
         <input type="image" name="submit" border="0"
-        src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="PayPal - The safer, easier way to pay online">
-        <img alt="" border="0" width="1" height="1" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+        src="<?php echo HOSTNAME; ?>assets/images/paypal_paynow.png" alt="PayPal - The safer, easier way to pay online">
+        <br/>
+        <img alt="" border="0"  src="<?php echo HOSTNAME; ?>assets/images/verified.jpg" >
     
     </form>
 	</div>
