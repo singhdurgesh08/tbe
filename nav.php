@@ -163,7 +163,7 @@ text-decoration: solid;
 		  <li class="dropdown selected">
 			<a class="dropbtn" style="color:red;background-color: yellow;" > <b><?php echo substr($_SESSION['user_data']['user_name'],0,20);?> &nbsp;</b></a>  
 			<div class="dropdown-content" style="z-index:999;">
-			<a href="myprofile.php?userid=<?php echo $userid ?>">My Profile</a>
+			<a href="myprofile.php?usersid=<?php echo $userid ?>">My Profile</a>
 			<a href="wallet.php">Wallet</a>    
 			<a href="subscribe_membership.php">Membership</a> 
 			<a href="teaminvite.php">Team Invite</a>      
