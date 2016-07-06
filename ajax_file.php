@@ -57,7 +57,7 @@ if ($_GET['action'] == "reportmatch") {
     die;
 }
 if ($_GET['action'] == "changewinner") {
-    $userId = $_GET['user_id'];
+   // $userId = $_GET['user_id'];
     $yourteam = $_POST['yourteam'];
     $opponentteam = $_POST['opponentteam'];
     $repot_match_id = $_POST['repot_match_id'];
@@ -65,7 +65,6 @@ if ($_GET['action'] == "changewinner") {
     mysql_query("Update join_match set host_report_time= now() , Match_play_status ='$opponentteam' ,opponent_report_match_winner ='$opponentteam' where match_id= '$repot_match_id' and opponent_id = '1'");
     $resquery1 = mysql_query("Select * from join_match  left join users on join_match.created_by = users.id where match_id= '$repot_match_id' and Match_play_status = '1'");
     $detail1 = mysql_fetch_array($resquery1);
-
     $email = $detail1['user_email'];
     $userid = $detail1['created_by'];
     if($_SESSION['dimond_user'] == "dimond"){

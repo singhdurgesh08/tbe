@@ -35,10 +35,54 @@ $userid = $_SESSION['user_data']['id'];
 
 include "common.php"; 
 
-if ((isset($_GET['Matchid']) && is_numeric($_GET['Matchid'])) && $_GET['action'] == "cancle") {
-    $ids = $_GET['Matchid'];
+if ((isset($matid) && is_numeric($matid)) && $_GET['action'] == "cancle") {
+    $ids = $matid;
     cancleAcceptedMatch($ids);
    
+}
+
+$host = getHostId($matid);
+$opponent = getOpponentId($matid);
+$hostId  = $host['id'];
+$opponentId  = $opponent['id'];
+$hostreporttime = $host['host_report_time'];
+$opponentreporttime = $opponent['host_report_time'];
+if($hostreporttime){
+  $hostdate = date('Y-m-d h:i:s A', strtotime($hostreporttime . " +3 hours"));
+}
+if($opponentreporttime){
+ $opponentdate = date('Y-m-d h:i:s A', strtotime($opponentreporttime . " +3 hours"));
+}
+ $currentdate = date('Y-m-d h:i:s A');
+// Update Match report in case of Host
+if(($hostreporttime) && empty($opponentreporttime)) {
+    if( strtotime($hostdate) < strtotime($currentdate)){
+        // Update Host As a Win
+        // Opponent As Loss
+        mysql_query("Update join_match set  Match_play_status ='1'  where id = '$hostId' ;");
+        mysql_query("Update join_match set  Match_play_status ='2'  where id = '$opponentId' ;");
+        // Trasfer Money To Team
+        $resquery = mysql_query("Select join_match.Match_play_status ,join_match.match_id,join_match.created_by from join_match  left join users on join_match.created_by = users.id where match_id= '$matid' and Match_play_status = '1'");
+        $win_result = mysql_fetch_array($resquery);
+        if($win_result['Match_play_status'] =='1'){
+         transferMoney($win_result['created_by'],$matid);
+        }
+    }
+}
+// Update Match Report in case of opponent
+if(($opponentreporttime) && empty($hostreporttime)) {
+    if( strtotime($opponentdate) < strtotime($currentdate)){
+        // Update Host As a Win
+        // Opponent As Loss
+         mysql_query("Update join_match set  Match_play_status ='1'  where id = '$opponentId' ;");
+         mysql_query("Update join_match set  Match_play_status ='2'  where id = '$hostId' ;");
+         // Trasfer Money To Team
+        $resquery = mysql_query("Select join_match.Match_play_status ,join_match.match_id,join_match.created_by from join_match  left join users on join_match.created_by = users.id where match_id= '$matid' and Match_play_status = '1'");
+        $win_result = mysql_fetch_array($resquery);
+        if($win_result['Match_play_status'] =='1'){
+         transferMoney($win_result['created_by'],$matid);
+        }
+    }
 }
 ?>
 
@@ -362,7 +406,7 @@ if ((isset($_GET['Matchid']) && is_numeric($_GET['Matchid'])) && $_GET['action']
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" onclick="closeModal2();">&times;</button>
                 <h4 class="modal-title">Change Winner</h4>
             </div>
             <form  name="change_winner" id="change_winner" method='post'  class="form-horizontal">
@@ -404,7 +448,7 @@ if ((isset($_GET['Matchid']) && is_numeric($_GET['Matchid'])) && $_GET['action']
                             <label for="" class="control-label col-sm-8 back hidden-xs">&nbsp;</label>
                             <div class="col-sm-4 input">
 
-                            <button class="btn btn-lg btn-block btn-success" type="button" name="Save" value="Save" onclick="change_winner_team();">Save</button>
+                                <button class="btn btn-lg btn-block btn-success" type="submit" name="Save" value="Save" onclick="change_winner_team();">Save</button>
                             </div>
                             
                     </div>
@@ -459,6 +503,10 @@ include "footer.php";
         } 
         function closeModal(){
           $("#report_match").modal("hide");
+           window.location.href =' <?php echo HOSTNAME; ?>matchdetails.php?Matchid=<?php echo $matid; ?>';
+        }
+       function closeModal2(){
+          $("#claim_money").modal("hide");
            window.location.href =' <?php echo HOSTNAME; ?>matchdetails.php?Matchid=<?php echo $matid; ?>';
         }
 </script>

@@ -12,7 +12,7 @@ if ($_GET['action'] =='DisableHere')
          header("Location: Teamdetails.php?teamid=".$teamid);
   }
 //$userid = $_SESSION['user_data']['id'];
-
+ $is_admin = $_SESSION['user_data']['is_admin'];
 ?>
 <style>
  thead th {
@@ -253,10 +253,18 @@ a:active, a:hover {
                             </thead>
                             <tbody>
                              <?php 
+                             if($is_admin){
                                 $res=mysql_query("Select * from users  
                                                 left join join_match on join_match.created_by = users.id 
                                                 left join ps4_match on ps4_match.id = join_match.match_id 
+                                                where  join_match.team_id ='$teamid'"); 
+                             } else {
+                                  $res=mysql_query("Select * from users  
+                                                left join join_match on join_match.created_by = users.id 
+                                                left join ps4_match on ps4_match.id = join_match.match_id 
                                                 where join_match.created_by = '$userid' and join_match.team_id ='$teamid'");
+                             }
+                                
                               
                                    while($r=mysql_fetch_assoc($res))
                                   {    
@@ -277,13 +285,15 @@ a:active, a:hover {
                                                 <td><?php echo $r[open_date] ?></td>
                                                 <td>
                                                     <?php
+                                                    $sql2 =mysql_query("select team_name from team where id=$teamid");
+                                                    $result1 = mysql_fetch_array($sql2);
                                                     if($r['platform']== PS4) 
                                                     {
-                                                      echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" /> &nbsp; '.$r['team_name'];     
+                                                      echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" /> &nbsp; '.$result1[team_name];     
                                                     }
                                                     else
                                                     {
-                                                       echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/> &nbsp; ' . $r['team_name'];      
+                                                       echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/> &nbsp; ' . $result1[team_name];      
                                                     }
                                               ?>
                                                 </td>
@@ -312,10 +322,18 @@ a:active, a:hover {
 
                             <tbody>
                              <?php 
+                              if($is_admin){
                              $res=mysql_query("Select * from users  
                                                 left join join_match on join_match.created_by = users.id 
                                                 left join ps4_match on ps4_match.id = join_match.match_id 
-                                                where join_match.created_by = '$userid' and  ps4_match.open_date >= NOW() and join_match.team_id ='$teamid'");
+                                                where  ps4_match.open_date >= NOW() and join_match.team_id ='$teamid'");
+                              }else{
+                               $res=mysql_query("Select * from users  
+                                                left join join_match on join_match.created_by = users.id 
+                                                left join ps4_match on ps4_match.id = join_match.match_id 
+                                                where join_match.created_by = '$userid' and  ps4_match.open_date >= NOW() and join_match.team_id ='$teamid'");    
+                                  
+                              }
                                while($r=mysql_fetch_assoc($res))
                                   {    
                                    ?>      
@@ -335,13 +353,16 @@ a:active, a:hover {
                                                 <td><?php echo $r[open_date] ?></td>
                                                 <td>
                                                  <?php
+                                                 $sql1 =mysql_query("select team_name from team where id=$teamid");
+                                                 $result = mysql_fetch_array($sql1);
+
                                                     if($r['platform']== PS4) 
                                                     {
-                                                      echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" />';
+                                                      echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" />'.$result[team_name];
                                                     }
                                                     else
                                                     {
-                                                       echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/>';      
+                                                       echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/>'.$result[team_name];      
                                                     }
                                                   ?>
                                                 </td>
@@ -465,22 +486,42 @@ function acceptMatch(str,id){
 </script>
 
 <?php 
-
         $sql =mysql_query("Select * from team where id= $teamid");
         $result = mysql_fetch_array($sql);
         $var = $result['game_Mode'];
-        $a = "1v1 Mycourt";$b ="2v2 Mycourt";$c ="3v3 Mycourt";
+        $a = "1v1 Mycourt";$b ="2v2 Mycourt";$c ="3v3 Mycourt";$d ="Quick Match";$e ="Myteam";
 
         $query = "SELECT count(*) AS total FROM team_list where team_id=$teamid"; 
         $result1 = mysql_query($query); 
         $values = mysql_fetch_assoc($result1); 
         $num_rows = $values['total']; 
-         
-              if (isset($_POST['submit'])) 
+      
+             if (isset($_POST['submit'])) 
                 {
-                   if($var ==$b and $num_rows == 2)
+                   if($var ==$a and $num_rows == 1)
                     {
                         echo "<script>alert('your team is full in your game mode')</script>";
+                        exit();
+                    }
+                    elseif ($var ==$b and $num_rows == 2)
+                    {
+                      echo "<script>alert('your team is full in your game mode')</script>";
+                      exit();
+                    }
+                    elseif ($var ==$c and $num_rows == 3)
+                    {
+                      echo "<script>alert('your team is full in your game mode')</script>";
+                      exit();
+                    }
+                     elseif ($var ==$d and $num_rows == 1)
+                    {
+                      echo "<script>alert('your team is full in your game mode')</script>";
+                      exit();
+                    }
+                     elseif ($var ==$e and $num_rows == 2)
+                    {
+                      echo "<script>alert('your team is full in your game mode')</script>";
+                      exit();
                     }
                     else{
                            $name = $_POST['name'];
@@ -496,6 +537,7 @@ function acceptMatch(str,id){
                           else
                               {
                                  echo"<script>alert('Please Invite Valid user')</script>";
+                                 exit();
                               }
                       }
                             
