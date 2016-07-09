@@ -79,8 +79,10 @@ if (isset($_POST['submit'])) {
     $Membership = "1";
 
     if ($user_name == '') {
-        echo "<script>alert('please enter your name')</script>";
-        exit();
+       $msg = "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong>  please enter your name.
+                </div>";
     }
 
     if ($user_email == '') {

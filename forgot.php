@@ -39,7 +39,7 @@ include "config.php";
 if (isset($_POST['submit']))
  {
 	
-	$email = $_POST['email'];
+	$email = trim($_POST['email']);
 	$query="select * from users where user_email='$email'";
 	$run = mysql_query($query);
 	$count=mysql_num_rows($run);
