@@ -54,11 +54,17 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                                         $res=mysql_query("Select * from ps4_match where platform ='PS4'");
                                      }  $i =1;
                                      while($r=mysql_fetch_array($res))
-                                 {  if(strtotime($r['open_date']) < strtotime(date("d-M-Y h:i:s") )|| $r['match_status'] =="2") {  continue; } ?>
+                                 { 
+                                if($r['match_status'] == "2") {
+                                continue;
+                                }elseif(strtotime($r['open_date']) < strtotime(date("d-M-Y h:i:s A"))){ //Match date is old Means Match Expire
+                                cancleMatch($r['id']);
+                                }else{
+                                ?>
                                     <tr>
 
                                         <td>
-                                                <?php echo date("d-M-Y h:i:s A", strtotime($r['open_date'])); ?></td>
+                                                <?php echo date("d-M-Y h:i A", strtotime($r['open_date'])); ?></td>
                                             <td>1</td>
                                             <td><?php echo $r[game_mode]; ?></td>
                                             <td><?php echo $r[amount]; ?></td>
@@ -78,9 +84,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                                  
                                   ?>
 								</tr>
-							      
-							     <?php    }
-							?>
+                                 <?php    } } ?>
 							</tbody>
 			     		</table>
 		    	

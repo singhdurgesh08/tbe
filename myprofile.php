@@ -54,22 +54,14 @@ $usersid = $_GET['usersid'];
     
      <tbody>
         <tr class="bg-primary">
-        <th></th>
-        <th>General Information</th>
-         <th>&nbsp;&nbsp;</th>
-         <th>&nbsp;&nbsp;</th>
-         <th>&nbsp;&nbsp;</th>
-         <th>&nbsp;&nbsp;</th>
-         <th>&nbsp;&nbsp;</th>
-        <th class="right">Social Media</th>
+        
+        <th class="text-center">Social Media</th>
       </tr>
 
        </tbody>
 </table>
-           
-</div>
-</div>
-     <div class="col-sm-8">
+
+<div class="col-sm-8">
             <form method='post' action='myprofile.php' class="form-horizontal">
              <!--   <fieldset>
                     <div class="form-group">
@@ -115,85 +107,74 @@ $usersid = $_GET['usersid'];
                 </fieldset>-->
             </form>
         </div>
-
-                    <div class="row">
-                    <div class="col-sm-3"><span class="right">
-                        
-                        <form method='post' id="editform" class="form-horizontal">
-                               
-                        <fieldset>
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/XboxLogo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label>
-                                    <div class="col-sm-6 input"><input name='Gamertag' id="name" value="<?php echo $result['xbox'];?>" placeholder="xbox" class="form-control" required=""></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/playstation final.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['plastation'];?>" placeholder="playstation"  class="form-control" required=""></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/facebook.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['facebook']; ?>" placeholder="facebook`"  class="form-control" required=""></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/Twitter.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['twitter']; ?>" placeholder="twitter"  class="form-control" required=""></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/twitch logo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['twitch']; ?>" placeholder="twitch`.`"  class="form-control" required=""></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/steam.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['steam']; ?>" placeholder="steam`.`"  class="form-control" required=""></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/skype.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['skype']; ?>" placeholder="skype"  class="form-control" required=""></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-6">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/youtube.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['youtube']; ?>" placeholder="youtube"  class="form-control" required=""></div>
-                                </div>
-
-                               </div>
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-6">
+            <form method='post' id="editform" class="form-horizontal">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="login_password" class="control-label col-sm-4">
+                            <img src="<?php echo HOSTNAME; ?>assets/images/XboxLogo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label>
+                            <div class="col-sm-6 input">
+                                <input name='Gamertag' id="name" value="<?php echo $result['xbox'];?>" placeholder="xbox" class="form-control" required="">
                             </div>
-                        </fieldset>
-                </form>
-
+                        </div>
+                        <div class="form-group">
+                            <label for="login_password" class="control-label col-sm-4">
+                                <img src="<?php echo HOSTNAME; ?>assets/images/playstation final.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                            <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['plastation'];?>" placeholder="playstation"  class="form-control" required=""></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="login_password" class="control-label col-sm-4">
+                                <img src="<?php echo HOSTNAME; ?>assets/images/facebook.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                            <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['facebook']; ?>" placeholder="facebook"  class="form-control" required=""></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="login_password" class="control-label col-sm-4">
+                              <img src="<?php echo HOSTNAME; ?>assets/images/Twitter.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                        <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['twitter']; ?>" placeholder="twitter"  class="form-control" required=""></div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    <div class="col-sm-6">
+        <form method='post' id="editform" class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <label for="login_password" class="control-label col-sm-3">
+                        <img src="<?php echo HOSTNAME; ?>assets/images/twitch logo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                     <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['twitch']; ?>" placeholder="twitch"  class="form-control" required=""></div>
                 </div>
-            </span>
+                <div class="form-group">
+                    <label for="login_password" class="control-label col-sm-3">
+                        <img src="<?php echo HOSTNAME; ?>assets/images/steam.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['steam']; ?>" placeholder="steam"  class="form-control" required=""></div>
+                </div>
+                <div class="form-group">
+                    <label for="login_password" class="control-label col-sm-3">
+                        <img src="<?php echo HOSTNAME; ?>assets/images/skype.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['skype']; ?>" placeholder="skype"  class="form-control" required=""></div>
+                </div>
+                <div class="form-group">
+                    <label for="login_password" class="control-label col-sm-3">
+                        <img src="<?php echo HOSTNAME; ?>assets/images/youtube.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                    <div class="col-sm-6 input"><input name='Last_Name' id="lname" value="<?php echo $result['youtube']; ?>" placeholder="youtube"  class="form-control" required=""></div>
+                </div>
+            </fieldset>
+        </div>
     </div>
-
-
-
-
-
-   
-
-
-    
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 <?php
 
 include "config.php";
 if(isset($_POST['submit']))
 				{
-
                 // echo "<pre>"; print_r($_POST); die;
 				//	 $Email = $_POST['Email'];
 					 $First_Name = $_POST['First_Name'];
@@ -267,10 +248,8 @@ if(isset($_POST['Update']))
                 echo "Your image successfullly uploaded";
            }
             
-        }  
-            
+        }             
 }
-
 ?>
 <div>&nbsp;</div>
 <?php include "footer.php";?>

@@ -1,7 +1,9 @@
 <?php session_start();
 error_reporting(0);
+date_default_timezone_set('US/Eastern');
 include "config.php";
 include "common.php";
+
 if ($_GET['action'] == "reportmatch") {
 
     $userId = $_GET['user_id'];

@@ -219,7 +219,7 @@ $matchtype = $_GET['matchtype'];
 
                         <div class="form-group">
                             <label for="login_password" class="control-label col-sm-6">Amount $</label>
-                            <div class="col-sm-6 input"><input type="text" id="amount" name="Amount"  class="form-control" required="" placeholder="$1.00(min) - $100.00(max)per player" ></div>
+                            <div class="col-sm-6 input"><input type="text" id="amount" name="Amount"  class="form-control" required="" placeholder="$0(min) - $100.00(max)per player" ></div>
                         </div>
                         <div class="form-group">
                             <div class="row">

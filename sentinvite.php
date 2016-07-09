@@ -58,7 +58,7 @@ include "login-header.php";?>
                                             </td>
                                             <td><?php echo  $r['game_Mode']; ?></td>
                                             <td><?php echo  $r['platform']; ?></td>
-                                             <th><?php echo date("Y-M-d h:i A",strtotime($r['join_date'])); ?></th>                                            
+                                             <td><?php echo date("Y-M-d h:i A",strtotime($r['join_date'])); ?></td>                                            
                                       <?php 
                                        }
                                    ?>

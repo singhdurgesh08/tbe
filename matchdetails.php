@@ -112,7 +112,7 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                           <?php }  ?>
                         <?php 
               
-                        echo "<h2>  Team - ".ucfirst($finalimage1['team_name'])."</h2>";
+                        echo "<h4> ".ucfirst($finalimage1['team_name'])."</h4>";
                         //echo $detail['user_name']."<br/>";
                         // echo $finalimage1['team_name'] . "<br/>";
 
@@ -138,7 +138,7 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                                     <img src="<?php echo HOSTNAME; ?>/assets/images/match_profile.png" class="img-circle" alt="Cinque Terre" width="64" height="66"> 
                                 <?php } ?>
                                 <?php
-                               echo "<h2>  Team - ".ucfirst($finalimage2['team_name'])."</h2>";
+                               echo "<h4> ".ucfirst($finalimage2['team_name'])."</h4>";
                              //   echo $detail1['user_name'] . "<br/>";
                                 //echo $finalimage2['team_name'] . "<br/>";
                                 echo "<br/>";
@@ -356,18 +356,18 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                             </div>
                         </div>
                     </fieldset>
-                 <!--   <fieldset>
+                    <fieldset>
                         <legend>Match Final Score</legend>
                     <div class="form-group">
                         <label for="yourteamscore" class="control-label col-sm-6">Your Team Score :</label>
                         <div class="col-sm-4 input">
-                           <input type="text" id="yourteamscore" name="yourteamscore"  class="form-control" required="" minimum="1" maximum="3"/>
+                           <input type="text" id="yourteamscore" name="yourteamscore"  class="form-control" minimum="1" maximum="3"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="opponentteamscore" class="control-label col-sm-6">Opponent Team Score :</label>
                         <div class="col-sm-4 input">
-                           <input type="text" id="opponentteamscore" name="opponentteamscore"  class="form-control" required=""  minimum="1" maximum="3"/>
+                           <input type="text" id="opponentteamscore" name="opponentteamscore"  class="form-control"   minimum="1" maximum="3"/>
                         </div>
                     </div>
                      <input type="hidden" id="repot_match_id" name="repot_match_id" value="<?php echo $matid;?>"/>
@@ -379,7 +379,7 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                             <button class="btn btn-lg btn-block btn-success" type="submit" name="add_report" id="add_report" value="Save"  onclick="report_match();">Report Score</button>
                             </div>
                             
-                    </div>-->
+                    </div>
                 </form>  
                     </div>
                    <div class="row" id="match_report_success" style="display:none;">

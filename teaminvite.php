@@ -63,7 +63,7 @@ include "login-header.php";?>
                                               <td><?php echo $r['game_Mode']; ?> </td>
                                                <td><?php echo  $r['platform']; ?></td>
                                               <!-- <th><?php echo $r['join_date']; ?></th>  -->
-                                                <th><?php echo date("Y-M-d h:i A",strtotime($r['join_date'])); ?></th>                                              
+                                                <td><?php echo date("Y-M-d h:i A",strtotime($r['join_date'])); ?></td>                                              
                                             </td>
                                             <td>
                                             <a href="Teaminvite.php?teamids=<?php echo $r[team_id]; ?>&action=accept"> Accept </a>&nbsp;|&nbsp;</a>
