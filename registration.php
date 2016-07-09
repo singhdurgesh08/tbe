@@ -71,22 +71,22 @@ include "config.php";
 
 if (isset($_POST['submit'])) {
     $msg = "";
-    $user_name = $_POST['name'];
-    $user_email = $_POST['email'];
-    $user_pass = $_POST['pass'];
-    $confirm_pass = $_POST['confirm_pass'];
+    $user_name = trim($_POST['name']);
+    $user_email = trim($_POST['email']);
+    $user_pass = trim($_POST['pass']);
+    $confirm_pass = trim($_POST['confirm_pass']);
   
     $Membership = "1";
 
     if ($user_name == '') {
-       $msg .= "<div class='alert alert-danger'>
+       $msg = "<div class='alert alert-danger'>
                 <button class='close' data-dismiss='alert'>&times;</button>
                 <strong>Sorry!</strong>  Please enter your name
                 </div>";
     }
 
     if ($user_email == '') {
-        $msg .= "<div class='alert alert-danger'>
+        $msg = "<div class='alert alert-danger'>
                 <button class='close' data-dismiss='alert'>&times;</button>
                 <strong>Sorry!</strong>  Please enter your email
                 </div>";
@@ -94,7 +94,7 @@ if (isset($_POST['submit'])) {
     }
 
     if ($user_pass == '') {
-          $msg .= "<div class='alert alert-danger'>
+          $msg = "<div class='alert alert-danger'>
                 <button class='close' data-dismiss='alert'>&times;</button>
                 <strong>Sorry!</strong> Please enter your password
                 </div>";
@@ -102,29 +102,30 @@ if (isset($_POST['submit'])) {
    
     $check_name = "select * from users where user_name ='$user_name'";
     $run = mysql_query($check_name);
-        if (mysql_num_rows($run) >= 1) {
-        echo "<script>alert('Name $user_name is already exits')</script>";
-        exit();
+        if (mysql_num_rows($run) >= 1) { 
+         $msg = "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong> User  $user_name is already exits
+                </div>";
+       
     }
     $check_email = "select * from users where user_email ='$user_email'";
     $run = mysql_query($check_email);
     if (mysql_num_rows($run) >= 1) {
-        echo "<script>alert('Email $user_email is already exits')</script>";
-        exit();
+         $msg = "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong>  Email $user_email is already exits
+                </div>";
+        
     }
 
- $query= "INSERT INTO `users` (`id`, `first_name`, `last_name`, `user_name`, `user_email`, `user_pass`, `confirm_pass`, `Address`, `gamertag`, `paypal_email`, `DOB`, `city`, `State`, `zip`, `Country`, `membership_id`, `createddate`, `agree`, `is_admin`, `image_name`, `status`, `xbox`, `plastation`, `facebook`, `twitter`, `twitch`, `steam`, `skype`, `youtube`) 
+   if(trim($msg) ==""){
+     $query= "INSERT INTO `users` (`id`, `first_name`, `last_name`, `user_name`, `user_email`, `user_pass`, `confirm_pass`, `Address`, `gamertag`, `paypal_email`, `DOB`, `city`, `State`, `zip`, `Country`, `membership_id`, `createddate`, `agree`, `is_admin`, `image_name`, `status`, `xbox`, `plastation`, `facebook`, `twitter`, `twitch`, `steam`, `skype`, `youtube`) 
              VALUES (NULL, '', '', '$user_name', '$user_email', '$user_pass', '$confirm_pass', '', '', '', '', '', '', '', '', '', now(), '', '0', '', '0', '', '', '', '', '', '', '', '')";
-    //     $query="INSERT INTO `users` (`id`,`user_name`, `user_email`, `user_pass`, `confirm_pass`, `membership_id`, `createddate`, `is_admin`) 
-  //                        VALUES (NULL, '$user_name', '$user_email', '$user_pass', '$confirm_pass','1',CURRENT_TIMESTAMP, '0')";
-     if (mysql_query($query)) {
-        //echo"<script>alert('Registration successfullly completed')</script>";
-    }
-
-      $used_id = mysql_insert_id();
-      if(!empty($used_id)) {
-           
-            $actual_link = HOSTNAME.'verify.php';
+        mysql_query($query);
+       $used_id = mysql_insert_id();
+       if (!empty($used_id)) {
+            $actual_link = HOSTNAME . 'verify.php';
             //var_dump($actual_link);die();
             $toEmail = $user_email;
             $subject = "Confirm Registration";
@@ -139,15 +140,15 @@ if (isset($_POST['submit'])) {
               <br /><br />
               Thanks,<br />Admin";
 
-               
+
             $headers = "MIME-Version: 1.0" . "\r\n";
             $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
             // More headers
             $headers .= 'From: support@tbesportsgaming.com' . "\r\n";
-             //var_dump($mailHeaders);die();
+            //var_dump($mailHeaders);die();
             if (mail($toEmail, $subject, $message, $headers)) {
-            // echo"<script>alert('Registration successfullly completed')</script>";
-            $msg = "
+                // echo"<script>alert('Registration successfullly completed')</script>";
+                $msg = "
             <div class='alert alert-success'>
             <button class='close' data-dismiss='alert'>&times;</button>
             <strong>Success!</strong>  We've sent an email to $toEmail.
@@ -155,8 +156,13 @@ if (isset($_POST['submit'])) {
             </div>
             ";
             }
-}
-
+        }else {
+             $msg = "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong> User not registered.
+                </div>";
+        }
+    }
     
 }
 if(!empty($_GET["id"])) {
