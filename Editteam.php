@@ -20,7 +20,7 @@ $temporary = explode(".", $_FILES["file"]["name"]);
 $file_extension = end($temporary);
 
 if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") || ($_FILES["file"]["type"] == "image/jpeg")
-    ) && ($_FILES["file"]["size"] < 100000)//Approx. 100kb files can be uploaded.
+    ) && ($_FILES["file"]["size"] < MAXUPLOAD)//Approx. 100kb files can be uploaded.
     && in_array($file_extension, $validextensions)) {
 
 if ($_FILES["file"]["error"] > 0) {
@@ -69,7 +69,7 @@ if (file_exists("upload/" . $filename)) {
                      </div>
                         <form id="form" action="" method="post"enctype="multipart/form-data">
                             <div id="upload">
-                                <input type="file" name="file" id="file"/>
+                                <input type="file" name="file" id="file" accept="<?php echo ACCEPTIMAGE;?>"/>
                             </div>
                         <br/>
                                 <input type="submit" id="submit" name="submit" value="Upload" class="btn btn-primary" style="margin-left:58px;"/>

@@ -1,16 +1,17 @@
-<?php
-session_start();
+<?php session_start();
+     ob_start();
 include "login-header.php";
 include "nav.php";
 include "config.php";
 
 $teamid = $_GET['teamid'];
 
-if ($_GET['action'] == 'DisableHere') {
-    $sql_query = "UPDATE team SET status = 0 WHERE id = $teamid";
-    mysql_query($sql_query);
-    header("Location: Teamdetails.php?teamid=" . $teamid);
-}
+ if (isset($_GET['usersid']) && is_numeric($_GET['usersid']))
+    {
+        //  var_dump($teamid);
+          $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id = $teamid ");                                         
+          header("location: teamdetails.php?teamid=$teamid");
+    }
 //$userid = $_SESSION['user_data']['id'];
 $is_admin = $_SESSION['user_data']['is_admin'];
 ?>
@@ -19,11 +20,9 @@ $is_admin = $_SESSION['user_data']['is_admin'];
         background-color: #006DCC;
         color: white;
     }
-
     tbody td {
         background-color: #EEEEEE;
     }
-
     .nav.nav-tabs li:first-child a {
         margin-left: 0;
     }
@@ -44,8 +43,6 @@ $is_admin = $_SESSION['user_data']['is_admin'];
         border-bottom-color: transparent;
         cursor: default;
     }
-
-
     .nav-tabs>li>a {
         margin-right: 2px;
         line-height: 1.428571429;
@@ -100,108 +97,100 @@ $is_admin = $_SESSION['user_data']['is_admin'];
         height: 5px;
         width: 100%;
     }
-
 </style>
 <div class="home_tab_section">
     <div class="container">
         <div class="row">
-
             <!--/span-->
             <div class="col-md-9">
                 <div class="jumbotron">
-
                     <div class="row">
-                        <div class="col-sm-12">
-                            &nbsp;
-                        </div>
-                    </div>
-                    <div class="row">
-
                         <div class="col-sm-4">
-                            <?php
-                            $res = mysql_query("Select * from team where id= $teamid");
-                            $r = mysql_fetch_array($res);
-                            $finalimage = $r['team_image'];
-                            // echo "<pre>"; print_r($r);
-                            if ($finalimage) {
-                                ?>
-                                <img src="<?php echo HOSTNAME; ?>upload/<?php echo $finalimage; ?>" width="150" class="img-responsive" alt="" />
-                            <?php } else { ?>
-                                <img src="<?php echo HOSTNAME; ?>assets/images/teamss.jpg" class="img-responsive" alt="" >
-                            <?php } ?>
-                        </div>
-                        <div class="col-sm-8 ">
-
-                            <?php
-                            // $res=mysql_query("Select * from team where id= $teamid");
-                            // $r=mysql_fetch_array($res);
-                            // echo "<pre>"; print_r($r);
-                            ?>
-                            <div class="row">
-
-                                <div class="col-sm-12">
-                                    <h3> <?php echo $r['team_name']; ?></h3>
-                                    Team ID  :- 0000<?php echo $r['id']; ?>
-                                    &nbsp;&nbsp;&nbsp; Platform :- <?php echo $r['platform']; ?>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    Game Mode :- <?php echo $r['game_Mode']; ?>
-                                </div> 
-                                <div class="col-sm-6">
-                                    Register Date :- <?php echo date("d-M-Y", strtotime($r['date_added'])); ?>
-                                </div> 
-                            </div> 
+                           <div class="row">
+                        <div class="col-sm-12">
+                            &nbsp;
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             &nbsp;
                         </div>
-
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                <caption class="text-center"> <h3>Team Record</h3></caption>  
-                                <thead class="thead-inverse">
-                                    <tr>
-                                        <th>Win</th>
-                                        <th>Loss</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                    </tr>
-                                </tbody>
-                        </div>
+        <?php
+        $res = mysql_query("Select * from team where id= $teamid");
+        $r = mysql_fetch_array($res);
+        $finalimage = $r['team_image'];
+        // echo "<pre>"; print_r($r);
+        if ($finalimage) {
+    ?>
+           <img src="<?php echo HOSTNAME; ?>upload/<?php echo $finalimage; ?>" width="200" class="img-responsive" alt="" />
+        <?php } else { ?>
+           <img src="<?php echo HOSTNAME; ?>assets/images/teamss.jpg" width="200" class="img-responsive" alt="" >
+        <?php } ?>
                     </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        &nbsp;
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                            <caption class="text-center"> <h3>Roster</h3></caption>  
-                            <thead class="thead-inverse">
-                                <tr>
-                                    <th>Roster</th>
-                                    <th>Role</th>
-                                    <th>Date Joined</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <?php
+<div class="col-sm-8 ">
+    <?php
+    // $res=mysql_query("Select * from team where id= $teamid");
+    // $r=mysql_fetch_array($res);
+    // echo "<pre>"; print_r($r);
+    ?>
+<div class="row">
+    <div class="col-sm-12">
+        <h3><strong>Team Name: <?php echo $r['team_name']; ?></strong></h3></div>
+ </div>
+    <div class="row">
+    <div class="col-sm-6">
+        Team ID  :- 0000<?php echo $r['id']; ?>
+    </div>
+    <div class="col-sm-6">
+      Platform :- <?php echo $r['platform']; ?>
+    </div> 
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        Game Mode :- <?php echo $r['game_Mode']; ?>
+    </div>
+    <div class="col-sm-6">
+        Register Date :- <?php echo date("d-M-Y", strtotime($r['date_added'])); ?>
+    </div> 
+<div>
+    <div class="row">
+    <div class="col-sm-11 centered">
+        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <h4 class="text-center"><strong>Team Record</strong></h4></caption>  
+                <thead class="thead-inverse">
+                    <tr>
+                      <th class="text-center">Win</th>
+                      <th class="text-center">Loss</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                     <td class="text-center">0</td>
+                     <td class="text-center">0</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+</div>
+</div>
+</div> 
+</div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+       <h4 class="text-center"><strong>Roster</strong></h4> 
+       <thead class="thead-inverse">
+           <tr>
+               <th>Roster</th>
+               <th>Role</th>
+               <th>Date Joined</th>
+               <th>Action</th>
+           </tr>
+       </thead>
+            <tbody>
+ <?php
                                 $i = 1;
                                 $res = mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.player_status ='1' and team_list.team_id= $teamid");
                                 while ($r = mysql_fetch_assoc($res)) {
@@ -218,21 +207,28 @@ $is_admin = $_SESSION['user_data']['is_admin'];
                                                 echo "Player";
                                             }
                                             ?>
-
-                                        </td>
+                                       </td>
+                                
                                         <td><?php echo date("d-M-Y", strtotime($r['join_date'])); ?></td>
-
+                                        <td>
+                                         <?php
+                                            $var = $r['team_id'];
+                                            if ($r['team_id'] == $var && $r['created_by'] != $r['user_id'])
+                                            {
+                                              ?> <a href="teamdetails.php?usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Disband Team</a> <?php
+                                         } 
+                                            ?>
+                                            
+                                        </td>
                                     </tr>
 <?php }
 ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                </div>
+            </tbody>
+           </table>
+       </div>
+   </div>
+<div class="row">
+</div>
                 <div class="row">
                     <div class="col-sm-12">
 
@@ -290,7 +286,7 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                 echo "Loss";
                                                             }
                                                             ?></td>
-                                                                <td><?php echo $r[open_date] ?></td>
+                                                                 <td><?php echo date("Y-M-d h:i A",strtotime($r['open_date'])); ?></td>
                                                                 <td>
                                                                     <?php
                                                                     $sql2 = mysql_query("select team_name from team where id=$teamid");
@@ -351,7 +347,7 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                 echo "Loss";
                                                             }
                                                             ?></td>
-                                                                <td><?php echo $r[open_date] ?></td>
+                                                                 <td><?php echo date("Y-M-d h:i A",strtotime($r['open_date'])); ?></td>
                                                                 <td>
                                                                     <?php
                                                                     $sql1 = mysql_query("select team_name from team where id=$teamid");

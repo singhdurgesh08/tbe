@@ -1,4 +1,5 @@
 <?php 
+ ob_start();
  session_start();
   if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login.php");
@@ -28,6 +29,7 @@ include "login-header.php";?>
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>User Name</th>
                         <th>Team Name</th>
                         <th>Game Mode</th>
                         <th>Platform</th>
@@ -37,12 +39,16 @@ include "login-header.php";?>
                  </thead>
                <tbody>
                      <?php $i = 1;
-                           $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.user_id= $userid and team_list.Player_status = 0;");
+                   //  echo "SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.user_id= $userid and team_list.Player_status = 0;";
+                           $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.created_by WHERE team_list.user_id= $userid and team_list.Player_status = 0;");
                            while($r=mysql_fetch_assoc($res))
                                       { 
                                          ?>
                                             <tr>
-                                            <td><?php echo $r['team_id']; ?> </td>
+                                            <td><?php echo $r['team_id'];?> </td>
+                                            <td>
+                                               <a href="myprofile.php?usersid=<?php echo $r['id']; ?>"><?php echo $r['user_name'];?></a>
+                                            </td>
                                             <td>
                                               <?php
                                                 if($r['platform']== PS4) 
@@ -56,13 +62,15 @@ include "login-header.php";?>
                                               ?>
                                               <td><?php echo $r['game_Mode']; ?> </td>
                                                <td><?php echo  $r['platform']; ?></td>
-                                               <th><?php echo $r['join_date']; ?></th>                                            
+                                              <!-- <th><?php echo $r['join_date']; ?></th>  -->
+                                                <th><?php echo date("Y-M-d h:i A",strtotime($r['join_date'])); ?></th>                                              
                                             </td>
                                             <td>
                                             <a href="Teaminvite.php?teamids=<?php echo $r[team_id]; ?>&action=accept"> Accept </a>&nbsp;|&nbsp;</a>
                                             <?php
                                                   if ($_GET['action'] =='accept')
                                                     {
+                                                      ob_start();
                                                       $ids = $_GET['teamids'];
                                                       $query =mysql_query("UPDATE team_list SET player_status='1' WHERE team_id = $ids");
                                                     }
@@ -71,8 +79,9 @@ include "login-header.php";?>
                                             <?php
                                                if (isset($_GET['teamid']) && is_numeric($_GET['teamid']))
                                                   {
+                                                        ob_start();
                                                         $ids = $_GET['teamid'];
-                                                        $result = mysql_query("DELETE FROM team_list WHERE team_id = '$ids'");
+                                                        $result = mysql_query("DELETE FROM team_list WHERE user_id =$userid and team_id = '$ids'");
                                                         header("location: Teaminvite.php");
                                                   }  
                                             ?>

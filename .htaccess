@@ -1,0 +1,10 @@
+RewriteEngine On
+php_value memory_limit 30M
+php_value post_max_size 100M
+php_value upload_max_filesize 30M
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond $1 !^(index\.php|assets|robots\.txt)
+RewriteRule ^(.*)$ index.php/$1 [L]  
+
+

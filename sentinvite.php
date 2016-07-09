@@ -28,6 +28,7 @@ include "login-header.php";?>
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>User Name</th>
                         <th>Team Name</th>
                         <th>Game Mode</th>
                         <th>Platform</th>
@@ -43,6 +44,7 @@ include "login-header.php";?>
                                          ?>
                                             <tr>
                                                <td><?php echo $r['team_id']; ?> </td>
+                                               <td><a href="myprofile.php?usersid=<?php echo $r['id']; ?>"><?php echo $r['user_name'];?></a></td>
                                             <td>
                                                 <?php if($r['platform']== PS4) 
                                                     {
@@ -56,7 +58,7 @@ include "login-header.php";?>
                                             </td>
                                             <td><?php echo  $r['game_Mode']; ?></td>
                                             <td><?php echo  $r['platform']; ?></td>
-                                             <th><?php echo $r['join_date']; ?></th>                                            
+                                             <th><?php echo date("Y-M-d h:i A",strtotime($r['join_date'])); ?></th>                                            
                                       <?php 
                                        }
                                    ?>

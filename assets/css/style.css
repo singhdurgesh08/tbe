@@ -335,6 +335,7 @@ footer{
     opacity: .0;
     width: 115px;
     height: 115px;
+    cursor:pointer;
 }
 #preview {
     height: 180px;

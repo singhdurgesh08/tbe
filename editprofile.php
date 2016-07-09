@@ -28,7 +28,7 @@ $temporary = explode(".", $_FILES["file"]["name"]);
 $file_extension = end($temporary);
 
 if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") || ($_FILES["file"]["type"] == "image/jpeg")
-    ) && ($_FILES["file"]["size"] < 100000)//Approx. 100kb files can be uploaded.
+    ) && ($_FILES["file"]["size"] < MAXUPLOAD)//Approx. 100kb files can be uploaded.
     && in_array($file_extension, $validextensions)) {
 
 if ($_FILES["file"]["error"] > 0) {
@@ -67,7 +67,7 @@ if (file_exists("upload/" . $filename)) {
     }  ?>
                 <div class="row">
                     <div class="col-sm-12 text-center">
-                        <h1><br class="hidden-xs">Personal Information</h1>
+                        <h1><br class="hidden-xs">Edit Profile</h1>
                     </div>
                 </div>
                 <div>
@@ -83,7 +83,7 @@ if (file_exists("upload/" . $filename)) {
                   <form id="form" action="" method="post"enctype="multipart/form-data">
 
                         <div id="upload">
-                            <input type="file" name="file" id="file"/>
+                            <input type="file" name="file" id="file" accept="<?php echo ACCEPTIMAGE;?>" />
                         </div>
                         <br/>
                         <input type="submit" id="submit" name="submit" value="Upload" class="btn btn-primary" style="margin-left:58px;"/>
@@ -94,7 +94,7 @@ if (file_exists("upload/" . $filename)) {
                     <div class="col-sm-8">
                         <form method='post' id="editform" class="form-horizontal">
                         <fieldset>
-                                <div class="form-group">
+<!--                                <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-2">First Name</label>
                                     <div class="col-sm-4 input"><input name='First_Name' id="name" value="<?php echo $r['first_name']; ?>" placeholder="Please Enter First Name" class="form-control" required=""></div>
 
@@ -116,7 +116,7 @@ if (file_exists("upload/" . $filename)) {
 
                                 
                                 
-                                <!--    <label for="login_password" class="control-label col-sm-2">State</label>
+                                  <label for="login_password" class="control-label col-sm-2">State</label>
                                     <div class="col-sm-4 input"><select name="State" id="state" class="form-control">   
                                                    <option value=""> Please select State </option>
                                                                      <?php 
@@ -149,12 +149,15 @@ if (file_exists("upload/" . $filename)) {
                                                     } 
                                                 ?>
                                                                 
-                                                         </select></div>-->
-                                </div>
+                                                         </select></div>
+                                </div>-->
                           
                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-2">Paypal Email</label>
-                                    <div class="col-sm-4 input"><input name='paypal_email' value="<?php echo $r['paypal_email']; ?>" id="paypal"  placeholder="Please Enter City"  class="form-control email" required="" ></div>
+                                    <label for="paypal_email" class="control-label col-sm-2">Paypal Email</label>
+                                    <div class="col-sm-4 input"><input name='paypal_email' value="<?php echo $r['paypal_email']; ?>" id="paypal"  placeholder="Please Enter Paypal Email"  class="form-control email" required="" ></div>
+                                    <label for="Gamertag" class="control-label col-sm-2">Gamertag</label>
+                                    <div class="col-sm-4 input"><input name='Gamertag' id="Gamertag" value="<?php echo $r['gamertag']; ?>" placeholder="Please Enter Gamertag"  class="form-control" required="" ></div>
+                                
                                 </div> 
 
         <div class="row">
