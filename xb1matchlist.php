@@ -57,7 +57,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                                 <td>
                                     <!--<?php //echo date("d-M-Y h:i:s A", strtotime($r['open_date'])) . '&nbsp; To &nbsp;' . date("d-M-Y h:i:s A", strtotime($r['close_date'])); ?>-->
                                         <?php  echo date("d-M-Y", strtotime($r['open_date']));?><br>
-                                        <?php  echo date("h:i:s A", strtotime($r['open_date']))?>
+                                        <?php  echo date("h:i A", strtotime($r['open_date']))?>
                                 </td>
                                
                                 <td>

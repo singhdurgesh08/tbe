@@ -99,7 +99,7 @@ if (file_exists("upload/" . $filename)) {
                                     <div class="col-sm-4 input"><input name='First_Name' id="name" value="<?php echo $r['first_name']; ?>" placeholder="Please Enter First Name" class="form-control" required=""></div>
 
                                     <label for="login_password" class="control-label col-sm-2">Last Name</label>
-                                    <div class="col-sm-4 input"><input name='Last_Name' id="lname" value="<?php echo $r['last_name']; ?>" placeholder="Please Enter Last Name"  class="form-control" required=""></div>
+                                    <div class="col-sm-4 input"><input name='Last_Name' id="lname" value="<?php echo $r['last_name']; ?>" placeholder="Please Enter Last Name"  class="form-control"></div>
                                 </div>
 
                                 <div class="form-group">
@@ -107,7 +107,7 @@ if (file_exists("upload/" . $filename)) {
                                     <div class="col-sm-4 input"><input name='Address' id="address" value="<?php echo $r['Address']; ?>" placeholder="Please Enter Street address"  class="form-control" required="" ></div>
                              
                                     <label for="login_password" class="control-label col-sm-2">Gamertag</label>
-                                    <div class="col-sm-4 input"><input name='Gamertag' id="Gamertag" value="<?php echo $r['gamertag']; ?>" placeholder="Please Enter Street address"  class="form-control" required="" ></div>
+                                    <div class="col-sm-4 input"><input name='Gamertag' id="Gamertag" value="<?php echo $r['gamertag']; ?>" placeholder="Please Enter Gamertag"  class="form-control" required="" ></div>
                                 </div>
 
                                 <div class="form-group">
@@ -116,8 +116,8 @@ if (file_exists("upload/" . $filename)) {
 
                                 
                                 
-                                    <label for="login_password" class="control-label col-sm-2">State</label>
-                                    <div class="col-sm-4 input"><select name="State" id="state" class="form-control" required="">   
+                                <!--    <label for="login_password" class="control-label col-sm-2">State</label>
+                                    <div class="col-sm-4 input"><select name="State" id="state" class="form-control">   
                                                    <option value=""> Please select State </option>
                                                                      <?php 
                                                     $query =mysql_query("select name from states where country_id=231");
@@ -130,12 +130,13 @@ if (file_exists("upload/" . $filename)) {
                                 </div>
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-2">Zip</label>
-                                    <div class="col-sm-4 input"><input name='zip' value="<?php echo $r['zip']; ?>" id="zip"  placeholder="Please Enter City" class="form-control" required="" ></div>
+                                    <div class="col-sm-4 input"><input name='zip' value="<?php echo $r['zip']; ?>" id="zip"  placeholder="Please Enter City" class="form-control" ></div>
+
                                 
 
                                 
                                     <label for="login_password" class="control-label col-sm-2">Country</label>
-                                    <div class="col-sm-4 input"><select name="Country"  id="Country" class="form-control" required="">   
+                                    <div class="col-sm-4 input"><select name="Country"  id="Country" class="form-control" >   
                                            <option value=""> Please select Country </option>
                                                  <?php 
                                                     $query =mysql_query("select name from countries where id=231");
@@ -148,9 +149,9 @@ if (file_exists("upload/" . $filename)) {
                                                     } 
                                                 ?>
                                                                 
-                                                         </select></div>
+                                                         </select></div>-->
                                 </div>
-
+                          
                                <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-2">Paypal Email</label>
                                     <div class="col-sm-4 input"><input name='paypal_email' value="<?php echo $r['paypal_email']; ?>" id="paypal"  placeholder="Please Enter City"  class="form-control email" required="" ></div>
@@ -170,41 +171,41 @@ if (file_exists("upload/" . $filename)) {
                                     <label for="login_password" class="control-label col-sm-2">
                                         <img src="<?php echo HOSTNAME; ?>assets/images/XboxLogo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label>
                                     <div class="col-sm-4 input"><input name='xbox' id="xbox" value="<?php echo $r['xbox'];?>" placeholder="xbox" class="form-control" required=""></div>
-                             <div class="form-group">
+                                <div class="form-group">
 
                                     <label for="login_password" class="control-label col-sm-2">
                                         <img src="<?php echo HOSTNAME; ?>assets/images/playstation final.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-4 input"><input name='plastation' id="plastation" value="<?php echo $r['plastation'];?>" placeholder="playstation"  class="form-control" required=""></div>
+                                    <div class="col-sm-4 input"><input name='plastation' id="plastation" value="<?php echo $r['plastation'];?>" placeholder="playstation"  class="form-control" required="" ></div>
                                 </div>
 
                                     <label for="login_password" class="control-label col-sm-2">
                                         <img src="<?php echo HOSTNAME; ?>assets/images/facebook.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-4 input"><input name='facebook' id="facebook" value="<?php echo $r['facebook']; ?>" placeholder="facebook`"  class="form-control" required=""></div>
+                                    <div class="col-sm-4 input"><input name='facebook' id="facebook" value="<?php echo $r['facebook']; ?>" placeholder="facebook`"  class="form-control"></div>
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-2">
                                         <img src="<?php echo HOSTNAME; ?>assets/images/Twitter.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-4 input"><input name='Twitter' id="Twitter" value="<?php echo $r['twitter']; ?>" placeholder="twitter"  class="form-control" required=""></div>
+                                    <div class="col-sm-4 input"><input name='Twitter' id="Twitter" value="<?php echo $r['twitter']; ?>" placeholder="twitter"  class="form-control"></div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-2">
                                         <img src="<?php echo HOSTNAME; ?>assets/images/twitch logo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-4 input"><input name='twitch' id="twitch" value="<?php echo $r['twitch']; ?>" placeholder="twitch`.`"  class="form-control" required=""></div>
+                                    <div class="col-sm-4 input"><input name='twitch' id="twitch" value="<?php echo $r['twitch']; ?>" placeholder="twitch`.`"  class="form-control"></div>
                                
                                     <label for="login_password" class="control-label col-sm-2">
                                         <img src="<?php echo HOSTNAME; ?>assets/images/steam.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-4 input"><input name='steam' id="steam" value="<?php echo $r['steam']; ?>" placeholder="steam`.`"  class="form-control" required=""></div>
+                                    <div class="col-sm-4 input"><input name='steam' id="steam" value="<?php echo $r['steam']; ?>" placeholder="steam`.`"  class="form-control" ></div>
                                 </div>
 
 
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-2">
                                         <img src="<?php echo HOSTNAME; ?>assets/images/skype.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-4 input"><input name='skype' id="skype" value="<?php echo $r['skype']; ?>" placeholder="skype"  class="form-control" required=""></div>
+                                    <div class="col-sm-4 input"><input name='skype' id="skype" value="<?php echo $r['skype']; ?>" placeholder="skype"  class="form-control"></div>
                                 
                                     <label for="login_password" class="control-label col-sm-2">
                                         <img src="<?php echo HOSTNAME; ?>assets/images/youtube.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-4 input"><input name='youtube' id="youtube" value="<?php echo $r['youtube']; ?>" placeholder="youtube"  class="form-control" required=""></div>
+                                    <div class="col-sm-4 input"><input name='youtube' id="youtube" value="<?php echo $r['youtube']; ?>" placeholder="youtube"  class="form-control"></div>
                                 </div>
                                 <div class="form-group">
                          </div>

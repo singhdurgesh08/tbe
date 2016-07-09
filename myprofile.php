@@ -71,7 +71,7 @@ $usersid = $_GET['usersid'];
 </div>
      <div class="col-sm-8">
             <form method='post' action='myprofile.php' class="form-horizontal">
-                <fieldset>
+             <!--   <fieldset>
                     <div class="form-group">
                         <label for="login_password" class="control-label col-sm-7"></label>
                         <div class="col-md-4 col-md-push-1"></div>
@@ -112,7 +112,7 @@ $usersid = $_GET['usersid'];
                     </div>
 
                    
-                </fieldset>
+                </fieldset>-->
             </form>
         </div>
 

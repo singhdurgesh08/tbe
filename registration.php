@@ -178,8 +178,8 @@ if(!empty($_GET["id"])) {
                     <fieldset>
                         <div class="form-group">
                             <label for="user_name" class="control-label col-sm-4">User Name</label>
-                            <div class="col-sm-7 input"><input name='name'  type="text" placeholder="Please Enter User Name"  class="form-control" required=""></div>
-                        </div>
+                            <div class="col-sm-7 input"><input name='name'  type="text" placeholder="Please Enter User Name"  class="form-control" required="" maxlength="10"></div>
+                       </div>
 
                         <div class="form-group">
                             <label for="email" class="control-label col-sm-4">Email</label>
@@ -195,10 +195,6 @@ if(!empty($_GET["id"])) {
                             <label for="user_pasword" class="control-label col-sm-4">Confirm Password</label>
                             <div class="col-sm-7 input"><input type='password' name='confirm_pass'  placeholder="Please Enter confirm password"  class="form-control" required=""></div>
                         </div>
-
-
-
-
 
                     </fieldset>
                     <div class="col-sm-12 text-center">

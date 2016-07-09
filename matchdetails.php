@@ -113,7 +113,7 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                         <?php 
               
                         echo "<h2>  Team - ".ucfirst($finalimage1['team_name'])."</h2>";
-                        echo $detail['user_name']."<br/>";
+                        //echo $detail['user_name']."<br/>";
                         // echo $finalimage1['team_name'] . "<br/>";
 
               ?> </div>  
@@ -139,7 +139,7 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                                 <?php } ?>
                                 <?php
                                echo "<h2>  Team - ".ucfirst($finalimage2['team_name'])."</h2>";
-                                echo $detail1['user_name'] . "<br/>";
+                             //   echo $detail1['user_name'] . "<br/>";
                                 //echo $finalimage2['team_name'] . "<br/>";
                                 echo "<br/>";
                                 //print_r($detail);
@@ -152,7 +152,7 @@ if(($opponentreporttime) && empty($hostreporttime)) {
         <td><b> ID  :- </b> 000000<?php echo $r[0]; ?><br> </b></td>
         <td><b> Platform :- </b><?php echo $r['platform'] ; ?><br></td> 
         <td> <b> Game Mode  :- </b> <?php echo $r[2]; ?><br></td>
-        <td> <b> Start Date Time :- </b><br><?php echo date("d-M-Y h:i:s A", strtotime($r['open_date'])); ?><br></td>
+        <td> <b> Start Date Time :- </b><br><?php echo date("d-M-Y h:i A", strtotime($r['open_date'])); ?><br></td>
       </tr>
       <tr>
         <td></td>
@@ -356,7 +356,7 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                             </div>
                         </div>
                     </fieldset>
-                    <fieldset>
+                 <!--   <fieldset>
                         <legend>Match Final Score</legend>
                     <div class="form-group">
                         <label for="yourteamscore" class="control-label col-sm-6">Your Team Score :</label>
@@ -379,7 +379,7 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                             <button class="btn btn-lg btn-block btn-success" type="submit" name="add_report" id="add_report" value="Save"  onclick="report_match();">Report Score</button>
                             </div>
                             
-                    </div>
+                    </div>-->
                 </form>  
                     </div>
                    <div class="row" id="match_report_success" style="display:none;">

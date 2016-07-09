@@ -8,7 +8,7 @@
     cursor: pointer;
 }
 .dropdown {
-    position: relative;
+    position: absolute;
     display: inline-block;
 
 }
@@ -17,42 +17,44 @@
     display: none;
     color: black;
     border-bottom: 5px solid #2ba0db;
-    position: absolute;
+    position:  absolute;
     right: 0;
-    left: 0;
-    background-color: black;
+    left: none;
+    background-color: rgb(31, 215, 219);
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-
+    box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.2);
+ 
 }
 .dropdown-content a {
-    color: white;
+    color: black;
     padding: 15px 16px;
-   border-bottom: 1px solid #2ba0db;
-    text-decoration: inherit;
+    text-decoration:inherit; ;
+    font-weight: bold ;
     display: block;
 }
 .dropdown-content a:hover {background-color: #f1f1f1;
-color:red;
+color:black;
 text-decoration: solid;
-
+  border-left: 3px solid red;
 }
 .dropdown:hover .dropdown-content {
     display: block;
 }
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
-
 }
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
     border-color: #333;
 /*    background-color: black;*/
     color: white;
+    margin-left: 50px;
+    margin-right: 0px;
 }
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
     color: #000;
     background-color: #f1f1f1;
     font-weight: bold;
+
 }
 .nav>li>a { margin: 0; }
 
@@ -89,7 +91,7 @@ text-decoration: solid;
 <?php
   $file=$_SERVER["SCRIPT_NAME"];
    $userid = $_SESSION['user_data']['id'];
-
+ $is_admin = $_SESSION['user_data']['is_admin'];
 // echo "<pre>111111111111111111111==============="; print_r($withdraw);
 ?>
 <section class="menu_section">
@@ -119,7 +121,7 @@ text-decoration: solid;
 						
 						if ($r['platform']== PS4) 
 							{
-								$var = '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;background-color:#1fd7db; " />';
+								$var ='<img src="assets/images/playstation final.png" width="25" class="img-responsive" alt="" style="display:inline; " />';
 								
 
 								echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'&nbsp;&nbsp;'. $var .'</a>');
@@ -128,7 +130,7 @@ text-decoration: solid;
 						else
 							{
 							//echo ('<img src="assets/images/xb1_list.jpg" width="10"  class="img-responsive" alt="" style="display:inline; " />' . '<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'</a>');
-							$var1 = '<img src="assets/images/xb1_list.jpg" width="10" class="img-responsive" alt="" style="display:inline; " />';
+							$var1 = '<img src="assets/images/xb1_list.jpg" width="25" class="img-responsive" alt="" style="display:inline; " />';
 							echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'&nbsp;&nbsp;'.  $var1 .'</a>');
 							}
 						
@@ -167,10 +169,13 @@ text-decoration: solid;
 			<a href="wallet.php">Wallet</a>    
 			<a href="subscribe_membership.php">Membership</a> 
 			<a href="teaminvite.php">Team Invite</a>      
-            <a href="editprofile.php">Edit Profile</a>
+                        <a href="editprofile.php">Edit Profile</a>
 			<a href="home.php">Home</a>
+                         <?php if($is_admin) { ?>
+                        <a href="paymentlist.php">Payment</a>
+                         <?php } ?>
 			<!--<a href="Addplaystation.php">Gamertag</a>-->
-			<a href="logout.php">Logout</a>
+			<a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Signout</a>
 		</div>
 		  </li>
 		</ul>
