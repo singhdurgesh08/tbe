@@ -116,7 +116,7 @@ if (isset($_POST['submit']))
             <div class="login_form_page">
 				<div class="row">
 					<div class="col-sm-12 text-center">
-						<h6 class="login_title"><br class="hidden-xs">Forgot Password </h6>
+						<h6 class="login_title"><br class="hidden-xs"> <i class="fa fa-user" aria-hidden="true"></i> Forgot Password </h6>
 					</div>
 				</div>
 				

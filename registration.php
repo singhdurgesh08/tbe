@@ -167,8 +167,8 @@ if(!empty($_GET["id"])) {
 
     <div class="signup_form_page">
         <div class="row">
-            <div class="col-sm-12 text-center">
-                <h1 class="signup_title"><br class="hidden-xs">Register Account</h1>
+            <div class="col-sm-12 ">
+                  <h1 class="signup_title text-center"><i class="fa fa-user" aria-hidden="true"></i>  Register Account</h1>
             </div>
         </div>
 

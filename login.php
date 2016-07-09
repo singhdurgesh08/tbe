@@ -83,8 +83,8 @@ if (isset($_POST['Login']))
     }  ?>
             <div class="login_form_page">
 				<div class="row">
-					<div class="col-sm-12 text-center">
-						<h1 class="login_title"><br class="hidden-xs">Log In</h1>
+					<div class="col-sm-12">
+						<h1 class="login_title text-center"><i class="fa fa-user" aria-hidden="true"></i> Log In</h1>
 					</div>
 				</div>
 				<div class="row">
