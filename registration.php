@@ -79,21 +79,26 @@ if (isset($_POST['submit'])) {
     $Membership = "1";
 
     if ($user_name == '') {
-       $msg = "<div class='alert alert-danger'>
+       $msg .= "<div class='alert alert-danger'>
                 <button class='close' data-dismiss='alert'>&times;</button>
-                <strong>Sorry!</strong>  please enter your name.
+                <strong>Sorry!</strong>  Please enter your name
                 </div>";
     }
 
     if ($user_email == '') {
-        echo "<script>alert('please enter your email')</script>";
-        exit();
+        $msg .= "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong>  Please enter your email
+                </div>";
+       
     }
 
     if ($user_pass == '') {
-        echo "<script>alert('please enter your password')</script>";
-        exit();
-    }
+          $msg .= "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong> Please enter your password
+                </div>";
+     }
    
     $check_name = "select * from users where user_name ='$user_name'";
     $run = mysql_query($check_name);
