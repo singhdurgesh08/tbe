@@ -7,10 +7,11 @@ include "config.php";
 $teamid = $_GET['teamid'];
 
  if (isset($_GET['usersid']) && is_numeric($_GET['usersid']))
-    {
+    { $usersid = $_GET['usersid'];
         //  var_dump($teamid);
-          $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id = $teamid ");                                         
-          header("location: teamdetails.php?teamid=$teamid");
+    
+          $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");                                         
+          header("location:teamdetails.php?teamid=$teamid"); exit;
     }
 //$userid = $_SESSION['user_data']['id'];
 $is_admin = $_SESSION['user_data']['is_admin'];
