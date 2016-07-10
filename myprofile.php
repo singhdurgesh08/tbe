@@ -6,6 +6,7 @@ if ($_SESSION['user_data']['user_name'] == '') {
     exit();
  }
 $usersid = $_GET['usersid'];
+include "common.php"; 
 //$userid = $_GET['userid'];
  include "login-header.php";?>
 <?php include "nav.php";?>
@@ -39,9 +40,24 @@ $usersid = $_GET['usersid'];
                             </thead>
                             <tbody>
                                 <tr>
-                                 <td>0</td>
-                                 <td>0</td>
-                                 <td>0</td>
+                                    <td>
+                                    <?php 
+                                    $win = calUserWin($usersid); 
+                                    echo $win['win'];
+                                    ?>
+                                    </td>
+                                    <td>
+                                    <?php 
+                                    $loss = calUserLoss($usersid); 
+                                    echo $loss['loss'];
+                                    ?>
+                                    </td>
+                                    <td>
+                                        <?php 
+                                       $point = totalEarnPoint($usersid); 
+                                        echo $point['earnpoint'];
+                                        ?>
+                                    </td>
                              </tr>
                                         
                                          

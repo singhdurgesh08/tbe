@@ -110,13 +110,11 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                         <?php } else { ?>
                          <img src="<?php echo HOSTNAME; ?>/assets/images/match_profile.png" class="img-circle" alt="Cinque Terre" width="64" height="66"> 
                           <?php }  ?>
-                        <?php 
-              
-                        echo "<h4> ".ucfirst($finalimage1['team_name'])."</h4>";
-                        //echo $detail['user_name']."<br/>";
-                        // echo $finalimage1['team_name'] . "<br/>";
-
-              ?> </div>  
+                         <a href="teamdetails.php?teamid=<?php echo $finalimage1['id']; ?>">
+                               <?php  echo "<h4> ".ucfirst($finalimage1['team_name'])."</h4>"; ?>
+                         </a>
+                      
+                    </div>  
                     <div class="col-sm-4 text-center">
                        <?php 
                         echo "<br/>";
@@ -137,13 +135,10 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                                 <?php } else { ?>
                                     <img src="<?php echo HOSTNAME; ?>/assets/images/match_profile.png" class="img-circle" alt="Cinque Terre" width="64" height="66"> 
                                 <?php } ?>
-                                <?php
-                               echo "<h4> ".ucfirst($finalimage2['team_name'])."</h4>";
-                             //   echo $detail1['user_name'] . "<br/>";
-                                //echo $finalimage2['team_name'] . "<br/>";
-                                echo "<br/>";
-                                //print_r($detail);
-                                ?>  
+                                     <a href="teamdetails.php?teamid=<?php echo $finalimage2['id']; ?>">
+                                       <?php  echo "<h4> ".ucfirst($finalimage2['team_name'])."</h4>"; ?>
+                                    </a>
+                               
                             </div>
 <div>
   <table class="table">
@@ -169,7 +164,12 @@ if(($opponentreporttime) && empty($hostreporttime)) {
       while ($rteam = mysql_fetch_assoc($resteam)) {   // print_r($r);
           ?> 
           <tr>
-              <td><b><?php echo $rteam['team_name']; ?></b></td>
+              <td><b>
+                      <a href="teamdetails.php?teamid=<?php echo $rteam['id']; ?>">
+                          <?php echo $rteam['team_name']; ?>
+                      </a>
+                  
+                  </b></td>
               <th></th>
               <th></th>
               <td ><?php
@@ -213,11 +213,15 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                               </tr>
                             </thead>
                              <?php
-                               $resteamtag = mysql_query("SELECT * FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid");
+                               $resteamtag = mysql_query("SELECT users.id,users.gamertag,users.user_name FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid");
                                while ($rteamtag = mysql_fetch_assoc($resteamtag)) {   // print_r($r);
                                 ?> 
                            <tr>
-                            <td><b><?php echo $rteamtag['user_name']; ?></b></td>
+                            <td>
+                                <a href="myprofile.php?usersid=<?php echo $rteamtag['id']; ?>">
+                                      <b><?php echo $rteamtag['user_name']; ?></b>
+                                    </a>
+                                </td>
                             <th>&nbsp;</th>
                            <th>&nbsp;</th>
                            <td><?php echo $rteamtag['gamertag']; ?></td>

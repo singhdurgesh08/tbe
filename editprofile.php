@@ -166,63 +166,76 @@ if (file_exists("upload/" . $filename)) {
                         
                     </div>
                 </div>
-                 <div class="row">
-                    <div class="col-sm-12">
-                        <fieldset>
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-2">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/XboxLogo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label>
-                                    <div class="col-sm-4 input"><input name='xbox' id="xbox" value="<?php echo $r['xbox'];?>" placeholder="xbox" class="form-control" required=""></div>
-                                <div class="form-group">
-
-                                    <label for="login_password" class="control-label col-sm-2">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/playstation final.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label>
-                                    <div class="col-sm-4 input"><input name='plastation' id="plastation" value="<?php echo $r['plastation'];?>" placeholder="playstation"  class="form-control" required="" ></div>
-                                </div>
-
-                                    <label for="login_password" class="control-label col-sm-2">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/facebook.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-4 input"><input name='facebook' id="facebook" value="<?php echo $r['facebook']; ?>" placeholder="facebook"  class="form-control"></div>
-                                 </div>
-                                 <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-2">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/Twitter.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-4 input"><input name='Twitter' id="Twitter" value="<?php echo $r['twitter']; ?>" placeholder="twitter"  class="form-control"></div>
-                                </div>
-                                
-                               <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-2">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/steam.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-4 input"><input name='steam' id="steam" value="<?php echo $r['steam']; ?>" placeholder="steam"  class="form-control" ></div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-2">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/twitch logo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-4 input"><input name='twitch' id="twitch" value="<?php echo $r['twitch']; ?>" placeholder="twitch"  class="form-control"></div>
-                               </div>
-
-
-                                <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-2">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/skype.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-4 input"><input name='skype' id="skype" value="<?php echo $r['skype']; ?>" placeholder="skype"  class="form-control"></div>
-                               </div> <div class="form-group">
-                                    <label for="login_password" class="control-label col-sm-2">
-                                        <img src="<?php echo HOSTNAME; ?>assets/images/youtube.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                                    <div class="col-sm-4 input"><input name='youtube' id="youtube" value="<?php echo $r['youtube']; ?>" placeholder="youtube"  class="form-control"></div>
-                                </div>
-                               
-                               <div class="form-group">
-                                    <label for="" class="control-label col-sm-4 back hidden-xs">&nbsp;</label>
-                                    <div class="col-sm-5 input text-center">
-                                    <button class="btn btn-lg btn-block btn-success" type="submit" name="Update" id="Update" value="Update">Update <i class="glyphicon glyphicon-chevron-right"></i></button>
-                               
-                                </div>
+                 <div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-6">
+            
+                <fieldset>
+                    <div class="form-group">
+                        <label for="login_password" class="control-label col-sm-4">
+                            <img src="<?php echo HOSTNAME; ?>assets/images/XboxLogo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label>
+                            <div class="col-sm-6 input">
+                                <input name='xbox' id="xbox" value="<?php echo $r['xbox'];?>" placeholder="xbox" class="form-control" required="">
                             </div>
-                        </fieldset>
-                </form>
+                        </div>
+                        <div class="form-group">
+                            <label for="login_password" class="control-label col-sm-4">
+                                <img src="<?php echo HOSTNAME; ?>assets/images/playstation final.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                            <div class="col-sm-6 input"><input name='plastation' id="plastation" value="<?php echo $r['plastation'];?>" placeholder="playstation"  class="form-control" required=""></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="login_password" class="control-label col-sm-4">
+                                <img src="<?php echo HOSTNAME; ?>assets/images/facebook.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                            <div class="col-sm-6 input"><input name='facebook' id="facebook" value="<?php echo $r['facebook']; ?>" placeholder="facebook"  class="form-control" ></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="login_password" class="control-label col-sm-4">
+                              <img src="<?php echo HOSTNAME; ?>assets/images/Twitter.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                        <div class="col-sm-6 input"><input name='twitter' id="twitter" value="<?php echo $r['twitter']; ?>" placeholder="twitter"  class="form-control" ></div>
+                    </div>
+                </fieldset>
+            
+        </div>
+    <div class="col-sm-6">
+       
+            <fieldset>
+                <div class="form-group">
+                    <label for="login_password" class="control-label col-sm-4">
+                        <img src="<?php echo HOSTNAME; ?>assets/images/twitch logo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                     <div class="col-sm-6 input"><input name='twitch' id="twitch" value="<?php echo $r['twitch']; ?>" placeholder="twitch"  class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="login_password" class="control-label col-sm-4">
+                        <img src="<?php echo HOSTNAME; ?>assets/images/steam.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                    <div class="col-sm-6 input"><input name='steam' id="steam" value="<?php echo $r['steam']; ?>" placeholder="steam"  class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="login_password" class="control-label col-sm-4">
+                        <img src="<?php echo HOSTNAME; ?>assets/images/skype.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                    <div class="col-sm-6 input"><input name='skype' id="skype" value="<?php echo $r['skype']; ?>" placeholder="skype"  class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="login_password" class="control-label col-sm-4">
+                        <img src="<?php echo HOSTNAME; ?>assets/images/youtube.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                    <div class="col-sm-6 input"><input name='youtube' id="youtube" value="<?php echo $r['youtube']; ?>" placeholder="youtube"  class="form-control"></div>
+                </div>
+                
+                
+            </fieldset>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                    <label for="" class="control-label col-sm-4 back hidden-xs">&nbsp;</label>
+                    <div class="col-sm-6 input text-center">
+                        <button class="btn btn-success" type="submit" name="Update" id="Update" value="Update">Update <i class="glyphicon glyphicon-chevron-right"></i></button>
+
+                    </div>
                 </div>
             </div>
+    </div>
+</div>
+</div>
+</div>
           </div>
         </div>
       </div>
@@ -244,7 +257,7 @@ if(isset($_POST['Update']))
                       $xbox = $_POST['xbox'];
                       $plastation = $_POST['plastation'];
                       $facebook = $_POST['facebook'];
-                      $Twitter = $_POST['Twitter'];
+                      $Twitter = $_POST['twitter'];
                       $twitch = $_POST['twitch'];
                       $steam = $_POST['steam'];
                       $skype = $_POST['skype'];

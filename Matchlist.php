@@ -180,17 +180,13 @@ function joinMatch(){
                       $("#div_wait").html("Please wait we Accepting match .....");
                      },
                      success: function(d) {
-                      if(d ==='error'){
-                         $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! You have No credit Please add credit from Wallet .</b> ');
-                     }else if(d ==='error1'){
-                         $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! Please Update GamerTag from profile .</b> ');
-                     }else if(d ==='error2'){
-                         $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! You can not Accept your Match .</b> '); 
-                    }else if(d ==='error3'){
-                        $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! Match Already Accepted .</b> '); 
-                      }else {
-                        window.location.href =' <?php echo HOSTNAME; ?>matchdetails.php?Matchid='+d; 
-                      }
+                         var res = d.split(":");
+                        if(res['0']==="success"){
+                             window.location.href =' <?php echo HOSTNAME; ?>matchdetails.php?Matchid='+res['1']; 
+                        }else{
+                             $("#div_wait").html('<b  style="background-color:red;color:white;">' +d+ '</b> ');
+                        }
+                     
                     }
                 });              
         }

@@ -73,6 +73,7 @@ include "login-header.php";?>
                                                       ob_start();
                                                       $ids = $_GET['teamids'];
                                                       $query =mysql_query("UPDATE team_list SET player_status='1' WHERE team_id = $ids");
+                                                      header("location: Teaminvite.php"); exit;
                                                     }
                                             ?>
                                             <a href="Teaminvite.php?teamid=<?php echo $r[team_id]; ?>"> Decline </a>
@@ -82,7 +83,7 @@ include "login-header.php";?>
                                                         ob_start();
                                                         $ids = $_GET['teamid'];
                                                         $result = mysql_query("DELETE FROM team_list WHERE user_id =$userid and team_id = '$ids'");
-                                                        header("location: Teaminvite.php");
+                                                        header("location: Teaminvite.php"); exit;
                                                   }  
                                             ?>
                                             

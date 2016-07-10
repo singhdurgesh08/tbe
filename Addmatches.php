@@ -61,13 +61,6 @@ $matchtype = $_GET['matchtype'];
     });
   });
   </script>
-
-
-
-<style>
-.error {color:red;}
-</style>
-
  <div class="home_tab_section">      
 <div class="container">
        <div class="row">
@@ -256,7 +249,11 @@ $matchtype = $_GET['matchtype'];
                                             while ($r = mysql_fetch_array($res)) { // echo "<pre>"; print_r($r);
                                             ?>
                                             <tr>
-                                                <td><?php echo $r['team_name']; ?> </td>
+                                                <td>
+                                                <a href="teamdetails.php?teamid=<?php echo $r['id']; ?>">
+                                                <?php echo $r['team_name']; ?>
+                                               </a>    
+                                                </td>
                                                 <td><?php echo $r['platform']; ?></td>
                                                 <td><?php echo $r['game_Mode']; ?></td>
                                                 <td>

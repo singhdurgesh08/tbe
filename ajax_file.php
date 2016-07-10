@@ -118,11 +118,16 @@ if ($_GET['action'] == "postmatch") {
         if($currentdate > $matchdate ) { echo "Sorry ! Please post match for future date time";Exit;} 
         // Game Mode find Here
       //  echo "select game_Mode from team where id ='$add_itemId'"; die;
-        $teamdetail = mysql_query("select game_Mode from team where id ='$add_itemId'");
+        $teamdetail = mysql_query("select game_Mode,team_name from team where id ='$add_itemId'");
         $rowdetail = mysql_fetch_array($teamdetail);
        // echo "222222222"; die;
         $Game_Mode = $rowdetail['game_Mode'];
+        $team_name = $rowdetail['team_name'];
         
+        // Check Team Player is Full or not 
+         validateGameMode($Game_Mode,$add_itemId,$team_name,$Amount);
+
+         
         // Gamer Tag check Will Come Here 
         $userdetail = mysql_query("select gamertag from users where id ='$userid'");
         $user_detail = mysql_fetch_array($userdetail);
@@ -139,8 +144,6 @@ if ($_GET['action'] == "postmatch") {
              }
         }
        
-
-
         $result = mysql_query("select sum(payment_gross) AS value_sum from payments where user_id ='$userid' and payment_type ='ADD' and payment_status ='1'");
         $row = mysql_fetch_array($result);
         $sum = $row['value_sum'];
@@ -148,12 +151,9 @@ if ($_GET['action'] == "postmatch") {
         $result2 = mysql_query("select sum(payment_gross) AS value_sum_withdraw from payments where user_id ='$userid' and payment_type ='Withdrawal' and payment_status ='1'");
         $row2 = mysql_fetch_array($result2);
         $withdraw = $row2['value_sum_withdraw'];
-        $totalcredit = number_format($sum) - number_format($withdraw);
+        $totalcredit = number_format($sum, 2) - number_format($withdraw, 2);
         
         $totalcredit = ($totalcredit) ? $totalcredit : 0;
-        //echo $totalcredit ."Total Credit"; 
-     //  echo $Amount ."Amount"; die;
-       
         
         if ($totalcredit < $Amount) {
             echo "Sorry ! You have No credit Please add credit from Wallet";
@@ -170,13 +170,9 @@ if ($_GET['action'] == "postmatch") {
                     . " VALUES ('$lastisertId', '$add_itemId', '0', '1', '$userid', now(), '$Amount','0','$Amount',0,0,NULL,NULL,NULL,NULL)";
             mysql_query($query1);
             
-        $email = $_SESSION['user_data']['user_emil'];
-        $userid = $_SESSION['user_data']['id'];
-        $amount = $Amount;
-        $query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
-        `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`) 
-        VALUES ('', 'post Match', '1', 'Withdrawal', '$userid', '$amount', 'USD', '1', now(), '$email')";
-        mysql_query($query); 
+            // Withdrawal Payment From Member Team
+            $amount = $Amount;
+            withdrawMoneyFromTeam($add_itemId,$amount);
             
             echo $platform;
             die;
@@ -200,12 +196,21 @@ if ($_GET['action'] == "accept_match") {
         $matchres = mysql_query("Select * from ps4_match where id ='$matchid' and match_status ='1'");
         $matchdetail = mysql_fetch_array($matchres);
         if($matchdetail['id'] ==""){
-            echo "error3"; die;
+            echo "Sorry ! Match Already Accepted ."; die;
         }
        if($matchdetail['created_by'] ==$userid){
-             echo "error2"; die;
+             echo "Sorry ! You can not Accept your Match ."; die;
         }
+        
         $amount = $matchdetail['amount'];
+        $teamdetail = mysql_query("select game_Mode,team_name from team where id ='$teamid'");
+        $rowdetail = mysql_fetch_array($teamdetail);
+       // echo "222222222"; die;
+        $Game_Mode = $rowdetail['game_Mode'];
+        $team_name = $rowdetail['team_name'];
+        
+        // Check Team Player is Full or not 
+        validateGameMode($Game_Mode,$teamid,$team_name,$amount);
         $result = mysql_query("select sum(payment_gross) AS value_sum from payments where user_id ='$userid' and payment_type ='ADD' and payment_status ='1'");
         $row = mysql_fetch_array($result);
         $sum = $row['value_sum'];
@@ -216,7 +221,7 @@ if ($_GET['action'] == "accept_match") {
         $totalcredit = number_format($sum) - number_format($withdraw);
         $totalcredit = ($totalcredit) ? $totalcredit : 0;
         if ($totalcredit < $amount) {
-            echo "error";
+            echo "Sorry ! You have No credit Please add credit from Wallet .";
             die;
         }
          
@@ -228,13 +233,13 @@ if ($_GET['action'] == "accept_match") {
         $user_detail = mysql_fetch_array($userdetail);
         if($platform =='PS4') {
              if(trim($user_detail['gamertag']) =='') {
-                  echo "error1";die;
+                  echo "Sorry ! Please Update GamerTag from Edit profile ";die;
                    
              }
         }
         if($platform =='XB1') {
            if(trim($user_detail['gamertag']) =='') {
-             echo "error1";die;
+             echo "Sorry ! Please Update GamerTag from Edit profile ";die;
            }
         }
         $query = "INSERT INTO `join_match` (`match_id`, `team_id`, `Match_play_status`, `status`, `created_by`, `created_date`, `join_fee`,`opponent_id`,"
@@ -245,12 +250,10 @@ if ($_GET['action'] == "accept_match") {
             $email = $_SESSION['user_data']['user_emil'];
             $userid = $_SESSION['user_data']['id'];
             $amount = $amount;
-            $query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
-                     `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`) 
-                      VALUES ('', 'Accept Match', '1', 'Withdrawal', '$userid', '$amount', 'USD', '1', now(), '$email')";
-            mysql_query($query);
-            mysql_query("update ps4_match set match_status='2' where id = '$matchid'");
-            echo $matchid;  exit;
+            // Withdraw Money 
+             withdrawMoneyFromTeam($teamid,$amount);
+             mysql_query("update ps4_match set match_status='2' where id = '$matchid'");
+            echo "success:".$matchid;exit;
         }
    // }
     //echo "<pre>"; print_r($_POST); die;

@@ -88,7 +88,7 @@ if (file_exists("upload/" . $filename)) {
                 <fieldset>
                     <div class="form-group">
                         <label for="login_password" class="control-label col-sm-2 ">Team Name</label>
-                        <div class="col-sm-7 input"><input type = "text" name='Team_Name' value="<?php echo $r['team_name']; ?>" class="form-control" maxlength="10"></div>
+                        <div class="col-sm-7 input"><input type = "text" name='Team_Name' value="<?php echo $r['team_name']; ?>" class="form-control" maxlength="50"></div>
                     </div>
 
                             <div class="row">

@@ -15,6 +15,8 @@ $teamid = $_GET['teamid'];
     }
 //$userid = $_SESSION['user_data']['id'];
 $is_admin = $_SESSION['user_data']['is_admin'];
+$is_userid = $_SESSION['user_data']['id'];
+include "common.php"; 
 ?>
 <style>
     thead th {
@@ -120,7 +122,9 @@ $is_admin = $_SESSION['user_data']['is_admin'];
         <?php
         $res = mysql_query("Select * from team where id= $teamid");
         $r = mysql_fetch_array($res);
+        $userid = $r['created_by'];
         $finalimage = $r['team_image'];
+        
         // echo "<pre>"; print_r($r);
         if ($finalimage) {
     ?>
@@ -167,8 +171,18 @@ $is_admin = $_SESSION['user_data']['is_admin'];
                 </thead>
                 <tbody>
                     <tr>
-                     <td class="text-center">0</td>
-                     <td class="text-center">0</td>
+                        <td class="text-center">
+                            <?php 
+                            $win = calWin($teamid); 
+                            echo $win['win'];
+                            ?>
+                        </td>
+                        <td class="text-center">
+                            <?php 
+                            $loss = calLoss($teamid); 
+                            echo $loss['loss'];
+                            ?>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -396,6 +410,9 @@ while ($r = mysql_fetch_assoc($res)) {
             </div>
         </div>
         <!--/span-->
+        <?php
+      
+        if($is_userid == $userid) { ?>
         <div class="col-md-3">
             <div class="sidebar-nav-fixed pull-right">
                 <div class="well">
@@ -413,6 +430,7 @@ while ($r = mysql_fetch_assoc($res)) {
             </div>
             <!--/sidebar-nav-fixed -->
         </div>
+        <?php } ?>
         <!--/span-->
 
     </div>
