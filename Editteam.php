@@ -228,7 +228,7 @@ if (isset($_POST['update']))
                      exit();
             }*/
         }
-            $sql_query = mysql_query("update team set team_name = '$Team_Name', platform ='$platform', team_caption ='$Team_Caption', Game_Mode='$Game_Mode', description ='$Description'  where id = $teamid");
+            $sql_query = mysql_query("update team set team_name = '$Team_Name'  where id = $teamid");
             if ($sql_query)
             {
                  header("Location:teamdetails.php?teamid=" . $teamid);
