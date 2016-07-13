@@ -132,14 +132,14 @@ if ($_GET['action'] == "postmatch") {
         $userdetail = mysql_query("select gamertag from users where id ='$userid'");
         $user_detail = mysql_fetch_array($userdetail);
         if($platform =='PS4') {
-             if(trim($user_detail['gamertag']) =='') {
-                  echo "Sorry ! Please Update GamerTag from profile";die;
+             if(trim($user_detail['plastation']) =='') {
+                  echo "Sorry ! Please Update ps4 gamertage  from profile";die;
                    
              }
         }
         if($platform =='XB1') {
-           if(trim($user_detail['gamertag']) =='') {
-                  echo "Sorry ! Please Update GamerTag from profile";die;
+           if(trim($user_detail['xbox']) =='') {
+                  echo "Sorry ! Please Update xbox gamertage from profile";die;
                    
              }
         }
@@ -232,14 +232,14 @@ if ($_GET['action'] == "accept_match") {
         $userdetail = mysql_query("select gamertag from users where id ='$userid'");
         $user_detail = mysql_fetch_array($userdetail);
         if($platform =='PS4') {
-             if(trim($user_detail['gamertag']) =='') {
-                  echo "Sorry ! Please Update GamerTag from Edit profile ";die;
+             if(trim($user_detail['plastation']) =='') {
+                  echo "Sorry ! Please Update ps4 gamertage  from Edit profile ";die;
                    
              }
         }
         if($platform =='XB1') {
-           if(trim($user_detail['gamertag']) =='') {
-             echo "Sorry ! Please Update GamerTag from Edit profile ";die;
+           if(trim($user_detail['xbox']) =='') {
+             echo "Sorry ! Please Update xbox gamertage  from Edit profile ";die;
            }
         }
         $query = "INSERT INTO `join_match` (`match_id`, `team_id`, `Match_play_status`, `status`, `created_by`, `created_date`, `join_fee`,`opponent_id`,"

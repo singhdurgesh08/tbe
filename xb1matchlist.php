@@ -21,7 +21,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
     <div class="container">
         <div class="row">
             <div class="col-sm-10 text-center">
-                <h1>XB1 Matchs</h1>
+                <h1>XB1 Match Finder</h1>
             </div>
 
             <div class="col-sm-2 text-center">

@@ -45,7 +45,7 @@ mysql_query($query);
 		//{
 			//echo "<pre>"; print_r($row);
 	?>
-<div class="home_tab_section">
+<!--<div class="home_tab_section">
     <div class="container">
     <div class="row">
        <div class="col-sm-12 text-center">
@@ -91,11 +91,11 @@ mysql_query($query);
                <h2>Amount to Send : (Fee of 3 % + $0.30 USD Applies )</h2>
        </div>
        
-    </div>
+    </div>-->
    <div class="row">
    <div class="col-sm-12 text-center">
    
-    <form action="<?php echo $paypal_url; ?>" method="post">
+    <form action="<?php echo $paypal_url; ?>" method="post" id="subscribe_pay">
 
         <!-- Identify your business so that you can collect the payments. -->
         <input type="hidden" name="business" value="<?php echo $paypal_id; ?>">
@@ -111,11 +111,8 @@ mysql_query($query);
         
         <!-- Specify URLs -->
           <input type='hidden' name='cancel_return' value='<?php echo HOSTNAME; ?>cancel.php?payid=<?php echo $lastisertId ;?>'>
-		<input type='hidden' name='return' value='<?php echo HOSTNAME; ?>success.php?payid=<?php echo $lastisertId ;?>'>
+    	 <input type='hidden' name='return' value='<?php echo HOSTNAME; ?>success.php?payid=<?php echo $lastisertId ;?>'>
 
-        
-        <!-- Display the payment button. -->
-         <!-- Display the payment button. -->
         <input type="image" name="submit" border="0"
         src="<?php echo HOSTNAME; ?>assets/images/paypal_paynow.png" alt="PayPal - The safer, easier way to pay online">
         <br/>
@@ -132,13 +129,15 @@ mysql_query($query);
 	}
 	else
 	{
-		
 		header("location: wallet.php");
 		exit();
 	}
 }
 ?>
+<script>
+$( "#subscribe_pay" ).submit();
 
+</script>
 <?php
 include "footer.php";
 ?>

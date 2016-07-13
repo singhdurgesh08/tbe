@@ -5,15 +5,32 @@ include "nav.php";
 include "config.php";
 
 $teamid = $_GET['teamid'];
+$action=$_GET['action'];
 
  if (isset($_GET['usersid']) && is_numeric($_GET['usersid']))
-    { $usersid = $_GET['usersid'];
-        //  var_dump($teamid);
-    
-          $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");                                         
-          header("location:teamdetails.php?teamid=$teamid"); exit;
+    {     
+         if($action === "Leave")
+         {
+              $usersid = $_GET['usersid'];
+              $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");                                         
+              header("location:teamdetails.php?teamid=$teamid"); exit;
+         }
+        else
+        {
+            $query = mysql_query("select * from join_match where team_id =$teamid");
+            $finalre = mysql_fetch_array($query);
+            if($finalre[Match_play_status]==0)
+            {
+             $usersid = $_GET['usersid'];
+             $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid' and user_id != '$userid' ");                                         
+             header("location:teamdetails.php?teamid=$teamid"); exit;
+            }
+            else
+            {
+                 echo"<script>alert('disbanding your team will result in a loss because some matches are not completed or disputed')</script>";
+            }
+        }
     }
-//$userid = $_SESSION['user_data']['id'];
 $is_admin = $_SESSION['user_data']['is_admin'];
 $is_userid = $_SESSION['user_data']['id'];
 include "common.php"; 
@@ -222,17 +239,25 @@ include "common.php";
                                                 echo "Player";
                                             }
                                             ?>
-                                       </td>
-                                
-                                        <td><?php echo date("d-M-Y", strtotime($r['join_date'])); ?></td>
-                                        <td>
+                                       </td><td><?php echo date("d-M-Y", strtotime($r['join_date'])); ?></td>
+                                     <td>
                                          <?php
                                             $var = $r['team_id'];
-                                            if ($r['team_id'] == $var && $r['created_by'] != $r['user_id'])
+                                            if ($r['team_id'] == $var && $r['created_by'] == $r['user_id'])
                                             {
-                                              ?> <a href="teamdetails.php?usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Disband Team</a> <?php
-                                         } 
-                                            ?>
+                                              ?> <a href="teamdetails.php?action=Disband&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Disband</a> 
+                                              <?php
+                                            }
+                                                else
+                                                {
+                                                    ?><a href="teamdetails.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Terminate</a> <?php
+                                                } 
+                                           
+                                              
+                                                    
+                                                ?>
+
+
                                             
                                         </td>
                                     </tr>
@@ -307,9 +332,9 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                     $sql2 = mysql_query("select team_name from team where id=$teamid");
                                                                     $result1 = mysql_fetch_array($sql2);
                                                                     if ($r['platform'] == PS4) {
-                                                                        echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" /> &nbsp; ' . $result1[team_name];
+                                                                        echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" /> &nbsp; ';
                                                                     } else {
-                                                                        echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/> &nbsp; ' . $result1[team_name];
+                                                                        echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/> &nbsp; ';
                                                                     }
                                                                     ?>
                                                                 </td>
@@ -369,9 +394,9 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                     $result = mysql_fetch_array($sql1);
 
                                                                     if ($r['platform'] == PS4) {
-                                                                        echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" />' . $result[team_name];
+                                                                        echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" />';
                                                                     } else {
-                                                                        echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/>' . $result[team_name];
+                                                                        echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/>';
                                                                     }
                                                                     ?>
                                                                 </td>
@@ -418,7 +443,21 @@ while ($r = mysql_fetch_assoc($res)) {
                 <div class="well">
                     <ul class="nav ">
                         <li class="nav-header"></li>
-                        <li class="active"><a href="xb1matchlist.php">Match Finder</a></li>
+                        <li class="active">
+                        <?php 
+                        //var_dump($teamid);die();
+                            $mysql = mysql_query("select platform from team where id = $teamid");
+                            $myresult = mysql_fetch_array($mysql);
+                                               
+                            if($myresult[platform] == PS4){
+                                  ?>  <a href="matchlist.php">Match Finder</a></li><?PHP
+                            }
+                            else
+                            { ?>
+                             <a href="xb1matchlist.php">Match Finder</a></li><?php
+                            }
+                         ?>
+
                        <!-- <li><a href="Addplayer.php?teamid=<?php echo $teamid; ?>">Add Member</a></li>-->
                        <!-- <li><a href="Teamdetails.php?teamid=<?php //echo $teamid;  ?>&action=DisableHere">Disable Team</a><li>-->
                         <li><a href="Editteam.php?teamid=<?php echo $teamid; ?>">Edit Team</a></li>
@@ -462,6 +501,8 @@ $c = "3v3 Mycourt";
 $d = "Quick Match";
 $e = "Myteam";
 
+
+
 $query = "SELECT count(*) AS total FROM team_list where team_id=$teamid";
 $result1 = mysql_query($query);
 $values = mysql_fetch_assoc($result1);
@@ -488,11 +529,14 @@ if (isset($_POST['submit'])) {
         $res = mysql_query("Select id from users where user_name ='$name'");
         $record = mysql_fetch_array($res);
         $result = $record['id'];
-        if ($result != '') {
+        if ($result != '') 
+        {
             $query = mysql_query("INSERT INTO `team_list` (`id`,`user_id`, `team_id`, `join_date`, `created_by`,`player_status`) VALUES (NULL,'$result', '$teamid',now(),'$userid',0)");
             echo"<script>alert('Team Invited successfullly')</script>";
             exit();
-        } else {
+        } 
+        else 
+        {
             echo"<script>alert('Please Invite Valid user')</script>";
             exit();
         }

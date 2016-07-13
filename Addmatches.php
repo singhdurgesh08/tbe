@@ -9,8 +9,6 @@ include "nav.php";
 include "config.php";
 $userid = $_SESSION['user_data']['id'];
 $matchtype = $_GET['matchtype'];
-
-
 ?>
 
 
@@ -151,8 +149,7 @@ $matchtype = $_GET['matchtype'];
                                     <option value="15">15</option>
                                     <option value="30">30</option>
                                     <option value="45">45</option>
-                                    <option value="60">60</option>
-                                </select>
+                             </select>
                             </div>  
 
                              <div class="col-sm-2 input">

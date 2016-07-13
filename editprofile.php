@@ -67,12 +67,12 @@ if (file_exists("upload/" . $filename)) {
     }  ?>
                 <div class="row">
                     <div class="col-sm-12 text-center">
-                        <h1><br class="hidden-xs">Edit Profile</h1>
+                        <h3 class="index_memberTitle">Edit Profile-Social Media</h3>
                     </div>
                 </div>
-                <div>
-                    &nbsp;
-                </div>
+                <div class="col-sm-12 text-center">
+                        &nbsp;
+                    </div>
 
                 <div class="col-sm-3">
                
@@ -151,19 +151,10 @@ if (file_exists("upload/" . $filename)) {
                                                                 
                                                          </select></div>
                                 </div>-->
-                          
-                               <div class="form-group">
-                                    <label for="paypal_email" class="control-label col-sm-2">Paypal Email</label>
-                                    <div class="col-sm-4 input"><input name='paypal_email' value="<?php echo $r['paypal_email']; ?>" id="paypal"  placeholder="Please Enter Paypal Email"  class="form-control email" required="" ></div>
-                                    <label for="Gamertag" class="control-label col-sm-2">Gamertag</label>
-                                    <div class="col-sm-4 input"><input name='Gamertag' id="Gamertag" value="<?php echo $r['gamertag']; ?>" placeholder="Please Enter Gamertag"  class="form-control" required="" ></div>
-                                
-                                </div> 
-
         <div class="row">
-             <div class="col-sm-12 text-center"><h3> <br class="hidden-xs">Social Media</h3></div>
+             <!--<div class="col-sm-12 text-center"><h3> <br class="hidden-xs">Social Media</h3></div>-->
                     <div class="col-sm-12 text-center">
-                        
+                        &nbsp;
                     </div>
                 </div>
                  <div class="col-sm-12">
@@ -201,18 +192,18 @@ if (file_exists("upload/" . $filename)) {
             <fieldset>
                 <div class="form-group">
                     <label for="login_password" class="control-label col-sm-4">
+                        <img src="<?php echo HOSTNAME; ?>assets/images/instagram.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                     <div class="col-sm-6 input"><input name='instagram' id="instagram" value="<?php echo $r['steam']; ?>" placeholder="instagram"  class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="login_password" class="control-label col-sm-4">
                         <img src="<?php echo HOSTNAME; ?>assets/images/twitch logo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                     <div class="col-sm-6 input"><input name='twitch' id="twitch" value="<?php echo $r['twitch']; ?>" placeholder="twitch"  class="form-control"></div>
+                    <div class="col-sm-6 input"><input name='twitch' id="twitch" value="<?php echo $r['twitch']; ?>" placeholder="twitch"  class="form-control"></div>
                 </div>
                 <div class="form-group">
                     <label for="login_password" class="control-label col-sm-4">
-                        <img src="<?php echo HOSTNAME; ?>assets/images/steam.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                    <div class="col-sm-6 input"><input name='steam' id="steam" value="<?php echo $r['steam']; ?>" placeholder="steam"  class="form-control"></div>
-                </div>
-                <div class="form-group">
-                    <label for="login_password" class="control-label col-sm-4">
-                        <img src="<?php echo HOSTNAME; ?>assets/images/skype.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                    <div class="col-sm-6 input"><input name='skype' id="skype" value="<?php echo $r['skype']; ?>" placeholder="skype"  class="form-control"></div>
+                        <img src="<?php echo HOSTNAME; ?>assets/images/snapchat.jpg" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                    <div class="col-sm-6 input"><input name='snapchat' id="snapchat" value="<?php echo $r['skype']; ?>" placeholder="snapchat"  class="form-control"></div>
                 </div>
                 <div class="form-group">
                     <label for="login_password" class="control-label col-sm-4">
@@ -223,9 +214,12 @@ if (file_exists("upload/" . $filename)) {
                 
             </fieldset>
         </div>
-        <div class="col-sm-12">
+        <div>
+                    &nbsp;
+                </div>
+        <div class="col-sm-9">
             <div class="form-group">
-                    <label for="" class="control-label col-sm-4 back hidden-xs">&nbsp;</label>
+                    <label for="" class="control-label col-sm-5 back hidden-xs">&nbsp;</label>
                     <div class="col-sm-6 input text-center">
                         <button class="btn btn-success" type="submit" name="Update" id="Update" value="Update">Update <i class="glyphicon glyphicon-chevron-right"></i></button>
 
@@ -258,20 +252,20 @@ if(isset($_POST['Update']))
                       $plastation = $_POST['plastation'];
                       $facebook = $_POST['facebook'];
                       $Twitter = $_POST['twitter'];
+                      $steam = $_POST['instagram'];
                       $twitch = $_POST['twitch'];
-                      $steam = $_POST['steam'];
-                      $skype = $_POST['skype'];
+                      $skype = $_POST['snapchat'];
                       $youtube = $_POST['youtube'];
                      
                     $userid = $_SESSION['user_data']['id'];
 
-                    $sql="UPDATE users SET First_Name='$First_Name', Last_Name='$Last_Name', Address='$Address',Gamertag='$Gamertag',City='$City',State='$State',Country='$Country',zip='$zip', paypal_email = '$paypal_email', xbox = '$xbox',plastation = '$plastation',facebook = '$facebook',Twitter = '$Twitter',twitch = '$twitch',steam = '$steam',skype = '$skype',youtube = '$youtube' WHERE id='$userid'";   
+                  echo  $sql="UPDATE users SET xbox = '$xbox',plastation = '$plastation',facebook = '$facebook',Twitter = '$Twitter',twitch = '$twitch', steam = '$steam',skype = '$skype',youtube = '$youtube' WHERE id='$userid'";   
                     $result = mysql_query($sql);
                     if($result)
                     {
                     header("location: myprofile.php?usersid=$userid");
-                    //$action='myprofile.php?usersid=<?php echo $userid; 
-                    }
+                   
+                   }
         }
 ?>
 <?php include "footer.php";?>

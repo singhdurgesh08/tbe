@@ -86,8 +86,62 @@ a:active, a:hover {
 }
 
 </style>
+<?php 
+include "config.php";
+include "common.php";
+if ($_POST['transfer_btn']=="Transfer") {
+    $msg = "";
+    $user_name = trim($_POST['username']);
+    $transfer_amount = trim($_POST['transfer_amount']);
+    
+    $Membership = "1";
+
+    if ($user_name == $_SESSION['user_data']['user_name']) {
+       $msg = "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong>  You can not transfer your self
+                </div>";
+    }
+    $totalcredit = getCredit($_SESSION['user_data']['id']);
+    if($totalcredit > $transfer_amount )
+    {
+        $msg = "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong>  you have no more Credit for transfer
+                </div>";
+    }
+    if($msg ==""){
+        $check_name = "select * from users where user_name ='$user_name'";
+        $result = mysql_query($check_name);
+        if (mysql_num_rows($result) >= 1) { 
+          $row = mysql_fetch_array($result); 
+               $userid =  $row['id'];
+                $email =  $row['user_email'];
+                 $query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
+                         `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`, `start_date`, `end_date`) 
+                          VALUES ('', 'Transfer Money to friend', '1', 'ADD', '$userid', '$transfer_amount', 'USD', '1', now(), '$email',now(),now())";
+                mysql_query($query); 
+                 $msg = "
+            <div class='alert alert-success'>
+            <button class='close' data-dismiss='alert'>&times;</button>
+            <strong>Success!</strong>  Trnasfer $transfer_amount $ TO $user_name. 
+            </div>
+            ";
+       
+        }else {
+            $msg = "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong> User  $user_name is not exits
+                </div>";
+        }
+        
+    }
+    
+}
+?>
 <div class="home_tab_section">
     <div class="container">
+         <?php if(isset($msg)) echo $msg;  ?>
         <div class="row">
             <div class="tabset-cashier col-md-12 ng-isolate-scope">
                 <ul class="nav nav-tabs">
@@ -95,7 +149,7 @@ a:active, a:hover {
                         <a href="#1" data-toggle="tab">Deposit</a>
                     </li>
                     <li role="presentation" class="ng-isolate-scope">
-                        <a href="#2" data-toggle="tab">Enter your Paypal Email</a>
+                        <a href="#2" data-toggle="tab">Withdrawal your credits</a>
                     </li>
                     <li role="presentation" class="ng-isolate-scope">
                         <a href="#3" data-toggle="tab">Transfer</a>
@@ -180,11 +234,11 @@ a:active, a:hover {
                         
                     </div>
                     <div class="tab-pane" id="3">
-                        <form id="transfer" name="transfer" action="withdrawal_wallet.php" method="post"  class="form-horizontal">
+                        <form id="transfer" name="transfer" action="wallet.php" method="post"  class="form-horizontal">
 
                             <div class="row">
                                 <div class="col-sm-8 text-center">
-                                    <input type="text" id="email" name="email" class="form-control" placeholder="Enter Partner Paypal Email" required=""/>
+                                    <input type="text" id="username" name="username" class="form-control" placeholder="Enter Friend Username" required=""/>
                                 </div>
                             </div>
                              <div class="row">
@@ -192,7 +246,7 @@ a:active, a:hover {
                             </div>
                              <div class="row">
                                 <div class="col-sm-8 text-center">
-                                    <input type="text" id="add_amount" name="add_amount"   class="form-control" placeholder="Enter Amount ($5 minimum)" required="" min="10"/>
+                                    <input type="text" id="transfer_amount" name="transfer_amount"   class="form-control" placeholder="Enter Amount ($5 minimum)" required=""/>
                                 </div>
                             </div>
                              <div class="row">
@@ -211,7 +265,7 @@ a:active, a:hover {
                             <div class="row">
 
                                 <div class="col-sm-2 text-center">
-                                    <button  style="display:none;" type="submit" name="withdrawal" value="withdrawal" class="btn btn-info"><span class="ng-scope">Pay With PayPal</span></button>
+                                    <button   type="submit" name="transfer_btn" value="Transfer" class="btn btn-info"><span class="ng-scope">Transfer</span></button>
                                 </div>
 
                             </div>
@@ -219,9 +273,7 @@ a:active, a:hover {
                                 <div class="col-sm-8"> &nbsp;  </div>
                             </div>
                         </form>
-                         <div class="row">
-                                <div class="col-sm-8 btn btn-info"> Coming soon Transfer Feature </div>
-                            </div>
+                         
                     </div>
                 </div>
                 
@@ -230,6 +282,25 @@ a:active, a:hover {
     </div>
     <script>
         $(document).ready(function(){
+            
+       $('#transfer').validate({
+        rules: {
+        transfer_amount: {
+        required: true,
+        range: [5, 100]
+        }
+        },
+        messages: {
+        transfer_amount: {
+        required: "Amount is required.",
+        range: "Please Enter Amount Between 5 to 100 dollar."
+        }
+        },
+  
+      submitHandler: function(form) {
+                 form.submit(); 
+        }
+    });
          $('#add_wallet').validate({
         rules: {
         add_amount: {

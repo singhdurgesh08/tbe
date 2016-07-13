@@ -4,13 +4,32 @@ include "login-header.php";
 include "nav.php";
 include "config.php";
 $teamid = $_GET['teamid'];
+$action=$_GET['action'];
 
- if (isset($_GET['usersid']) && is_numeric($_GET['usersid']))
-    { $usersid = $_GET['usersid'];
-        //  var_dump($teamid);
-    
-          $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");                                         
-          header("location:Editteam.php?teamid=$teamid"); exit;
+if (isset($_GET['usersid']) && is_numeric($_GET['usersid']))
+    {     
+         if($action === "Leave")
+            {
+                 //echo "leave";die();
+              $usersid = $_GET['usersid'];
+              $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");                                         
+              header("location:Editteam.php?teamid=$teamid"); exit;
+            }
+        else
+            {
+               $query = mysql_query("select * from join_match where team_id =$teamid");
+               $finalre = mysql_fetch_array($query);
+               if($finalre[Match_play_status]==1)
+                {
+                  $usersid = $_GET['usersid'];
+                  $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid' and user_id != '$userid' ");                                         
+                  header("location:Editteam.php?teamid=$teamid"); exit;
+                }
+                else
+                {
+                     echo"<script>alert('disbanding your team will result in a loss because some matches are not completed or disputed')</script>";
+                }
+           }
     }
 
 $res = mysql_query("Select * from team where id= $teamid");
@@ -62,9 +81,11 @@ if (file_exists("upload/" . $filename)) {
            echo $msg;
        }  
        ?>
+        &nbsp; &nbsp;
     <div class="row">
-        <div class="col-sm-12 text-center">
-            <h4><br class="hidden-xs">Edit Team - <?php echo $r[team_name]; ?></h4>
+        <div class="text-center">
+           <h4 class="text-center"><strong>Team -</strong> <?php echo $r[team_name]; ?></h4> 
+           &nbsp; &nbsp;
         </div>
     </div>
     <div class="col-sm-3">
@@ -86,10 +107,10 @@ if (file_exists("upload/" . $filename)) {
         <div class="col-sm-8">
              <form method='post' action='Editteam.php?teamid=<?php echo $teamid; ?>' class="form-horizontal">
                 <fieldset>
-                    <div class="form-group">
+                   <!-- <div class="form-group">
                         <label for="login_password" class="control-label col-sm-2 ">Team Name</label>
                         <div class="col-sm-7 input"><input type = "text" name='Team_Name' value="<?php echo $r['team_name']; ?>" class="form-control" maxlength="50"></div>
-                    </div>
+                    </div>-->
 
                             <div class="row">
                               <div class="col-sm-12">
@@ -127,10 +148,15 @@ if (file_exists("upload/" . $filename)) {
                                         <td>
                                          <?php
                                             $var = $r['team_id'];
-                                            if ($r['team_id'] == $var && $r['created_by'] != $r['user_id'])
+                                            if ($r['team_id'] == $var && $r['created_by'] == $r['user_id'])
                                             {
-                                              ?> <a href="Editteam.php?usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Delete</a> <?php
-                                         } 
+                                              ?> <a href="Editteam.php?action=Disband&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Disband</a> 
+                                            <?php
+                                            } 
+                                            else
+                                            {
+                                                ?><a href="Editteam.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Terminate</a> <?php
+                                            }  
                                             ?>
                                             
                                         </td>
@@ -192,7 +218,6 @@ if (file_exists("upload/" . $filename)) {
                                                        <button class="btn btn-md btn-block btn-success" type="submit" name="submit" value="submit">Submit <i class="glyphicon glyphicon-chevron-right"></i></button>
                                                     </div>
                                                   </div>
-                                       
                                        </fieldset> 
                                 </form>
                                 </div>
@@ -276,20 +301,28 @@ if (isset($_POST['update']))
                     }
                     else{
                            $name = $_POST['name'];
-                           $res = mysql_query("Select id from users where user_name ='$name'");
+                           $res = mysql_query("Select id, user_name from users where user_name ='$name'");
                            $record = mysql_fetch_array($res);
                            $result = $record['id'];
-                           if ($result != '') 
-                              { 
-                                 $query =mysql_query("INSERT INTO `team_list` (`id`,`user_id`, `team_id`, `join_date`, `created_by`,`player_status`) VALUES (NULL,'$result', '$teamid',now(),'$userid',0)");
-                                 echo"<script>alert('Team Invited successfullly')</script>";
-                                 exit();
-                              }
-                          else
-                              {
-                                 echo"<script>alert('Please Invite Valid user')</script>";
-                                 exit();
-                              }
+                           $uname = $record['user_name'];
+
+                           if($userid != $result)                         
+                                 if ($result != '') 
+                                    { 
+                                       $query =mysql_query("INSERT INTO `team_list` (`id`,`user_id`, `team_id`, `join_date`, `created_by`,`player_status`) VALUES (NULL,'$result', '$teamid',now(),'$userid',0)");
+                                       echo"<script>alert('Team Invited successfullly')</script>";
+                                       exit();
+                                    }
+                                else
+                                    {
+                                       echo"<script>alert('Please Invite Valid user')</script>";
+                                       exit();
+                                    }
+                            else
+                            {
+                              echo"<script>alert('You are not able to invite your self')</script>";
+                            }
+                          
                       }
                             
                }
