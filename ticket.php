@@ -71,7 +71,7 @@ $ticketid = $_GET['ticketid'];
                                          }else{ echo "Match dispute";}?></td>
 
                              <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo $r['description']; ?></td>
-                             <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo date("Y-m-d h:i A",strtotime($r['created_date'])); ?></td>
+                             <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo date("Y-m-d",strtotime($r['created_date'])) . " EST ".date("h:i A",strtotime($r['created_date'])); ?></td>
 
                              <td><!--<a href="view_ticket.php?ticketid=<?php echo $r[id]; ?>">View</a> &nbsp; |
                              &nbsp;-->
