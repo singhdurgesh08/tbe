@@ -54,6 +54,7 @@ $ticketid = $_GET['ticketid'];
                          <?php
                           $userid = $_SESSION['user_data']['id'];
                           $is_admin = $_SESSION['user_data']['is_admin'];
+                         // var_dump($is_admin);
                           //var_dump($is_admin);die();
                     if ($des == "") {
                         if($is_admin) {
@@ -67,7 +68,7 @@ $ticketid = $_GET['ticketid'];
                         ?>
                         <tr> 
                              <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo $r['id']; ?></td>
-                             <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"> <?php if($r['ticket_type']==0){                                             echo "Ticket";
+                             <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"> <?php if($r['ticket_type']==0){ echo "Ticket";
                                          }else{ echo "Match dispute";}?></td>
 
                              <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo $r['description']; ?></td>
@@ -81,7 +82,7 @@ $ticketid = $_GET['ticketid'];
                                 }
                                 else
                                 {
-                                  ?><a href="#">New</a> <?php 
+                                  echo "New"; 
                                 }
                              ?>
                              <?php

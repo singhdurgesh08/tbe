@@ -71,44 +71,40 @@ include "login-header.php";?>
                                     <div class="col-sm-6 input"><?php echo $r[description];  ?></div>
                                 </div>
 
-                                 <div class="form-group">
-                                    <label for="login_password" class="col-sm-6 text-right"></label>
-                                     <div class="col-sm-6 input">
-                                         <table id="example" class="table table-striped table-bordered " cellspacing="0" >
-                                        <h4 class="text-center"><strong>All Response</strong></h4> 
-                                            <thead class="thead-inverse bg-primary">
-                                                <tr>
-                                                  <th class="text-center">Response</th>
-                                                  <th class="text-center">User Name</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php 
-                                                 $res=mysql_query("Select * from ticket_response LEFT JOIN users on ticket_response.user_id = users.id where ticket_id = $ticketid");
-                                                 while ($r=mysql_fetch_array($res))
-                                                 {
-                                                ?>
-                                                <tr>
-                                                    <td class="text-center"><?php echo $r[response]; ?>  </td>
-                                                    <td class="text-center"><?php echo $r[user_name]; ?>  </td>
-                                                </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
-                               
-
-                                       
-                                    </div>
+                                <div class="form-group">
+                                    <label for="login_password" class="col-sm-6 text-right">Responses:</label>
                                 </div>
                                  
-                            
-
-
-
-
-
-
-
+                                  <div class="form-group"> 
+                                    <label for="login_password" class="col-sm-6 text-right"></label>
+                                     <div class="col-sm-6 input">
+                                            <?php 
+                                                 $res=mysql_query("Select ticket_response.id,ticket_response.ticket_id,ticket_response.user_id,
+                                                                    ticket_response.response,ticket_response.created_by,ticket_response.created_date,
+                                                                    users.id,users.user_image,users.user_name 
+                                                                    from ticket_response 
+                                                                    left join users on 
+                                                                    users.id = ticket_response.user_id
+                                                                    where ticket_response.ticket_id  = $ticketid;");
+                                                 while ($r=mysql_fetch_array($res))
+                                                 {
+                                                    ?> 
+                                                     <div class="col-sm-3">
+                                                       <?php        
+                                                            $finalimage =  $r['user_image'];
+                                                              if($finalimage) {  ?>
+                                                                    <img src="<?php echo HOSTNAME; ?>upload/<?php echo $finalimage;?>" class="img-circle" width="70" heigh="60" class="img-responsive" alt="" />
+                                                              <?php } else { ?>
+                                                               <img src="assets\images\profile-1.png" class="img-responsive"  class="img-circle" width="70" heigh="60" alt="" >
+                                                               <?php }  ?>
+                                                        </div>
+                                                              <a href="myprofile.php?usersid=<?php echo $r[id];?>"><b><u><?php echo $r[user_name]; ?></u></b></a><BR/>
+                                                              <?php
+                                                                echo $r[response];?><br/><?php
+                                                                echo date("Y-m-d",strtotime($r['created_date'])) . " EST ".date("h:i A",strtotime($r['created_date']));?><br/><br/><hr> <?php
+                                                              } ?>
+                                                </div>
+                                </div>
                            <!-- <?php 
                                     $res=mysql_query("Select response from ticket_response where ticket_id = $ticketid");
                                     $count =0;
@@ -139,21 +135,23 @@ include "login-header.php";?>
                 </div>
                 </div>
 </div>
+<?php include "footer.php";?>
 <?php
 include "config.php";
+
 if(isset($_POST['Update']))
                 {
                                      
                      $response = $_POST['postreply'];
-                        // $userid = $_SESSION['user_data']['id'];
-//                     $sql="UPDATE ticket SET response='$response' WHERE id='$ticketid'";  
-                     $query ="INSERT INTO `ticket_response` (`id`, `ticket_id`, `user_id`, `response`, `created_by`) VALUES (NULL, '$ticketid', '$userid', '$response', '$userid')"; 
-                      mysql_query($query);
+                     $query ="INSERT INTO `ticket_response` (`id`, `ticket_id`, `user_id`, `response`, `created_by`,`created_date`) VALUES (NULL, '$ticketid', '$userid', '$response', '$userid',now())"; 
+                      if(mysql_query($query))
                       {
-                            echo"<script>alert('Your reply has been successfully Submitted')</script>";
+                             ob_start();
+                             header("location:view_ticket.php?ticketid=$ticketid");
+                             exit();
                       }
         }
 ?>
-<?php include "footer.php";?>
+
 
 

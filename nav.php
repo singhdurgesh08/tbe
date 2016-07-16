@@ -128,32 +128,18 @@ text-decoration: solid;
             	   	 
 			while($r = mysql_fetch_array($res))
 			{
-			        if ($r['platform']== PS4) 
-							{
-								$var ='<img src="assets/images/playstation final.png" width="25" class="img-responsive" alt="" style="display:inline; " />';
-								
+                                if ($r['platform'] == PS4) {
+                                $var = '<img src="assets/images/playstation final.png" width="25" class="img-responsive" alt="" style="display:inline; " />';
+                                echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>' . substr($r['team_name'], 0, 12) . '..&nbsp;' . $var . '</a>');
+                                // echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'</a>');
+                                } else {
+                                //echo ('<img src="assets/images/xb1_list.jpg" width="10"  class="img-responsive" alt="" style="display:inline; " />' . '<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'</a>');
+                                $var1 = '<img src="assets/images/xb1_list.jpg" width="25" class="img-responsive" alt="" style="display:inline; " />';
+                                echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>' . substr($r['team_name'], 0, 10) . '..&nbsp;' . $var1 . '</a>');
+                                }
 
-								echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'&nbsp;&nbsp;'. $var .'</a>');
-//								echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'</a>');
-							}
-						else
-							{
-							//echo ('<img src="assets/images/xb1_list.jpg" width="10"  class="img-responsive" alt="" style="display:inline; " />' . '<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'</a>');
-							$var1 = '<img src="assets/images/xb1_list.jpg" width="25" class="img-responsive" alt="" style="display:inline; " />';
-							echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'&nbsp;&nbsp;'.  $var1 .'</a>');
-							}
-						
-						/*if($r['platform']== PS4) 
-                                    {
-                                      echo '<img src="assets/images/ps4_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;" />  '.$r['team_name'];     
-                                    	echo '<br>';
-                                    }
-                                    else
-                                    {
-                                       echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/>  '. $r['team_name'];      
-                                      	echo '<br>';
-                                    }*/
-					} 
+                   
+			} 
 					
 	   			 
 	   			 ?>

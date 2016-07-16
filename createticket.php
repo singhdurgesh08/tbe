@@ -69,7 +69,7 @@ document.getElementById('myDiv'+no).style.display = 'block';
                                         <label for="Platform" class="control-label col-sm-6">Match Id</label>
                                              <div class="col-sm-6 input"> 
                                                 <select name="mid" id="mid" class="form-control">
-                                                    <option  value=""> select Team</option>
+                                                    <option  value=""> select Match id</option>
                                                         <?php 
                                                               $query=mysql_query("select id from ps4_match where created_by = $userid");
                                                              while($r=mysql_fetch_assoc($query))
