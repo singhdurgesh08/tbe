@@ -83,9 +83,11 @@ if (file_exists("upload/" . $filename)) {
        ?>
         &nbsp; &nbsp;
     <div class="row">
+         <a href="teamdetails.php?teamid=<?php echo $teamid; ?>" class="btn btn-success pull-right">Back</a>
         <div class="text-center">
            <h4 class="text-center"><strong>Team -</strong> <?php echo $r[team_name]; ?></h4> 
            &nbsp; &nbsp;
+            
         </div>
     </div>
     <div class="col-sm-3">
@@ -190,16 +192,7 @@ if (file_exists("upload/" . $filename)) {
                  
                     </fieldset>
 
-                <div class="form-group">
-                    
-                 <label for="" class="control-label col-sm-2 back hidden-xs">&nbsp;</label>
-                        <div class="col-sm-2 input text-center">
-                            <button class="btn btn-lg btn-block btn-success" type="submit" name="update" value="update">Update<i class="glyphicon glyphicon-chevron-right"></i></button>
-                        </div>
-                        <div class="col-sm-2 input text-center">
-                            <a href="teamdetails.php?teamid=<?php echo $teamid; ?>" class="btn btn-lg btn-danger">Cancel<i class="glyphicon glyphicon-chevron-right"></i></a>
-                        </div>
-                    </div>
+               
             </form>
                     <div class="login_form_page">
                               <div class="row">
