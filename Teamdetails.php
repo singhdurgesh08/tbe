@@ -141,10 +141,10 @@ include "common.php";
         $r = mysql_fetch_array($res);
         $userid = $r['created_by'];
         $finalimage = $r['team_image'];
-        
-        // echo "<pre>"; print_r($r);
+       // echo "<pre>"; print_r($r);
+        $platform = $r['platform'];
         if ($finalimage) {
-    ?>
+        ?>
            <img src="<?php echo HOSTNAME; ?>upload/<?php echo $finalimage; ?>" width="200" class="img-responsive" alt="" />
         <?php } else { ?>
            <img src="<?php echo HOSTNAME; ?>assets/images/teamss.jpg" width="200" class="img-responsive" alt="" >
@@ -448,11 +448,9 @@ while ($r = mysql_fetch_assoc($res)) {
                         <li class="nav-header"></li>
                         <li class="active">
                         <?php 
-                        //var_dump($teamid);die();
-                            $mysql = mysql_query("select platform from team where id = $teamid");
-                            $myresult = mysql_fetch_array($mysql);
-                                               
-                            if($myresult[platform] == PS4){
+                        
+                                         
+                            if($platform == 'PS4'){
                                   ?>  <a href="matchlist.php">Match Finder</a></li><?PHP
                             }
                             else
