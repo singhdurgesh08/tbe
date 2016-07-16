@@ -246,24 +246,20 @@ include "common.php";
                                        </td><td><?php echo date("d-M-Y", strtotime($r['join_date'])); ?></td>
                                      <td>
                                          <?php
-                                            if ($r['team_id'] == $teamid and $r['created_by'] == $r['user_id'])
-                                            {
-                                              ?> <a href="teamdetails.php?action=Disband&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Disband</a> 
-                                              <?php
-                                            }
-                                            else
-                                            {
-                                                ?><a href="teamdetails.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Terminate</a>
-                                                 &nbsp; | &nbsp; <a href="teamdetails.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Leave</a>
-                                                 <?php
-                                            } 
-
-
-                                        //$sqlo =mysql_query("select * from team where created_by = $userid");
-                                        //$result = mysql_fetch_array($sqlo);
-
-
-                                            ?>
+                                         
+                                                if (($r['team_id'] == $teamid) and $r['created_by'] == $r['user_id'])
+                                                {  if($r['created_by'] == $is_userid) {
+                                                  ?> 
+                                                       <a href="teamdetails.php?action=Disband&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Disband</a> 
+                                                  <?php
+                                                  }}
+                                                else
+                                                {   if($r['created_by'] == $is_userid) {
+                                                    ?><a href="teamdetails.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Terminate</a>
+                                                <?php } else { ?> 
+                                                    <a href="teamdetails.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Leave</a>
+                                                     <?php
+                                                   } }  ?>
 
 
                                     </td>   

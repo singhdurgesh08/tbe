@@ -114,13 +114,21 @@ text-decoration: solid;
 		  <div class="dropdown-content" style="z-index:999;">
           
             	<?php
-                    // $res = mysql_query("Select * from team where created_by = '$userid'"); 
-            	   	$res = mysql_query("Select * from team where created_by = '$userid'"); 
-					
-					while($r = mysql_fetch_array($res))
-					{
-						
-						if ($r['platform']== PS4) 
+                       $join_team = mysql_query("Select team_id from team_list where user_id = '$userid'"); 
+                       while($rteam = mysql_fetch_array($join_team))
+                       { 
+                           $teamId[] = $rteam['team_id'];
+                       }
+                        $joinTeamId = implode(",",$teamId);
+                        if ($joinTeamId){
+                          $res = mysql_query("Select * from team where created_by = '$userid' UNION Select * from team where id in ($joinTeamId)");  
+                        }else {
+                             $res = mysql_query("Select * from team where created_by = '$userid'"); 
+                        }
+            	   	 
+			while($r = mysql_fetch_array($res))
+			{
+			        if ($r['platform']== PS4) 
 							{
 								$var ='<img src="assets/images/playstation final.png" width="25" class="img-responsive" alt="" style="display:inline; " />';
 								
