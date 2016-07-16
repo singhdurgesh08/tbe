@@ -447,9 +447,7 @@ while ($r = mysql_fetch_assoc($res)) {
             </div>
         </div>
         <!--/span-->
-        <?php
-      
-        if($is_userid == $userid) { ?>
+       
         <div class="col-md-3">
             <div class="sidebar-nav-fixed pull-right">
                 <div class="well">
@@ -467,19 +465,19 @@ while ($r = mysql_fetch_assoc($res)) {
                              <a href="xb1matchlist.php">Match Finder</a></li><?php
                             }
                          ?>
-
-                       <!-- <li><a href="Addplayer.php?teamid=<?php echo $teamid; ?>">Add Member</a></li>-->
-                       <!-- <li><a href="Teamdetails.php?teamid=<?php //echo $teamid;  ?>&action=DisableHere">Disable Team</a><li>-->
-                        <li><a href="Editteam.php?teamid=<?php echo $teamid; ?>">Edit Team</a></li>
-                        <!--<li><a href="allmatch.php">All Matches</a></li>-->  
-
+                        <?php  if($is_userid == $userid) { ?>
+                              <!-- <li><a href="Addplayer.php?teamid=<?php echo $teamid; ?>">Add Member</a></li>-->
+                              <!-- <li><a href="Teamdetails.php?teamid=<?php //echo $teamid;  ?>&action=DisableHere">Disable Team</a><li>-->
+                               <li><a href="Editteam.php?teamid=<?php echo $teamid; ?>">Edit Team</a></li>
+                               <!--<li><a href="allmatch.php">All Matches</a></li>-->  
+                        <?php } ?>
                     </ul>
                 </div>
                 <!--/.well -->
             </div>
             <!--/sidebar-nav-fixed -->
         </div>
-        <?php } ?>
+      
         <!--/span-->
 
     </div>
