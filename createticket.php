@@ -14,6 +14,17 @@ include "login-header.php";?>
   });
 </script>
 
+<script type="text/javascript">
+function show(obj) {
+no = obj.options[obj.selectedIndex].value;
+count = obj.options.length;
+for(i=1;i<count;i++)
+document.getElementById('myDiv'+i).style.display = 'none';
+if(no>0)
+document.getElementById('myDiv'+no).style.display = 'block';
+}
+</script>
+
 
 <div class="home_tab_section">
 <div class="container">
@@ -24,24 +35,24 @@ include "login-header.php";?>
                 </div>
                 <div class="row">
                     <div class="col-sm-8">
-                            <form method='post' id="createticket" class="form-horizontal">
+                            <form method='post' name="myForm" id="createticket" class="form-horizontal">
                             <fieldset>
                             
                             <div class="form-group">
                                     <label for="Platform" class="control-label col-sm-6">Category</label>
                                     <div class="col-sm-6 input"> 
-                                             <select name="category" id="category" class="form-control" required="">
-                                             <option value="">Please select category</option>
-                                              <option value="Match dispute">Match dispute</option>
-                                              <option value="Ticket">Ticket</option>
-                                           </select>
+                                             <select name="category" id="category" class="form-control" required="" onChange="show(this)" >
+                                             <option value="0">Ticket</option>
+                                             <option value="1">Match dispute</option>
+                                            </select>
                                             </div>
                                 </div>
+                            
 
-                                  <div class="form-group">
+                                  <div class="form-group" id="myDiv1" style="display:none">
                                     <label for="Platform" class="control-label col-sm-6">Team </label>
                                     <div class="col-sm-6 input"> 
-                                             <select name="team" id="team" class="form-control" required="">
+                                             <select name="team" id="team" class="form-control">
                                              <option  value=""> select Team</option>
                                              <?php 
                                                     $query=mysql_query("select team_name from team where created_by = $userid");
@@ -53,26 +64,25 @@ include "login-header.php";?>
                                              
                                              ?> 
                                      
-                                           </select>
+                                           </select>&nbsp;
                                             </div>
-                                </div>
-                                 <div class="form-group">
-                                    <label for="Platform" class="control-label col-sm-6">Match Id</label>
-                                    <div class="col-sm-6 input"> 
-                                            <select name="mid" id="mid" class="form-control" required="">
-                                             <option  value=""> select Team</option>
-                                             <?php 
-                                                    $query=mysql_query("select id from ps4_match where created_by = $userid");
-                                                    while($r=mysql_fetch_assoc($query))
-                                                    {
-                                                      $mid=$r["id"];
-                                                      echo "<option>$mid</option>";
-                                                    }
+                                        <label for="Platform" class="control-label col-sm-6">Match Id</label>
+                                             <div class="col-sm-6 input"> 
+                                                <select name="mid" id="mid" class="form-control">
+                                                    <option  value=""> select Team</option>
+                                                        <?php 
+                                                              $query=mysql_query("select id from ps4_match where created_by = $userid");
+                                                             while($r=mysql_fetch_assoc($query))
+                                                             {
+                                                                  $mid=$r["id"];
+                                                                  echo "<option>$mid</option>";
+                                                             }
                                              
                                              ?> 
                                      
                                            </select>
                                             </div>
+                                    
                                 </div>
 
                                  <div class="form-group">
@@ -145,7 +155,7 @@ if (isset($_POST['submit'])) {
 
 
 $query ="INSERT INTO `ticket` (`id`, `name`, `ticket_type`, `description`, `created_by`, `ticket_status`, `created_date`, `match_id`, `url1`, `url2`, `url3`, `url4`, `url5`, `url6`) 
-VALUES ('NULL', '$team', '$category', '$Description', '$userid', '1', now(), '$mid', '$URL1', '$URL2', '$URL3', '$URL4', '$URL5', '$URL6')";
+                       VALUES ('NULL', '$team', '$category', '$Description', '$userid', '1', now(), '$mid', '$URL1', '$URL2', '$URL3', '$URL4', '$URL5', '$URL6')";
 //mysql_query($query);
    if (mysql_query($query)) 
     {

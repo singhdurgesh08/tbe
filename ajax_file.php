@@ -33,18 +33,34 @@ if ($_GET['action'] == "reportmatch") {
         mysql_query("Update join_match set opponent_report_time = now() , opponent_report_match_winner ='$opponentteam',opponent_report_match_score='$opponentteamscore' where id = '$hostId' ;");
     }
     // Host Status Update
-    if(($host['match_winner'] == $host['opponent_report_match_winner']) && $host['match_winner'] =="Win"){
+    /*if(($host['match_winner'] == $host['opponent_report_match_winner']) && $host['match_winner'] =="Win"){
          mysql_query("Update join_match set  Match_play_status ='1'  where id = '$hostId' ;");
     }elseif(($host['match_winner'] == $host['opponent_report_match_winner']) && $host['match_winner'] =="Loss"){
          mysql_query("Update join_match set  Match_play_status ='2'  where id = '$hostId' ;");
     }else {
          // Nothing Update
-    }
+    }*/
   // Opponent Status Update
-    if(($opponent['match_winner'] == $opponent['opponent_report_match_winner']) && $opponent['match_winner'] =="Win"){
+   /* if(($opponent['match_winner'] == $opponent['opponent_report_match_winner']) && $opponent['match_winner'] =="Win"){
         mysql_query("Update join_match set  Match_play_status ='1'  where id = '$opponentId' ;");
     }else if(($opponent['match_winner'] == $opponent['opponent_report_match_winner']) && $opponent['match_winner'] =="Loss"){
       mysql_query("Update join_match set  Match_play_status ='2'  where id = '$opponentId' ;");
+    }else {
+        // Nothing Update
+    }*/
+    $host = getHostId($repot_match_id);
+    $opponent = getOpponentId($repot_match_id);
+    if(($host['match_winner'] != $opponent['match_winner']) && $host['match_winner'] =="Win"){
+        mysql_query("Update join_match set  Match_play_status ='1'  where id = '$hostId' ;");
+        mysql_query("Update join_match set  Match_play_status ='2'  where id = '$opponentId' ;");
+    }else if(($host['match_winner'] != $opponent['match_winner']) && $host['match_winner'] =="Loss"){
+        mysql_query("Update join_match set  Match_play_status ='2'  where id = '$hostId' ;");
+        mysql_query("Update join_match set  Match_play_status ='1'  where id = '$opponentId' ;");
+    
+    
+    }else if(($host['match_winner'] == $opponent['match_winner']) && ($host['match_winner'] =="Win" ||  $host['match_winner'] =="Loss")){
+        mysql_query("Update join_match set  Match_play_status ='3'  where id = '$hostId' ;");
+        mysql_query("Update join_match set  Match_play_status ='2'  where id = '$opponentId' ;");
     }else {
         // Nothing Update
     }
@@ -63,24 +79,28 @@ if ($_GET['action'] == "changewinner") {
     $yourteam = $_POST['yourteam'];
     $opponentteam = $_POST['opponentteam'];
     $repot_match_id = $_POST['repot_match_id'];
-    mysql_query("Update join_match set host_report_time= now() , Match_play_status ='$yourteam' , match_winner ='$yourteam' where match_id= '$repot_match_id' and opponent_id = '0'");
+    mysql_query("Update join_match set host_report_time= now() , Match_play_status ='$yourteam' , match_winner ='11' where match_id= '$repot_match_id' and opponent_id = '0'");
     mysql_query("Update join_match set host_report_time= now() , Match_play_status ='$opponentteam' ,opponent_report_match_winner ='$opponentteam' where match_id= '$repot_match_id' and opponent_id = '1'");
     $resquery1 = mysql_query("Select * from join_match  left join users on join_match.created_by = users.id where match_id= '$repot_match_id' and Match_play_status = '1'");
-    $detail1 = mysql_fetch_array($resquery1);
-    $email = $detail1['user_email'];
-    $userid = $detail1['created_by'];
-    if($_SESSION['dimond_user'] == "dimond"){
-       //$amount = $detail1['amount'] * 2;
+    $win_result = mysql_fetch_array($resquery);
+    $email = $win_result['user_email'];
+    $userid = $win_result['created_by'];
+   /* if($_SESSION['dimond_user'] == "dimond"){
+       
        $amount = (float)$detail1['amount'] + (float)$detail1['amount'];
     }else {
         $winner = $detail1['amount'] * 80 / 100;
         $amount = $detail1['amount'] + (float)$winner;
-        //$amount = $detail1['amount'] * 2;
-    }
-    $query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
+       
+    }*/
+    
+     if($win_result['Match_play_status'] =='1'){
+       transferMoney($userid,$repot_match_id);
+     }
+    /*$query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
             `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`, `start_date`, `end_date`) 
             VALUES ('', 'Winner', '1', 'ADD', '$userid', '$amount', 'USD', '1', now(), '$email',now(),now())";
-    mysql_query($query);
+    mysql_query($query);*/
     echo "success";
     die;
 }
@@ -124,12 +144,15 @@ if ($_GET['action'] == "postmatch") {
         $Game_Mode = $rowdetail['game_Mode'];
         $team_name = $rowdetail['team_name'];
         
+        // Check Pending Match
+         validatePendingMatch($userid);
+        
         // Check Team Player is Full or not 
          validateGameMode($Game_Mode,$add_itemId,$team_name,$Amount);
 
          
         // Gamer Tag check Will Come Here 
-        $userdetail = mysql_query("select gamertag from users where id ='$userid'");
+        $userdetail = mysql_query("select plastation,xbox from users where id ='$userid'");
         $user_detail = mysql_fetch_array($userdetail);
         if($platform =='PS4') {
              if(trim($user_detail['plastation']) =='') {
@@ -209,6 +232,8 @@ if ($_GET['action'] == "accept_match") {
         $Game_Mode = $rowdetail['game_Mode'];
         $team_name = $rowdetail['team_name'];
         
+        // Check Pending Match
+         validatePendingMatch($userid);
         // Check Team Player is Full or not 
         validateGameMode($Game_Mode,$teamid,$team_name,$amount);
         $result = mysql_query("select sum(payment_gross) AS value_sum from payments where user_id ='$userid' and payment_type ='ADD' and payment_status ='1'");
@@ -229,7 +254,7 @@ if ($_GET['action'] == "accept_match") {
          $rowdetail = mysql_fetch_array($teamdetail);
          $platform = $teamdetail['platform'];
          // Gamer Tag check Will Come Here 
-        $userdetail = mysql_query("select gamertag from users where id ='$userid'");
+        $userdetail = mysql_query("select plastation,xbox from users where id ='$userid'");
         $user_detail = mysql_fetch_array($userdetail);
         if($platform =='PS4') {
              if(trim($user_detail['plastation']) =='') {

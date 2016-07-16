@@ -1,5 +1,6 @@
 <?php 
 include "config.php";
+ob_start();
 session_start();
 if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login.php");
@@ -9,12 +10,7 @@ include "login-header.php";?>
         <?php include "nav.php";
         $ticketid = $_GET['ticketid'];
         ?>
-         
-
 <div>&nbsp;</div>
-
-
-
 <div class="container">
                 <div class="row">
                     <div class="col-sm-12 text-center">
@@ -32,7 +28,7 @@ include "login-header.php";?>
                  <?php
                     $res=mysql_query("Select * from ticket where id= $ticketid");
                     $r=mysql_fetch_array($res);
-                // echo "<pre>"; print_r($r);
+                  
                 ?>
                 <div class="row">
                     <div class="col-sm-9">
@@ -45,17 +41,23 @@ include "login-header.php";?>
 
                                 <div class="form-group">
                                     <label for="login_password" class="col-sm-6 text-right">Categery: </label>
-                                    <div class="col-sm-6 input"><?php echo $r[ticket_type];  ?></div>
+                                    <div class="col-sm-6 input">
+                                    <?php 
+                                        if($r['ticket_type']==0){ echo "Ticket";
+                                         }else{ echo "Match dispute";} ?>
+                                </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="login_password" class="col-sm-6 text-right">Date Submitted: </label>
-                                    <div class="col-sm-6 input"><?php echo $r[created_date];  ?></div>
+                                    <div class="col-sm-6 input"><?php echo date("Y-m-d h:i A",strtotime($r['created_date'])); ?></div>
                                 </div>
+                                <?php
 
+                                ?>
                                  <div class="form-group">
                                     <label for="login_password" class="col-sm-6 text-right">Match id:</label>
-                                    <div class="col-sm-6 input"> <?php echo $r[match_id];  ?></div>
+                                    <div class="col-sm-6 input"><a href="matchdetails.php??Matchid=<?php echo $r[match_id];?>"><?php echo $r[match_id];?></a></div>
                                 </div>
 
                                 <div class="form-group">
@@ -68,21 +70,57 @@ include "login-header.php";?>
                                     <label for="login_password" class="col-sm-6 text-right">Description:</label>
                                     <div class="col-sm-6 input"><?php echo $r[description];  ?></div>
                                 </div>
+
+                                 <div class="form-group">
+                                    <label for="login_password" class="col-sm-6 text-right"></label>
+                                     <div class="col-sm-6 input">
+                                         <table id="example" class="table table-striped table-bordered " cellspacing="0" >
+                                        <h4 class="text-center"><strong>All Response</strong></h4> 
+                                            <thead class="thead-inverse bg-primary">
+                                                <tr>
+                                                  <th class="text-center">Response</th>
+                                                  <th class="text-center">User Name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php 
+                                                 $res=mysql_query("Select * from ticket_response LEFT JOIN users on ticket_response.user_id = users.id where ticket_id = $ticketid");
+                                                 while ($r=mysql_fetch_array($res))
+                                                 {
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center"><?php echo $r[response]; ?>  </td>
+                                                    <td class="text-center"><?php echo $r[user_name]; ?>  </td>
+                                                </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                               
+
+                                       
+                                    </div>
+                                </div>
+                                 
                             
 
-                            <?php 
+
+
+
+
+
+
+                           <!-- <?php 
                                     $res=mysql_query("Select response from ticket_response where ticket_id = $ticketid");
                                     $count =0;
                                     while ($r=mysql_fetch_array($res)) {
                                         $var = $r[response] ;
-                                                                              
                                 ?>
                                  <div class="form-group">
                                     <label for="login_password" class="col-sm-6 text-right">Response<?php echo ++$count; ?>:</label>
                                     <div class="col-sm-6 input"><?php echo $var ?></div>
                                 </div>
                              <?php   } ?>
-
+                            -->
 
                                 <div class="form-group">
                                     <label for="comment" class="col-sm-6 text-right">Reply:</label>

@@ -67,7 +67,7 @@ if (file_exists("upload/" . $filename)) {
     }  ?>
                 <div class="row">
                     <div class="col-sm-12 text-center">
-                        <h3 class="index_memberTitle">Edit Profile-Social Media</h3>
+                        <h3 class="index_memberTitle">Edit Profile</h3>
                     </div>
                 </div>
                 <div class="col-sm-12 text-center">
@@ -170,10 +170,10 @@ if (file_exists("upload/" . $filename)) {
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="login_password" class="control-label col-sm-4">
-                                <img src="<?php echo HOSTNAME; ?>assets/images/playstation final.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                            <div class="col-sm-6 input"><input name='plastation' id="plastation" value="<?php echo $r['plastation'];?>" placeholder="playstation"  class="form-control" required=""></div>
-                        </div>
+                    <label for="login_password" class="control-label col-sm-4">
+                        <img src="<?php echo HOSTNAME; ?>assets/images/snapchat.jpg" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                    <div class="col-sm-6 input"><input name='snapchat' id="snapchat" value="<?php echo $r['skype']; ?>" placeholder="snapchat"  class="form-control"></div>
+                </div>
                         <div class="form-group">
                             <label for="login_password" class="control-label col-sm-4">
                                 <img src="<?php echo HOSTNAME; ?>assets/images/facebook.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
@@ -191,6 +191,11 @@ if (file_exists("upload/" . $filename)) {
        
             <fieldset>
                 <div class="form-group">
+                            <label for="login_password" class="control-label col-sm-4">
+                                <img src="<?php echo HOSTNAME; ?>assets/images/playstation final.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
+                            <div class="col-sm-6 input"><input name='plastation' id="plastation" value="<?php echo $r['plastation'];?>" placeholder="playstation"  class="form-control" required=""></div>
+                        </div>
+                <div class="form-group">
                     <label for="login_password" class="control-label col-sm-4">
                         <img src="<?php echo HOSTNAME; ?>assets/images/instagram.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
                      <div class="col-sm-6 input"><input name='instagram' id="instagram" value="<?php echo $r['steam']; ?>" placeholder="instagram"  class="form-control"></div>
@@ -200,11 +205,7 @@ if (file_exists("upload/" . $filename)) {
                         <img src="<?php echo HOSTNAME; ?>assets/images/twitch logo.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
                     <div class="col-sm-6 input"><input name='twitch' id="twitch" value="<?php echo $r['twitch']; ?>" placeholder="twitch"  class="form-control"></div>
                 </div>
-                <div class="form-group">
-                    <label for="login_password" class="control-label col-sm-4">
-                        <img src="<?php echo HOSTNAME; ?>assets/images/snapchat.jpg" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                    <div class="col-sm-6 input"><input name='snapchat' id="snapchat" value="<?php echo $r['skype']; ?>" placeholder="snapchat"  class="form-control"></div>
-                </div>
+                
                 <div class="form-group">
                     <label for="login_password" class="control-label col-sm-4">
                         <img src="<?php echo HOSTNAME; ?>assets/images/youtube.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>

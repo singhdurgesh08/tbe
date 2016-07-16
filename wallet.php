@@ -1,4 +1,4 @@
-<?php 
+<?php ob_start();
  session_start();
 include "login-header.php";?>
 <?php include "nav.php";?>
@@ -89,6 +89,42 @@ a:active, a:hover {
 <?php 
 include "config.php";
 include "common.php";
+if ($_POST['withdrawal']=="withdrawal") {
+        $email = $_POST['email'];
+	$userid = $_SESSION['user_data']['id'];
+	$amount = $_POST['add_amount'];
+        $msg ="";
+        $totalcredit = getCredit($_SESSION['user_data']['id']);
+        if($totalcredit < $transfer_amount )
+        {
+          $msg = "<div class='alert alert-danger'>
+               <button class='close' data-dismiss='alert'>&times;</button>
+               <strong>Sorry!</strong>  you have no more Credit for transfer
+               </div>";
+        }
+      if($msg ==""){  
+            $email = $_POST['email'];
+            $userid = $_SESSION['user_data']['id'];
+            $amount = $_POST['add_amount'];
+            $query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
+            `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`) 
+            VALUES ('', 'Withdrawal Wallet', '1', 'Withdrawal', '$userid', '$amount', 'USD', '1', CURRENT_TIMESTAMP, '$email')";
+            mysql_query($query); 
+             $msg = "
+            <div class='alert alert-success'>
+            <button class='close' data-dismiss='alert'>&times;</button>
+            <strong>Success!</strong>  Withdrawal  Request Sent to TBE. very soon you will get Monry in your paypal Account
+            </div>
+            ";
+              header("location:wallet.php");
+                                exit();
+      }else {
+            $msg = "<div class='alert alert-danger'>
+                <button class='close' data-dismiss='alert'>&times;</button>
+                <strong>Sorry!</strong> Some issue in withdraw Please contact TBE support
+                </div>";
+        }
+}
 if ($_POST['transfer_btn']=="Transfer") {
     $msg = "";
     $user_name = trim($_POST['username']);
@@ -103,7 +139,7 @@ if ($_POST['transfer_btn']=="Transfer") {
                 </div>";
     }
     $totalcredit = getCredit($_SESSION['user_data']['id']);
-    if($totalcredit > $transfer_amount )
+    if($totalcredit < $transfer_amount )
     {
         $msg = "<div class='alert alert-danger'>
                 <button class='close' data-dismiss='alert'>&times;</button>
@@ -115,19 +151,27 @@ if ($_POST['transfer_btn']=="Transfer") {
         $result = mysql_query($check_name);
         if (mysql_num_rows($result) >= 1) { 
           $row = mysql_fetch_array($result); 
-               $userid =  $row['id'];
-                $email =  $row['user_email'];
-                 $query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
-                         `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`, `start_date`, `end_date`) 
-                          VALUES ('', 'Transfer Money to friend', '1', 'ADD', '$userid', '$transfer_amount', 'USD', '1', now(), '$email',now(),now())";
-                mysql_query($query); 
-                 $msg = "
+            $userid = $row['id'];
+              $email = $row['user_email'];
+              $query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
+                           `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`, `start_date`, `end_date`) 
+                            VALUES ('', 'Transfer Money to friend $user_name', '1', 'ADD', '$userid', '$transfer_amount', 'USD', '1', now(), '$email',now(),now())";
+              mysql_query($query);
+              $hostuserid = $_SESSION['user_data']['id'];
+              $hostemail = $_SESSION['user_data']['user_email'];
+              $hostuser_name = $_SESSION['user_data']['user_name'];
+              $query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
+                  `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`) 
+                  VALUES ('', 'Transfer Money from $hostuser_name', '1', 'Withdrawal', '$hostuserid', '$transfer_amount', 'USD', '1', now(), '$hostemail')";
+              mysql_query($query);
+              $msg = "
             <div class='alert alert-success'>
             <button class='close' data-dismiss='alert'>&times;</button>
-            <strong>Success!</strong>  Trnasfer $transfer_amount $ TO $user_name. 
+            <strong>Success!</strong>  Transfer $transfer_amount $ TO $user_name Account. 
             </div>
             ";
-       
+                                header("location:wallet.php");
+                                exit();
         }else {
             $msg = "<div class='alert alert-danger'>
                 <button class='close' data-dismiss='alert'>&times;</button>
@@ -192,7 +236,7 @@ if ($_POST['transfer_btn']=="Transfer") {
                         </form>
                     </div>
                     <div class="tab-pane" id="2">
-                        <form id="withdrawal" name="withdrawal" action="withdrawal_wallet.php" method="post"  class="form-horizontal">
+                        <form id="withdrawal" name="withdrawal" action="wallet.php" method="post"  class="form-horizontal">
 
                             <div class="row">
                                 <div class="col-sm-8 text-center">

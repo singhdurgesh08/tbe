@@ -21,11 +21,10 @@ include "common.php";
                <?php        
                     $finalimage =  $result ['user_image'];
                     if($finalimage) {  ?>
-                            <img src="<?php echo HOSTNAME; ?>upload/<?php echo $finalimage;?>" width="150" class="img-responsive" alt="" />
+                            <img src="<?php echo HOSTNAME; ?>upload/<?php echo $finalimage;?>" width="200" class="img-responsive" alt="" />
                       <?php } else { ?>
-                       <img src="<?php echo HOSTNAME; ?>assets/images/match_profile.png" class="img-responsive" alt="" >
+                       <img src="assets\images\profile-1.png" width="200"class="img-responsive" alt="" >
                        <?php }  ?>
-                
                 </div>
                     <div class="col-sm-8" >
                          <table id="example" class="table table-striped table-bordered " cellspacing="0" width="100%">
@@ -148,7 +147,7 @@ include "common.php";
               <div class="form-group">
                             <label for="login_password" class="control col-sm-3">
                                 <img src="<?php echo HOSTNAME; ?>assets/images/playstation final.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                             <label class="control col-sm-4" ><a href="#"><?php echo  $result['plastation']; ?></a></label>
+                             <label class="control col-sm-4" ><?php echo  $result['plastation']; ?></label>
                         </div>
                 <div class="form-group">
                     <label for="login_password" class="control  col-sm-3">

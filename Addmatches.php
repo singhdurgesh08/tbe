@@ -58,6 +58,10 @@ $matchtype = $_GET['matchtype'];
         }
     });
   });
+  
+  function showhide(id){
+   $("#player_list_"+id).toggle();
+  }
   </script>
  <div class="home_tab_section">      
 <div class="container">
@@ -255,8 +259,68 @@ $matchtype = $_GET['matchtype'];
                                                 <td><?php echo $r['game_Mode']; ?></td>
                                                 <td>
                                                     <input type="radio" name="addteam_id" id="addteam_id" value="<?php echo $r['id']; ?>" checked="checked" />
+                                                    
+                                                    &nbsp; 
+                                                    <a href="javascript:void();" onclick="showhide('<?php echo $r['id']; ?>');"> Member's</a>
                                                 </td>
                                             </tr>
+                                     <tr id="player_list_<?php echo $r['id']; ?>" style="display:none;">
+                                         <TD colspan="4">
+                                      <table  class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                   <h4 class="text-center"><strong>Team Member's</strong></h4> 
+
+                                   <thead class="thead-inverse">
+                                       <tr>
+                                           <th>Roster</th>
+                                           <th>Role</th>
+                                           <th>Date Joined</th>
+                                           <th>Action</th>
+                                       </tr>
+                                   </thead>
+                                         <tbody>
+                             <?php
+                                $i = 1;
+                                $teamid = $r['id'];
+                                $res1 = mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.player_status ='1' and team_list.team_id= $teamid");
+                                while ($teamplayer = mysql_fetch_assoc($res1)) {
+                                    ?>
+                                    <tr>
+                                        <td><a href="myprofile.php?usersid=<?php echo $teamplayer['id']; ?>"><?php echo $teamplayer['user_name']; ?>
+                                            </a></td>
+                                        <td>
+                                            <?php
+                                            
+                                            if ($teamplayer['team_id'] == $teamid && $teamplayer['created_by'] == $teamplayer['user_id']) {
+                                                echo "Captain";
+                                            } else {
+                                                echo "Player";
+                                            }
+                                            ?>
+                                       </td>
+                                        <td><?php echo date("d-M-Y", strtotime($teamplayer['join_date'])); ?></td>
+                                        <td>
+                                         <?php
+                                            
+                                           if ($teamplayer['team_id'] == $teamid && $teamplayer['created_by'] == $teamplayer['user_id']) 
+                                            {
+                                              ?> <a href="Editteam.php?action=Disband&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Disband</a> 
+                                            <?php
+                                            } 
+                                            else
+                                            {
+                                                ?><a href="Editteam.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Terminate</a> <?php
+                                            }  
+                                            ?>
+                                            
+                                        </td>
+                                    </tr>
+                                    <?php }
+                                    ?>
+                                                </tbody>
+                                               </table>
+                                        </TD>
+                                     </tr>
+                                           
                                             <?php }}else {  ?>
                                             <tr>
                                                 <td colspan="3">No team found Please <a href="AddTeam.php?platform=<?php echo $matchtype;?>">Add Team </a> </td>

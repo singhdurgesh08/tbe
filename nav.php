@@ -144,33 +144,43 @@ text-decoration: solid;
                                        echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/>  '. $r['team_name'];      
                                       	echo '<br>';
                                     }*/
-					}
-          ?>
-          </div>
+					} 
+					
+	   			 
+	   			 ?>
+          
+		</div>
 		  </li>
-      <li class="<?php if(ereg("ps4.php",$file)>0) echo " active"; ?>"><a href="ps4.php">PS4</a></li>
+
+		  
+		  <li class="<?php if(ereg("ps4.php",$file)>0) echo " active"; ?>"><a href="ps4.php">PS4</a></li>
 		  <li class="<?php if(ereg("xb1.php",$file)>0) echo " active"; ?>"><a href="xb1.php">XB1</a></li>
-		  <li class="<?php if(ereg("top50goals.php",$file)>0) echo " active"; ?>"><a href="http://tbesportsgaming.com/forum/index.php">Forum</a></li>
+		  <li class="<?php if(ereg("top50goals.php",$file)>0) echo " active"; ?>"><a href="top50goals.php">Tournaments</a></li>
 		  <li class=" dropdown <?php if(ereg("leadership.php",$file)>0 || ereg("staff.php",$file)>0  || ereg("faq.php",$file)>0) echo " active"; ?>"><a class="active">Support</a>
 		  <div class="dropdown-content" style="z-index:999;">
-        <a href="ticket.php">Ticket</a>
-					<a href="faq.php">Faq</a>
+                        <a href="ticket.php">Ticket</a>
+						<a href="faq.php">Faq</a>
 		</div>
 		  </li>
 		  <li class="dropdown selected">
 			<a class="dropbtn" style="color:red;background-color: yellow;" > <b><?php echo substr($_SESSION['user_data']['user_name'],0,20);?> &nbsp;</b></a>  
-			<div class="dropdown-content" style="z-index:999;">
-			<a href="myprofile.php?usersid=<?php echo $userid ?>">My Profile</a>
+      <div class="dropdown-content" style="z-index:999;">
+			<a href="home.php">Home</a> 
+      <a href="myprofile.php?usersid=<?php echo $userid ?>">My Profile</a>
+      <a href="editprofile.php">Edit Profile</a>
+        <a href="subscribe_membership.php">Membership</a>
 			<a href="wallet.php">Wallet</a>    
-			<a href="subscribe_membership.php">Membership</a> 
-			<a href="teaminvite.php">Team Invite</a>      
-                        <a href="editprofile.php">Edit Profile</a>
-			<a href="home.php">Home</a>
-                         <?php if($is_admin) { ?>
-                        <a href="paymentlist.php">Payment</a>
-                         <?php } ?>
-			<!--<a href="Addplaystation.php">Gamertag</a>-->
-			<a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Signout</a>
+		 	<a href="teaminvite.php">Team Invites</a>    
+      <?php 
+        $res = mysql_query("Select * from users where id = $userid");
+        $record = mysql_fetch_array($res);
+         if($record[is_admin] ==1)
+          {
+            ?><a href="paymenthistory.php">Payment History</a><?php
+          }
+        
+      ?>
+      <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign-out</a>
 		</div>
 		  </li>
 		</ul>

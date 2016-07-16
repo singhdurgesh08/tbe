@@ -1,4 +1,5 @@
-<?php 
+<?php
+ob_start(); 
  session_start();
   if ($_SESSION['user_data']['user_name'] == '') {
     
@@ -39,7 +40,7 @@ $ticketid = $_GET['ticketid'];
             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Ticket Id</th>
                         <th>Ticket type</th>
                         <th>Description</th>
                         <th>Date</th>
@@ -64,29 +65,31 @@ $ticketid = $_GET['ticketid'];
                     while ($r = mysql_fetch_array($res)) { 
                       //echo "<pre>"; print_r($r);
                         ?>
-                        <tr>
-                             <td><?php echo $r['id']; ?></td>
-                             <td><?php echo $r['ticket_type']; ?></td>
-                             <td><?php echo $r['description']; ?></td>
-                             <td><?php echo date("Ym-d h:i:s A",strtotime($r['created_date'])); ?></td>
+                        <tr> 
+                             <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo $r['id']; ?></td>
+                             <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"> <?php if($r['ticket_type']==0){                                             echo "Ticket";
+                                         }else{ echo "Match dispute";}?></td>
 
-                             <td><a href="view_ticket.php?ticketid=<?php echo $r[id]; ?>">View</a> &nbsp; |
-                             &nbsp;
+                             <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo $r['description']; ?></td>
+                             <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo date("Y-m-d h:i A",strtotime($r['created_date'])); ?></td>
+
+                             <td><!--<a href="view_ticket.php?ticketid=<?php echo $r[id]; ?>">View</a> &nbsp; |
+                             &nbsp;-->
                              <?php
-
                                 if ($r[ticket_status] == 0) {
-                                  ?><a href="">Close</a><?php
+                                  ?><a href="#">Close</a><?php
                                 }
                                 else
                                 {
-                                  ?><a href="">New</a> <?php 
+                                  ?><a href="#">New</a> <?php 
                                 }
                              ?>
                              <?php
                              if ($is_admin ==1 and $r[ticket_status] == 1) {
-                              ?>&nbsp; | &nbsp;&nbsp;
+                                ?>&nbsp; | &nbsp;&nbsp;
                                  <a href="ticket.php?ticketid=<?php echo $r[id]?>&action=Closeticket">Close Ticket</a> 
                                <?php
+                                    ob_start();
                                     if ($_GET['action'] =='Closeticket') 
                                       {
                                         echo"<script>alert('Sure you want to Close ticket')</script>";
@@ -96,14 +99,15 @@ $ticketid = $_GET['ticketid'];
                               }
 
                               if ($is_admin ==1 and $r[ticket_status] == 0) {
-                              ?>&nbsp; | &nbsp;&nbsp;
-                                 <a href="ticket.php?ticketid=<?php echo $r[id]?>&action=Activeticket">Active Ticket</a> 
+
+                              ?>&nbsp; | &nbsp;&nbsp;<b><?php echo "Admin Close"; ?></b>
+                              <!--  <a href="ticket.php?ticketid=<?php echo $r[id]?>&action=Activeticket">Active Ticket</a> -->
                                <?php
-                                    if ($_GET['action'] =='Activeticket') 
-                                      {
-                                        echo"<script>alert('Sure you want to Active Ticket')</script>";
-                                        $query =mysql_query("UPDATE ticket SET ticket_status='1' WHERE id = $ticketid ");
-                                      }
+                                    //if ($_GET['action'] =='Activeticket') 
+                                      //{
+                                     //   echo"<script>alert('Sure you want to Active Ticket')</script>";
+                                     //   $query =mysql_query("UPDATE ticket SET ticket_status='1' WHERE id = $ticketid ");
+                                    //  }
                                     
                               }
 

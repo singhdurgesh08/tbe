@@ -34,18 +34,27 @@ $userid = $_SESSION['user_data']['id'];
 
 
 include "common.php"; 
-
+$getcanclematch = getcancleMatch($matid);
+//echo "<pre>"; print_R($getcanclematch);
 if ((isset($matid) && is_numeric($matid)) && $_GET['action'] == "cancle") {
     $ids = $matid;
-    cancleAcceptedMatch($ids);
-   
+  
+   cancleAcceptedMatchRequest($ids,$userid);
 }
-
+if ((isset($matid) && is_numeric($matid)) && $_GET['action'] == "surecancle") {
+    $ids = $matid;
+    mysql_query("Update cancle_match set  status ='1'  where match_id = '$matid'");
+   cancleAcceptedMatch($ids);
+  
+}
 $host = getHostId($matid);
 $opponent = getOpponentId($matid);
 $hostId  = $host['id'];
 $opponentId  = $opponent['id'];
-$hostreporttime = $host['host_report_time'];
+//echo "<pre>"; print_R($host);
+//echo "<pre>"; print_R($opponent);
+
+ $hostreporttime = $host['host_report_time'];
 $opponentreporttime = $opponent['host_report_time'];
 if($hostreporttime){
   $hostdate = date('Y-m-d h:i:s A', strtotime($hostreporttime . " +3 hours"));
@@ -108,7 +117,7 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                           if($finalimage1['team_image']) {  ?>
                          <img src="<?php echo HOSTNAME; ?>upload/<?php echo $finalimage1['team_image'];?>" width="64" height="66" class="img-circle" alt="Cinque Terre" alt="" />
                         <?php } else { ?>
-                         <img src="<?php echo HOSTNAME; ?>/assets/images/match_profile.png" class="img-circle" alt="Cinque Terre" width="64" height="66"> 
+                         <img src="<?php echo HOSTNAME; ?>/assets/images/teamss.jpg" class="img-circle" alt="Cinque Terre" width="64" height="66"> 
                           <?php }  ?>
                          <a href="teamdetails.php?teamid=<?php echo $finalimage1['id']; ?>">
                                <?php  echo "<h4> ".ucfirst($finalimage1['team_name'])."</h4>"; ?>
@@ -133,7 +142,7 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                                     ?>
                                     <img src="<?php echo HOSTNAME; ?>upload/<?php echo $finalimage2['team_image']; ?>" width="64" height="66" class="img-circle" alt="Cinque Terre" alt="" />
                                 <?php } else { ?>
-                                    <img src="<?php echo HOSTNAME; ?>/assets/images/match_profile.png" class="img-circle" alt="Cinque Terre" width="64" height="66"> 
+                                    <img src="<?php echo HOSTNAME; ?>/assets/images/teamss.jpg" class="img-circle" alt="Cinque Terre" width="64" height="66"> 
                                 <?php } ?>
                                      <a href="teamdetails.php?teamid=<?php echo $finalimage2['id']; ?>">
                                        <?php  echo "<h4> ".ucfirst($finalimage2['team_name'])."</h4>"; ?>
@@ -177,8 +186,10 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                           echo "pending";
                       } else if ($rteam[Match_play_status] == 1) {
                           echo "Win";
-                      } else {
+                      } else if ($rteam[Match_play_status] == 2) {
                           echo "Loss";
+                      } else {
+                          echo "Disputed";
                       }
                       ?></td>
           </tr>
@@ -286,9 +297,33 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                     <ul class="nav ">
                         <li class="nav-header"></li>
                         
-                        <li><a  data-toggle="modal" data-target="#report_match" style="cursor: pointer;">Report Match</a></li>
+                        
+                        <li>
+                            <?php if($r['created_by'] ==$userid) { 
+                                if($host['host_report_time']){ echo "You have reported Match successfully."; } else{
+                                ?>
+                             <a  data-toggle="modal" data-target="#report_match" style="cursor: pointer;">Report Match</a>
+                                <?php } } ?>
+                              <?php if($r['created_by'] != $userid) { 
+                                //$opponent
+                                  if($opponent['opponent_report_time']){ echo "You have reported Match successfully."; } else{
+                                ?>
+                             <a  data-toggle="modal" data-target="#report_match" style="cursor: pointer;">Report Match</a>
+                                  <?php }} ?>
+                        </li>
                         <li><a href="createticket.php">Dispute</a></li>
-                         <li><a href="matchdetails.php?action=cancle&Matchid=<?php echo $matid;?>">Cancel Match</a></li>
+                         <li>
+                             <?php 
+                            
+                             if(($getcanclematch['created_by'] == $userid) && $getcanclematch['status'] =='0') { ?>
+                              <b>Your cancle request has been sent to opponent. </b> 
+                             <?php } else if(($getcanclematch['created_by'] != $userid) && $getcanclematch['status'] =='0') { ?>
+                             <b>You got cancle match request from opponent. do you want Accept Click yes. </b> <br/>
+                              <a href="matchdetails.php?action=surecancle&Matchid=<?php echo $matid;?>">Yes</a>
+                             <?php } else { ?>
+                             <a href="matchdetails.php?action=cancle&Matchid=<?php echo $matid;?>">Cancel Match</a>
+                             <?php } ?>
+                         </li>
                          <?php $is_admin = $_SESSION['user_data']['is_admin']; 
                                if($is_admin ==1){ 
                           ?>

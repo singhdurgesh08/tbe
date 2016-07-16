@@ -22,6 +22,17 @@ function cancleMatch($ids){
             mysql_query("DELETE FROM join_match WHERE match_id = '$ids'");
         }
 }
+function cancleAcceptedMatchRequest($ids,$userId){ 
+    
+     $result = mysql_query("INSERT INTO `cancle_match` (`match_id`, `created_by`, `status`, `created_date`) VALUES ('$ids', '$userId', '0', now())");
+     header("location:matchdetails.php?Matchid=" . $ids);
+     exit();
+}
+function getcancleMatch($ids){
+    $resteam1 = mysql_query("Select * from cancle_match where match_id = $ids");
+    return $rteam1 = mysql_fetch_array($resteam1);
+    //return $rteam1['team_image'];
+}
 //Accepted Match cancle
 function cancleAcceptedMatch($ids){
         $matchres = mysql_query("Select * from ps4_match where id ='$ids'");
@@ -226,5 +237,38 @@ function totalEarnPoint($userId){
     return $hostrow = mysql_fetch_array($hostid);
    
 }
+
+ // Check Team Player is Full or not 
+    function  validatePendingMatch($userId){
+           $teamuserid = mysql_query("Select match_winner,opponent_report_match_winner,match_id,created_by from join_match where created_by = '$userId' and Match_play_status ='0'");
+                 $row = mysql_fetch_array($teamuserid);
+                // echo "<pre>"; print_r($row); die;
+                $match_winner = $row['match_winner'];
+                $repot_match_id = $row['match_id'];
+                $userId = $row['created_by'];
+                $opponent_report_match_winner = $row['opponent_report_match_winner'];
+               // echo "$match_winner";
+                if($match_winner){
+                    echo "Sorry ! Please complete your pending Match first.";
+                    Exit;  
+                }
+                $repot_match_id = $_POST['repot_match_id'];
+                $res = mysql_query("Select * from ps4_match where id= $repot_match_id");
+                $r = mysql_fetch_array($res);
+                 if ($r['created_by'] == $userId) {
+                    if($match_winner =='0'){
+                       echo "Sorry ! Please complete your pending Match first.";
+                       Exit;  
+                   }
+                 }
+                 if ($r['created_by'] != $userId) {
+                    if($opponent_report_match_winner =='0'){
+                       echo "Sorry ! Please complete your pending Match first.";
+                       Exit;  
+                   }
+                 }
+                    
+             
+      }
 
 ?>

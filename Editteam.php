@@ -155,7 +155,8 @@ if (file_exists("upload/" . $filename)) {
                                             } 
                                             else
                                             {
-                                                ?><a href="Editteam.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Terminate</a> <?php
+                                                ?><a href="Editteam.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Terminate</a>&nbsp; | &nbsp;
+                                                <a href="Editteam.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Leave</a> <?php
                                             }  
                                             ?>
                                             

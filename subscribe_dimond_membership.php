@@ -45,9 +45,9 @@ mysql_query($query);
 		//{
 			//echo "<pre>"; print_r($row);
 	?>
-<!--<div class="home_tab_section">
+<div class="home_tab_section">
     <div class="container">
-    <div class="row">
+   <!-- <div class="row">
        <div class="col-sm-12 text-center">
                <h2>Deposit Funds in TBE Player Account</h2>
        </div>
@@ -113,12 +113,15 @@ mysql_query($query);
           <input type='hidden' name='cancel_return' value='<?php echo HOSTNAME; ?>cancel.php?payid=<?php echo $lastisertId ;?>'>
     	 <input type='hidden' name='return' value='<?php echo HOSTNAME; ?>success.php?payid=<?php echo $lastisertId ;?>'>
 
-        <input type="image" name="submit" border="0"
-        src="<?php echo HOSTNAME; ?>assets/images/paypal_paynow.png" alt="PayPal - The safer, easier way to pay online">
+<!--        <input type="image" name="submit" border="0"
+        src="<?php echo HOSTNAME; ?>assets/images/paypal_paynow.png" alt="PayPal - The safer, easier way to pay online">-->
         <br/>
-        <img alt="" border="0"  src="<?php echo HOSTNAME; ?>assets/images/verified.jpg" >
+        <br/>
+        <br/>
+        <br/>
+        <img alt="" border="0"  src="<?php echo HOSTNAME; ?>assets/images/ajax-loader2.gif" >  Please Wait we are are redirecting to Paypal.....
     
-    </form>
+      </form>
 	</div>
 					
 	</div>
