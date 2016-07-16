@@ -16,7 +16,7 @@ include "login-header.php";
 <div class="container">
     <div class="row">
         <div class="col-sm-12 text-center">
-            <h1>Payment </h1>
+            <h1>Payment History</h1>
         </div>
         <div class="col-sm-6 text-center">
             <h1></h1>
@@ -30,7 +30,7 @@ include "login-header.php";
                     <tr>
                         <th>ID</th>
                         <th>Item No.</th>
-                        <th>Txt id</th>
+                      
                         <th>Payment Type</th>
                         <th>User Id</th>
                         <th>Payment Gross</th>
@@ -45,23 +45,35 @@ include "login-header.php";
 
                              <tbody>
                                 <?php  
-                                $sql = mysql_query("select * from payments where payment_id = $userid");
+                               // $sql = mysql_query("select * from payments where payment_id = $userid");
+                                 $sql = mysql_query("select * from payments ");
                                 while($result = mysql_fetch_array($sql))
                                     {
                                ?>
                                 <tr>
                                     <td><?php echo $result['payment_id'] ?></td>
                                     <td><?php echo $result['item_number'] ?></td>
-                                    <td><?php echo $result['txn_id'] ?></td>
                                     <td><?php echo $result['payment_type'] ?></td>
-                                    <td><?php echo $result['user_id'] ?></td>
+                                    <td>
+                                         <a href="myprofile.php?usersid=<?php echo $result['user_id']; ?>">
+                                           <b><?php echo $result['user_id']; ?></b>
+                                        </a>
+                                      </td>
                                     <td><?php echo $result['payment_gross'] ?></td>
                                     <td><?php echo $result['currency_code'] ?></td>
-                                    <td><?php echo $result['payment_status']?></td>
-                                    <td><?php echo $result['payment_date'] ?></td>
+                                    <td><?php  if($result['payment_status'] =='0'){ echo "Pending";} else { echo "Approved";}?></td>
+                                    <td>
+                                        <?php echo date("Y-m-d",strtotime($r['payment_date'])) . " EST ".date("h:i A",strtotime($r['payment_date'])); ?>
+                                        
+                                    </td>
                                     <td><?php echo $result['payment_email'] ?></td>
-                                    <td><?php echo $result['start_date'] ?></td>
-                                    <td><?php echo $result['end_date'] ?></td>
+                                    <td>
+                                        <?php echo date("Y-m-d",strtotime($r['start_date'])) . " EST ".date("h:i A",strtotime($r['start_date'])); ?>
+                                      
+                                    </td>
+                                    <td>
+                                         <?php echo date("Y-m-d",strtotime($r['end_date'])) . " EST ".date("h:i A",strtotime($r['end_date'])); ?>
+                                        </td>
                                 </tr>
                                 <?php } ?>
                              </tbody>
@@ -75,7 +87,11 @@ include "login-header.php";
 <?php
 include "footer.php";
 ?>
-
+<script>
+$(document).ready(function() {
+$('#example').DataTable();
+} );
+</script>
 <style>
     thead th {
         background-color: #006DCC;
