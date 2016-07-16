@@ -63,6 +63,18 @@ $matchtype = $_GET['matchtype'];
    $("#player_list_"+id).toggle();
   }
   </script>
+  <style>
+    #accordion-1{font-size: 14px;}
+    fieldset {	border: 1px solid #ddd; margin: 0; padding: 10px;}
+    legend{width: auto; border: none; margin: 0;}
+   </style>
+      <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      <script>
+         $(function() {
+            $( "#accordion-1" ).accordion();
+         });
+      </script>
  <div class="home_tab_section">      
 <div class="container">
        <div class="row">
@@ -79,9 +91,7 @@ $matchtype = $_GET['matchtype'];
         <div class="row">
             <div class="col-sm-8">
                 
-                    <fieldset>
-                        &nbsp;&nbsp;
-
+                   
                         <div class="form-group">
                             <label for="login_password" class="control-label col-sm-6">Date</label>
                             <div class="col-sm-2 input">
@@ -335,31 +345,63 @@ $matchtype = $_GET['matchtype'];
                                     </table>
                                 </div>
                             </div>
+                                
                             
-                            <div class="row">
-                                <div class="col-sm-6 input">&nbsp;</div>
-                                <div class="col-sm-6 input">
-                                    <div>
-                                    <center><input type= "checkbox" required name="terms" /><a href="javascript:void();" data-toggle="modal" data-target="#match-rule">&nbsp;I agree to the Match Rules</a></center>
-                               <!--<center><input type="checkbox" required name="terms">&nbsp; I agree to the Match Rules</u></center>-->
-                                
-                                </div>
-                                </div>
-                                
-                            </div>
                         </div>
-                   </fieldset>
+                  
                    
             </div>
         </div>
-              
-           
+            
             <div class="row">
-                    
-                             
+                <fieldset>
+                    <legend> Match Rules</legend>
+                <div class="col-sm-12 input">
+                    <div id="accordion-1">
+                        <h3>Tab 1</h3>
+                        <div>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                                laboris nisi ut aliquip ex ea commodo consequat. 
+                            </p>
+                        </div>
+                        <h3>Tab 2</h3>
+                        <div>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                                laboris nisi ut aliquip ex ea commodo consequat.     
+                            </p>
+                        </div>
+                        <h3>Tab 3</h3>
+                        <div>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, 
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                                laboris nisi ut aliquip ex ea commodo consequat.     
+                            </p>
 
-                       
-                        
+                        </div>
+                    </div>
+                </div>
+                </fieldset>
+            </div> 
+     <div class="row">
+         <div class="col-sm-6 input">&nbsp;</div>
+         <div class="col-sm-6 input">
+             <div>
+                 <center><input type= "checkbox" required name="terms" /><a href="javascript:void();">&nbsp;I agree to the Match Rules</a></center>
+            <!--<center><input type="checkbox" required name="terms">&nbsp; I agree to the Match Rules</u></center>-->
+
+             </div>
+         </div>
+
+     </div>
+         <div class="row">
                         &nbsp;&nbsp;&nbsp;
                         <div class="form-group">
                             <label for="" class="control-label col-sm-4 back hidden-xs">&nbsp;</label>
