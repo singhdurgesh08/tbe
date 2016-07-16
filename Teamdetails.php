@@ -309,12 +309,12 @@ include "common.php";
 <?php
 if ($is_admin) {
 
-    $res = mysql_query("Select * from users  
+                                                $res = mysql_query("Select * from users  
                                                 left join join_match on join_match.created_by = users.id 
                                                 left join ps4_match on ps4_match.id = join_match.match_id 
                                                 where  ps4_match.open_date >= NOW() and join_match.team_id ='$teamid'");
 } else {
-    $res = mysql_query("Select * from users  
+                                               $res = mysql_query("Select * from users  
                                                 left join join_match on join_match.created_by = users.id 
                                                 left join ps4_match on ps4_match.id = join_match.match_id 
                                                 where join_match.created_by = '$userid' and  ps4_match.open_date >= NOW() and join_match.team_id ='$teamid'");
@@ -329,21 +329,27 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                 echo "pending";
                                                             } else if ($r[Match_play_status] == 1) {
                                                                 echo "Win";
-                                                            } else {
+                                                            } else if ($r[Match_play_status] == 2) {
                                                                 echo "Loss";
+                                                            } else {
+                                                                echo "Disputed";
                                                             }
                                                             ?></td>
                                                                  <td><?php echo date("Y-M-d h:i A",strtotime($r['open_date'])); ?></td>
                                                                 <td>
                                                                     <?php
-                                                                    $sql2 = mysql_query("select team_name from team where id=$teamid");
-                                                                    $result1 = mysql_fetch_array($sql2);
-                                                                    if ($r['platform'] == PS4) {
+                                                                   // $sql2 = mysql_query("select team_name from team where id=$teamid");
+                                                                   // $result1 = mysql_fetch_array($sql2);
+                                                                     $matchId = $r['match_id'];
+                                                                     $result1 =  getTeamVs($matchId ,$teamid);
+                                                                    if ($r['platform'] == 'PS4') {
                                                                         echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" /> &nbsp; ';
                                                                     } else {
                                                                         echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/> &nbsp; ';
-                                                                    }
-                                                                    ?>
+                                                                    }?>
+                                                                  <a href="teamdetails.php?teamid=<?php echo $result1['id'] ?>">
+                                                                  <?php  echo $result1['team_name']; ?>
+                                                                  </a>
                                                                 </td>
                                                                 <td><a href="matchdetails.php?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
 
@@ -371,12 +377,12 @@ while ($r = mysql_fetch_assoc($res)) {
                                                     <tbody>
 <?php
 if ($is_admin) {
-    $res = mysql_query("Select * from users  
+                                               $res = mysql_query("Select * from users  
                                                 left join join_match on join_match.created_by = users.id 
                                                 left join ps4_match on ps4_match.id = join_match.match_id 
                                                 where  join_match.team_id ='$teamid'");
 } else {
-    $res = mysql_query("Select * from users  
+                                                $res = mysql_query("Select * from users  
                                                 left join join_match on join_match.created_by = users.id 
                                                 left join ps4_match on ps4_match.id = join_match.match_id 
                                                 where join_match.created_by = '$userid' and join_match.team_id ='$teamid'");
@@ -386,26 +392,29 @@ while ($r = mysql_fetch_assoc($res)) {
                                                             <tr>
                                                                 <td><?php echo $r[platform] ?></td>
                                                                 <td><?php
-                                                            if ($r[Match_play_status] == 0) {
-                                                                echo "pending";
-                                                            } else if ($r[Match_play_status] == 1) {
-                                                                echo "Win";
-                                                            } else {
-                                                                echo "Loss";
-                                                            }
+                                                                    if ($r[Match_play_status] == 0) {
+                                                                         echo "pending";
+                                                                     } else if ($r[Match_play_status] == 1) {
+                                                                         echo "Win";
+                                                                     } else if ($r[Match_play_status] == 2) {
+                                                                         echo "Loss";
+                                                                     } else {
+                                                                         echo "Disputed";
+                                                                     }
                                                             ?></td>
                                                                  <td><?php echo date("Y-M-d h:i A",strtotime($r['open_date'])); ?></td>
                                                                 <td>
-                                                                    <?php
-                                                                    $sql1 = mysql_query("select team_name from team where id=$teamid");
-                                                                    $result = mysql_fetch_array($sql1);
-
-                                                                    if ($r['platform'] == PS4) {
-                                                                        echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" />';
+                                                                    <?php 
+                                                                     $matchId = $r['match_id'];
+                                                                     $result1 =  getTeamVs($matchId ,$teamid);
+                                                                    if ($r['platform'] == 'PS4') {
+                                                                        echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" /> &nbsp; ';
                                                                     } else {
-                                                                        echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/>';
-                                                                    }
-                                                                    ?>
+                                                                        echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/> &nbsp; ';
+                                                                    }?>
+                                                                  <a href="teamdetails.php?teamid=<?php echo $result1['id'] ?>">
+                                                                  <?php  echo $result1['team_name']; ?>
+                                                                  </a>
                                                                 </td>
                                                                 <td><a href="matchdetails.php?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
 

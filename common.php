@@ -277,4 +277,11 @@ function totalEarnPoint($userId){
 
 }
 
+ function getTeamVs($matchId , $teamId){
+        $hostid = mysql_query("SELECT team.id,team.team_name,team.platform FROM join_match left join team on team.id = join_match.team_id where match_id = $matchId and team_id !=$teamId");
+        $hostrow = mysql_fetch_array($hostid);
+        return $hostrow;
+
+}
+
 ?>
