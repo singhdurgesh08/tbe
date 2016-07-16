@@ -11,25 +11,26 @@ if (isset($_GET['usersid']) && is_numeric($_GET['usersid']))
          if($action === "Leave")
             {
                  //echo "leave";die();
-              $usersid = $_GET['usersid'];
-              $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");                                         
-              header("location:Editteam.php?teamid=$teamid"); exit;
+                $usersid = $_GET['usersid'];
+                $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");                                         
+                header("location:Editteam.php?teamid=$teamid"); exit;
             }
         else
             {
-               $query = mysql_query("select * from join_match where team_id =$teamid");
-               $finalre = mysql_fetch_array($query);
-               if($finalre[Match_play_status]==1)
-                {
-                  $usersid = $_GET['usersid'];
-                  $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid' and user_id != '$userid' ");                                         
-                  header("location:Editteam.php?teamid=$teamid"); exit;
-                }
-                else
-                {
-                     echo"<script>alert('disbanding your team will result in a loss because some matches are not completed or disputed')</script>";
-                }
-           }
+               if($action === "Disband"){
+                    $query = mysql_query("select * from join_match where team_id =$teamid order by id desc limit 1;");
+                    $finalre = mysql_fetch_array($query);
+                   if (!($finalre['Match_play_status']) || $finalre['Match_play_status'] =='1' ) {
+                        $usersid = $_GET['usersid'];
+                        $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
+                        $result = mysql_query("DELETE FROM team WHERE id ='$teamid'");
+                        header("location:home.php");
+                    exit;
+                    } else {
+                    echo"<script>alert('disbanding your team will result in a loss because some matches are not completed or disputed')</script>";
+                    }
+               }
+     }
     }
 
 $res = mysql_query("Select * from team where id= $teamid");

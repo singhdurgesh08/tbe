@@ -17,18 +17,22 @@ $action=$_GET['action'];
          }
         else
         {
-            $query = mysql_query("select * from join_match where team_id =$teamid");
-            $finalre = mysql_fetch_array($query);
-            if($finalre[Match_play_status]==0)
-            {
-             $usersid = $_GET['usersid'];
-             $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid' and user_id != '$userid' ");                                         
-             header("location:teamdetails.php?teamid=$teamid"); exit;
-            }
-            else
-            {
-                 echo"<script>alert('disbanding your team will result in a loss because some matches are not completed or disputed')</script>";
-            }
+            
+                if($action === "Disband"){
+                    $query = mysql_query("select Match_play_status from join_match where team_id = $teamid");
+                    $finalre = mysql_fetch_array($query);
+                   // echo "<pre>"; print_r($finalre); die;
+                    if (!($finalre['Match_play_status']) || $finalre['Match_play_status'] =='1' ) {
+                     $usersid = $_GET['usersid'];
+                     $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
+                     $result = mysql_query("DELETE FROM team WHERE id ='$teamid'");
+                     header("location:home.php");
+                    exit;
+                    } else {
+                    echo"<script>alert('disbanding your team will result in a loss because some matches are not completed or disputed')</script>";
+                    }
+               }
+            
         }
     }
 $is_admin = $_SESSION['user_data']['is_admin'];
