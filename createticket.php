@@ -112,7 +112,7 @@ document.getElementById('myDiv'+no).style.display = 'block';
                
                                 <div class="form-group">
                                     <label for="login_password" class="control-label col-sm-6">Description</label>
-                                    <div class="col-sm-6 input"><textarea name='Description' style="width: 360px; height: 50px;" placeholder="Enter Description" required=""></textarea></div>
+                                    <div class="col-sm-6 input"><textarea name='Description' style="width: 360px; height: 50px;" placeholder="Enter Description" required="" class="form-control"></textarea></div>
                                 </div>
 
                             </fieldset>

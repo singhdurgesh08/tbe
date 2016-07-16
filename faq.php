@@ -10,7 +10,7 @@ include "login-header.php";?>
 
      <div class="row">
       <div class="col-sm12 text-center">
-          <h1>FAQ</h1>
+          <h1>F.A.Q</h1>
          </div>
        </div>
      <div class="row">

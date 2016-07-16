@@ -154,7 +154,7 @@ text-decoration: solid;
 		  <li class=" dropdown <?php if(ereg("leadership.php",$file)>0 || ereg("staff.php",$file)>0  || ereg("faq.php",$file)>0) echo " active"; ?>"><a class="active">Support</a>
 		  <div class="dropdown-content" style="z-index:999;">
                         <a href="ticket.php">Ticket</a>
-						<a href="faq.php">Faq</a>
+						<a href="faq.php">F.A.Q</a>
 		</div>
 		  </li>
 		  <li class="dropdown selected">
