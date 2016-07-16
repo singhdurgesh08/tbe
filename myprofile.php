@@ -126,7 +126,7 @@ include "common.php";
                         <div class="form-group">
                     <label for="login_password" class="control col-sm-3">
                         <img src="<?php echo HOSTNAME; ?>assets/images/snapchat.jpg" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                     <label class="control col-sm-4"><?php echo $result['steam']; ?></label>
+                     <label class="control col-sm-4"><?php echo $result['skype']; ?></label>
                 </div>
                         <div class="form-group">
                             <label for="login_password" class="control col-sm-3">
@@ -152,7 +152,7 @@ include "common.php";
                 <div class="form-group">
                     <label for="login_password" class="control  col-sm-3">
                         <img src="<?php echo HOSTNAME; ?>assets/images/instagram.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                      <label class="control col-sm-4"><a href="http://Instagram.com/" target="_blank"><?php echo  $result['skype']; ?></a></label>
+                      <label class="control col-sm-4"><a href="http://Instagram.com/" target="_blank"><?php echo  $result['steam']; ?></a></label>
                 </div>
 
                 <div class="form-group">
