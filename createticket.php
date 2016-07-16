@@ -59,7 +59,7 @@ document.getElementById('myDiv'+no).style.display = 'block';
                                                     while($r=mysql_fetch_assoc($query))
                                                     {
                                                       $tname=$r["team_name"];
-                                                      echo "<option>$tname</option>";
+                                                      echo "<option value='$tname'>$tname</option>";
                                                     }
                                              
                                              ?> 
@@ -75,7 +75,7 @@ document.getElementById('myDiv'+no).style.display = 'block';
                                                              while($r=mysql_fetch_assoc($query))
                                                              {
                                                                   $mid=$r["id"];
-                                                                  echo "<option>$mid</option>";
+                                                                  echo "<option value='$mid'>$mid</option>";
                                                              }
                                              
                                              ?> 

@@ -50,14 +50,16 @@ include "login-header.php";?>
 
                                 <div class="form-group">
                                     <label for="login_password" class="col-sm-6 text-right">Date Submitted: </label>
-                                    <div class="col-sm-6 input"><?php echo date("Y-m-d h:i A",strtotime($r['created_date'])); ?></div>
+                                    <div class="col-sm-6 input"><?php 
+                                     echo date("Y-m-d",strtotime($r['created_date'])) . " EST ".date("h:i A",strtotime($r['created_date']));?>
+                                   </div>
                                 </div>
                                 <?php
 
                                 ?>
                                  <div class="form-group">
                                     <label for="login_password" class="col-sm-6 text-right">Match id:</label>
-                                    <div class="col-sm-6 input"><a href="matchdetails.php??Matchid=<?php echo $r[match_id];?>"><?php echo $r[match_id];?></a></div>
+                                    <div class="col-sm-6 input"><a href="matchdetails.php?Matchid=<?php echo $r[match_id];?>"><?php echo $r[match_id];?></a></div>
                                 </div>
 
                                 <div class="form-group">

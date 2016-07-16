@@ -170,7 +170,9 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                         </a>
                                     <?php
                                     }
-                                    echo "<h4>  " . $detail1['join_fee'] . " <i class='fa fa-usd' aria-hidden='true'></i></h4>";
+                                    if($detail1['join_fee']) {
+                                     echo "<h4>  " . $detail1['join_fee'] . " <i class='fa fa-usd' aria-hidden='true'></i></h4>";
+                                    }
                                     ?>
 
                                 </div>
