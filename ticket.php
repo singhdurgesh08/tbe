@@ -95,7 +95,9 @@ $ticketid = $_GET['ticketid'];
                                       {
                                         echo"<script>alert('Sure you want to Close ticket')</script>";
                                         $query =mysql_query("UPDATE ticket SET ticket_status='0' WHERE id = $ticketid ");
-
+                                          ob_start();
+                                           header("location:ticket.php?ticketid=$ticketid");
+                                           
                                       }
                               }
 
