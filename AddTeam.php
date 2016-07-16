@@ -36,7 +36,7 @@ include "login-header.php";?>
 							<fieldset>
 							<div class="form-group">
 									<label for="login_password" class="control-label col-sm-6">Team Name</label>
-									<div class="col-sm-6 input"><input name='Team_Name'  placeholder="Please Enter Team Name"  class="form-control" maxlength="50"></div>
+                                                                        <div class="col-sm-6 input"><input name='Team_Name'  placeholder="Please Enter Team Name"  class="form-control" maxlength="50" required=""></div>
 								</div>
                                                             <div class="form-group">
                                                                 <label for="login_password" class="control-label col-sm-6">Game Mode</label>

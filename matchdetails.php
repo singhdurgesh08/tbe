@@ -128,7 +128,7 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                        <?php 
                         echo "<br/>";
                         echo "<br/>";
-                        echo "<h2>V/S.</h2>";
+                        echo "<h2>V/S</h2>";
                         echo "<br/>";
                       ?>  
                     </div>
@@ -162,12 +162,13 @@ if(($opponentreporttime) && empty($hostreporttime)) {
         <td></td>
         <td></td>
         <td> </td>
+        <td> </td>
       </tr>   
       <tr class="tn">
         <th class=" text-center">Team Name</th>
         <th>&nbsp;</th>
          <th>&nbsp;</th>
-        <th >Result</th>
+        <th class=" text-center">Result</th>
       </tr>
       <?php $resteam = mysql_query("SELECT * FROM join_match left join team on team.id = join_match.team_id where join_match.match_id = $matid");
       while ($rteam = mysql_fetch_assoc($resteam)) {   // print_r($r);
@@ -179,8 +180,8 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                       </a>
                   
                   </b></td>
-              <th></th>
-              <th></th>
+              <td></td>
+              <td></td>
               <td ><?php
                       if ($rteam[Match_play_status] == 0) {
                           echo "pending";
@@ -191,7 +192,8 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                       } else {
                           echo "Disputed";
                       }
-                      ?></td>
+                      ?>
+              </td>
           </tr>
       <?php }
       ?>  
@@ -224,18 +226,28 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                               </tr>
                             </thead>
                              <?php
-                               $resteamtag = mysql_query("SELECT users.id,users.gamertag,users.user_name,users.xbox,users.xbox ,users.plastation FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid");
+                               $resteamtag = mysql_query("SELECT users.id,users.gamertag,users.user_name,users.xbox,users.plastation FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid");
                                while ($rteamtag = mysql_fetch_assoc($resteamtag)) {   // print_r($r);
                                 ?> 
                            <tr>
                             <td>
                                 <a href="myprofile.php?usersid=<?php echo $rteamtag['id']; ?>">
-                                      <b><?php echo $rteamtag['user_name']; ?></b>
+                                    <b>
+                                        <?php echo $rteamtag['user_name']; ?>
+                                    </b>
                                     </a>
                                 </td>
                             <th>&nbsp;</th>
                            <th>&nbsp;</th>
-                           <td><?php echo $rteamtag['gamertag']; ?></td>
+                           <td>
+                            <?php 
+                              if($r['platform'] =='PS4'){
+                                echo  $rteamtag['plastation']; 
+                              }else {
+                                   echo  $rteamtag['xbox']; 
+                              }
+                              ?>
+                           </td>
                           </tr>
                       <?php }
       ?>                         
