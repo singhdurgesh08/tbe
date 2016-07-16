@@ -114,6 +114,7 @@ text-decoration: solid;
 		  <div class="dropdown-content" style="z-index:999;">
           
             	<?php
+                    // $res = mysql_query("Select * from team where created_by = '$userid'"); 
             	   	$res = mysql_query("Select * from team where created_by = '$userid'"); 
 					
 					while($r = mysql_fetch_array($res))
@@ -155,7 +156,7 @@ text-decoration: solid;
 		  
 		  <li class="<?php if(ereg("ps4.php",$file)>0) echo " active"; ?>"><a href="ps4.php">PS4</a></li>
 		  <li class="<?php if(ereg("xb1.php",$file)>0) echo " active"; ?>"><a href="xb1.php">XB1</a></li>
-		  <li class="<?php if(ereg("top50goals.php",$file)>0) echo " active"; ?>"><a href="top50goals.php">Tournaments</a></li>
+		  <li class="<?php if(ereg("top50goals.php",$file)>0) echo " active"; ?>"><a href="http://tbesportsgaming.com/forum/" target="_balnk">Forum</a></li>
 		  <li class=" dropdown <?php if(ereg("leadership.php",$file)>0 || ereg("staff.php",$file)>0  || ereg("faq.php",$file)>0) echo " active"; ?>"><a class="active">Support</a>
 		  <div class="dropdown-content" style="z-index:999;">
                         <a href="ticket.php">Ticket</a>

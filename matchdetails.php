@@ -224,7 +224,7 @@ if(($opponentreporttime) && empty($hostreporttime)) {
                               </tr>
                             </thead>
                              <?php
-                               $resteamtag = mysql_query("SELECT users.id,users.gamertag,users.user_name FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid");
+                               $resteamtag = mysql_query("SELECT users.id,users.gamertag,users.user_name,users.xbox,users.xbox ,users.plastation FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid");
                                while ($rteamtag = mysql_fetch_assoc($resteamtag)) {   // print_r($r);
                                 ?> 
                            <tr>

@@ -270,5 +270,11 @@ function totalEarnPoint($userId){
                     
              
       }
+    function getUser($userid){
+        $hostid = mysql_query("Select * from users where id = '$userid'");
+        $hostrow = mysql_fetch_array($hostid);
+        return $hostrow;
+
+}
 
 ?>
