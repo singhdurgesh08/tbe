@@ -22,7 +22,9 @@ if ($_GET['action'] == "reportmatch") {
       $opponent = getOpponentId($repot_match_id);
       $hostId  = $host['id'];
       $opponentId  = $opponent['id'];
-    
+    if($yourteam == $opponentteam){
+       echo "<b style='background-color:red'>Sorry ! you can not report same win win OR Loss Loss</b>";Exit;
+    }
     
     if ($r['created_by'] == $userId) {
         mysql_query("Update join_match set host_report_time= now() , match_winner ='$yourteam',match_score='$yourteamscore' where id = '$hostId' ;");
@@ -78,6 +80,9 @@ if ($_GET['action'] == "changewinner") {
    // $userId = $_GET['user_id'];
     $yourteam = $_POST['yourteam'];
     $opponentteam = $_POST['opponentteam'];
+    if($yourteam == $opponentteam){
+       echo "<b style='background-color:red'>Sorry ! you can not report same win win OR Loss Loss</b>";Exit;
+    }
     $repot_match_id = $_POST['repot_match_id'];
     mysql_query("Update join_match set host_report_time= now() , Match_play_status ='$yourteam' , match_winner ='11' where match_id= '$repot_match_id' and opponent_id = '0'");
     mysql_query("Update join_match set host_report_time= now() , Match_play_status ='$opponentteam' ,opponent_report_match_winner ='$opponentteam' where match_id= '$repot_match_id' and opponent_id = '1'");

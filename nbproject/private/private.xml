@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/tbe/Addmatches.php</file>
-            <file>file:/C:/xampp/htdocs/tbe/Matchlist.php</file>
-            <file>file:/C:/xampp/htdocs/tbe/ajax_file.php</file>
-            <file>file:/C:/xampp/htdocs/tbe/wallet.php</file>
-            <file>file:/C:/xampp/htdocs/tbe/withdrawal_wallet.php</file>
+            <file>file:/C:/xampp/htdocs/tbe/index.php</file>
+            <file>file:/C:/xampp/htdocs/tbe/registration.php</file>
+            <file>file:/C:/xampp/htdocs/tbe/header.php</file>
             <file>file:/C:/xampp/htdocs/tbe/common.php</file>
             <file>file:/C:/xampp/htdocs/tbe/matchdetails.php</file>
-            <file>file:/C:/xampp/htdocs/tbe/Editteam.php</file>
         </group>
     </open-files>
 </project-private>

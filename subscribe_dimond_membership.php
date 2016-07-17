@@ -26,7 +26,7 @@ if (isset($_POST['add']))
 
  $query = " INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
 `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`, `start_date`, `end_date`) 
-VALUES (null, 'Subscibe Dimond Membership', '1', 'Subscribe', '$userid', '$amount', 'USD', '0', now(), '$email',now(),'$enddate') ";
+VALUES (null, 'diamond membership', '1', 'subscribe', '$userid', '$amount', 'USD', '0', now(), '$email',now(),'$enddate') ";
 mysql_query($query); 
 
  $lastisertId =  mysql_insert_id();

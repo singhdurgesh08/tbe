@@ -114,7 +114,7 @@ text-decoration: solid;
 		  <div class="dropdown-content" style="z-index:999;">
           
             	<?php
-                       $join_team = mysql_query("Select team_id from team_list where user_id = '$userid'"); 
+                       $join_team = mysql_query("Select team_id from team_list where user_id = '$userid' and player_status = '1'"); 
                        while($rteam = mysql_fetch_array($join_team))
                        { 
                            $teamId[] = $rteam['team_id'];

@@ -26,7 +26,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
 					</div>
 					
 					<div class="col-sm-2 text-center">
-						 <a href="Addmatches.php?matchtype=PS4" class="btn btn-lg btn-block btn-success"> Post Matches </a> 
+						 <a href="Addmatches.php?matchtype=PS4" class="btn btn-lg btn-block btn-success"> Post a Match </a> 
 					</div>
 					
 				</div>
@@ -79,7 +79,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
 									<!--<a href="matchdetails.php?Matchid=<?php //echo $r[0]; ?>"> View Match </a>   | -->
 								     <?php 
                                     if ($is_admin == "1" || $r['created_by'] ==$userid) {
-                                        echo ('| <a href=Matchlist.php?action=cancle&matchid='. $r['id'] . ' >Cancle</a>');
+                                        echo ('| <a href=Matchlist.php?action=cancle&matchid='. $r['id'] . ' >Cancel</a>');
                                       }
                                  
                                   ?>

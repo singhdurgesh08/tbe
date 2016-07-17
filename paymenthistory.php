@@ -30,7 +30,6 @@ include "login-header.php";
                     <tr>
                         <th>ID</th>
                         <th>Item No.</th>
-                      
                         <th>Payment Type</th>
                         <th>User Id</th>
                         <th>Payment Gross</th>
@@ -38,15 +37,15 @@ include "login-header.php";
                         <th>Payment Status</th>
                         <th>Payment Date</th>
                         <th>payment email</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
+<!--                        <th>Start Date</th>
+                        <th>End Date</th>-->
                     </tr>
                 </thead>
 
                              <tbody>
                                 <?php  
                                // $sql = mysql_query("select * from payments where payment_id = $userid");
-                                 $sql = mysql_query("select * from payments ");
+                                 $sql = mysql_query("select * from payments order By payment_id desc ");
                                 while($result = mysql_fetch_array($sql))
                                     {
                                ?>
@@ -63,17 +62,17 @@ include "login-header.php";
                                     <td><?php echo $result['currency_code'] ?></td>
                                     <td><?php  if($result['payment_status'] =='0'){ echo "Pending";} else { echo "Approved";}?></td>
                                     <td>
-                                        <?php echo date("Y-m-d",strtotime($r['payment_date'])) . " EST ".date("h:i A",strtotime($r['payment_date'])); ?>
+                                        <?php echo date("Y-m-d",strtotime($result['payment_date'])) . " EST ".date("h:i A",strtotime($$result['payment_date'])); ?>
                                         
                                     </td>
                                     <td><?php echo $result['payment_email'] ?></td>
-                                    <td>
-                                        <?php echo date("Y-m-d",strtotime($r['start_date'])) . " EST ".date("h:i A",strtotime($r['start_date'])); ?>
+<!--                                    <td>
+                                        <?php echo date("Y-m-d",strtotime($result['start_date'])) . " EST ".date("h:i A",strtotime($result['start_date'])); ?>
                                       
                                     </td>
                                     <td>
-                                         <?php echo date("Y-m-d",strtotime($r['end_date'])) . " EST ".date("h:i A",strtotime($r['end_date'])); ?>
-                                        </td>
+                                         <?php echo date("Y-m-d",strtotime($result['end_date'])) . " EST ".date("h:i A",strtotime($result['end_date'])); ?>
+                                        </td>-->
                                 </tr>
                                 <?php } ?>
                              </tbody>
@@ -89,7 +88,9 @@ include "footer.php";
 ?>
 <script>
 $(document).ready(function() {
-$('#example').DataTable();
+$('#example').dataTable( {
+    "order": [ 0, 'desc' ]
+} );
 } );
 </script>
 <style>

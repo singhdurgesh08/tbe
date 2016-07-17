@@ -48,6 +48,15 @@ if ((isset($matid) && is_numeric($matid)) && $_GET['action'] == "surecancle") {
     mysql_query("Update cancle_match set  status ='1'  where match_id = '$matid'");
     cancleAcceptedMatch($ids);
 }
+
+if ((isset($matid) && is_numeric($matid)) && $_GET['action'] == "surenotcancle") {
+    $ids = $matid;
+    mysql_query("delete from cancle_match where match_id = '$matid'");
+    header("location:matchdetails.php?Matchid=$matid");
+     exit();
+    
+}
+
 $host = getHostId($matid);
 $opponent = getOpponentId($matid);
 $hostId = $host['id'];
@@ -123,7 +132,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                     <a href="teamdetails.php?teamid=<?php echo $finalimage1['id']; ?>">
                                         <?php echo "<h4> " . ucfirst($finalimage1['team_name']) . "</h4>"; ?>
                                     </a>
-                                    <?php if ($platform == 'PS4') { ?>
+                                    <?php /* if ($platform == 'PS4') { ?>
                                         <a href="myprofile.php?usersid=<?php echo $detail['id']; ?>">
                                             <?php echo "<h4> " . ucfirst($detail['plastation']) . "</h4>"; ?>
                                         </a>
@@ -133,7 +142,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                         </a>
                                     <?php
                                     }
-                                    echo "<h4>  " . $detail['join_fee'] . " <i class='fa fa-usd' aria-hidden='true'></i></h4>";
+                                    echo "<h4>  " . $detail['join_fee'] . " <i class='fa fa-usd' aria-hidden='true'></i></h4>"; */
                                     ?>
 
                                 </div>  
@@ -160,7 +169,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                     <a href="teamdetails.php?teamid=<?php echo $finalimage2['id']; ?>">
                                     <?php echo "<h4> " . ucfirst($finalimage2['team_name']) . "</h4>"; ?>
                                     </a>
-                                        <?php if ($platform == 'PS4') { ?>
+                                        <?php /* if ($platform == 'PS4') { ?>
                                         <a href="myprofile.php?usersid=<?php echo $detail1['id']; ?>">
                                         <?php echo "<h4> " . ucfirst($detail1['plastation']) . "</h4>"; ?>
                                         </a>
@@ -172,7 +181,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                     }
                                     if($detail1['join_fee']) {
                                      echo "<h4>  " . $detail1['join_fee'] . " <i class='fa fa-usd' aria-hidden='true'></i></h4>";
-                                    }
+                                    } */
                                     ?>
 
                                 </div>
@@ -204,7 +213,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                                 <tr>
                                                     <td><b>
                                                             <a href="teamdetails.php?teamid=<?php echo $rteam['id']; ?>">
-    <?php echo $rteam['team_name']; ?>
+                                                             <?php echo $rteam['team_name']; ?>
                                                             </a>
 
                                                         </b></td>
@@ -261,7 +270,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                                                         <td>
                                                                             <a href="myprofile.php?usersid=<?php echo $rteamtag['id']; ?>">
                                                                                 <b>
-    <?php echo $rteamtag['user_name']; ?>
+                                                                            <?php echo $rteamtag['user_name']; ?>
                                                                                 </b>
                                                                             </a>
                                                                         </td>
@@ -341,40 +350,44 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                 <?php
                                 if ($r['created_by'] == $userid) {
                                     if ($host['host_report_time']) {
-                                        echo "You have reported Match successfully.";
+                                        echo "Match Reported.";
                                     } else {
                                         ?>
                                         <a  data-toggle="modal" data-target="#report_match" style="cursor: pointer;">Report Match</a>
                                     <?php }
                                 } ?>
-<?php
-if ($r['created_by'] != $userid) {
-    //$opponent
-    if ($opponent['opponent_report_time']) {
-        echo "You have reported Match successfully.";
-    } else {
-        ?>
-                                        <a  data-toggle="modal" data-target="#report_match" style="cursor: pointer;">Report Match</a>
-    <?php }
-} ?>
+                            <?php
+                            if ($r['created_by'] != $userid) {
+                                //$opponent
+                                if ($opponent['opponent_report_time']) {
+                                   echo "Match Reported.";
+                                } else {
+                                    ?>
+                                <a  data-toggle="modal" data-target="#report_match" style="cursor: pointer;">Report Match</a>
+                                <?php }
+                            } ?>
                             </li>
                             <li><a href="createticket.php">Dispute</a></li>
                             <li>
                             <?php if (($getcanclematch['created_by'] == $userid) && $getcanclematch['status'] == '0') { ?>
-                                    <b>Your cancle request has been sent to opponent. </b> 
+                                    <b>You cancel request has been sent to your opponent </b> 
                             <?php } else if (($getcanclematch['created_by'] != $userid) && $getcanclematch['status'] == '0') { ?>
                                     <b>You got cancle match request from opponent. do you want Accept Click yes. </b> <br/>
-                                    <a href="matchdetails.php?action=surecancle&Matchid=<?php echo $matid; ?>">Yes</a>
+                                    <a href="matchdetails.php?action=surecancle&Matchid=<?php echo $matid; ?>" style="display:inline;padding:none;">Yes</a> 
+                                    <br/>
+                                    -----------------------------------
+                                    <a href="matchdetails.php?action=surenotcancle&Matchid=<?php echo $matid; ?>" style="display:inline;padding:none;">No</a>
                             <?php } else { ?>
                                     <a href="matchdetails.php?action=cancle&Matchid=<?php echo $matid; ?>">Cancel Match</a>
 <?php } ?>
                             </li>
-<?php
-$is_admin = $_SESSION['user_data']['is_admin'];
-if ($is_admin == 1) {
-    ?>
-                                <li><a  data-toggle="modal" data-target="#claim_money" style="cursor: pointer;">Change Winner</a></li>
-<?php } ?>
+                        <?php
+                        $is_admin = $_SESSION['user_data']['is_admin'];
+                        if ($is_admin == 1) {
+                            ?>
+                          <li><a  data-toggle="modal" data-target="#claim_money" style="cursor: pointer;">Change Winner</a></li>
+                          <li><a href="matchdetails.php?action=surecancle&Matchid=<?php echo $matid; ?>">Delete Match</a></li>
+                        <?php } ?>
                         </ul>
                     </div>
                     <!--/.well -->
@@ -510,7 +523,7 @@ if ($is_admin == 1) {
                     </div>
                     <div class="form-group">
                         <label for="yoorteam" class="control-label col-sm-6">Host Game Won :</label>
-                        <div class="col-sm-2 input">
+                        <div class="col-sm-3 input">
                             <select name="yourteam" id="yoorteam" class="form-control" required="">    
                                 <option value="1">Win</option>
                                 <option value="2">Loss</option>
@@ -519,7 +532,7 @@ if ($is_admin == 1) {
                     </div>
                     <div class="form-group">
                         <label for="opponentteam" class="control-label col-sm-6">Opponent Team Game Won :</label>
-                        <div class="col-sm-2 input">
+                        <div class="col-sm-3 input">
                             <select name="opponentteam" id="opponentteam" class="form-control" required="">    
                                 <option value="1">Win</option>
                                 <option value="2">Loss</option>
@@ -559,8 +572,12 @@ include "footer.php";
                         $("#match_report_div").html("Please wait we are repoting .....");
                     },
                     success: function(d) {
-                        $("#match_report_div").hide();
+                        if(d =='success'){
+                         $("#match_report_div").hide();
                         $("#match_report_success").show();
+                        }else  {
+                           $("#match_report_div").html(d);
+                        }
                     }
                 });
             }
@@ -574,14 +591,18 @@ include "footer.php";
                     url: "ajax_file.php?action=changewinner&user_id=<?php echo $userid; ?>",
                     type: "post",
                     data: $("#change_winner").serialize(),
-                    beforeSend: function(d) {
+                    beforeSend: function() {
                         $("#change_winner_success").hide();
                         $("#change_winner_wait").html("Please wait we are repoting .....");
                     },
                     success: function(d) {
+                        if(d =='success'){
                         $("#change_winner_wait").html("");
                         $("#change_winner_success").show();
+                       }else  {
+                            $("#change_winner_wait").html(d);
                     }
+                  }
                 });
             }
         });

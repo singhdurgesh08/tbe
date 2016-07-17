@@ -59,6 +59,9 @@ function cancleAcceptedMatch($ids){
               // Delete Match
               mysql_query("DELETE FROM ps4_match WHERE id = '$ids'");
               mysql_query("DELETE FROM join_match WHERE match_id = '$ids'");
+               echo"<script>alert('Match has been canceled');</script>";
+               header("location:home.php"); 
+                  exit();
              if($matchdetail['platform'] =='PS4'){
                header("location:Matchlist.php"); 
              }else{

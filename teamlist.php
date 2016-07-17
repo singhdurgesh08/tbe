@@ -112,12 +112,13 @@ include "login-header.php";
 </div>
 </div>
 
-<!--<script>
+<?php if ($is_admin == "1") { ?>
+<script>
 $(document).ready(function() {
 $('#example').DataTable();
 } );
 </script>
--->
+<?php }  ?>
 
 
 <?php

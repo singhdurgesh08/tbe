@@ -54,8 +54,8 @@
 <header>
         <div class="container">
                 <div class="col-sm-12 login_header">
-                <?php if($currentdate <  $enddate  && $enddate !=''){  $_SESSION['dimond_user'] = "dimond"; ?>
-                                <img src="<?php echo $baseurl; ?>assets/images/Diamond-icon.png" width="50" class="img-responsive" title="Dimond User" alt="Dimond User" style="display:inline;" /> <?php }  else {  $_SESSION['dimond_user'] = "normal"; }?></span> 
+                <?php if($currentdate <  $enddate  && $enddate !=''){  $_SESSION['dimond_user'] = "diamond"; ?>
+                                <img src="<?php echo $baseurl; ?>assets/images/Diamond-icon.png" width="50" class="img-responsive" title="diamond User" alt="diamond User" style="display:inline;" /> <?php }  else {  $_SESSION['dimond_user'] = "normal"; }?></span> 
                 <span><a href="#login.php" class="btn btn-info">Credit <i class="fa fa-usd" aria-hidden="true"></i> <?php echo  number_format($sum,2) - number_format($withdraw,2);?></a> </span>
                 <a href="<?php echo $baseurl; ?>logout.php" class="btn btn-info"><span class="glyphicon glyphicon-log-out"></span>Signout</a></span>
                 </div>

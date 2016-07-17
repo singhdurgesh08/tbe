@@ -25,7 +25,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
             </div>
 
             <div class="col-sm-2 text-center">
-                <a href="Addmatches.php?matchtype=XB1" class="btn btn-lg btn-block btn-success"> Post Matches </a> 
+                <a href="Addmatches.php?matchtype=XB1" class="btn btn-lg btn-block btn-success"> Post a Match </a> 
             </div>
         </div>
         <div class="row">
@@ -79,7 +79,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                                     
                                      <?php 
                                    if ($is_admin == "1" || $r['created_by'] ==$userid) {
-                                        echo ('| <a href=xb1matchlist.php?action=cancle&matchid='. $r['id'] . '>Delete</a>');
+                                        echo ('| <a href=xb1matchlist.php?action=cancle&matchid='. $r['id'] . '>Cancel</a>');
 
                                     }
                                  

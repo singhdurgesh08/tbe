@@ -14,7 +14,7 @@ include "login-header.php";?>
     <div class="container">
         <div class="row">
             <div class="col-sm-12 text-left"><span class="pull-right">
-               <!-- <button  class="btn btn-lg btn-block btn-success" type="button"  onclick="window.location.href='sentinvite.php'">Sent Invite's</button></span>-->
+                <button  class="btn btn-lg btn-block btn-success" type="button"  onclick="window.location.href='sentinvite.php'">Sent Invite's</button></span>
             </div>
 
         <div class="col-sm-10 text-center">

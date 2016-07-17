@@ -64,9 +64,9 @@ include "login-header.php";?>
 							</fieldset>
 
 					<div class="form-group">
-                        <label for="" class="control-label col-sm-7 back hidden-xs">&nbsp;</label>
-                        <div class="col-sm-2 input text-center">
-                            <button class="btn btn-lg btn-block btn-success" type="submit" name="submit" value="Save">Save<i class="glyphicon glyphicon-chevron-right"></i></button>
+                        <label for="" class="control-label col-sm-6 back hidden-xs">&nbsp;</label>
+                        <div class="col-sm-4 input text-center">
+                            <button class="btn btn-lg btn-block btn-success" type="submit" name="submit" value="Save">Create Team<i class="glyphicon glyphicon-chevron-right"></i></button>
                         </div>
                         
                         <div class="col-sm-2 input text-center">
