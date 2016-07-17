@@ -458,7 +458,7 @@ while ($r = mysql_fetch_assoc($res)) {
                         
                                          
                             if($platform == 'PS4'){
-                                  ?>  <a href="matchlist.php">Match Finder</a></li><?PHP
+                                  ?>  <a href="Matchlist.php">Match Finder</a></li><?PHP
                             }
                             else
                             { ?>
