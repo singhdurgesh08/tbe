@@ -32,7 +32,7 @@
                         <ul class="home_price_list">
                             <li>Keep all earnings</li>
                             <li>Faster response</li>
-                            <li>Challenge teams</li>
+<!--                            <li>Challenge teams</li>-->
                             <li>Premium support</li>
                         </ul>
                         <form id="add_wallet" name="add_wallet" action="subscribe_dimond_membership.php" method="post">

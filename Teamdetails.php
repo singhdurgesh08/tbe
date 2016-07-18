@@ -5,6 +5,7 @@ include "nav.php";
 include "config.php";
 
 $teamid = $_GET['teamid'];
+$teamid = encryptor('decrypt',$teamid);
 $action=$_GET['action'];
 
  if (isset($_GET['usersid']) && is_numeric($_GET['usersid']))
@@ -331,7 +332,7 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                 echo "Disputed";
                                                             }
                                                             ?></td>
-                                                                 <td><?php echo date("Y-M-d h:i A",strtotime($r['open_date'])); ?></td>
+                                                                 <td><?php  echo date("Y-m-d",strtotime($r['open_date'])) . " EST ".date("h:i A",strtotime($r['open_date'])); ?></td>
                                                                 <td>
                                                                     <?php
                                                                    // $sql2 = mysql_query("select team_name from team where id=$teamid");
@@ -398,7 +399,8 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                          echo "Disputed";
                                                                      }
                                                             ?></td>
-                                                                 <td><?php echo date("Y-M-d h:i A",strtotime($r['open_date'])); ?></td>
+                                                                 <td><?php  echo date("Y-m-d",strtotime($r['open_date'])) . " EST ".date("h:i A",strtotime($r['open_date'])); ?></td>
+                                                                
                                                                 <td>
                                                                     <?php 
                                                                      $matchId = $r['match_id'];

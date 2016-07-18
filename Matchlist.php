@@ -64,7 +64,8 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                                     <tr>
 
                                         <td>
-                                                <?php echo date("d-M-Y h:i A", strtotime($r['open_date'])); ?></td>
+                                                <?php  echo date("Y-m-d",strtotime($r['open_date'])) . " EST ".date("h:i A",strtotime($r['open_date'])); ?></td>
+                                                
                                             <td>1</td>
                                             <td><?php echo $r[game_mode]; ?></td>
                                             <td><?php echo $r[amount]; ?></td>

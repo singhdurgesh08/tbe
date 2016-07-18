@@ -67,7 +67,66 @@ include "login-header.php";?>
                                     <div class="col-sm-6 input"> <?php echo $r[name];  ?></div>
                                 </div>
 
-                                
+                                <div class="form-group">
+                                    <label for="login_password" class="col-sm-6 text-right">Url1:</label>
+                                    <div class="col-sm-6 input"><a href="#"> <?php echo $r[url1];  ?></a></div>
+                                </div>
+
+                                <?php $var =$r[url2];  
+                                if($var != '')
+                                {
+                                  ?> 
+                                  <div class="form-group">
+                                    <label for="login_password" class="col-sm-6 text-right">Url2:</label>
+                                    <div class="col-sm-6 input"><a href="#"> <?php echo $r[url2];  ?></a></div>
+                                </div>
+                                  <?php
+                                }
+                                ?>
+                                 <?php $var =$r[url3];  
+                                if($var != '')
+                                {
+                                  ?> 
+                                  <div class="form-group">
+                                    <label for="login_password" class="col-sm-6 text-right">Url3:</label>
+                                    <div class="col-sm-6 input"><a href="#"> <?php echo $r[url3];  ?></a></div>
+                                </div>
+                                  <?php
+                                }
+                                ?>
+                                 <?php $var =$r[url4];  
+                                if($var != '')
+                                {
+                                  ?> 
+                                  <div class="form-group">
+                                    <label for="login_password" class="col-sm-6 text-right">Url4:</label>
+                                    <div class="col-sm-6 input"><a href="#"> <?php echo $r[url4];  ?></a></div>
+                                </div>
+                                  <?php
+                                }
+                                ?>
+                                 <?php $var =$r[url5];  
+                                if($var != '')
+                                {
+                                  ?> 
+                                  <div class="form-group">
+                                    <label for="login_password" class="col-sm-6 text-right">Url5:</label>
+                                    <div class="col-sm-6 input"><a href="#"> <?php echo $r[url5];  ?></a></div>
+                                </div>
+                                  <?php
+                                }
+                                ?> <?php $var =$r[url6];  
+                                if($var != '')
+                                {
+                                  ?> 
+                                  <div class="form-group">
+                                    <label for="login_password" class="col-sm-6 text-right">Url6:</label>
+                                    <div class="col-sm-6 input"><a href="#"><?php echo $r[url6];  ?></a></div>
+                                </div>
+                                  <?php
+                                }
+                                ?>
+
                                 <div class="form-group">
                                     <label for="login_password" class="col-sm-6 text-right">Description:</label>
                                     <div class="col-sm-6 input"><?php echo $r[description];  ?></div>

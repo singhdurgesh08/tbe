@@ -81,7 +81,7 @@ include "login-header.php";
                              <td><?php echo $r['game_Mode']; ?></td>
                                <td><?php echo date ("d-M-Y",strtotime($r['date_added'])); ?></td>
                             <td>
-                                <a href="teamdetails.php?teamid=<?php echo $r[0]; ?>"> View Team </a>  
+                                <a href="teamdetails.php?teamid=<?php echo encryptor('encrypt',$r[0]); ?>"> View Team </a>  
                                  <?php 
                                     if ($is_admin == "1" || $userid ==$r['created_by']) {
                                         echo ('| <a href=teamlist.php?teamid='. $r[id] . ' >Delete</a>');

@@ -61,7 +61,8 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                           ?>
                             <tr>
                                 <td>
-                                     <?php echo date("d-M-Y h:i A", strtotime($r['open_date'])); ?>
+                                     <?php  echo date("Y-m-d",strtotime($r['open_date'])) . " EST ".date("h:i A",strtotime($r['open_date'])); ?>
+                                     
                                 </td>
                                
                                 <td> 1 </td>

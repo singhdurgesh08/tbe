@@ -3,11 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/tbe/index.php</file>
-            <file>file:/C:/xampp/htdocs/tbe/registration.php</file>
-            <file>file:/C:/xampp/htdocs/tbe/header.php</file>
-            <file>file:/C:/xampp/htdocs/tbe/common.php</file>
-            <file>file:/C:/xampp/htdocs/tbe/matchdetails.php</file>
+            <file>file:/C:/xampp/htdocs/tbe/teamdetails.php</file>
+            <file>file:/C:/xampp/htdocs/tbe/teamlist.php</file>
         </group>
     </open-files>
 </project-private>

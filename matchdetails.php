@@ -191,14 +191,15 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                             <tr>
                                                 <td><b> ID  :- </b> 000000<?php echo $r[0]; ?><br> </b></td>
                                                 <td><b> Platform :- </b><?php echo $r['platform']; ?><br></td> 
-                                                <td> <b> Game Mode  :- </b> <?php echo $r[2]; ?><br></td>
-                                                <td> <b> Start Date Time :- </b><br><?php echo date("d-M-Y h:i A", strtotime($r['open_date'])); ?><br></td>
+                                                <td><b> Game Mode  :- </b> <?php echo $r[2]; ?><br></td>
+                                                <td><b> Start Date Time :- </b><br><?php echo date("Y-m-d",strtotime($r['open_date'])) . " EST ".date("h:i A",strtotime($r['open_date'])); ?><br></td>
+
                                             </tr>
                                             <tr>
                                                 <td></td>
                                                 <td></td>
-                                                <td> </td>
-                                                <td> </td>
+                                                <td></td>
+                                                <td></td>
                                             </tr>   
                                             <tr class="tn">
                                                 <th class=" text-center">Team Name</th>
@@ -208,6 +209,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                             </tr>
                                             <?php
                                             $resteam = mysql_query("SELECT * FROM join_match left join team on team.id = join_match.team_id where join_match.match_id = $matid");
+
                                             while ($rteam = mysql_fetch_assoc($resteam)) {   // print_r($r);
                                                 ?> 
                                                 <tr>
@@ -248,7 +250,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                                 <div class="tabset-cashier ng-isolate-scope">
                                                     <ul class="nav nav-tabs ">
                                                         <li role="presentation" class="ng-isolate-scope  active">
-                                                            <a href="#1" data-toggle="tab"><b>TBE</b></a>
+                                                            <a href="#1" data-toggle="tab"><b>Team Player's</b></a>
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content">
@@ -263,14 +265,19 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                                                     </tr>
                                                                 </thead>
                                                                 <?php
-                                                                $resteamtag = mysql_query("SELECT users.id,users.gamertag,users.user_name,users.xbox,users.plastation FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid");
-                                                                while ($rteamtag = mysql_fetch_assoc($resteamtag)) {   // print_r($r);
+                                                                $resteamtag = mysql_query("SELECT users.id,users.gamertag,users.user_name,users.xbox,users.plastation FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid" );
+                                                                 //  $resteamtag = mysql_query("Select * from users  
+                                                                   //                             left join join_match on join_match.created_by = users.id 
+                                                                     //                           left join ps4_match on ps4_match.id = join_match.match_id 
+                                                                       //                         where  ps4_match.open_date >= NOW() and join_match.match_id = $matid");
+
+                                                                while ($rteamtag = mysql_fetch_assoc($resteamtag)) { //  print_r($rteamtag);
                                                                     ?> 
                                                                     <tr>
                                                                         <td>
                                                                             <a href="myprofile.php?usersid=<?php echo $rteamtag['id']; ?>">
                                                                                 <b>
-                                                                            <?php echo $rteamtag['user_name']; ?>
+                                                                                 <?php echo $rteamtag['user_name']; ?>
                                                                                 </b>
                                                                             </a>
                                                                         </td>
@@ -306,29 +313,60 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                   <!--                            <caption class="text-center"> <h3>Join Team</h3></caption>  -->
-                                <thead class="thead-inverse">
-                                    <tr>
-
-<!--                                    <th>Team Name</th>-->
-                                    </tr>
-                                </thead>
-
-<!--                            <tbody>
-                                <?php
-                                $i = 1;
-                                while ($result = mysql_fetch_array($query)) { // echo "<pre>"; print_r($r);
-                                    ?>
-                                        <tr>
-                                            <td><?php echo $i++; ?></td>
-                                            <td><a href="Teamdetails.php?teamid="<?php echo $result['id']; ?>><?php echo $result['team_name']; ?></a></td>
-                                        </tr>
-
-<?php } ?>
-                            </tbody>-->
-                            </table>
+                            
+                              <ul class="nav nav-tabs ">
+                                 <li role="presentation" class="ng-isolate-scope  active">
+                                      <a href="#1" data-toggle="tab"><b>Team Player's</b></a>
+                                 </li>
+                             </ul>
+                             <div class="tab-content">
+                                                        <div class="tab-pane active" id="1">
+                                                            <table id="example2" class="table" cellspacing="0" width="100%">
+                                                                <thead>
+                                                                    <tr >
+                                                                        <th class=" text-center">User</th> 
+                                                                        <th></th> 
+                                                                        <th></th>
+                                                                        <th class=" text-center">Gamertag</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                        <?php
+                                                            //    $resteamtag = mysql_query("SELECT users.id,users.gamertag,users.user_name,users.xbox,users.plastation FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid");
+                                                        $resteamtag = mysql_query("Select * from users  
+                                                                                                left join join_match on join_match.created_by = users.id 
+                                                                                                left join ps4_match on ps4_match.id = join_match.match_id 
+                                                                                                where  ps4_match.open_date >= NOW() and join_match.match_id = $matid");
+                                                                    while ($rteamtag = mysql_fetch_assoc($resteamtag)) {   // print_r($rteamtag);
+                                                                    ?> 
+                                                                    <tr>
+                                                                        <td class=" text-center">
+                                                                            <a href="myprofile.php?usersid=<?php echo $rteamtag['id']; ?>">
+                                                                                <b>
+                                                                                 <?php echo $rteamtag['user_name'];?>
+                                                                                </b>
+                                                                            </a>
+                                                                        </td>
+                                                                        <th>&nbsp;</th>
+                                                                        <th>&nbsp;</th>
+                                                                        <td class=" text-center">
+                                                                            <?php
+                                                                            if ($r['platform'] == 'PS4') {
+                                                                                echo ucfirst($rteamtag['plastation']);
+                                                                            } else {
+                                                                                echo ucfirst($rteamtag['xbox']);
+                                                                            }
+                                                                            ?>
+                                                                        </td>
+                                                                    </tr>
+<?php }
+?>                         
+                                                                </tbody>
+                                                                </tbody>
+                                                            </table>
+                            </div>
                         </div>
+                       </div>
                     </div>
                 </div>
                 <div class="row">
@@ -339,6 +377,8 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                 </div>
 
             </div>
+          
+
             <div class="col-md-3">
                 <div class="sidebar-nav-fixed pull-right">
                     <div class="well">
