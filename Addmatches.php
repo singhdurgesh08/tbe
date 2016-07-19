@@ -1,7 +1,7 @@
 <?php
 session_start();
 if ($_SESSION['user_data']['user_name'] == '') {
-    header("location: login.php");
+    header("location: login");
     exit();
 }
 include "login-header.php";
@@ -43,9 +43,9 @@ $matchtype = $_GET['matchtype'];
                      },
                      success: function(d) {
                          if(d ==='PS4'){
-                              window.location.href = 'Matchlist.php';
+                              window.location.href = 'Matchlist';
                          }else if(d ==='XB1'){
-                              window.location.href = 'xb1matchlist.php';
+                              window.location.href = 'xb1matchlist';
                         }else{
                              $("#div_wait").html('<b  style="background-color:red;color:white;"> '+d+'</b> ');
                         }
@@ -98,7 +98,7 @@ $matchtype = $_GET['matchtype'];
                 <h1><br class="hidden-xs">Post a Match - <?php echo $matchtype;?></h1>
             </div>
         </div>
- <form method='post' action="addmatches.php" id="addmatches" name="addmatches" class="form-horizontal">
+ <form method='post' action="addmatches" id="addmatches" name="addmatches" class="form-horizontal">
         <div class="row">
             <div class="col-sm-8">
                 
@@ -272,7 +272,7 @@ $matchtype = $_GET['matchtype'];
                                             ?>
                                             <tr>
                                                 <td>
-                                                <a href="teamdetails.php?teamid=<?php echo $r['id']; ?>">
+                                                <a href="teamdetails?teamid=<?php echo $r['id']; ?>">
                                                 <?php echo $r['team_name']; ?>
                                                </a>    
                                                 </td>
@@ -306,7 +306,7 @@ $matchtype = $_GET['matchtype'];
                                 while ($teamplayer = mysql_fetch_assoc($res1)) {
                                     ?>
                                     <tr>
-                                        <td><a href="myprofile.php?usersid=<?php echo $teamplayer['id']; ?>"><?php echo $teamplayer['user_name']; ?>
+                                        <td><a href="myprofile?usersid=<?php echo $teamplayer['id']; ?>"><?php echo $teamplayer['user_name']; ?>
                                             </a></td>
                                         <td>
                                             <?php
@@ -330,7 +330,7 @@ $matchtype = $_GET['matchtype'];
                                            
                                             <?php }}else {  ?>
                                             <tr>
-                                                <td colspan="3">No team found Please <a href="AddTeam.php?platform=<?php echo $matchtype;?>">Add Team </a> </td>
+                                                <td colspan="3">No team found Please <a href="AddTeam?platform=<?php echo $matchtype;?>">Add Team </a> </td>
                                                 
                                                 <td>
                                                     <input type="text" name="addteam_id" id="addteam_id" required=""  readonly="readonly"/>
@@ -522,7 +522,7 @@ $matchtype = $_GET['matchtype'];
                             <button class="btn btn-lg btn-block btn-success" type="submit" name="Save" value="Save">Post match on Match Finder<i class="glyphicon glyphicon-chevron-right"></i></button>
                             </div>
                             <div class="col-sm-2 input text-center">
-                            <a href="ps4.php" class="btn btn-lg btn-danger">Cancel<i class="glyphicon glyphicon-chevron-right"></i></a>
+                            <a href="ps4" class="btn btn-lg btn-danger">Cancel<i class="glyphicon glyphicon-chevron-right"></i></a>
                                             
                         </div>
                     </div>
@@ -706,7 +706,7 @@ Cash Matches<br>
 
     <script>
         function goback(){
-            window.location.href = 'ps4.php'
+            window.location.href = 'ps4'
         }
     </script>
   &nbsp;&nbsp;&nbsp;

@@ -3,7 +3,7 @@ ob_start();
  session_start();
   if ($_SESSION['user_data']['user_name'] == '') {
     
-     header("location: login.php");
+     header("location: login");
     exit();
 }
 include "login-header.php";?>
@@ -30,7 +30,7 @@ $('#example2').DataTable();
                       <h2>Ticket's</h2>
                  </div>
                  <div class="col-sm-2 text-center">
-                     <a href="createticket.php" class="btn btn-lg btn-block btn-success"> Create Ticket </a> 
+                     <a href="createticket" class="btn btn-lg btn-block btn-success"> Create Ticket </a> 
                 </div>
                 <div class="col-sm-2 text-center" id ="abc">
                       
@@ -94,12 +94,12 @@ $('#example2').DataTable();
                       //echo "<pre>"; print_r($r);
                         ?>
                         <tr> 
-                             <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo $r['id']; ?></td>
-                             <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"> <?php if($r['ticket_type']==0){ echo "Ticket";
+                             <td onclick="document.location='view_ticket?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo $r['id']; ?></td>
+                             <td onclick="document.location='view_ticket?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"> <?php if($r['ticket_type']==0){ echo "Ticket";
                                          }else{ echo "Match dispute";}?></td>
 
-                             <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo $r['description']; ?></td>
-                             <td onclick="document.location='view_ticket.php?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo date("Y-m-d",strtotime($r['created_date'])) . " EST ".date("h:i A",strtotime($r['created_date'])); ?></td>
+                             <td onclick="document.location='view_ticket?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo $r['description']; ?></td>
+                             <td onclick="document.location='view_ticket?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo date("Y-m-d",strtotime($r['created_date'])) . " EST ".date("h:i A",strtotime($r['created_date'])); ?></td>
 
                              <td><!--<a href="view_ticket.php?ticketid=<?php echo $r[id]; ?>">View</a> &nbsp; |
                              &nbsp;-->
@@ -115,7 +115,7 @@ $('#example2').DataTable();
                              <?php
                              if ($is_admin ==1 and $r[ticket_status] == 1) {
                                 ?>&nbsp; | &nbsp;&nbsp;
-                                 <a href="ticket.php?ticketid=<?php echo $r[id]?>&action=Closeticket">Close Ticket</a> 
+                                 <a href="ticket?ticketid=<?php echo $r[id]?>&action=Closeticket">Close Ticket</a> 
                                <?php
                                     ob_start();
                                     if ($_GET['action'] =='Closeticket') 
@@ -123,7 +123,7 @@ $('#example2').DataTable();
                                         echo"<script>alert('Sure you want to Close ticket')</script>";
                                         $query =mysql_query("UPDATE ticket SET ticket_status='0' WHERE id = $ticketid ");
                                           ob_start();
-                                           header("location:ticket.php?ticketid=$ticketid");
+                                           header("location:ticket?ticketid=$ticketid");
                                            
                                       }
                               }

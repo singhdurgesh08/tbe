@@ -1,7 +1,7 @@
 <?php ob_start();
  session_start();
  if($_SESSION['user_data']['user_name'] ==''){
-header("location: login.php");
+header("location: login");
 exit();
 }
 $userid = $_SESSION['user_data']['id'];
@@ -13,7 +13,7 @@ include "common.php";
 if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action'] == "cancle") {
     $ids = $_GET['matchid'];
     cancleMatch($ids);
-    header("location:Matchlist.php");
+    header("location:Matchlist");
     exit();
 }
 ?>
@@ -26,7 +26,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
 					</div>
 					
 					<div class="col-sm-2 text-center">
-						 <a href="Addmatches.php?matchtype=PS4" class="btn btn-lg btn-block btn-success"> Post a Match </a> 
+						 <a href="Addmatches?matchtype=PS4" class="btn btn-lg btn-block btn-success"> Post a Match </a> 
 					</div>
 					
 				</div>

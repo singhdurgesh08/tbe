@@ -34,7 +34,6 @@ $platform = $r['platform'];
 //echo "<pre>"; print_r($r);
 $userid = $_SESSION['user_data']['id'];
 
-
 include "common.php";
 $getcanclematch = getcancleMatch($matid);
 //echo "<pre>"; print_R($getcanclematch);
@@ -103,6 +102,8 @@ if (($opponentreporttime) && empty($hostreporttime)) {
         }
     }
 }
+
+
 ?>
 
 <div class="home_tab_section">
@@ -208,14 +209,15 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                                 <th class=" text-center">Result</th>
                                             </tr>
                                             <?php
-                                            $resteam = mysql_query("SELECT * FROM join_match left join team on team.id = join_match.team_id where join_match.match_id = $matid");
 
-                                            while ($rteam = mysql_fetch_assoc($resteam)) {   // print_r($r);
+
+                                               $resteam = mysql_query("SELECT * FROM join_match left join team on team.id = join_match.team_id where join_match.match_id = $matid");
+                                               while ($rteam = mysql_fetch_assoc($resteam)) {   // print_r($r);
                                                 ?> 
                                                 <tr>
                                                     <td><b>
                                                             <a href="teamdetails.php?teamid=<?php echo $rteam['id']; ?>">
-                                                             <?php echo $rteam['team_name']; ?>
+                                                                <?php echo $rteam['team_name']; ?>
                                                             </a>
 
                                                         </b></td>
@@ -249,7 +251,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                             <div class="row">
                                                 <div class="tabset-cashier ng-isolate-scope">
                                                     <ul class="nav nav-tabs ">
-                                                        <li role="presentation" class="ng-isolate-scope  active">
+                                                       <li role="presentation" class="ng-isolate-scope  active">
                                                             <a href="#1" data-toggle="tab"><b>Team Player's</b></a>
                                                         </li>
                                                     </ul>
@@ -265,19 +267,15 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                                                     </tr>
                                                                 </thead>
                                                                 <?php
-                                                                $resteamtag = mysql_query("SELECT users.id,users.gamertag,users.user_name,users.xbox,users.plastation FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid" );
-                                                                 //  $resteamtag = mysql_query("Select * from users  
-                                                                   //                             left join join_match on join_match.created_by = users.id 
-                                                                     //                           left join ps4_match on ps4_match.id = join_match.match_id 
-                                                                       //                         where  ps4_match.open_date >= NOW() and join_match.match_id = $matid");
-
+                                                            //$resteamtag = mysql_query("SELECT users.id,users.gamertag,users.user_name,users.xbox,users.plastation FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid" );
+                                                             $resteamtag = mysql_query("SELECT * from join_match LEFT JOIN team_list on team_list.team_id=join_match.team_id LEFT JOIN users on users.id = team_list.user_id WHERE team_list.team_id =3 and join_match.match_id=$matid");
                                                                 while ($rteamtag = mysql_fetch_assoc($resteamtag)) { //  print_r($rteamtag);
                                                                     ?> 
                                                                     <tr>
                                                                         <td>
                                                                             <a href="myprofile.php?usersid=<?php echo $rteamtag['id']; ?>">
                                                                                 <b>
-                                                                                 <?php echo $rteamtag['user_name']; ?>
+                                                                                 <?php echo $rteamtag['user_name'];  ?>
                                                                                 </b>
                                                                             </a>
                                                                         </td>
@@ -293,8 +291,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                                                             ?>
                                                                         </td>
                                                                     </tr>
-<?php }
-?>                         
+<?php }                                                          ?>                         
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -333,17 +330,17 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                                                 <tbody>
                                                                         <?php
                                                             //    $resteamtag = mysql_query("SELECT users.id,users.gamertag,users.user_name,users.xbox,users.plastation FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid");
-                                                        $resteamtag = mysql_query("Select * from users  
-                                                                                                left join join_match on join_match.created_by = users.id 
-                                                                                                left join ps4_match on ps4_match.id = join_match.match_id 
-                                                                                                where  ps4_match.open_date >= NOW() and join_match.match_id = $matid");
+                                                                    $resteamtag = mysql_query("SELECT * from join_match LEFT JOIN team_list on team_list.team_id=join_match.team_id LEFT JOIN users on users.id = team_list.user_id WHERE team_list.team_id =1 and join_match.match_id=$matid");
                                                                     while ($rteamtag = mysql_fetch_assoc($resteamtag)) {   // print_r($rteamtag);
                                                                     ?> 
                                                                     <tr>
                                                                         <td class=" text-center">
                                                                             <a href="myprofile.php?usersid=<?php echo $rteamtag['id']; ?>">
                                                                                 <b>
-                                                                                 <?php echo $rteamtag['user_name'];?>
+                                                                                 <?php echo $rteamtag['user_name'];
+
+                                                                                 ?>
+
                                                                                 </b>
                                                                             </a>
                                                                         </td>

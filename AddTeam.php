@@ -2,7 +2,7 @@
     ob_start(); 
  session_start();
   if ($_SESSION['user_data']['user_name'] == '') {
-    header("location: login.php");
+    header("location: login");
     exit();
 }
 $userid = $_SESSION['user_data']['id'];
@@ -70,7 +70,7 @@ include "login-header.php";?>
                         </div>
                         
                         <div class="col-sm-2 input text-center">
-                            <a href="teamlist.php" class="btn btn-lg btn-danger">Cancel<i class="glyphicon glyphicon-chevron-right"></i></a>
+                            <a href="teamlist" class="btn btn-lg btn-danger">Cancel<i class="glyphicon glyphicon-chevron-right"></i></a>
                             
                         </div>
                     </div>
@@ -117,7 +117,7 @@ if (isset($_POST['submit']))
                    mysql_query($sql_query);
 
                ob_start();
-               header("location:teamlist.php");
+               header("location:teamlist");
                exit();
             }
   }
