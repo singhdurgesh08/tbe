@@ -1,7 +1,7 @@
 <?php
 session_start();
 if ($_SESSION['user_data']['user_name'] == '') {
-    header("location: login.php");
+    header("location: login");
     exit();
 }
 include "login-header.php";
@@ -27,11 +27,11 @@ include "config.php";
                    <div class="col-sm-3">
                         <br/>
                          <br/>
-                       <a href="AddTeam.php?platform=XB1" class="btn btn-lg btn-block btn-success"> Create Team </a> 
+                       <a href="AddTeam?platform=XB1" class="btn btn-lg btn-block btn-success"> Create Team </a> 
                        <br/>
-                       <a href="xb1matchlist.php" class="btn btn-lg btn-block btn-success"> Match Finder </a> 
+                       <a href="xb1matchlist" class="btn btn-lg btn-block btn-success"> Match Finder </a> 
                        <br/>
-                       <a href="Addmatches.php?matchtype=XB1" class="btn btn-lg btn-block btn-success"> Post a Match</a> 
+                       <a href="Addmatches?matchtype=XB1" class="btn btn-lg btn-block btn-success"> Post a Match</a> 
                    </div>
                    
                  

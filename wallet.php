@@ -203,7 +203,7 @@ if ($_POST['transfer_btn']=="Transfer") {
                 <div class="tab-content">
                     <div class="tab-pane active" id="1">
               
-                        <form id="add_wallet" name="add_wallet" action="add_wallet.php" method="post"  class="form-horizontal">
+                        <form id="add_wallet" name="add_wallet" action="add_wallet" method="post"  class="form-horizontal">
 
                             <div class="row">
                                 <div class="col-sm-8 text-center">
@@ -216,7 +216,7 @@ if ($_POST['transfer_btn']=="Transfer") {
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input name="agree" type="checkbox" required="" class="required">
-                                   I accept the <a href="term-service.php" target="_blank">terms of condition</a>&nbsp;&&nbsp;<a href="privacy.php" target="_blank">privacy policy</a>
+                                   I accept the <a href="term-service" target="_blank">terms of condition</a>&nbsp;&&nbsp;<a href="privacy" target="_blank">privacy policy</a>
 
                                 </div>
                             </div>
@@ -236,7 +236,7 @@ if ($_POST['transfer_btn']=="Transfer") {
                         </form>
                     </div>
                     <div class="tab-pane" id="2">
-                        <form id="withdrawal" name="withdrawal" action="wallet.php" method="post"  class="form-horizontal">
+                        <form id="withdrawal" name="withdrawal" action="wallet" method="post"  class="form-horizontal">
 
                             <div class="row">
                                 <div class="col-sm-8 text-center">
@@ -257,7 +257,7 @@ if ($_POST['transfer_btn']=="Transfer") {
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input name="agree" type="checkbox" required="" class="required">
-                                     I accept the <a href="term-service.php" target="_blank">terms of condition</a>&nbsp;&&nbsp;<a href="privacy.php" target="_blank">privacy policy</a>
+                                     I accept the <a href="term-service" target="_blank">terms of condition</a>&nbsp;&&nbsp;<a href="privacy" target="_blank">privacy policy</a>
 
                                 </div>
                             </div>
@@ -278,7 +278,7 @@ if ($_POST['transfer_btn']=="Transfer") {
                         
                     </div>
                     <div class="tab-pane" id="3">
-                        <form id="transfer" name="transfer" action="wallet.php" method="post"  class="form-horizontal">
+                        <form id="transfer" name="transfer" action="wallet" method="post"  class="form-horizontal">
 
                             <div class="row">
                                 <div class="col-sm-8 text-center">
@@ -299,7 +299,7 @@ if ($_POST['transfer_btn']=="Transfer") {
                             <div class="row">
                                 <div class="col-sm-8">
                                     <input name="agree" type="checkbox" required="" class="required">
-                                   I accept the <a href="term-service.php" target="_blank">terms of condition</a>&nbsp;&&nbsp;<a href="privacy.php" target="_blank">privacy policy</a>
+                                   I accept the <a href="term-service" target="_blank">terms of condition</a>&nbsp;&&nbsp;<a href="privacy" target="_blank">privacy policy</a>
 
                                 </div>
                             </div>

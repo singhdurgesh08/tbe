@@ -5,6 +5,7 @@ include "nav.php";
 include "config.php";
 
 $teamid = $_GET['teamid'];
+$teamid = encryptor('decrypt',$teamid);
 $action=$_GET['action'];
 
  if (isset($_GET['usersid']) && is_numeric($_GET['usersid']))
@@ -13,7 +14,7 @@ $action=$_GET['action'];
          {
               $usersid = $_GET['usersid'];
               $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");                                         
-              header("location:teamdetails.php?teamid=$teamid"); exit;
+              header("location:teamdetails?teamid=$teamid"); exit;
          }
         else
         {
@@ -26,7 +27,7 @@ $action=$_GET['action'];
                      $usersid = $_GET['usersid'];
                      $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
                      $result = mysql_query("DELETE FROM team WHERE id ='$teamid'");
-                     header("location:home.php");
+                     header("location:home");
                     exit;
                     } else {
                     echo"<script>alert('disbanding your team will result in a loss because some matches are not completed or disputed')</script>";
@@ -232,7 +233,7 @@ include "common.php";
                                 while ($r = mysql_fetch_assoc($res)) {
                                     ?>
                                     <tr>
-                                        <td><a href="myprofile.php?usersid=<?php echo $r['id']; ?>"><?php echo $r['user_name']; ?>
+                                        <td><a href="myprofile?usersid=<?php echo $r['id']; ?>"><?php echo $r['user_name']; ?>
                                             </a></td>
                                         <td>
                                             <?php
@@ -250,14 +251,14 @@ include "common.php";
                                                 if (($r['team_id'] == $teamid) and $r['created_by'] == $r['user_id'])
                                                 {  if($r['created_by'] == $is_userid) {
                                                   ?> 
-                                                       <a href="teamdetails.php?action=Disband&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Disband</a> 
+                                                       <a href="teamdetails?action=Disband&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Disband</a> 
                                                   <?php
                                                   }}
                                                 else
                                                 {   if($r['created_by'] == $is_userid) {
-                                                    ?><a href="teamdetails.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Terminate</a>
+                                                    ?><a href="teamdetails?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Terminate</a>
                                                 <?php } else { ?> 
-                                                    <a href="teamdetails.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Leave</a>
+                                                    <a href="teamdetails?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Leave</a>
                                                      <?php
                                                    } }  ?>
 
@@ -331,7 +332,7 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                 echo "Disputed";
                                                             }
                                                             ?></td>
-                                                                 <td><?php echo date("Y-M-d h:i A",strtotime($r['open_date'])); ?></td>
+                                                                 <td><?php  echo date("Y-m-d",strtotime($r['open_date'])) . " EST ".date("h:i A",strtotime($r['open_date'])); ?></td>
                                                                 <td>
                                                                     <?php
                                                                    // $sql2 = mysql_query("select team_name from team where id=$teamid");
@@ -343,11 +344,11 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                     } else {
                                                                         echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/> &nbsp; ';
                                                                     }?>
-                                                                  <a href="teamdetails.php?teamid=<?php echo $result1['id'] ?>">
+                                                                  <a href="teamdetails?teamid=<?php echo $result1['id'] ?>">
                                                                   <?php  echo $result1['team_name']; ?>
                                                                   </a>
                                                                 </td>
-                                                                <td><a href="matchdetails.php?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
+                                                                <td><a href="matchdetails?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
 
                                                             </tr>
                                                                 <?php }
@@ -398,7 +399,8 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                          echo "Disputed";
                                                                      }
                                                             ?></td>
-                                                                 <td><?php echo date("Y-M-d h:i A",strtotime($r['open_date'])); ?></td>
+                                                                 <td><?php  echo date("Y-m-d",strtotime($r['open_date'])) . " EST ".date("h:i A",strtotime($r['open_date'])); ?></td>
+                                                                
                                                                 <td>
                                                                     <?php 
                                                                      $matchId = $r['match_id'];
@@ -408,11 +410,11 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                     } else {
                                                                         echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/> &nbsp; ';
                                                                     }?>
-                                                                  <a href="teamdetails.php?teamid=<?php echo $result1['id'] ?>">
+                                                                  <a href="teamdetails?teamid=<?php echo $result1['id'] ?>">
                                                                   <?php  echo $result1['team_name']; ?>
                                                                   </a>
                                                                 </td>
-                                                                <td><a href="matchdetails.php?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
+                                                                <td><a href="matchdetails?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
 
                                                             </tr>
                                                                 <?php }
@@ -458,17 +460,17 @@ while ($r = mysql_fetch_assoc($res)) {
                         
                                          
                             if($platform == 'PS4'){
-                                  ?>  <a href="matchlist.php">Match Finder</a></li><?PHP
+                                  ?>  <a href="Matchlist">Match Finder</a></li><?PHP
                             }
                             else
                             { ?>
-                             <a href="xb1matchlist.php">Match Finder</a></li><?php
+                             <a href="xb1matchlist">Match Finder</a></li><?php
                             }
                          ?>
                         <?php  if($is_userid == $userid) { ?>
                               <!-- <li><a href="Addplayer.php?teamid=<?php echo $teamid; ?>">Add Member</a></li>-->
                               <!-- <li><a href="Teamdetails.php?teamid=<?php //echo $teamid;  ?>&action=DisableHere">Disable Team</a><li>-->
-                               <li><a href="Editteam.php?teamid=<?php echo $teamid; ?>">Edit Team</a></li>
+                               <li><a href="Editteam?teamid=<?php echo $teamid; ?>">Edit Team</a></li>
                                <!--<li><a href="allmatch.php">All Matches</a></li>-->  
                         <?php } ?>
                     </ul>

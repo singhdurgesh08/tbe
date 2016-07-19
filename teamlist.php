@@ -2,7 +2,7 @@
 session_start();
 
 if ($_SESSION['user_data']['user_name'] == '') {
-    header("location: login.php");
+    header("location: login");
     exit();
 }
 
@@ -14,7 +14,7 @@ include "login-header.php";
  if (isset($_GET['teamid']) && is_numeric($_GET['teamid'])) {
     $ids = $_GET['teamid'];
     $result = mysql_query("DELETE FROM team WHERE id = '$ids'");
-    header("location: teamlist.php");
+    header("location: teamlist");
     //EXIT;
 }
 ?>
@@ -81,10 +81,10 @@ include "login-header.php";
                              <td><?php echo $r['game_Mode']; ?></td>
                                <td><?php echo date ("d-M-Y",strtotime($r['date_added'])); ?></td>
                             <td>
-                                <a href="teamdetails.php?teamid=<?php echo encryptor('encrypt',$r[0]); ?>"> View Team </a>  
+                                <a href="teamdetails?teamid=<?php echo encryptor('encrypt',$r[0]); ?>"> View Team </a>  
                                  <?php 
                                     if ($is_admin == "1" || $userid ==$r['created_by']) {
-                                        echo ('| <a href=teamlist.php?teamid='. $r[id] . ' >Delete</a>');
+                                        echo ('| <a href=teamlist?teamid='. $r[id] . ' >Delete</a>');
                                         if (isset($_GET['teamid']) && is_numeric($_GET['teamid']))
                                             {
                                                   $ids = $_GET['teamid'];

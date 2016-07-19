@@ -211,7 +211,7 @@ if(!empty($_GET["id"])) {
 
                     </fieldset>
                     <div class="col-sm-12 text-center">
-                        <p><input type="checkbox" required name="terms"><u></u> I accept the <a href="term-service.php">terms of condition</a>&nbsp;&&nbsp;<a href="privacy.php">privacy policy</a></p>
+                        <p><input type="checkbox" required name="terms"><u></u> I accept the <a href="term-service">terms of condition</a>&nbsp;&&nbsp;<a href="privacy">privacy policy</a></p>
                     </div>                                                                       
                     <div class="form-group">
                         <label for="" class="control-label col-sm-6 back hidden-xs">&nbsp;</label>

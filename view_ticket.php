@@ -3,7 +3,7 @@ include "config.php";
 ob_start();
 session_start();
 if ($_SESSION['user_data']['user_name'] == '') {
-    header("location: login.php");
+    header("location: login");
     exit();
  }
 include "login-header.php";?>
@@ -16,8 +16,7 @@ include "login-header.php";?>
                     <div class="col-sm-12 text-center">
                         <h1><br class="hidden-xs">View Ticket</h1>
                     </div>
-                    
-                        <div class="col-sm-12 text-left"><span class="pull-right">
+                         <div class="col-sm-12 text-left"><span class="pull-right">
                             <button  class="btn btn-lg btn-block btn-success" type="button"  onclick="window.location.href='ticket.php'">Go Back!</button></span>
                          </div>
                     
@@ -32,7 +31,7 @@ include "login-header.php";?>
                 ?>
                 <div class="row">
                     <div class="col-sm-9">
-                        <form method='post' id="viewticket"  action='view_ticket.php?ticketid=<?php echo $r[id] ?>' class="form-horizontal">
+                        <form method='post' id="viewticket"  action='view_ticket?ticketid=<?php echo $r[id] ?>' class="form-horizontal">
                         <fieldset>
                                 <div class="form-group">
                                     <label for="login_password" class="col-sm-6 text-right">Ticket ID:</label>
@@ -59,7 +58,7 @@ include "login-header.php";?>
                                 ?>
                                  <div class="form-group">
                                     <label for="login_password" class="col-sm-6 text-right">Match id:</label>
-                                    <div class="col-sm-6 input"><a href="matchdetails.php?Matchid=<?php echo $r[match_id];?>"><?php echo $r[match_id];?></a></div>
+                                    <div class="col-sm-6 input"><a href="matchdetails?Matchid=<?php echo $r[match_id];?>"><?php echo $r[match_id];?></a></div>
                                 </div>
 
                                 <div class="form-group">
@@ -159,7 +158,7 @@ include "login-header.php";?>
                                                                <img src="assets\images\profile-1.png" class="img-responsive"  class="img-circle" width="70" heigh="60" alt="" >
                                                                <?php }  ?>
                                                         </div>
-                                                              <a href="myprofile.php?usersid=<?php echo $r[id];?>"><b><u><?php echo $r[user_name]; ?></u></b></a><BR/>
+                                                              <a href="myprofile?usersid=<?php echo $r[id];?>"><b><u><?php echo $r[user_name]; ?></u></b></a><BR/>
                                                               <?php
                                                                 echo $r[response];?><br/><?php
                                                                 echo date("Y-m-d",strtotime($r['created_date'])) . " EST ".date("h:i A",strtotime($r['created_date']));?><br/><br/><hr> <?php
@@ -208,7 +207,7 @@ if(isset($_POST['Update']))
                       if(mysql_query($query))
                       {
                              ob_start();
-                             header("location:view_ticket.php?ticketid=$ticketid");
+                             header("location:view_ticket?ticketid=$ticketid");
                              exit();
                       }
         }

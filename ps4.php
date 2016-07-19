@@ -1,7 +1,7 @@
 <?php
 session_start();
 if ($_SESSION['user_data']['user_name'] == '') {
-    header("location: login.php");
+    header("location: login");
     exit();
 }
 
@@ -30,11 +30,11 @@ include "config.php";
                    <div class="col-sm-3">
                         <br/>
                          <br/>
-                       <a href="AddTeam.php?platform=PS4" class="btn btn-lg btn-block btn-success"> Create Team </a> 
+                       <a href="AddTeam?platform=PS4" class="btn btn-lg btn-block btn-success"> Create Team </a> 
                        <br/>
-                       <a href="Matchlist.php" class="btn btn-lg btn-block btn-success"> Match Finder </a> 
+                       <a href="Matchlist" class="btn btn-lg btn-block btn-success"> Match Finder </a> 
                        <br/>
-                       <a href="Addmatches.php?matchtype=PS4" class="btn btn-lg btn-block btn-success"> Post a Match </a> 
+                       <a href="Addmatches?matchtype=PS4" class="btn btn-lg btn-block btn-success"> Post a Match </a> 
                    </div>
                    
                  

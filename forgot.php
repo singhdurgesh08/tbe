@@ -134,7 +134,7 @@ if (isset($_POST['submit']))
 								</div>
 							</div>
 					<div class="col-sm-12 text-center">
-					 <a href='registration.php'>Not Registered yet</a>
+					 <a href='registration'>Not Registered yet</a>
 					</div>
 						 </form>
 					

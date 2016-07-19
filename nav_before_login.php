@@ -59,15 +59,14 @@
 		  <span class="icon-bar"></span>
 		</button>
 	  </div>
-
 	  <!-- Collect the nav links, forms, and other content for toggling -->
 	  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav top_menu">
-		  <li class="<?php if(ereg("teamlist.php",$file)>0) echo " active"; ?>"><a href="teamlist.php">Team</a></li>
-		  <li class="<?php if(ereg("ps4.php",$file)>0) echo " active"; ?>"><a href="ps4.php">PS4</a></li>
-		  <li class="<?php if(ereg("xb1.php",$file)>0) echo " active"; ?>"><a href="xb1.php">XB1</a></li>
-		  <li class="<?php if(ereg("top50goals.php",$file)>0) echo " active"; ?>"><a href="http://tbesportsgaming.com/forum/index.php">Forum</a></li>
-		  <li class=" dropdown <?php if(ereg("leadership.php",$file)>0 || ereg("staff.php",$file)>0  || ereg("faq.php",$file)>0) echo " active"; ?>"><a class="active">Support</a>
+		  <li class="<?php if(ereg("teamlist",$file)>0) echo " active"; ?>"><a href="teamlist">Team</a></li>
+		  <li class="<?php if(ereg("ps4",$file)>0) echo " active"; ?>"><a href="ps4">PS4</a></li>
+		  <li class="<?php if(ereg("xb1",$file)>0) echo " active"; ?>"><a href="xb1">XB1</a></li>
+		  <li class="<?php if(ereg("top50goals",$file)>0) echo " active"; ?>"><a href="http://tbesportsgaming.com/forum/index">Forum</a></li>
+		  <li class=" dropdown <?php if(ereg("leadership",$file)>0 || ereg("staff",$file)>0  || ereg("faq",$file)>0) echo " active"; ?>"><a class="active">Support</a>
 		 <!-- <div class="dropdown-content" style="z-index:999;">
 			<a href="leadership.php">Leadership</a>
 			<a href="staff.php">Tournament Staff</a>

@@ -1,7 +1,7 @@
 <?php  ob_start();
     session_start();
 if ($_SESSION['user_data']['user_name'] == '') {
-    header("location: login.php");
+    header("location: login");
     exit();
 }
 $userid = $_SESSION['user_data']['id'];
@@ -13,7 +13,7 @@ include "common.php";
 if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action'] == "cancle") {
     $ids = $_GET['matchid'];
     cancleMatch($ids);
-    header("location:xb1matchlist.php");
+    header("location:xb1matchlist");
     exit();
 }
 ?>
@@ -25,7 +25,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
             </div>
 
             <div class="col-sm-2 text-center">
-                <a href="Addmatches.php?matchtype=XB1" class="btn btn-lg btn-block btn-success"> Post a Match </a> 
+                <a href="Addmatches?matchtype=XB1" class="btn btn-lg btn-block btn-success"> Post a Match </a> 
             </div>
         </div>
         <div class="row">
@@ -80,7 +80,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                                     
                                      <?php 
                                    if ($is_admin == "1" || $r['created_by'] ==$userid) {
-                                        echo ('| <a href=xb1matchlist.php?action=cancle&matchid='. $r['id'] . '>Cancel</a>');
+                                        echo ('| <a href=xb1matchlist?action=cancle&matchid='. $r['id'] . '>Cancel</a>');
 
                                     }
                                  
@@ -195,7 +195,7 @@ function joinMatch(){
                       }else if(d ==='error3'){
                         $("#div_wait").html('<b  style="background-color:red;color:white;"> Sorry ! Match Already Accepted .</b> '); 
                       }else {
-                        window.location.href =' <?php echo HOSTNAME; ?>matchdetails.php?Matchid='+d; 
+                        window.location.href =' <?php echo HOSTNAME; ?>matchdetails?Matchid='+d; 
                       }
                     }         
                      

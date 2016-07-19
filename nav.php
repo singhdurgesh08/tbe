@@ -110,7 +110,7 @@ text-decoration: solid;
 	  <!-- Collect the nav links, forms, and other content for toggling -->
 	  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav top_menu">
-		  <li class=" dropdown <?php if(ereg("leadership.php",$file)>0 || ereg("staff.php",$file)>0  || ereg("faq.php",$file)>0) echo " active"; ?>"><a class="active"  href="teamlist.php">Team</a>
+		  <li class=" dropdown <?php if(ereg("leadership",$file)>0 || ereg("staff",$file)>0  || ereg("faq",$file)>0) echo " active"; ?>"><a class="active"  href="teamlist">Team</a>
 		  <div class="dropdown-content" style="z-index:999;">
           
             	<?php
@@ -130,16 +130,14 @@ text-decoration: solid;
 			{
                                 if ($r['platform'] == PS4) {
                                 $var = '<img src="assets/images/playstation final.png" width="25" class="img-responsive" alt="" style="display:inline; " />';
-                                echo ('<a href=teamdetails.php?teamid=' . encryptor("encrypt",$r[id]) . '>' . substr($r['team_name'], 0, 12) . '..&nbsp;' . $var . '</a>');
+                                echo ('<a href=teamdetails?teamid=' . encryptor("encrypt",$r[id]) . '>' . substr($r['team_name'], 0, 12) . '..&nbsp;' . $var . '</a>');
                                 // echo ('<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'</a>');
                                 } else {
                                 //echo ('<img src="assets/images/xb1_list.jpg" width="10"  class="img-responsive" alt="" style="display:inline; " />' . '<a href=teamdetails.php?teamid=' . $r[id] . '>'. $r[team_name].'</a>');
                                 $var1 = '<img src="assets/images/xb1_list.jpg" width="25" class="img-responsive" alt="" style="display:inline; " />';
-                                echo ('<a href=teamdetails.php?teamid=' . encryptor("encrypt",$r[id]) . '>' . substr($r['team_name'], 0, 10) . '..&nbsp;' . $var1 . '</a>');
+                                echo ('<a href=teamdetails?teamid=' . encryptor("encrypt",$r[id]) . '>' . substr($r['team_name'], 0, 10) . '..&nbsp;' . $var1 . '</a>');
                                 }
-
-                   
-			} 
+      } 
 					
 	   			 
 	   			 ?>
@@ -148,34 +146,33 @@ text-decoration: solid;
 		  </li>
 
 		  
-		  <li class="<?php if(ereg("ps4.php",$file)>0) echo " active"; ?>"><a href="ps4.php">PS4</a></li>
-		  <li class="<?php if(ereg("xb1.php",$file)>0) echo " active"; ?>"><a href="xb1.php">XB1</a></li>
-		  <li class="<?php if(ereg("top50goals.php",$file)>0) echo " active"; ?>"><a href="http://tbesportsgaming.com/forum/" target="_balnk">Forum</a></li>
-		  <li class=" dropdown <?php if(ereg("leadership.php",$file)>0 || ereg("staff.php",$file)>0  || ereg("faq.php",$file)>0) echo " active"; ?>"><a class="active">Support</a>
+		  <li class="<?php if(ereg("ps4",$file)>0) echo " active"; ?>"><a href="ps4">PS4</a></li>
+		  <li class="<?php if(ereg("xb1",$file)>0) echo " active"; ?>"><a href="xb1">XB1</a></li>
+		  <li class="<?php if(ereg("top50goals",$file)>0) echo " active"; ?>"><a href="http://tbesportsgaming.com/forum/index" target="_balnk">Forum</a></li>
+		  <li class=" dropdown <?php if(ereg("leadership",$file)>0 || ereg("staff",$file)>0  || ereg("faq",$file)>0) echo " active"; ?>"><a class="active">Support</a>
 		  <div class="dropdown-content" style="z-index:999;">
-                        <a href="ticket.php">Ticket</a>
-						<a href="faq.php">F.A.Q</a>
+      <a href="ticket">Ticket</a>
+			<a href="faq">F.A.Q</a>
 		</div>
 		  </li>
 		  <li class="dropdown selected">
 			<a class="dropbtn" style="color:red;background-color: yellow;" > <b><?php echo substr($_SESSION['user_data']['user_name'],0,20);?> &nbsp;</b></a>  
       <div class="dropdown-content" style="z-index:999;">
-			<a href="home.php">Home</a> 
-      <a href="myprofile.php?usersid=<?php echo $userid ?>">My Profile</a>
-      <a href="editprofile.php">Edit Profile</a>
-        <a href="subscribe_membership.php">Membership</a>
-			<a href="wallet.php">Wallet</a>    
-		 	<a href="teaminvite.php">Team Invites</a>    
+			<a href="home">Home</a> 
+      <a href="myprofile?usersid=<?php echo $userid ?>">My Profile</a>
+      <a href="editprofile">Edit Profile</a>
+      <a href="subscribe_membership">Membership</a>
+			<a href="wallet">Wallet</a>    
+		 	<a href="teaminvite">Team Invites</a>    
       <?php 
         $res = mysql_query("Select * from users where id = $userid");
         $record = mysql_fetch_array($res);
          if($record[is_admin] ==1)
           {
-            ?><a href="paymenthistory.php">Payment History</a><?php
+            ?><a href="paymenthistory">Payment History</a><?php
           }
-        
-      ?>
-      <a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign-out</a>
+        ?>
+      <a href="logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Sign-out</a>
 		</div>
 		  </li>
 		</ul>

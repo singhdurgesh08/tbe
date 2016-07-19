@@ -62,7 +62,7 @@ if (isset($_POST['Login']))
 		if(isset($login_session))
 		{
 			$_SESSION['user_data'] =  $row; // Initializing Session
-			header("location: home.php");
+			header("location: home");
 		} 
 	}
 	else
@@ -112,7 +112,7 @@ if (isset($_POST['Login']))
 						   
 					</div>
 					<div class="col-sm-12 text-center">
-						<a href="forgot.php">Forgot your password?</a> | Not Registered yet?<a href='registration.php'>Sign Up</a>
+						<a href="forgot">Forgot your password?</a> | Not Registered yet?<a href='registration'>Sign Up</a>
 					</div>
                    
 				</div>
