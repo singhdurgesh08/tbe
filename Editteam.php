@@ -4,14 +4,15 @@ include "login-header.php";
 include "nav.php";
 include "config.php";
 $teamid = $_GET['teamid'];
+$teamid = encryptor('decrypt',$teamid);
 $action=$_GET['action'];
+$usersid = $_GET['usersid'];
+$usersid = encryptor('decrypt',$usersid);
 
-if (isset($_GET['usersid']) && is_numeric($_GET['usersid']))
+if ($usersid)
     {     
          if($action === "Leave")
             {
-                 //echo "leave";die();
-                $usersid = $_GET['usersid'];
                 $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");                                         
                 header("location:Editteam.php?teamid=$teamid"); exit;
             }
@@ -24,7 +25,7 @@ if (isset($_GET['usersid']) && is_numeric($_GET['usersid']))
                         $usersid = $_GET['usersid'];
                         $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
                         $result = mysql_query("DELETE FROM team WHERE id ='$teamid'");
-                        header("location:home.php");
+                        header("location:home");
                     exit;
                     } else {
                     echo"<script>alert('disbanding your team will result in a loss because some matches are not completed or disputed')</script>";
@@ -63,7 +64,8 @@ if (file_exists("upload/" . $filename)) {
               move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $filename);
                 $query = "UPDATE team set team_image = '$filename' WHERE id='" . $teamid . "'";
                 $result = mysql_query($query);
-                header("location:teamdetails.php?teamid=" . $teamid);
+                $teamid = encryptor('encrypt',$teamid);
+                header("location:teamdetails?teamid=" . $teamid);
                 exit();
             }
 }
@@ -135,7 +137,7 @@ if (file_exists("upload/" . $filename)) {
                                 while ($r = mysql_fetch_assoc($res)) {
                                     ?>
                                     <tr>
-                                        <td><a href="myprofile.php?usersid=<?php echo $r['id']; ?>"><?php echo $r['user_name']; ?>
+                                        <td><a href="myprofile.php?usersid=<?php echo encryptor('encrypt',$r['id']); ?>"><?php echo $r['user_name']; ?>
                                             </a></td>
                                         <td>
                                             <?php
@@ -153,13 +155,13 @@ if (file_exists("upload/" . $filename)) {
                                             $var = $r['team_id'];
                                             if ($r['team_id'] == $var && $r['created_by'] == $r['user_id'])
                                             {
-                                              ?> <a href="Editteam.php?action=Disband&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Disband</a> 
+                                              ?> <a href="Editteam.php?action=Disband&usersid=<?php echo encryptor('encrypt',$r['user_id']);?>&teamid=<?php echo encryptor('encrypt',$r['team_id']);?>">Disband</a> 
                                             <?php
                                             } 
                                             else
                                             {
-                                                ?><a href="Editteam.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Terminate</a>&nbsp; | &nbsp;
-                                                <a href="Editteam.php?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Leave</a> <?php
+                                                ?><a href="Editteam.php?action=Leave&usersid=<?php echo encryptor('encrypt',$r['user_id']);?>&teamid=<?php echo encryptor('encrypt',$r['team_id']);?>">Terminate</a>&nbsp; | &nbsp;
+                                                <a href="Editteam.php?action=Leave&usersid=<?php echo encryptor('encrypt',$r['user_id']);?>&teamid=<?php echo encryptor('encrypt',$r['team_id']);?>">Leave</a> <?php
                                             }  
                                             ?>
                                             

@@ -72,6 +72,7 @@ $('#example2').DataTable();
                                                         <tr>
                                                             <th>Ticket Id</th>
                                                             <th>Ticket type</th>
+                                                            <th>Match Id</th>
                                                             <th>Description</th>
                                                             <th>Date</th>
                                                             <th>Action</th>
@@ -85,21 +86,26 @@ $('#example2').DataTable();
                           //var_dump($is_admin);die();
                     if ($des == "") {
                         if($is_admin) {
-                           $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id   where ticket_status=1 order by ticket.created_date desc ");  
+                           $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ticket.match_id,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id   where ticket_status=1 order by ticket.created_date desc ");  
+                          // $res = mysql_query("Select * from ticket left join ps4_match on ps4_match.id=ticket.match_id left join join_match on join_match.match_id=ticket.match_id where ticket_status=1");  
                         }else {
-                        $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id where ticket.created_by = '$userid' and  ticket_status=1 order by ticket.created_date desc");
+                        $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ticket.match_id,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id where ticket.created_by = '$userid' and  ticket_status=1 order by ticket.created_date desc");
                         }
                     } $i =1;
                     while ($r = mysql_fetch_array($res)) { 
                       //echo "<pre>"; print_r($r);
                         ?>
                         <tr> 
-                             <td onclick="document.location='view_ticket?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo $r['id']; ?></td>
-                             <td onclick="document.location='view_ticket?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"> <?php if($r['ticket_type']==0){ echo "Ticket";
+                             <td onclick="document.location='view_ticket?ticketid=<?php echo encryptor('encrypt',$r[id]);?>';" style="cursor:pointer;"><?php echo $r['id']; ?></td>
+                             <td onclick="document.location='view_ticket?ticketid=<?php echo encryptor('encrypt',$r[id]); ?>';" style="cursor:pointer;"> <?php if($r['ticket_type']==0){ echo "Ticket";
                                          }else{ echo "Match dispute";}?></td>
-
-                             <td onclick="document.location='view_ticket?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo $r['description']; ?></td>
-                             <td onclick="document.location='view_ticket?ticketid=<?php echo $r[id]; ?>';" style="cursor:pointer;"><?php echo date("Y-m-d",strtotime($r['created_date'])) . " EST ".date("h:i A",strtotime($r['created_date'])); ?></td>
+                            <td class="text-center">
+                            <?php  if($r[match_id]!=0){
+                                     ?><a href="matchdetails?Matchid=<?php echo encryptor('encrypt',$r['match_id']);?>"><?php  echo $r[match_id];?> </a> <?php }
+                             ?>
+                            </td>
+                             <td onclick="document.location='view_ticket?ticketid=<?php echo encryptor('encrypt',$r[id]); ?>';" style="cursor:pointer;"><?php echo $r['description']; ?></td>
+                             <td onclick="document.location='view_ticket?ticketid=<?php echo encryptor('encrypt',$r[id]); ?>';" style="cursor:pointer;"><?php echo date("Y-m-d",strtotime($r['created_date'])) . " EST ".date("h:i A",strtotime($r['created_date'])); ?></td>
 
                              <td><!--<a href="view_ticket.php?ticketid=<?php echo $r[id]; ?>">View</a> &nbsp; |
                              &nbsp;-->
@@ -123,7 +129,8 @@ $('#example2').DataTable();
                                         echo"<script>alert('Sure you want to Close ticket')</script>";
                                         $query =mysql_query("UPDATE ticket SET ticket_status='0' WHERE id = $ticketid ");
                                           ob_start();
-                                           header("location:ticket?ticketid=$ticketid");
+                                           //header("location:ticket?ticketid=$ticketid");
+                                           header("location:ticket");
                                            
                                       }
                               }
@@ -158,6 +165,7 @@ $('#example2').DataTable();
                       <tr>
                           <th>Ticket Id</th>
                           <th>Ticket type</th>
+                          <th>Match Id</th>
                           <th>Description</th>
                           <th>Date</th>
                           <th>Action</th>
@@ -171,9 +179,9 @@ $('#example2').DataTable();
                           //var_dump($is_admin);die();
                     if ($des == "") {
                         if($is_admin) {
-                           $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id  where ticket_status=0");  
+                           $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.match_id,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id  where ticket_status=0");  
                         }else {
-                        $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id where ticket.created_by = '$userid' and  whre ticket_status=0");
+                        $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.match_id,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id where ticket.created_by = '$userid' and  whre ticket_status=0");
                         }
                     } $i =1;
                     while ($r = mysql_fetch_array($res)) { 
@@ -183,7 +191,10 @@ $('#example2').DataTable();
                              <td><?php echo $r['id']; ?></td>
                              <td> <?php if($r['ticket_type']==0){ echo "Ticket";
                                          }else{ echo "Match dispute";}?></td>
-
+                              <td class="text-center">
+                                  <?php  if($r[match_id]!=0){
+                                     ?><a href="matchdetails?Matchid=<?php echo encryptor('encrypt',$r['match_id']);?>"><?php  echo $r[match_id];?> </a> <?php }
+                                  ?>
                              <td><?php echo $r['description']; ?></td>
                              <td><?php echo date("Y-m-d",strtotime($r['created_date'])) . " EST ".date("h:i A",strtotime($r['created_date'])); ?></td>
 
@@ -209,7 +220,7 @@ $('#example2').DataTable();
                                         echo"<script>alert('Sure you want to Close ticket')</script>";
                                         $query =mysql_query("UPDATE ticket SET ticket_status='0' WHERE id = $ticketid ");
                                           ob_start();
-                                           header("location:ticket.php?ticketid=$ticketid");
+                                           header("location:ticket?ticketid=$ticketid");
                                            
                                       }
                               }
@@ -234,7 +245,6 @@ $('#example2').DataTable();
 
 <?php }
 ?>
-
                                                     </tbody>
                                                 </table>
 

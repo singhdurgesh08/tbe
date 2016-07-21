@@ -2,7 +2,7 @@
 include "config.php";
 session_start();
 if ($_SESSION['user_data']['user_name'] == '') {
-    header("location: login.php");
+    header("location: login");
     exit();
  }
  $userid = $_SESSION['user_data']['id'];
@@ -45,7 +45,7 @@ if (file_exists("upload/" . $filename)) {
     move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $filename);
     $query = "UPDATE users set user_image = '$filename' WHERE id='" . $userid . "'";
     $result = mysql_query($query);
-    header("location:myprofile.php?usersid=".$userid);
+    header("location:myprofile?usersid=".$userid);
     exit();
 }
 }

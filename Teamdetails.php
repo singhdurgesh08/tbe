@@ -7,22 +7,28 @@ include "config.php";
 $teamid = $_GET['teamid'];
 $teamid = encryptor('decrypt',$teamid);
 $action=$_GET['action'];
+$usersid = $_GET['usersid'];
+$usersid = encryptor('decrypt',$usersid);
 
- if (isset($_GET['usersid']) && is_numeric($_GET['usersid']))
+ if ($usersid)
     {     
-         if($action === "Leave")
-         {
-              $usersid = $_GET['usersid'];
-              $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");                                         
-              header("location:teamdetails?teamid=$teamid"); exit;
-         }
-        else
-        {
-            
-                if($action === "Disband"){
+      
+                 if($action === "Leave")
+                 {
+                   // $teamid = $_GET['teamid'];
+                   // $teamid = encryptor('decrypt',$teamid);
+                   // var_dump($teamid);die();
+                    $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");  
+                    $teamid = encryptor('encrypt',$teamid);
+                    header("location:teamdetails?teamid=$teamid "); exit;
+                 }
+                else
+                {         
+                
+                  if($action === "Disband"){
                     $query = mysql_query("select Match_play_status from join_match where team_id = $teamid");
                     $finalre = mysql_fetch_array($query);
-                   // echo "<pre>"; print_r($finalre); die;
+                   
                     if (!($finalre['Match_play_status']) || $finalre['Match_play_status'] =='1' ) {
                      $usersid = $_GET['usersid'];
                      $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
@@ -230,10 +236,10 @@ include "common.php";
  <?php
                                 $i = 1;
                                 $res = mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.player_status ='1' and team_list.team_id= $teamid");
-                                while ($r = mysql_fetch_assoc($res)) {
+                                while ($r = mysql_fetch_assoc($res)) { 
                                     ?>
                                     <tr>
-                                        <td><a href="myprofile?usersid=<?php echo $r['id']; ?>"><?php echo $r['user_name']; ?>
+                                        <td><a href="myprofile?usersid=<?php echo encryptor('encrypt',$r['id']);//echo encryptor('encrypt', $r['id']); ?>"><?php echo $r['user_name']; ?>
                                             </a></td>
                                         <td>
                                             <?php
@@ -251,14 +257,14 @@ include "common.php";
                                                 if (($r['team_id'] == $teamid) and $r['created_by'] == $r['user_id'])
                                                 {  if($r['created_by'] == $is_userid) {
                                                   ?> 
-                                                       <a href="teamdetails?action=Disband&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Disband</a> 
+                                                       <a href="teamdetails?action=Disband&usersid=<?php echo encryptor('encrypt',$r['user_id']);?>&teamid=<?php echo encryptor('encrypt',$r['team_id']);?>">Disband</a> 
                                                   <?php
                                                   }}
                                                 else
                                                 {   if($r['created_by'] == $is_userid) {
-                                                    ?><a href="teamdetails?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Terminate</a>
+                                                    ?><a href="teamdetails?action=Leave&usersid=<?php echo encryptor('encrypt',$r['user_id']);?>&teamid=<?php echo encryptor('encrypt',$r['team_id']);?>">Terminate</a>
                                                 <?php } else { ?> 
-                                                    <a href="teamdetails?action=Leave&usersid=<?php echo $r['user_id'];?>&teamid=<?php echo $r['team_id'];?>">Leave</a>
+                                                    <a href="teamdetails?action=Leave&usersid=<?php echo encryptor('encrypt',$r['user_id']);?>&teamid=<?php echo encryptor('encrypt',$r['team_id']);?>">Leave</a>
                                                      <?php
                                                    } }  ?>
 
@@ -344,11 +350,11 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                     } else {
                                                                         echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/> &nbsp; ';
                                                                     }?>
-                                                                  <a href="teamdetails?teamid=<?php echo $result1['id'] ?>">
+                                                                  <a href="teamdetails?teamid=<?php echo encryptor('encrypt',$result1['id']);  ?>">
                                                                   <?php  echo $result1['team_name']; ?>
                                                                   </a>
                                                                 </td>
-                                                                <td><a href="matchdetails?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
+                                                                <td><a href="matchdetails?Matchid=<?php echo encryptor('encrypt',$r[match_id]);  ?>">Match Details</a></td>
 
                                                             </tr>
                                                                 <?php }
@@ -410,11 +416,11 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                     } else {
                                                                         echo '<img src="assets/images/xb1_list.jpg" width="20" class="img-responsive" alt="" style="display:inline;"/> &nbsp; ';
                                                                     }?>
-                                                                  <a href="teamdetails?teamid=<?php echo $result1['id'] ?>">
+                                                                  <a href="teamdetails?teamid=<?php echo encryptor('encrypt',$result1['id']);  ?>">
                                                                   <?php  echo $result1['team_name']; ?>
                                                                   </a>
                                                                 </td>
-                                                                <td><a href="matchdetails?Matchid=<?php echo $r[match_id] ?>">Match Details</a></td>
+                                                                <td><a href="matchdetails?Matchid=<?php echo encryptor('encrypt',$r[match_id]);  ?>">Match Details</a></td>
 
                                                             </tr>
                                                                 <?php }
@@ -470,8 +476,8 @@ while ($r = mysql_fetch_assoc($res)) {
                         <?php  if($is_userid == $userid) { ?>
                               <!-- <li><a href="Addplayer.php?teamid=<?php echo $teamid; ?>">Add Member</a></li>-->
                               <!-- <li><a href="Teamdetails.php?teamid=<?php //echo $teamid;  ?>&action=DisableHere">Disable Team</a><li>-->
-                               <li><a href="Editteam?teamid=<?php echo $teamid; ?>">Edit Team</a></li>
-                               <!--<li><a href="allmatch.php">All Matches</a></li>-->  
+                               <li><a href="Editteam?teamid=<?php echo encryptor('encrypt',$teamid); ?>">Edit Team</a></li>
+                              <!--<li><a href="allmatch.php">All Matches</a></li>-->  
                         <?php } ?>
                     </ul>
                 </div>

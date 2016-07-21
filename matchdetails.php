@@ -5,6 +5,7 @@ include "login-header.php";
 include "nav.php";
 include "config.php";
 $matid = $_GET['Matchid'];
+$matid = encryptor('decrypt',$matid);
 ?>
 <style>
     thead th {
@@ -51,7 +52,8 @@ if ((isset($matid) && is_numeric($matid)) && $_GET['action'] == "surecancle") {
 if ((isset($matid) && is_numeric($matid)) && $_GET['action'] == "surenotcancle") {
     $ids = $matid;
     mysql_query("delete from cancle_match where match_id = '$matid'");
-    header("location:matchdetails.php?Matchid=$matid");
+    $matid = encryptor('encrypt',$matid);
+    header("location:matchdetails?Matchid=$matid");
      exit();
     
 }
@@ -130,7 +132,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                     <?php } else { ?>
                                         <img src="<?php echo HOSTNAME; ?>/assets/images/teamss.jpg" class="img-circle" alt="Cinque Terre" width="64" height="66"> 
                                     <?php } ?>
-                                    <a href="teamdetails.php?teamid=<?php echo $finalimage1['id']; ?>">
+                                    <a href="teamdetails?teamid=<?php echo encryptor("encrypt",$finalimage1['id']) ; ?>">
                                         <?php echo "<h4> " . ucfirst($finalimage1['team_name']) . "</h4>"; ?>
                                     </a>
                                     <?php /* if ($platform == 'PS4') { ?>
@@ -167,7 +169,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                     <?php } else { ?>
                                         <img src="<?php echo HOSTNAME; ?>/assets/images/teamss.jpg" class="img-circle" alt="Cinque Terre" width="64" height="66"> 
                                         <?php } ?>
-                                    <a href="teamdetails.php?teamid=<?php echo $finalimage2['id']; ?>">
+                                    <a href="teamdetails?teamid=<?php echo encryptor("encrypt",$finalimage2['id']) ; ?>">
                                     <?php echo "<h4> " . ucfirst($finalimage2['team_name']) . "</h4>"; ?>
                                     </a>
                                         <?php /* if ($platform == 'PS4') { ?>
@@ -197,7 +199,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
 
                                             </tr>
                                             <tr>
-                                                <td></td>
+                                                <td><b> Amount :- </b> <i class='fa fa-usd' aria-hidden='true'></i> <?php echo $r['amount']; ?><br></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -216,7 +218,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                                 ?> 
                                                 <tr>
                                                     <td><b>
-                                                            <a href="teamdetails.php?teamid=<?php echo $rteam['id']; ?>">
+                                                            <a href="teamdetails?teamid=<?php echo encryptor("encrypt",$rteam['id']) ; ?>">
                                                                 <?php echo $rteam['team_name']; ?>
                                                             </a>
 
@@ -248,11 +250,17 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                             &nbsp;
                                         </div>
                                         <div class="container">
+                                             <?php
+
+
+                                               $resteam = mysql_query("SELECT * FROM join_match left join team on team.id = join_match.team_id where join_match.match_id = $matid");
+                                               while ($rteam = mysql_fetch_assoc($resteam)) {   // print_r($r);
+                                                ?> 
                                             <div class="row">
                                                 <div class="tabset-cashier ng-isolate-scope">
                                                     <ul class="nav nav-tabs ">
                                                        <li role="presentation" class="ng-isolate-scope  active">
-                                                            <a href="#1" data-toggle="tab"><b>Team Player's</b></a>
+                                                            <a href="#1" data-toggle="tab"><b><?php echo $rteam['team_name']; ?></b></a>
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content">
@@ -267,15 +275,22 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                                                     </tr>
                                                                 </thead>
                                                                 <?php
+                                                               $teamId =  $rteam['team_id'];
                                                             //$resteamtag = mysql_query("SELECT users.id,users.gamertag,users.user_name,users.xbox,users.plastation FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid" );
-                                                             $resteamtag = mysql_query("SELECT * from join_match LEFT JOIN team_list on team_list.team_id=join_match.team_id LEFT JOIN users on users.id = team_list.user_id WHERE team_list.team_id =3 and join_match.match_id=$matid");
+                                                             $resteamtag = mysql_query("select users.id,users.user_name,users.plastation,users.xbox,team_list.created_by,team_list.user_id from users left join team_list on team_list.user_id  = users.id where team_id = '$teamId'");
                                                                 while ($rteamtag = mysql_fetch_assoc($resteamtag)) { //  print_r($rteamtag);
                                                                     ?> 
                                                                     <tr>
                                                                         <td>
-                                                                            <a href="myprofile.php?usersid=<?php echo $rteamtag['id']; ?>">
+                                                                            <a href="myprofile?usersid=<?php $puserid = encryptor('encrypt',$rteamtag['id']); echo $puserid; ?>">
                                                                                 <b>
-                                                                                 <?php echo $rteamtag['user_name'];  ?>
+                                                                                 <?php echo $rteamtag['user_name'];  
+                                                                                    if ($rteamtag['created_by'] == $rteamtag['user_id']) {
+                                                                                    echo "    (Captain)";
+                                                                                    } else {
+                                                                                    echo " ";
+                                                                                    }
+                                                                                 ?>
                                                                                 </b>
                                                                             </a>
                                                                         </td>
@@ -298,6 +313,13 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                                     </div>
                                                 </div>
                                             </div>
+                                            
+                                        <div class="row">
+                                        <div class="col-sm-12">
+                                        &nbsp;
+                                        </div>
+                                        </div>
+                                         <?php } ?>
                                         </div>
                                 </div><!--row end-->
                             </div>
@@ -308,63 +330,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                             &nbsp;
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            
-                              <ul class="nav nav-tabs ">
-                                 <li role="presentation" class="ng-isolate-scope  active">
-                                      <a href="#1" data-toggle="tab"><b>Team Player's</b></a>
-                                 </li>
-                             </ul>
-                             <div class="tab-content">
-                                                        <div class="tab-pane active" id="1">
-                                                            <table id="example2" class="table" cellspacing="0" width="100%">
-                                                                <thead>
-                                                                    <tr >
-                                                                        <th class=" text-center">User</th> 
-                                                                        <th></th> 
-                                                                        <th></th>
-                                                                        <th class=" text-center">Gamertag</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                        <?php
-                                                            //    $resteamtag = mysql_query("SELECT users.id,users.gamertag,users.user_name,users.xbox,users.plastation FROM join_match left join users on users.id = join_match.created_by where join_match.match_id = $matid");
-                                                                    $resteamtag = mysql_query("SELECT * from join_match LEFT JOIN team_list on team_list.team_id=join_match.team_id LEFT JOIN users on users.id = team_list.user_id WHERE team_list.team_id =1 and join_match.match_id=$matid");
-                                                                    while ($rteamtag = mysql_fetch_assoc($resteamtag)) {   // print_r($rteamtag);
-                                                                    ?> 
-                                                                    <tr>
-                                                                        <td class=" text-center">
-                                                                            <a href="myprofile.php?usersid=<?php echo $rteamtag['id']; ?>">
-                                                                                <b>
-                                                                                 <?php echo $rteamtag['user_name'];
-
-                                                                                 ?>
-
-                                                                                </b>
-                                                                            </a>
-                                                                        </td>
-                                                                        <th>&nbsp;</th>
-                                                                        <th>&nbsp;</th>
-                                                                        <td class=" text-center">
-                                                                            <?php
-                                                                            if ($r['platform'] == 'PS4') {
-                                                                                echo ucfirst($rteamtag['plastation']);
-                                                                            } else {
-                                                                                echo ucfirst($rteamtag['xbox']);
-                                                                            }
-                                                                            ?>
-                                                                        </td>
-                                                                    </tr>
-<?php }
-?>                         
-                                                                </tbody>
-                                                                </tbody>
-                                                            </table>
-                            </div>
-                        </div>
-                       </div>
-                    </div>
+                    
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
@@ -384,6 +350,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
 
 
                             <li>
+                                
                                 <?php
                                 if ($r['created_by'] == $userid) {
                                     if ($host['host_report_time']) {
@@ -404,18 +371,18 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                 <?php }
                             } ?>
                             </li>
-                            <li><a href="createticket.php">Dispute</a></li>
+                            <li><a href="createticket">Dispute</a></li>
                             <li>
                             <?php if (($getcanclematch['created_by'] == $userid) && $getcanclematch['status'] == '0') { ?>
                                     <b>You cancel request has been sent to your opponent </b> 
                             <?php } else if (($getcanclematch['created_by'] != $userid) && $getcanclematch['status'] == '0') { ?>
                                     <b>You got cancle match request from opponent. do you want Accept Click yes. </b> <br/>
-                                    <a href="matchdetails.php?action=surecancle&Matchid=<?php echo $matid; ?>" style="display:inline;padding:none;">Yes</a> 
+                                    <a href="matchdetails?action=surecancle&Matchid=<?php echo encryptor('encrypt',$matid); ?>" style="display:inline;padding:none;">Yes</a> 
                                     <br/>
                                     -----------------------------------
-                                    <a href="matchdetails.php?action=surenotcancle&Matchid=<?php echo $matid; ?>" style="display:inline;padding:none;">No</a>
+                                    <a href="matchdetails?action=surenotcancle&Matchid=<?php echo encryptor('encrypt',$matid); ?>" style="display:inline;padding:none;">No</a>
                             <?php } else { ?>
-                                    <a href="matchdetails.php?action=cancle&Matchid=<?php echo $matid; ?>">Cancel Match</a>
+                                    <a href="matchdetails?action=cancle&Matchid=<?php echo encryptor('encrypt',$matid); ?>">Cancel Match</a>
 <?php } ?>
                             </li>
                         <?php
@@ -423,7 +390,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                         if ($is_admin == 1) {
                             ?>
                           <li><a  data-toggle="modal" data-target="#claim_money" style="cursor: pointer;">Change Winner</a></li>
-                          <li><a href="matchdetails.php?action=surecancle&Matchid=<?php echo $matid; ?>">Delete Match</a></li>
+                          <li><a href="matchdetails.php?action=surecancle&Matchid=<?php echo encryptor('encrypt',$matid); ?>">Delete Match</a></li>
                         <?php } ?>
                         </ul>
                     </div>
@@ -646,10 +613,10 @@ include "footer.php";
     }
     function closeModal() {
         $("#report_match").modal("hide");
-        window.location.href = ' <?php echo HOSTNAME; ?>matchdetails.php?Matchid=<?php echo $matid; ?>';
+        window.location.href = ' <?php echo HOSTNAME; ?>matchdetails?Matchid=<?php echo encryptor('encrypt',$matid); ?>';
     }
     function closeModal2() {
         $("#claim_money").modal("hide");
-        window.location.href = ' <?php echo HOSTNAME; ?>matchdetails.php?Matchid=<?php echo $matid; ?>';
+        window.location.href = ' <?php echo HOSTNAME; ?>matchdetails?Matchid=<?php echo encryptor('encrypt',$matid); ?>';
     }
 </script>

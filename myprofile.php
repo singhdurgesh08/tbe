@@ -1,14 +1,17 @@
 <?php
 include "config.php";
+include "login-header.php";
 session_start();
 if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login.php");
     exit();
  }
 $usersid = $_GET['usersid'];
+$usersid = encryptor('decrypt',$usersid);
+//$usersid = encryptor('decrypt',$usersid);
 include "common.php"; 
 //$userid = $_GET['userid'];
- include "login-header.php";?>
+ ?>
 <?php include "nav.php";?>
 <div class="home_tab_section">
 <div class="container">
@@ -131,12 +134,12 @@ include "common.php";
                         <div class="form-group">
                             <label for="login_password" class="control col-sm-3">
                                 <img src="<?php echo HOSTNAME; ?>assets/images/facebook.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                             <label class="control col-sm-4"><a href="http://Facebook.com/" target="_blank"><?php  echo $result['facebook']; ?> </a></label>
+                             <label class="control col-sm-4"><a href="<?php echo  (($result['facebook']) ? addhttp($result['facebook']):'http://facebook.com/'); ?>" target="_blank"><?php  echo $result['facebook']; ?> </a></label>
                         </div>
                         <div class="form-group">
                             <label for="login_password" class="control col-sm-3">
                               <img src="<?php echo HOSTNAME; ?>assets/images/Twitter.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                        <label class="control col-sm-4 "><a href="http://Twitter.com/" target="_blank"><?php echo  $result['twitter']; ?> </a></label>
+                        <label class="control col-sm-4 "><a href="<?php   echo  (($result['twitter']) ? addhttp($result['twitter']):'http://twitter.com/'); ?> " target="_blank"><?php echo  $result['twitter']; ?> </a></label>
                     </div>
                 </fieldset>
             </form>
@@ -152,7 +155,7 @@ include "common.php";
                 <div class="form-group">
                     <label for="login_password" class="control  col-sm-3">
                         <img src="<?php echo HOSTNAME; ?>assets/images/instagram.png" class="img-circle" alt="Cinque Terre" width="30" height="30"></label></label>
-                      <label class="control col-sm-4"><a href="http://Instagram.com/" target="_blank"><?php echo  $result['steam']; ?></a></label>
+                      <label class="control col-sm-4"><a href="<?php echo  (($result['steam']) ? addhttp($result['steam']):'http://Instagram.com/'); ?>" target="_blank"><?php echo  $result['steam']; ?></a></label>
                 </div>
 
                 <div class="form-group">

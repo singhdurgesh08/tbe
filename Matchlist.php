@@ -183,7 +183,7 @@ function joinMatch(){
                      success: function(d) {
                          var res = d.split(":");
                         if(res['0']==="success"){
-                             window.location.href =' <?php echo HOSTNAME; ?>matchdetails.php?Matchid='+res['1']; 
+                             window.location.href =' <?php echo HOSTNAME; ?>matchdetails?Matchid='+res['1']; 
                         }else{
                              $("#div_wait").html('<b  style="background-color:red;color:white;">' +d+ '</b> ');
                         }

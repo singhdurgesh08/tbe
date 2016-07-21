@@ -9,6 +9,7 @@ if ($_SESSION['user_data']['user_name'] == '') {
 include "login-header.php";?>
         <?php include "nav.php";
         $ticketid = $_GET['ticketid'];
+        $ticketid = encryptor('decrypt',$ticketid);
         ?>
 <div>&nbsp;</div>
 <div class="container">

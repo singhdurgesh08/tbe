@@ -11,12 +11,8 @@ include "login-header.php";
 <?php include "nav.php"; ?>
 <?php include "config.php";
 
-$teamid = $_GET['teamid'];
-$teamid = encryptor('decrypt',$teamid);
-
- if ($teamid) {
-   // echo "hello";die();
-    $ids = $teamid;
+ if (isset($_GET['teamid']) && is_numeric($_GET['teamid'])) {
+    $ids = $_GET['teamid'];
     $result = mysql_query("DELETE FROM team WHERE id = '$ids'");
     header("location: teamlist");
     //EXIT;
@@ -34,7 +30,7 @@ $teamid = encryptor('decrypt',$teamid);
    </div>
 
    <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 text-centered" >
 
 
             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -44,6 +40,7 @@ $teamid = encryptor('decrypt',$teamid);
                         <th>Team Name</th>
                         <th>Platform</th>
                         <th>Game Mode</th>
+                        <th>Match Id</th>
                         <th>Added Date</th>
                         <th>Action</th>
                     </tr>
@@ -57,13 +54,13 @@ $teamid = encryptor('decrypt',$teamid);
 
                     if ($des == "") {
                         if($is_admin){ 
-                           $res = mysql_query("Select * from team order by id desc"); 
+                           $res = mysql_query("SELECT * from team LEFT JOIN join_match on join_match.team_id=team.id"); 
                         }else {
-                          $res = mysql_query("Select * from team where created_by = '$userid'");  
+                          $res = mysql_query("SELECT * from team LEFT JOIN join_match on join_match.team_id=team.id where team.created_by = '$userid'");  
                         }
                         
                     } $i =1;
-                    while ($r = mysql_fetch_array($res)) {  // echo "<pre>"; print_r($r);
+                    while ($r = mysql_fetch_array($res)) {   //echo "<pre>"; print_r($r);
                         ?>
                         <tr>
                             <td><?php echo $i++; ?></td>
@@ -81,14 +78,23 @@ $teamid = encryptor('decrypt',$teamid);
 
                             </td>
 
-                             <td><?php echo $r['platform']; ?></td>
-                             <td><?php echo $r['game_Mode']; ?></td>
-                               <td><?php echo date ("d-M-Y",strtotime($r['date_added'])); ?></td>
+                             <td ><?php echo $r['platform']; ?></td>
+                             <td ><?php echo $r['game_Mode']; ?></td>
+                             <td class="text-center" >
+                                <?php 
+                               if($r['match_id'] !='')
+                                {  ?> <a href="matchdetails?Matchid=<?php echo $r['match_id']; ?>"><?php echo $r['match_id']; ?> </a> <?php  }
+                                else
+                                {  echo "-"; }
+                                ?>
+
+                             </td>
+                               <td class="text-center"><?php echo date ("d-M-Y",strtotime($r['date_added'])); ?></td>
                             <td>
                                 <a href="teamdetails?teamid=<?php echo encryptor('encrypt',$r[0]); ?>"> View Team </a>  
                                  <?php 
                                     if ($is_admin == "1" || $userid ==$r['created_by']) {
-                                        echo ('| <a href=teamlist?teamid='. encryptor('encrypt',$r[id]) . ' >Delete</a>');
+                                        echo ('| <a href=teamlist?teamid='. $r[id] . ' >Delete</a>');
                                         if (isset($_GET['teamid']) && is_numeric($_GET['teamid']))
                                             {
                                                   $ids = $_GET['teamid'];

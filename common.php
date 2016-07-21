@@ -255,7 +255,7 @@ function totalEarnPoint($userId){
                     echo "Sorry ! Please complete your pending Match first.";
                     Exit;  
                 }
-                $repot_match_id = $_POST['repot_match_id'];
+                //$repot_match_id = $_POST['repot_match_id'];
                 $res = mysql_query("Select * from ps4_match where id= $repot_match_id");
                 $r = mysql_fetch_array($res);
                  if ($r['created_by'] == $userId) {
@@ -285,6 +285,12 @@ function totalEarnPoint($userId){
         $hostrow = mysql_fetch_array($hostid);
         return $hostrow;
 
+}
+function addhttp($url) {
+    if (!preg_match("@^[hf]tt?ps?://@", $url)) {
+        $url = "http://" . $url;
+    }
+    return $url;
 }
 
 ?>

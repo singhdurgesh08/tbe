@@ -161,7 +161,7 @@ $query ="INSERT INTO `ticket` (`id`, `name`, `ticket_type`, `description`, `crea
     {
        
          ob_start();
-         header("location:ticket.php");
+         header("location:ticket");
          exit();
     }
 }

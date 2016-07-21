@@ -159,7 +159,7 @@ text-decoration: solid;
 			<a class="dropbtn" style="color:red;background-color: yellow;" > <b><?php echo substr($_SESSION['user_data']['user_name'],0,20);?> &nbsp;</b></a>  
       <div class="dropdown-content" style="z-index:999;">
 			<a href="home">Home</a> 
-      <a href="myprofile?usersid=<?php echo $userid ?>">My Profile</a>
+      <a href="myprofile?usersid=<?php echo encryptor('encrypt',$userid); ?>">My Profile</a>
       <a href="editprofile">Edit Profile</a>
       <a href="subscribe_membership">Membership</a>
 			<a href="wallet">Wallet</a>    
