@@ -25,6 +25,7 @@ function cancleMatch($ids){
 function cancleAcceptedMatchRequest($ids,$userId){ 
     
      $result = mysql_query("INSERT INTO `cancle_match` (`match_id`, `created_by`, `status`, `created_date`) VALUES ('$ids', '$userId', '0', now())");
+     $ids = encryptor('encrypt',$ids);
      header("location:matchdetails.php?Matchid=" . $ids);
      exit();
 }

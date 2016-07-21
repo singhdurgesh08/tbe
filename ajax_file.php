@@ -1,6 +1,7 @@
 <?php session_start();
 error_reporting(0);
 date_default_timezone_set('US/Eastern');
+include "constant.php";
 include "config.php";
 include "common.php";
 
