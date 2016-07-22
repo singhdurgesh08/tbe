@@ -39,7 +39,7 @@ $(document).ready(function(){
 <?php
 
 include "config.php";
-echo $user_pass = encryptor('encrypt',"1256597");
+//echo $user_pass = encryptor('encrypt',"1256597");
 //echo $password = encryptor('encrypt',"12345");
 if (isset($_POST['Login']))
  {

@@ -4,6 +4,7 @@
 	include "constant.php";
 	$baseurl = HOSTNAME;
         $userid = $_SESSION['user_data']['id'];
+       $is_admin = $_SESSION['user_data']['is_admin'];
 
 	//$rows = mysql_fetch_row($run1);
 	include "config.php"; 
@@ -25,6 +26,12 @@
           
          $totalcredit  = number_format($sum) - number_format($withdraw);
          $_SESSION['totalcredit'] = $totalcredit;
+            function getProfitMatch(){ 
+
+            $resteam1 = mysql_query("Select sum(amount) as totalprofit from admin_profit_match");
+            return $rteam1 = mysql_fetch_array($resteam1);
+
+            }
 	?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,6 +60,13 @@
                 <div class="col-sm-12 login_header">
                 <?php if($currentdate <  $enddate  && $enddate !=''){  $_SESSION['dimond_user'] = "diamond"; ?>
                 <img src="<?php echo $baseurl; ?>assets/images/Diamond-icon.png" width="50" class="img-responsive" title="diamond User" alt="diamond User" style="display:inline;" /> <?php }  else {  $_SESSION['dimond_user'] = "normal"; }?></span> 
+                <?php if($is_admin) {
+                   // include "common.php";
+                    $totalprofit = getProfitMatch();
+                    $totalprofit  = $totalprofit['totalprofit'];
+                    ?>
+                <span><a href="login" class="btn btn-info">Total Profit <i class="fa fa-usd" aria-hidden="true"></i> <?php echo  number_format($totalprofit,2);?></a> </span>
+                <?php } ?>
                 <span><a href="login" class="btn btn-info">Credit <i class="fa fa-usd" aria-hidden="true"></i> <?php echo  number_format($sum,2) - number_format($withdraw,2);?></a> </span>
                 <a href="<?php echo $baseurl; ?>logout" class="btn btn-info"><span class="glyphicon glyphicon-log-out"></span>Signout</a></span>
                 </div>

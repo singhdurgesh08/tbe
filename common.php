@@ -122,6 +122,9 @@ function transferMoney($userid,$matchId){
         $winner = $detail1['amount'] * 80 / 100;
         $amount = $detail1['amount'] + (float)$winner;
         
+        $promitAmount = $detail1['amount'] - $winner;
+       // adminProfitMatch($matchId,$userid,$promitAmount);
+        
     }
     depositMoneyToTeam($teamId,$amount);
 //    $query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
@@ -303,6 +306,11 @@ function getadminReportMatch($ids){
     $resteam1 = mysql_query("Select * from admin_report_match where match_id = $ids");
     return $rteam1 = mysql_fetch_array($resteam1);
     //return $rteam1['team_image'];
+}
+function adminProfitMatch($ids,$userId,$amount){ 
+    
+      mysql_query("INSERT INTO `admin_profit_match` (`match_id`,`amount`, `created_by`, `status`, `created_date`) VALUES ('$ids','$amount', '$userId', '1', now())");
+     
 }
 
 ?>

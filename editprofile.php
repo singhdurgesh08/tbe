@@ -45,6 +45,7 @@ if (file_exists("upload/" . $filename)) {
     move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $filename);
     $query = "UPDATE users set user_image = '$filename' WHERE id='" . $userid . "'";
     $result = mysql_query($query);
+    $userid = encryptor('encrypt',$userid);
     header("location:myprofile?usersid=".$userid);
     exit();
 }
@@ -264,6 +265,7 @@ if(isset($_POST['Update']))
                     $result = mysql_query($sql);
                     if($result)
                     {
+                        $userid = encryptor('encrypt',$userid);
                     header("location: myprofile?usersid=$userid");
                    
                    }

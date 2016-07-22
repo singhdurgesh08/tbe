@@ -72,7 +72,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                                             <td><?php echo $r[amount]; ?></td>
                                             <td>
                                                        <?php
-                                                            if($r[created_by]==$userid){
+                                                          //  if($r[created_by]==$userid){
                                                              if($r['match_status']=="2"){   ?>
                                                             <a href="javascript:void();" class="btn btn-info">Accepted</a>
                                                             <?php }else {   ?>
@@ -84,7 +84,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                                                             if ($is_admin == "1" || $r['created_by'] ==$userid) {
                                                                 echo ('| <a href=Matchlist.php?action=cancle&matchid='. $r['id'] . ' >Cancel</a>');
                                                               }
-                                                            }
+                                                           // }
                                                      
                                                       ?>
 								</tr>
