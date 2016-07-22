@@ -15,9 +15,6 @@ $usersid = encryptor('decrypt',$usersid);
       
                  if($action === "Leave")
                  {
-                   // $teamid = $_GET['teamid'];
-                   // $teamid = encryptor('decrypt',$teamid);
-                   // var_dump($teamid);die();
                     $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");  
                     $teamid = encryptor('encrypt',$teamid);
                     header("location:teamdetails?teamid=$teamid "); exit;
@@ -33,6 +30,11 @@ $usersid = encryptor('decrypt',$usersid);
                      $usersid = $_GET['usersid'];
                      $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
                      $result = mysql_query("DELETE FROM team WHERE id ='$teamid'");
+                      mysql_query("UPDATE join_match SET Match_play_status = 2 WHERE team_id='$teamid' and user_id = '$usersid'");
+                      mysql_query("UPDATE join_match SET Match_play_status = 1 WHERE team_id='$teamid' and user_id != '$usersid'");
+                      #Need to transfer Money
+                      
+                     // $sql="UPDATE join_match SET Match_play_status = 2 WHERE team_id='$teamid'";   
                      header("location:home");
                     exit;
                     } else {

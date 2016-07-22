@@ -91,7 +91,7 @@ if ($_GET['action'] == "changewinner") {
     mysql_query("Update join_match set host_report_time= now() , Match_play_status ='$yourteam' , match_winner ='11' where match_id= '$repot_match_id' and opponent_id = '0'");
     mysql_query("Update join_match set host_report_time= now() , Match_play_status ='$opponentteam' ,opponent_report_match_winner ='$opponentteam' where match_id= '$repot_match_id' and opponent_id = '1'");
     $resquery1 = mysql_query("Select * from join_match  left join users on join_match.created_by = users.id where match_id= '$repot_match_id' and Match_play_status = '1'");
-    $win_result = mysql_fetch_array($resquery);
+    $win_result = mysql_fetch_array($resquery1);
     $email = $win_result['user_email'];
     $userid = $win_result['created_by'];
    /* if($_SESSION['dimond_user'] == "dimond"){
@@ -102,9 +102,11 @@ if ($_GET['action'] == "changewinner") {
         $amount = $detail1['amount'] + (float)$winner;
        
     }*/
-    
+    //echo "<pre>"; print_r("Select * from join_match  left join users on join_match.created_by = users.id where match_id= '$repot_match_id' and Match_play_status = '1'"); die;
      if($win_result['Match_play_status'] =='1'){
+        // echo "sss"; die;
        transferMoney($userid,$repot_match_id);
+       adminReportMatch($repot_match_id,$userid);
      }
     /*$query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
             `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`, `start_date`, `end_date`) 

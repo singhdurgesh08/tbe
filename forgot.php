@@ -48,6 +48,7 @@ if (isset($_POST['submit']))
            
                     $rows = mysql_fetch_array($run);
                 $pass = $rows['user_pass']; //FETCHING PASS
+                $pass = encryptor('decrypt',$pass);
                 $to = $rows['user_email'];
                 $from = "From: Admin\r\n";
                 $subject = " Forgot Password";

@@ -39,10 +39,11 @@ include "login-header.php";?>
                  </thead>
                <tbody>
                      <?php $i = 1;
+
                    //  echo "SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.user_id WHERE team_list.user_id= $userid and team_list.Player_status = 0;";
                            $res=mysql_query("SELECT * FROM team_list LEFT JOIN team ON team_list.team_id = team.id LEFT JOIN users ON users.id = team_list.created_by WHERE team_list.user_id= $userid and team_list.Player_status = 0;");
                            while($r=mysql_fetch_assoc($res))
-                                      { 
+                                      {    //print_r($r);
                                          ?>
                                             <tr>
                                             <td><?php echo $r['team_id'];?> </td>
@@ -66,14 +67,17 @@ include "login-header.php";?>
                                                 <td><?php echo date("Y-M-d h:i A",strtotime($r['join_date'])); ?></td>                                              
                                             </td>
                                             <td>
-                                            <a href="Teaminvite.php?teamids=<?php echo $r[team_id]; ?>&action=accept"> Accept </a>&nbsp;|&nbsp;</a>
+                                            <a href="Teaminvite?teamids=<?php echo $r[team_id]; ?>&action=accept"> Accept </a>&nbsp;|&nbsp;</a>
                                             <?php
+
                                                   if ($_GET['action'] =='accept')
                                                     {
+
                                                       ob_start();
+                                                      $usr =  $r[user_id];
                                                       $ids = $_GET['teamids'];
-                                                      $query =mysql_query("UPDATE team_list SET player_status='1' WHERE team_id = $ids");
-                                                      header("location: Teaminvite.php"); exit;
+                                                      $query =mysql_query("UPDATE team_list SET player_status='1' WHERE team_id = $ids and user_id=$usr");
+                                                      header("location: Teaminvite"); exit;
                                                     }
                                             ?>
                                             <a href="Teaminvite.php?teamid=<?php echo $r[team_id]; ?>"> Decline </a>
@@ -83,7 +87,7 @@ include "login-header.php";?>
                                                         ob_start();
                                                         $ids = $_GET['teamid'];
                                                         $result = mysql_query("DELETE FROM team_list WHERE user_id =$userid and team_id = '$ids'");
-                                                        header("location: Teaminvite.php"); exit;
+                                                        header("location: Teaminvite"); exit;
                                                   }  
                                             ?>
                                             

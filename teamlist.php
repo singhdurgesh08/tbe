@@ -17,6 +17,7 @@ $teamid = encryptor('decrypt',$teamid);
  if ($teamid) {
    // echo "hello";die();
     $ids = $teamid;
+    mysql_query("DELETE FROM team_list WHERE team_id ='$ids'");
     $result = mysql_query("DELETE FROM team WHERE id = '$ids'");
     header("location: teamlist");
     //EXIT;

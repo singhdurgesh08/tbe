@@ -120,6 +120,8 @@ if (isset($_POST['submit'])) {
     }
 
    if(trim($msg) ==""){
+       $user_pass = encryptor('encrypt',$user_pass); 
+       $confirm_pass = encryptor('encrypt',$confirm_pass);
      $query= "INSERT INTO `users` (`id`, `first_name`, `last_name`, `user_name`, `user_email`, `user_pass`, `confirm_pass`, `Address`, `gamertag`, `paypal_email`, `DOB`, `city`, `State`, `zip`, `Country`, `membership_id`, `createddate`, `agree`, `is_admin`, `image_name`, `status`, `xbox`, `plastation`, `facebook`, `twitter`, `twitch`, `steam`, `skype`, `youtube`) 
              VALUES (NULL, '', '', '$user_name', '$user_email', '$user_pass', '$confirm_pass', '', '', '', '', '', '', '', '', '', now(), '', '0', '', '0', '', '', '', '', '', '', '', '')";
         mysql_query($query);

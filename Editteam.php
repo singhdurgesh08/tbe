@@ -14,6 +14,7 @@ if ($usersid)
          if($action === "Leave")
             {
                 $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");                                         
+                $teamid = encryptor('encrypt',$teamid);
                 header("location:Editteam.php?teamid=$teamid"); exit;
             }
         else
@@ -86,7 +87,7 @@ if (file_exists("upload/" . $filename)) {
        ?>
         &nbsp; &nbsp;
     <div class="row">
-         <a href="teamdetails.php?teamid=<?php echo $teamid; ?>" class="btn btn-success pull-right">Back</a>
+         <a href="teamdetails?teamid=<?php echo encryptor('encrypt',$teamid); ?>" class="btn btn-success pull-right">Back</a>
         <div class="text-center">
            <h4 class="text-center"><strong>Team -</strong> <?php echo $r[team_name]; ?></h4> 
            &nbsp; &nbsp;

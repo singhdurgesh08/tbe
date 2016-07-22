@@ -200,6 +200,10 @@ function joinMatch(){
     }); 
     
 }
+
+$(document).ready(function() {
+$('#example').DataTable();
+} );
 </script>
 
 <?php ?>

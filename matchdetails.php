@@ -373,7 +373,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                             </li>
                             <li><a href="createticket">Dispute</a></li>
                             <li>
-                            <?php if (($getcanclematch['created_by'] == $userid) && $getcanclematch['status'] == '0') { ?>
+                            <?php if (($getcanclematch['created_by'] == $userid) && $getcanclematch['status'] == '0' && $is_admin == 1) { ?>
                                     <b>You cancel request has been sent to your opponent </b> 
                             <?php } else if (($getcanclematch['created_by'] != $userid) && $getcanclematch['status'] == '0') { ?>
                                     <b>You got cancle match request from opponent. do you want Accept Click yes. </b> <br/>
@@ -388,9 +388,16 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                         <?php
                         $is_admin = $_SESSION['user_data']['is_admin'];
                         if ($is_admin == 1) {
-                            ?>
+                          $getChangeWinner =   getadminReportMatch($matid); //echo "<pre>"; print_r($getChangeWinner);
+                          
+                          if(!$getChangeWinner['match_id']) {
+                          ?>
+                            
                           <li><a  data-toggle="modal" data-target="#claim_money" style="cursor: pointer;">Change Winner</a></li>
-                          <li><a href="matchdetails.php?action=surecancle&Matchid=<?php echo encryptor('encrypt',$matid); ?>">Delete Match</a></li>
+                          <?php }else {  ?>
+                          <li>Admin Reported Match.</li>
+                          <?php }  ?>
+                          <li><a href="matchdetails?action=surecancle&Matchid=<?php echo encryptor('encrypt',$matid); ?>">Delete Match</a></li>
                         <?php } ?>
                         </ul>
                     </div>

@@ -260,11 +260,11 @@ if(isset($_POST['Update']))
                      
                     $userid = $_SESSION['user_data']['id'];
 
-                  echo  $sql="UPDATE users SET xbox = '$xbox',plastation = '$plastation',facebook = '$facebook',Twitter = '$Twitter',twitch = '$twitch', steam = '$steam',skype = '$skype',youtube = '$youtube' WHERE id='$userid'";   
+                   $sql="UPDATE users SET xbox = '$xbox',plastation = '$plastation',facebook = '$facebook',Twitter = '$Twitter',twitch = '$twitch', steam = '$steam',skype = '$skype',youtube = '$youtube' WHERE id='$userid'";   
                     $result = mysql_query($sql);
                     if($result)
                     {
-                    header("location: myprofile.php?usersid=$userid");
+                    header("location: myprofile?usersid=$userid");
                    
                    }
         }

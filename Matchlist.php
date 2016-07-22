@@ -17,6 +17,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
     exit();
 }
 ?>
+
 <div class="home_tab_section">
    
 <div class="container">
@@ -70,22 +71,24 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                                             <td><?php echo $r[game_mode]; ?></td>
                                             <td><?php echo $r[amount]; ?></td>
                                             <td>
-
-                                    <?php if($r['match_status']=="2"){   ?>
-                                    <a href="javascript:void();" class="btn btn-info">Accepted</a>
-                                    <?php }else {   ?>
-                                    <a href="javascript:void();" onclick="acceptMatch('<?php echo $r['amount']; ?>','<?php echo $r['id']; ?>','<?php echo $r['game_mode']; ?>','<?php echo $r['platform']; ?>');">Accept</a>
-                                    <?php }   ?>
-                                     
-									<!--<a href="matchdetails.php?Matchid=<?php //echo $r[0]; ?>"> View Match </a>   | -->
-								     <?php 
-                                    if ($is_admin == "1" || $r['created_by'] ==$userid) {
-                                        echo ('| <a href=Matchlist.php?action=cancle&matchid='. $r['id'] . ' >Cancel</a>');
-                                      }
-                                 
-                                  ?>
+                                                       <?php
+                                                            if($r[created_by]==$userid){
+                                                             if($r['match_status']=="2"){   ?>
+                                                            <a href="javascript:void();" class="btn btn-info">Accepted</a>
+                                                            <?php }else {   ?>
+                                                            <a href="javascript:void();" onclick="acceptMatch('<?php echo $r['amount']; ?>','<?php echo $r['id']; ?>','<?php echo $r['game_mode']; ?>','<?php echo $r['platform']; ?>');">Accept</a>
+                                                            <?php }   ?>
+                                                             
+                        									<!--<a href="matchdetails.php?Matchid=<?php //echo $r[0]; ?>"> View Match </a>   | -->
+                        								     <?php 
+                                                            if ($is_admin == "1" || $r['created_by'] ==$userid) {
+                                                                echo ('| <a href=Matchlist.php?action=cancle&matchid='. $r['id'] . ' >Cancel</a>');
+                                                              }
+                                                            }
+                                                     
+                                                      ?>
 								</tr>
-                                 <?php    } } ?>
+                                 <?php    } } ?>                
 							</tbody>
 			     		</table>
 		    	
@@ -194,7 +197,14 @@ function joinMatch(){
     }); 
     
 }
+
+
+$(document).ready(function() {
+$('#example').DataTable();
+} );
+
 </script>
+
 
 
 <?php

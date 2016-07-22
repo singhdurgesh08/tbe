@@ -294,4 +294,15 @@ function addhttp($url) {
     return $url;
 }
 
+function adminReportMatch($ids,$userId){ 
+    
+      mysql_query("INSERT INTO `admin_report_match` (`match_id`, `created_by`, `status`, `created_date`) VALUES ('$ids', '$userId', '1', now())");
+     
+}
+function getadminReportMatch($ids){
+    $resteam1 = mysql_query("Select * from admin_report_match where match_id = $ids");
+    return $rteam1 = mysql_fetch_array($resteam1);
+    //return $rteam1['team_image'];
+}
+
 ?>

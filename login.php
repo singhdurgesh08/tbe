@@ -39,12 +39,14 @@ $(document).ready(function(){
 <?php
 
 include "config.php";
+echo $user_pass = encryptor('encrypt',"1256597");
+//echo $password = encryptor('encrypt',"12345");
 if (isset($_POST['Login']))
  {
 	
 	$email = $_POST['email'];
 	$password = $_POST['pass'];
-
+        $password = encryptor('encrypt',$password);
 	$check_user ="select * from users where user_email ='$email' AND user_pass = '$password' and status = '1'";
 	$run = mysql_query($check_user);
 	if(mysql_num_rows($run)>0)
