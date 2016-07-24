@@ -264,7 +264,7 @@ $matchtype = $_GET['matchtype'];
                                         <tbody>
                                             <?php $userid = $_SESSION['user_data']['id'];
                                             if ($des == "") {
-                                            $res = mysql_query("Select * from team where created_by = '$userid' and platform ='$matchtype'");
+                                            $res = mysql_query("Select * from team where created_by = '$userid' and platform ='$matchtype' and Status ='1'");
                                             } $i =1;
                                             $count = mysql_num_rows($res);
                                             if($count > 0 ){

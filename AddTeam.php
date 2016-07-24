@@ -95,7 +95,7 @@ if (isset($_POST['submit']))
     $Description = $_POST['Description'];
     $userid = $_SESSION['user_data']['id'];
 
-   $sql = mysql_query("select game_Mode, platform from team where created_by = $userid ");
+   $sql = mysql_query("select game_Mode, platform from team where created_by = $userid and Status ='1'");
     
     while($result = mysql_fetch_array($sql))
     {

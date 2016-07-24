@@ -3,7 +3,7 @@
 include "login-header.php";
 include "nav.php";
 include "config.php";
-
+include "common.php"; 
 $teamid = $_GET['teamid'];
 $teamid = encryptor('decrypt',$teamid);
 $action=$_GET['action'];
@@ -14,11 +14,26 @@ if (isset($_POST['disband_yes'])) {
     $query = mysql_query("select Match_play_status from join_match where team_id = $teamid");
     $finalre = mysql_fetch_array($query);
     //print_r($finalre);die();
-    $usersid = $_GET['usersid'];
-    $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
-    $result = mysql_query("DELETE FROM team WHERE id ='$teamid'");
-    mysql_query("UPDATE join_match SET Match_play_status = 2 WHERE team_id='$teamid' and user_id = '$usersid' and Match_play_status = 0");
-    mysql_query("UPDATE join_match SET Match_play_status = 1 WHERE team_id='$teamid' and user_id != '$usersid' and Match_play_status = 0");
+   // $usersid = $_GET['usersid'];
+    $result = mysql_query("update team  set Status ='0' WHERE id = '$teamid'");
+   // $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
+    //$result = mysql_query("DELETE FROM team WHERE id ='$teamid'");
+   // mysql_query("UPDATE join_match SET Match_play_status = '2' WHERE team_id='$teamid' and created_by = '$usersid' and Match_play_status = '0'");
+    //mysql_query("UPDATE join_match SET Match_play_status = '1' WHERE team_id='$teamid' and created_by != '$usersid' and Match_play_status = '0'");
+            $jointeamdetail = mysql_query("select * from join_match  where join_match.team_id ='$teamid' and Match_play_status = 0");
+             while ($rows = mysql_fetch_array($jointeamdetail)) {  
+                  
+                   $matchid = $rows['match_id'];
+                    //echo "UPDATE join_match SET Match_play_status = '1' WHERE match_id='$matchid' and Match_play_status = '0'"; die;
+                   mysql_query("UPDATE join_match SET Match_play_status = '2' WHERE team_id='$teamid' and created_by = '$usersid' and Match_play_status = '0'");
+                   mysql_query("UPDATE join_match SET Match_play_status = '1' WHERE match_id='$matchid' and Match_play_status = '0'");
+                    $resquery = mysql_query("Select join_match.created_by,join_match.Match_play_status , join_match.match_id from join_match  left join users on join_match.created_by = users.id where match_id= '$matchid' and Match_play_status = '1'");
+                    $win_result = mysql_fetch_array($resquery);
+                    if($win_result['Match_play_status'] =='1'){
+                    $userid = $win_result['created_by'];
+                    transferMoney($userid,$matchid);
+                    }
+              }
     header("location:home");
     exit;
 }
@@ -26,11 +41,26 @@ if (isset($_POST['disband_yes'])) {
 if (isset($_POST['disband_yes_sure'])) {
     $query = mysql_query("select Match_play_status from join_match where team_id = $teamid");
     $finalre = mysql_fetch_array($query);
-    $usersid = $_GET['usersid'];
-    $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
-    $result = mysql_query("DELETE FROM team WHERE id ='$teamid'");
-    mysql_query("UPDATE join_match SET Match_play_status = 2 WHERE team_id='$teamid' and user_id = '$usersid' and Match_play_status = 0");
-    mysql_query("UPDATE join_match SET Match_play_status = 1 WHERE team_id='$teamid' and user_id != '$usersid' and Match_play_status = 0");
+    //$usersid = $_GET['usersid'];
+    //$result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
+    //$result = mysql_query("DELETE FROM team WHERE id ='$teamid'");
+    $result = mysql_query("update team  set Status ='0' WHERE id = '$teamid'");
+   // mysql_query("UPDATE join_match SET Match_play_status = '2' WHERE team_id='$teamid' and created_by = '$usersid' and Match_play_status = '0'");
+    //mysql_query("UPDATE join_match SET Match_play_status = '1' WHERE team_id='$teamid' and created_by != '$usersid' and Match_play_status = '0'");
+    $jointeamdetail = mysql_query("select * from join_match  where join_match.team_id ='$teamid' and Match_play_status = 0");
+             while ($rows = mysql_fetch_array($jointeamdetail)) {  
+                  
+                   $matchid = $rows['match_id'];
+                    //echo "UPDATE join_match SET Match_play_status = '1' WHERE match_id='$matchid' and Match_play_status = '0'"; die;
+                   mysql_query("UPDATE join_match SET Match_play_status = '2' WHERE team_id='$teamid' and created_by = '$usersid' and Match_play_status = '0'");
+                   mysql_query("UPDATE join_match SET Match_play_status = '1' WHERE match_id='$matchid' and Match_play_status = '0'");
+                    $resquery = mysql_query("Select join_match.created_by,join_match.Match_play_status , join_match.match_id from join_match  left join users on join_match.created_by = users.id where match_id= '$matchid' and Match_play_status = '1'");
+                    $win_result = mysql_fetch_array($resquery);
+                    if($win_result['Match_play_status'] =='1'){
+                    $userid = $win_result['created_by'];
+                    transferMoney($userid,$matchid);
+                    }
+              }
     header("location:home");
     exit;
 }
@@ -78,7 +108,7 @@ if ($usersid) {
 
 $is_admin = $_SESSION['user_data']['is_admin'];
 $is_userid = $_SESSION['user_data']['id'];
-include "common.php"; 
+
 ?>
 <style>
     thead th {
@@ -203,7 +233,7 @@ include "common.php";
     ?>
 <div class="row">
     <div class="col-sm-12">
-        <h3><strong>Team Name: <?php echo $r['team_name']; ?></strong></h3></div>
+        <h3><strong> <?php echo $r['team_name']; ?></strong></h3></div>
  </div>
     <div class="row">
     <div class="col-sm-6">

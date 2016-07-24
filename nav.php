@@ -102,9 +102,9 @@
                          }
                           $joinTeamId = implode(",",$teamId);
                           if ($joinTeamId){
-                            $res = mysql_query("Select * from team where created_by = '$userid' UNION Select * from team where id in ($joinTeamId)");  
+                            $res = mysql_query("Select * from team where created_by = '$userid' and Status ='1' UNION Select * from team where Status ='1' and id in ($joinTeamId) ");  
                           }else {
-                               $res = mysql_query("Select * from team where created_by = '$userid'"); 
+                               $res = mysql_query("Select * from team where created_by = '$userid' and Status ='1'"); 
                           }
                        
               while($r = mysql_fetch_array($res))
@@ -143,6 +143,7 @@
                             <li><a href="home">Home</a> </li>
                             <li><a href="myprofile?usersid=<?php echo encryptor('encrypt',$userid); ?>">My Profile</a></li>
                              <li> <a href="editprofile">Edit Profile</a></li>
+                             <li> <a href="teamlist">Team List</a></li>
                             <li> <a href="subscribe_membership">Membership</a></li>
                             <li><a href="wallet">Wallet</a></li>
                             <li><a href="teaminvite">Team Invites</a>

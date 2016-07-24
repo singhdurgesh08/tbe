@@ -277,7 +277,7 @@ if ($_POST['transfer_btn']=="Transfer") {
                             <div class="row">
 
                                 <div class="col-sm-2 text-center">
-                                    <button type="submit" name="withdrawal" value="withdrawal" class="btn btn-info"><span class="ng-scope">Pay With PayPal</span></button>
+                                    <button type="submit" name="withdrawal" value="withdrawal" class="btn btn-info"><span class="ng-scope">Withdraw</span></button>
                                 </div>
 
                             </div>

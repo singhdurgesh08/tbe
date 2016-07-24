@@ -98,7 +98,7 @@ if ($_GET['action'] == 'accept') {
     $sql =mysql_query("Select * from team where id= $teamid");
         $result = mysql_fetch_array($sql);
         $var = trim($result['game_Mode']);
-        $a = "1v1 Mycourt";$b ="2v2 Mycourt";$c ="3v3 Mycourt";$d ="Quick Match";$e ="Myteam";
+        $a = "1v1 Mycourt"; $b ="2v2 Mycourt"; $c ="3v3 Mycourt"; $d ="Quick Match"; $e ="Myteam";
         $query = "SELECT count(*) AS total FROM team_list where team_id=$teamid and player_status = '1'"; 
         $result1 = mysql_query($query); 
         $values = mysql_fetch_assoc($result1); 

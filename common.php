@@ -113,26 +113,31 @@ function transferMoney($userid,$matchId){
      $resquery = mysql_query("Select * from join_match  left join users on join_match.created_by = users.id where match_id= '$matchId' and Match_play_status = '1'");
      $detail1 = mysql_fetch_array($resquery);
      
-        $matchres = mysql_query("Select game_mode from ps4_match where id ='$ids'");
+        $matchres = mysql_query("Select game_mode from ps4_match where id ='$matchId'");
         $matchdetail = mysql_fetch_array($matchres);
 
 //    $email = $detail1['user_email'];
 //    $userid = $detail1['created_by'];
     $teamId = $detail1['team_id'];
-    if($userType == "dimond"){
+    if($userType == "dimond"){ 
        $amount = (float)$detail1['amount'] + (float)$detail1['amount'];
     }else { 
-        if($matchdetail['game_mode'] =='2v2 Mycourt'){
-            $detail1['amount'] = $detail1['amount'] * 2;
-        } elseif($matchdetail['game_mode'] =='3v3 Mycourt'){
-            $detail1['amount'] = $detail1['amount'] * 3;
+        if(trim($matchdetail['game_mode']) =='2v2 Mycourt'){
+            $amountp = $detail1['amount'] * 2;
+             //echo "22222".$amountp;
+        } elseif(trim($matchdetail['game_mode']) =='3v3 Mycourt'){
+            $amountp = $detail1['amount'] * 3;
+             //echo "5555555".$amountp;
          }else {
-            $detail1['amount'] = $detail1['amount'] ;
+            $amountp = $detail1['amount'] ;
+             //echo "777777".$amountp;
         }
+        //echo "111".$amountp; die;
         $winner = $detail1['amount'] * 80 / 100;
         $amount = $detail1['amount'] + (float)$winner;
-        
-        $promitAmount = $detail1['amount'] - $winner;
+        $promitAmount = $amountp * 20 / 100;
+        //$promitAmount = $amountp - $winner;
+        //echo $promitAmount; die;
         // Admin Profit Match
         adminProfitMatch($matchId,$userid,$promitAmount);
         

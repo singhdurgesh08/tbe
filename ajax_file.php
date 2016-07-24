@@ -95,7 +95,7 @@ if ($_GET['action'] == "reportmatch") {
     // Trasfer Money To Team
      $resquery = mysql_query("Select join_match.created_by,join_match.Match_play_status , join_match.match_id from join_match  left join users on join_match.created_by = users.id where match_id= '$repot_match_id' and Match_play_status = '1'");
      $win_result = mysql_fetch_array($resquery);
-     if($win_result['Match_play_status'] =='1'){
+     if($win_result['Match_play_status'] =='1'){ 
         $userid = $win_result['created_by'];
        transferMoney($userid,$repot_match_id);
      }
@@ -179,7 +179,7 @@ if ($_GET['action'] == "postmatch") {
         $team_name = $rowdetail['team_name'];
         
         // Check Pending Match
-         validatePendingMatch($userid);
+         //validatePendingMatch($userid);
         
         // Check Team Player is Full or not 
          validateGameMode($Game_Mode,$add_itemId,$team_name,$Amount);
@@ -267,7 +267,7 @@ if ($_GET['action'] == "accept_match") {
         $team_name = $rowdetail['team_name'];
         
         // Check Pending Match
-         validatePendingMatch($userid);
+       //  validatePendingMatch($userid);
         // Check Team Player is Full or not 
         validateGameMode($Game_Mode,$teamid,$team_name,$amount);
         $result = mysql_query("select sum(payment_gross) AS value_sum from payments where user_id ='$userid' and payment_type ='ADD' and payment_status ='1'");
