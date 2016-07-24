@@ -112,18 +112,29 @@ function transferMoney($userid,$matchId){
      $userType = verifyDimondusers($userid);
      $resquery = mysql_query("Select * from join_match  left join users on join_match.created_by = users.id where match_id= '$matchId' and Match_play_status = '1'");
      $detail1 = mysql_fetch_array($resquery);
+     
+        $matchres = mysql_query("Select game_mode from ps4_match where id ='$ids'");
+        $matchdetail = mysql_fetch_array($matchres);
 
 //    $email = $detail1['user_email'];
 //    $userid = $detail1['created_by'];
     $teamId = $detail1['team_id'];
     if($userType == "dimond"){
        $amount = (float)$detail1['amount'] + (float)$detail1['amount'];
-    }else {
+    }else { 
+        if($matchdetail['game_mode'] =='2v2 Mycourt'){
+            $detail1['amount'] = $detail1['amount'] * 2;
+        } elseif($matchdetail['game_mode'] =='3v3 Mycourt'){
+            $detail1['amount'] = $detail1['amount'] * 3;
+         }else {
+            $detail1['amount'] = $detail1['amount'] ;
+        }
         $winner = $detail1['amount'] * 80 / 100;
         $amount = $detail1['amount'] + (float)$winner;
         
         $promitAmount = $detail1['amount'] - $winner;
-       // adminProfitMatch($matchId,$userid,$promitAmount);
+        // Admin Profit Match
+        adminProfitMatch($matchId,$userid,$promitAmount);
         
     }
     depositMoneyToTeam($teamId,$amount);
@@ -311,6 +322,12 @@ function adminProfitMatch($ids,$userId,$amount){
     
       mysql_query("INSERT INTO `admin_profit_match` (`match_id`,`amount`, `created_by`, `status`, `created_date`) VALUES ('$ids','$amount', '$userId', '1', now())");
      
+}
+
+function winResult($matchId) {
+   $resquery = mysql_query("Select join_match.Match_play_status ,join_match.match_id,join_match.created_by from join_match  left join users on join_match.created_by = users.id where match_id= '$matchId' and Match_play_status = '1'");
+    $win_result = mysql_fetch_array($resquery);
+    return $win_result;
 }
 
 ?>

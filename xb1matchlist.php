@@ -115,10 +115,10 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                         
                     </div>
                     <div class="form-group">
-                        <label for="select_team" class="control-label col-sm-6">Select Team</label>
+                        <label for="select_team" class="control-label col-sm-6">Select your team</label>
                         <div class="col-sm-6 input"> 
                             <select name="select_team" id="select_team"  class="form-control" required="" >
-                                <option value="">Select Team</option>
+                                <option value="">Select your team</option>
                                 <?php
                                 $userid = $_SESSION['user_data']['id'];
                                 if ($des == "") {
@@ -140,7 +140,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                     <input type="hidden" name='matchid' id='matchid' value=''/>
                     <div class="form-group">
                         <label for="" class="control-label col-sm-6 back hidden-xs">&nbsp;</label>
-                        <div class="col-sm-2 input text-center">
+                        <div class="col-sm-3 input text-center">
                             <button class="btn btn-primary" type="submit" name="submit" value="Join" onclick="joinMatch();">Save</button>
                         </div>
                         <div class="col-sm-2 input text-center">
@@ -163,7 +163,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
      $.getJSON("ajax_file.php?action=updateTeam&user_id=<?php echo $userid; ?>&gamemode="+gamemode+"&platform="+platform, function(result){
         $("#select_team").html(); 
         var options = '';
-        options += '<option value="">Select Team</option>';
+        options += '<option value="">Select your team"</option>';
         for (var i = 0; i < result.length; i++){
             options += '<option value="' + result[i].id + '">' + result[i].team_name + '</option>';
         }
@@ -183,7 +183,7 @@ function joinMatch(){
                     type: "post",
                     data: $("#accept_match_xb1").serialize(),
                      beforeSend: function(d) {
-                      $("#div_wait").html("Please wait we Accepting match .....");
+                      $("#div_wait").html("Please wait accepting your match .....");
                      },
                      success: function(d) {
                           var res = d.split(":");

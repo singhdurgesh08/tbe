@@ -34,7 +34,7 @@ if(mysql_num_rows($run)>0)
    $msg = "
              <div class='alert alert-success'>
        <button class='close' data-dismiss='alert'>&times;</button>
-       <strong>WoW !</strong>  Your Account is Now Activated : <a href='login.php'>Login here</a>
+       <strong>WoW !</strong>  Your Account is Now Activated : <a href='login'>Login here</a>
           </div>
           "; 
   }
@@ -43,7 +43,7 @@ if(mysql_num_rows($run)>0)
    $msg = "
              <div class='alert alert-danger'>
        <button class='close' data-dismiss='alert'>&times;</button>
-       <strong>sorry !</strong>  Your Account is allready Activated : <a href='login.php'>Login here</a>
+       <strong>sorry !</strong>  Your Account is allready Activated : <a href='login'>Login here</a>
           </div>
           ";
   }
@@ -53,7 +53,7 @@ if(mysql_num_rows($run)>0)
   $msg = "
          <div class='alert alert-danger'>
       <button class='close' data-dismiss='alert'>&times;</button>
-      <strong>sorry !</strong>  No Account Found : <a href='registration.php'>Signup here</a>
+      <strong>sorry !</strong>  No Account Found : <a href='registration'>Signup here</a>
       </div>
       ";
  } 

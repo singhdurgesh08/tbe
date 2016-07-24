@@ -92,20 +92,24 @@ include "common.php";
 if ($_POST['withdrawal']=="withdrawal") {
         $email = $_POST['email'];
 	$userid = $_SESSION['user_data']['id'];
-	$amount = $_POST['add_amount'];
+	 $amount = $_POST['add_amount'];
         $msg ="";
         $totalcredit = getCredit($_SESSION['user_data']['id']);
-        if($totalcredit < $transfer_amount )
+        
+        if($totalcredit < $amount )
         {
           $msg = "<div class='alert alert-danger'>
                <button class='close' data-dismiss='alert'>&times;</button>
-               <strong>Sorry!</strong>  you have no more Credit for transfer
+               <strong>Sorry!</strong>  you have no more Credit for Withdraw
                </div>";
         }
       if($msg ==""){  
             $email = $_POST['email'];
             $userid = $_SESSION['user_data']['id'];
             $amount = $_POST['add_amount'];
+             $check_name = "select * from users where user_email ='$email'";
+            $result = mysql_query($check_name);
+            if (mysql_num_rows($result) >= 1) { 
             $query = "INSERT INTO `payments` (`payment_id`, `item_number`, `txn_id`, `payment_type`, 
             `user_id`, `payment_gross`, `currency_code`, `payment_status`, `payment_date`, `payment_email`) 
             VALUES ('', 'Withdrawal Wallet', '1', 'Withdrawal', '$userid', '$amount', 'USD', '1', CURRENT_TIMESTAMP, '$email')";
@@ -116,13 +120,19 @@ if ($_POST['withdrawal']=="withdrawal") {
             <strong>Success!</strong>  Withdrawal  Request Sent to TBE. very soon you will get Monry in your paypal Account
             </div>
             ";
-              header("location:wallet.php");
-                                exit();
-      }else {
+            }else {
             $msg = "<div class='alert alert-danger'>
                 <button class='close' data-dismiss='alert'>&times;</button>
-                <strong>Sorry!</strong> Some issue in withdraw Please contact TBE support
+                <strong>Sorry!</strong>  Email $email is not exits
                 </div>";
+        }
+             // header("location:wallet.php");
+                                //exit();
+      }else {
+//            $msg = "<div class='alert alert-danger'>
+//                <button class='close' data-dismiss='alert'>&times;</button>
+//                <strong>Sorry!</strong> Some issue in withdraw Please contact TBE support
+//                </div>";
         }
 }
 if ($_POST['transfer_btn']=="Transfer") {
@@ -170,8 +180,8 @@ if ($_POST['transfer_btn']=="Transfer") {
             <strong>Success!</strong>  Transfer $transfer_amount $ TO $user_name Account. 
             </div>
             ";
-                                header("location:wallet.php");
-                                exit();
+                              //  header("location:wallet");
+                              //  exit();
         }else {
             $msg = "<div class='alert alert-danger'>
                 <button class='close' data-dismiss='alert'>&times;</button>
@@ -193,7 +203,7 @@ if ($_POST['transfer_btn']=="Transfer") {
                         <a href="#1" data-toggle="tab">Deposit</a>
                     </li>
                     <li role="presentation" class="ng-isolate-scope">
-                        <a href="#2" data-toggle="tab">Withdrawal your credits</a>
+                        <a href="#2" data-toggle="tab">Withdraw your credits</a>
                     </li>
                     <li role="presentation" class="ng-isolate-scope">
                         <a href="#3" data-toggle="tab">Transfer</a>

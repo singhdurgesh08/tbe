@@ -26,14 +26,14 @@ if ($_GET['action'] == "reportmatch") {
     if($yourteam == $opponentteam){
        echo "<b style='background-color:red'>Sorry ! you can not report same win win OR Loss Loss</b>";Exit;
     }
-    
+    $currentdate = date("Y-m-d H:i:s");
     if ($r['created_by'] == $userId) {
-        mysql_query("Update join_match set host_report_time= now() , match_winner ='$yourteam',match_score='$yourteamscore' where id = '$hostId' ;");
-        mysql_query("Update join_match set host_report_time= now() , match_winner ='$opponentteam',match_score='$opponentteamscore' where id = '$opponentId' ;");
+        mysql_query("Update join_match set host_report_time= '$currentdate' , match_winner ='$yourteam',match_score='$yourteamscore' where id = '$hostId' ;");
+        mysql_query("Update join_match set host_report_time='$currentdate' , match_winner ='$opponentteam',match_score='$opponentteamscore' where id = '$opponentId' ;");
     } else {
         // Opponent reporting Match
-        mysql_query("Update join_match set opponent_report_time = now() , opponent_report_match_winner ='$yourteam',opponent_report_match_score='$yourteamscore'  where id = '$opponentId';");
-        mysql_query("Update join_match set opponent_report_time = now() , opponent_report_match_winner ='$opponentteam',opponent_report_match_score='$opponentteamscore' where id = '$hostId' ;");
+        mysql_query("Update join_match set opponent_report_time = '$currentdate' , opponent_report_match_winner ='$yourteam',opponent_report_match_score='$yourteamscore'  where id = '$opponentId';");
+        mysql_query("Update join_match set opponent_report_time = '$currentdate' , opponent_report_match_winner ='$opponentteam',opponent_report_match_score='$opponentteamscore' where id = '$hostId' ;");
     }
     // Host Status Update
     /*if(($host['match_winner'] == $host['opponent_report_match_winner']) && $host['match_winner'] =="Win"){
@@ -53,27 +53,50 @@ if ($_GET['action'] == "reportmatch") {
     }*/
     $host = getHostId($repot_match_id);
     $opponent = getOpponentId($repot_match_id);
-    if((($host['match_winner'] == $host['opponent_report_match_winner'])) && ($opponent['match_winner'] == $opponent['opponent_report_match_winner'])){ 
-         mysql_query("Update join_match set  Match_play_status ='3'  where id = '$hostId' ;");
-         mysql_query("Update join_match set  Match_play_status ='3'  where id = '$opponentId' ;");
-    }else if(($host['match_winner'] != $opponent['match_winner']) && $host['match_winner'] =="Win"){
+   // echo "<pre>Host"; print_r($host);
+   // echo "<pre>opponent"; print_r($opponent);
+    if(($host['match_winner'] == $host['opponent_report_match_winner']) && $host['match_winner'] =="Win"){ //echo "111111111";
         mysql_query("Update join_match set  Match_play_status ='1'  where id = '$hostId' ;");
         mysql_query("Update join_match set  Match_play_status ='2'  where id = '$opponentId' ;");
-    }else if(($host['match_winner'] != $opponent['match_winner']) && $host['match_winner'] =="Loss"){
-        mysql_query("Update join_match set  Match_play_status ='2'  where id = '$hostId' ;");
-        mysql_query("Update join_match set  Match_play_status ='1'  where id = '$opponentId' ;");
-    }else {
-        // Nothing Update
+    }elseif(($host['match_winner'] == $host['opponent_report_match_winner']) && $host['match_winner'] =="Loss"){// echo "222222";
+         mysql_query("Update join_match set  Match_play_status ='2'  where id = '$hostId' ;");
+         mysql_query("Update join_match set  Match_play_status ='1'  where id = '$opponentId' ;");
+    } else if (($host['match_winner'] != $host['opponent_report_match_winner']) && (trim($host['match_winner']) == "Win") && (trim($host['opponent_report_match_winner']) == "Loss")) {
+       //  echo "333333";
+         mysql_query("Update join_match set  Match_play_status ='3'  where id = '$hostId' ;"); 
+         mysql_query("Update join_match set  Match_play_status ='3'  where id = '$opponentId' ;");
+    } else if (($opponent['match_winner'] != $opponent['opponent_report_match_winner']) && (trim($opponent['match_winner']) == "Loss") && (trim($opponent['opponent_report_match_winner']) == "Win")) {
+       //   echo "4444444";
+         mysql_query("Update join_match set  Match_play_status ='3'  where id = '$hostId' ;");
+         mysql_query("Update join_match set  Match_play_status ='3'  where id = '$opponentId' ;");
+   }else {
+       // echo "5555555";
+         // Nothing Update
     }
+    //die;
     
+//    if ((($host['match_winner'] == $host['opponent_report_match_winner'])) && ($opponent['match_winner'] == $opponent['opponent_report_match_winner'])) {
+//        mysql_query("Update join_match set  Match_play_status ='3'  where id = '$hostId' ;");
+//        mysql_query("Update join_match set  Match_play_status ='3'  where id = '$opponentId' ;");
+//    } else if (($host['match_winner'] != $opponent['match_winner']) && ($host['match_winner'] == "Win") && ($opponent['match_winner'] == "Loss")) {
+//        mysql_query("Update join_match set  Match_play_status ='1'  where id = '$hostId' ;");
+//        mysql_query("Update join_match set  Match_play_status ='2'  where id = '$opponentId' ;");
+//    } else if (($host['match_winner'] != $opponent['match_winner']) && ($host['match_winner'] == "Loss") && ($opponent['match_winner'] == "Win")) {
+//        mysql_query("Update join_match set  Match_play_status ='2'  where id = '$hostId' ;");
+//        mysql_query("Update join_match set  Match_play_status ='1'  where id = '$opponentId' ;");
+//    } else {
+//        
+//    }
+
 //    }else if(($host['match_winner'] == $opponent['match_winner']) && ($host['match_winner'] =="Win" ||  $host['match_winner'] =="Loss")){
 //        mysql_query("Update join_match set  Match_play_status ='3'  where id = '$hostId' ;");
 //        mysql_query("Update join_match set  Match_play_status ='3'  where id = '$opponentId' ;");
    
     // Trasfer Money To Team
-     $resquery = mysql_query("Select join_match.Match_play_status , join_match.match_id from join_match  left join users on join_match.created_by = users.id where match_id= '$repot_match_id' and Match_play_status = '1'");
+     $resquery = mysql_query("Select join_match.created_by,join_match.Match_play_status , join_match.match_id from join_match  left join users on join_match.created_by = users.id where match_id= '$repot_match_id' and Match_play_status = '1'");
      $win_result = mysql_fetch_array($resquery);
      if($win_result['Match_play_status'] =='1'){
+        $userid = $win_result['created_by'];
        transferMoney($userid,$repot_match_id);
      }
     

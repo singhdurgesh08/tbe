@@ -18,7 +18,7 @@ include "login-header.php";?>
                         <h1><br class="hidden-xs">View Ticket</h1>
                     </div>
                          <div class="col-sm-12 text-left"><span class="pull-right">
-                            <button  class="btn btn-lg btn-block btn-success" type="button"  onclick="window.location.href='ticket.php'">Go Back!</button></span>
+                            <button  class="btn btn-lg btn-block btn-success" type="button"  onclick="window.location.href='ticket'">Go Back!</button></span>
                          </div>
                     
                 </div>
@@ -32,7 +32,7 @@ include "login-header.php";?>
                 ?>
                 <div class="row">
                     <div class="col-sm-9">
-                        <form method='post' id="viewticket"  action='view_ticket?ticketid=<?php echo $r[id] ?>' class="form-horizontal">
+                      <form method='post' id="viewticket"  action='view_ticket?ticketid=<?php echo encryptor('encrypt',$r[id]); ?>' class="form-horizontal">
                         <fieldset>
                                 <div class="form-group">
                                     <label for="login_password" class="col-sm-6 text-right">Ticket ID:</label>
@@ -59,7 +59,7 @@ include "login-header.php";?>
                                 ?>
                                  <div class="form-group">
                                     <label for="login_password" class="col-sm-6 text-right">Match id:</label>
-                                    <div class="col-sm-6 input"><a href="matchdetails?Matchid=<?php echo $r[match_id];?>"><?php echo $r[match_id];?></a></div>
+                                    <div class="col-sm-6 input"><a href="matchdetails?Matchid=<?php echo encryptor('encrypt', $r[match_id]);?>"><?php echo $r[match_id];?></a></div>
                                 </div>
 
                                 <div class="form-group">
@@ -155,11 +155,12 @@ include "login-header.php";?>
                                                             $finalimage =  $r['user_image'];
                                                               if($finalimage) {  ?>
                                                                     <img src="<?php echo HOSTNAME; ?>upload/<?php echo $finalimage;?>" class="img-circle" width="70" heigh="60" class="img-responsive" alt="" />
-                                                              <?php } else { ?>
-                                                               <img src="assets\images\profile-1.png" class="img-responsive"  class="img-circle" width="70" heigh="60" alt="" >
+                                                              <?php } 
+                                                              else { ?>
+                                                                      <img src="<?php echo HOSTNAME; ?>assets/images/profile-1.png" class="img-responsive"  class="img-circle" width="70" heigh="60" alt="" >
                                                                <?php }  ?>
                                                         </div>
-                                                              <a href="myprofile?usersid=<?php echo $r[id];?>"><b><u><?php echo $r[user_name]; ?></u></b></a><BR/>
+                                                              <a href="myprofile?usersid=<?php echo encryptor('encrypt',$r[id]);?>"><b><u><?php echo $r[user_name]; ?></u></b></a><BR/>
                                                               <?php
                                                                 echo $r[response];?><br/><?php
                                                                 echo date("Y-m-d",strtotime($r['created_date'])) . " EST ".date("h:i A",strtotime($r['created_date']));?><br/><br/><hr> <?php
@@ -202,12 +203,14 @@ include "config.php";
 
 if(isset($_POST['Update']))
                 {
-                                     
+                   // echo $ticketid;die();                 
                      $response = $_POST['postreply'];
                      $query ="INSERT INTO `ticket_response` (`id`, `ticket_id`, `user_id`, `response`, `created_by`,`created_date`) VALUES (NULL, '$ticketid', '$userid', '$response', '$userid',now())"; 
                       if(mysql_query($query))
                       {
                              ob_start();
+                             $ticketid = encryptor('decrypt',$ticketid);
+                             echo $ticketid;die();
                              header("location:view_ticket?ticketid=$ticketid");
                              exit();
                       }

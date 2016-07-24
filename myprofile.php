@@ -1,7 +1,8 @@
-<?php
+<?php session_start();
+      ob_start();
+
 include "config.php";
 include "login-header.php";
-session_start();
 if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login.php");
     exit();

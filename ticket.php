@@ -181,7 +181,7 @@ $('#example2').DataTable();
                         if($is_admin) {
                            $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.match_id,ticket.name,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id  where ticket_status=0");  
                         }else {
-                        $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.match_id,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id where ticket.created_by = '$userid' and  whre ticket_status=0");
+                        $res = mysql_query("Select ticket.id,ticket.ticket_status,ticket.name,ticket.match_id,ticket.ticket_type,ticket.description,ticket.created_date,ps4_match.game_title from ticket left join ps4_match on ps4_match.id = ticket.match_id where ticket.created_by = '$userid' and ticket_status=0");
                         }
                     } $i =1;
                     while ($r = mysql_fetch_array($res)) { 
@@ -221,11 +221,10 @@ $('#example2').DataTable();
                                         $query =mysql_query("UPDATE ticket SET ticket_status='0' WHERE id = $ticketid ");
                                           ob_start();
                                            header("location:ticket?ticketid=$ticketid");
-                                           
                                       }
                               }
-
-                              if ($is_admin ==1 and $r[ticket_status] == 0) {
+                              //$is_admin ==1 and
+                              if ( $r[ticket_status] == 0) {
 
                               ?><b><?php echo "Admin Closed"; ?></b>
                               <!--  <a href="ticket.php?ticketid=<?php echo $r[id]?>&action=Activeticket">Active Ticket</a> -->

@@ -19,6 +19,8 @@ $teamid = encryptor('decrypt',$teamid);
     $ids = $teamid;
     mysql_query("DELETE FROM team_list WHERE team_id ='$ids'");
     $result = mysql_query("DELETE FROM team WHERE id = '$ids'");
+    //$result = mysql_query("update team  set Status ='0' WHERE id = '$ids'");
+     
     header("location: teamlist");
     //EXIT;
 }
@@ -58,9 +60,9 @@ $teamid = encryptor('decrypt',$teamid);
 
                     if ($des == "") {
                         if($is_admin){ 
-                           $res = mysql_query("Select * from team order by id desc"); 
+                           $res = mysql_query("Select * from team where  Status ='1' order by id desc"); 
                         }else {
-                          $res = mysql_query("Select * from team where created_by = '$userid'");  
+                          $res = mysql_query("Select * from team where created_by = '$userid' and Status ='1'");  
                         }
                         
                     } $i =1;

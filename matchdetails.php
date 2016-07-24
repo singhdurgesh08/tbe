@@ -60,27 +60,30 @@ if ((isset($matid) && is_numeric($matid)) && $_GET['action'] == "surenotcancle")
 
 $host = getHostId($matid);
 $opponent = getOpponentId($matid);
+//echo "<pre>"; print_r($opponent);
 $hostId = $host['id'];
 $opponentId = $opponent['id'];
 //echo "<pre>"; print_R($host);
 //echo "<pre>"; print_R($opponent);
 
 $hostreporttime = $host['host_report_time'];
-$opponentreporttime = $opponent['host_report_time'];
+$opponentreporttime = $opponent['opponent_report_time'];
 if ($hostreporttime) {
-    $hostdate = date('Y-m-d h:i:s A', strtotime($hostreporttime . " +3 hours"));
+     $hostdate = date('Y-m-d h:i:s A', strtotime($hostreporttime . " +3 hours"));
+     //$hostdate = date('Y-m-d h:i:s A', strtotime($hostreporttime . " +1 minute"));
 }
 if ($opponentreporttime) {
     $opponentdate = date('Y-m-d h:i:s A', strtotime($opponentreporttime . " +3 hours"));
 }
 $currentdate = date('Y-m-d h:i:s A');
+$datetime = date("Y-m-d H:i:s");
 // Update Match report in case of Host
 if (($hostreporttime) && empty($opponentreporttime)) {
     if (strtotime($hostdate) < strtotime($currentdate)) {
         // Update Host As a Win
         // Opponent As Loss
-        mysql_query("Update join_match set  Match_play_status ='1'  where id = '$hostId' ;");
-        mysql_query("Update join_match set  Match_play_status ='2'  where id = '$opponentId' ;");
+        mysql_query("Update join_match set  Match_play_status ='1' , opponent_report_time = '$datetime' where id = '$hostId' ;");
+        mysql_query("Update join_match set  Match_play_status ='2' , opponent_report_time = '$datetime' where id = '$opponentId' ;");
         // Trasfer Money To Team
         $resquery = mysql_query("Select join_match.Match_play_status ,join_match.match_id,join_match.created_by from join_match  left join users on join_match.created_by = users.id where match_id= '$matid' and Match_play_status = '1'");
         $win_result = mysql_fetch_array($resquery);
@@ -94,8 +97,8 @@ if (($opponentreporttime) && empty($hostreporttime)) {
     if (strtotime($opponentdate) < strtotime($currentdate)) {
         // Update Host As a Win
         // Opponent As Loss
-        mysql_query("Update join_match set  Match_play_status ='1'  where id = '$opponentId' ;");
-        mysql_query("Update join_match set  Match_play_status ='2'  where id = '$hostId' ;");
+        mysql_query("Update join_match set  Match_play_status ='1' , host_report_time = '$datetime'  where id = '$opponentId' ;");
+        mysql_query("Update join_match set  Match_play_status ='2' , host_report_time = '$datetime'  where id = '$hostId' ;");
         // Trasfer Money To Team
         $resquery = mysql_query("Select join_match.Match_play_status ,join_match.match_id,join_match.created_by from join_match  left join users on join_match.created_by = users.id where match_id= '$matid' and Match_play_status = '1'");
         $win_result = mysql_fetch_array($resquery);
@@ -199,8 +202,10 @@ if (($opponentreporttime) && empty($hostreporttime)) {
 
                                             </tr>
                                             <tr>
+                                                <td><b> Host :-   <a href="teamdetails?teamid=<?php echo encryptor("encrypt",$finalimage1['id']) ; ?>">
+                                        <?php echo  ucfirst($finalimage1['team_name']) ; ?>
+                                    </a></b></td>
                                                 <td><b> Amount :- </b> <i class='fa fa-usd' aria-hidden='true'></i> <?php echo $r['amount']; ?><br></td>
-                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                             </tr>   
@@ -350,18 +355,18 @@ if (($opponentreporttime) && empty($hostreporttime)) {
 
 
                             <li>
-                                
+<!--                                   <a  data-toggle="modal" data-target="#report_match" style="cursor: pointer;">Report Match</a>-->
                                 <?php
                                 if ($r['created_by'] == $userid) {
                                     if ($host['host_report_time']) {
-                                        echo "Match Reported.";
+                                        echo "Match Reported. "; 
                                     } else {
                                         ?>
                                         <a  data-toggle="modal" data-target="#report_match" style="cursor: pointer;">Report Match</a>
                                     <?php }
                                 } ?>
                             <?php
-                            if ($r['created_by'] != $userid) {
+                            if ($opponent['created_by'] == $userid) {
                                 //$opponent
                                 if ($opponent['opponent_report_time']) {
                                    echo "Match Reported.";
@@ -373,17 +378,21 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                             </li>
                             <li><a href="createticket">Dispute</a></li>
                             <li>
-                            <?php if (($getcanclematch['created_by'] == $userid) && $getcanclematch['status'] == '0' && $is_admin == 1) { ?>
-                                    <b>You cancel request has been sent to your opponent </b> 
+                            <?php if (($getcanclematch['created_by'] == $userid) && $getcanclematch['status'] == '0') { ?>
+                                    <b>Your cancel request has been sent. </b> 
                             <?php } else if (($getcanclematch['created_by'] != $userid) && $getcanclematch['status'] == '0') { ?>
-                                    <b>You got cancle match request from opponent. do you want Accept Click yes. </b> <br/>
+                                    <b>You received cancel request from opponent, do you accept?" </b> <br/>
                                     <a href="matchdetails?action=surecancle&Matchid=<?php echo encryptor('encrypt',$matid); ?>" style="display:inline;padding:none;">Yes</a> 
                                     <br/>
                                     -----------------------------------
                                     <a href="matchdetails?action=surenotcancle&Matchid=<?php echo encryptor('encrypt',$matid); ?>" style="display:inline;padding:none;">No</a>
-                            <?php } else { ?>
+                            <?php } else { 
+                              $winResult =  winResult($matid);
+                             // echo "<pre>"; print_r($winResult);
+                              if($winResult['Match_play_status'] !='1'){
+                                ?>
                                     <a href="matchdetails?action=cancle&Matchid=<?php echo encryptor('encrypt',$matid); ?>">Cancel Match</a>
-<?php } ?>
+                              <?php }} ?>
                             </li>
                         <?php
                         $is_admin = $_SESSION['user_data']['is_admin'];
@@ -444,8 +453,13 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                 <label for="gamebest" class="control-label col-sm-6">Game (Best of ..)</label>
                                 <div class="col-sm-4 input">1</div>
                             </div>
+                           
                             <div class="form-group">
-                                <label for="yoorteam" class="control-label col-sm-6">Your Team Game Won :</label>
+                                <?php  if ($r['created_by'] == $userid) { ?>
+                                <label for="yoorteam" class="control-label col-sm-6"> <?php echo ucfirst($finalimage1['team_name']); ?> Game Won :</label>
+                                <?php } else { ?>
+                                 <label for="yoorteam" class="control-label col-sm-6"> <?php echo  ucfirst($finalimage2['team_name']); ?> Game Won :</label>
+                                 <?php }  ?>
                                 <div class="col-sm-4 input">
                                     <select name="yourteam" id="yoorteam" class="form-control" required="">   
                                         <option value="">Select Win / Loss</option>
@@ -455,7 +469,11 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="opponentteam" class="control-label col-sm-6">Opponent Team Game Won :</label>
+                                <?php  if ($opponent['created_by'] == $userid) { ?>
+                                <label for="opponentteam" class="control-label col-sm-6"><?php echo ucfirst($finalimage1['team_name']); ?> Game Won :</label>
+                                <?php } else { ?>
+                                 <label for="opponentteam" class="control-label col-sm-6"><?php echo  ucfirst($finalimage2['team_name']); ?> Game Won :</label>
+                                 <?php }  ?>
                                 <div class="col-sm-4 input">
                                     <select name="opponentteam" id="opponentteam" class="form-control" required="">   
                                         <option value="">Select Win / Loss</option>
@@ -470,13 +488,13 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                             <div class="form-group">
                                 <label for="yourteamscore" class="control-label col-sm-6">Your Team Score :</label>
                                 <div class="col-sm-4 input">
-                                    <input type="text" id="yourteamscore" name="yourteamscore"  class="form-control" minimum="1" maximum="3"/>
+                                    <input type="text" id="yourteamscore" name="yourteamscore"  class="form-control" minimum="1" maximum="3" maxlength="3"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="opponentteamscore" class="control-label col-sm-6">Opponent Team Score :</label>
                                 <div class="col-sm-4 input">
-                                    <input type="text" id="opponentteamscore" name="opponentteamscore"  class="form-control"   minimum="1" maximum="3"/>
+                                    <input type="text" id="opponentteamscore" name="opponentteamscore"  class="form-control"   minimum="1" maximum="3" maxlength="3"/>
                                 </div>
                             </div>
                             <input type="hidden" id="repot_match_id" name="repot_match_id" value="<?php echo $matid; ?>"/>
@@ -493,11 +511,14 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                 </div>
                 <div class="row" id="match_report_success" style="display:none;">
                     <div class="col-sm-12 text-center">
-                        <b> Thank you you have Successfully reported the Match.</b> 
+                        <b> Thank you for successfully reporting your match.</b> 
                     </div>
                     <div class="col-sm-12 text-center">
-                        <b> You will also wait until your opponent reports the Match before your team Stats are affected.
-                            if your Opponent does not report within 3 hours ,the match will automatically be confirmed. </b> 
+                        <b> 
+                            Wait for your opponent to report before your team stats will be effected. 
+                            If your opponent doesn't report within 3 hours they will forfeit automatically. 
+                        </b> 
+                        
                     </div>
                 </div>
             </div>
@@ -533,7 +554,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                         <div class="col-sm-2 input">1</div>
                     </div>
                     <div class="form-group">
-                        <label for="yoorteam" class="control-label col-sm-6">Host Game Won :</label>
+                        <label for="yoorteam" class="control-label col-sm-6"><?php echo ucfirst($finalimage1['team_name']); ?> Game Won :</label>
                         <div class="col-sm-3 input">
                             <select name="yourteam" id="yoorteam" class="form-control" required="">    
                                 <option value="1">Win</option>
@@ -542,7 +563,7 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="opponentteam" class="control-label col-sm-6">Opponent Team Game Won :</label>
+                        <label for="opponentteam" class="control-label col-sm-6"><?php echo ucfirst($finalimage2['team_name']); ?> Game Won :</label>
                         <div class="col-sm-3 input">
                             <select name="opponentteam" id="opponentteam" class="form-control" required="">    
                                 <option value="1">Win</option>

@@ -1,5 +1,5 @@
 <?php session_start();
-     ob_start();
+      ob_start();
 include "login-header.php";
 include "nav.php";
 include "config.php";
@@ -10,40 +10,72 @@ $action=$_GET['action'];
 $usersid = $_GET['usersid'];
 $usersid = encryptor('decrypt',$usersid);
 
- if ($usersid)
-    {     
-      
-                 if($action === "Leave")
-                 {
-                    $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");  
-                    $teamid = encryptor('encrypt',$teamid);
-                    header("location:teamdetails?teamid=$teamid "); exit;
-                 }
-                else
-                {         
-                
-                  if($action === "Disband"){
-                    $query = mysql_query("select Match_play_status from join_match where team_id = $teamid");
-                    $finalre = mysql_fetch_array($query);
-                   
-                    if (!($finalre['Match_play_status']) || $finalre['Match_play_status'] =='1' ) {
-                     $usersid = $_GET['usersid'];
-                     $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
-                     $result = mysql_query("DELETE FROM team WHERE id ='$teamid'");
-                      mysql_query("UPDATE join_match SET Match_play_status = 2 WHERE team_id='$teamid' and user_id = '$usersid'");
-                      mysql_query("UPDATE join_match SET Match_play_status = 1 WHERE team_id='$teamid' and user_id != '$usersid'");
-                      #Need to transfer Money
-                      
-                     // $sql="UPDATE join_match SET Match_play_status = 2 WHERE team_id='$teamid'";   
-                     header("location:home");
-                    exit;
-                    } else {
-                    echo"<script>alert('disbanding your team will result in a loss because some matches are not completed or disputed')</script>";
-                    }
-               }
-            
+if (isset($_POST['disband_yes'])) {
+    $query = mysql_query("select Match_play_status from join_match where team_id = $teamid");
+    $finalre = mysql_fetch_array($query);
+    //print_r($finalre);die();
+    $usersid = $_GET['usersid'];
+    $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
+    $result = mysql_query("DELETE FROM team WHERE id ='$teamid'");
+    mysql_query("UPDATE join_match SET Match_play_status = 2 WHERE team_id='$teamid' and user_id = '$usersid' and Match_play_status = 0");
+    mysql_query("UPDATE join_match SET Match_play_status = 1 WHERE team_id='$teamid' and user_id != '$usersid' and Match_play_status = 0");
+    header("location:home");
+    exit;
+}
+
+if (isset($_POST['disband_yes_sure'])) {
+    $query = mysql_query("select Match_play_status from join_match where team_id = $teamid");
+    $finalre = mysql_fetch_array($query);
+    $usersid = $_GET['usersid'];
+    $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
+    $result = mysql_query("DELETE FROM team WHERE id ='$teamid'");
+    mysql_query("UPDATE join_match SET Match_play_status = 2 WHERE team_id='$teamid' and user_id = '$usersid' and Match_play_status = 0");
+    mysql_query("UPDATE join_match SET Match_play_status = 1 WHERE team_id='$teamid' and user_id != '$usersid' and Match_play_status = 0");
+    header("location:home");
+    exit;
+}
+
+if ($usersid) {
+    if ($action === "Leave") {
+        $result = mysql_query("DELETE FROM team_list WHERE user_id = '$usersid' and team_id ='$teamid'");
+        $teamid = encryptor('encrypt', $teamid);
+        header("location:teamdetails?teamid=$teamid ");
+        exit;
+    } else {
+
+        if ($action === "Disband") {
+            //echo $teamid;die();
+            $query = mysql_query("select Match_play_status from join_match where team_id = $teamid");
+            $finalre = mysql_fetch_array($query);
+            // print_r($finalre);
+            if ($finalre['Match_play_status'] == '1' || $finalre['Match_play_status'] =="") {
+               
+               /* $usersid = $_GET['usersid'];
+                $result = mysql_query("DELETE FROM team_list WHERE team_id ='$teamid'");
+                $result = mysql_query("DELETE FROM team WHERE id ='$teamid'");
+                mysql_query("UPDATE join_match SET Match_play_status = 2 WHERE team_id='$teamid' and user_id = '$usersid' and Match_play_status = 0");
+                mysql_query("UPDATE join_match SET Match_play_status = 1 WHERE team_id='$teamid' and user_id != '$usersid' and Match_play_status = 0");
+                #Need to transfer Money
+                header("location:home");
+                exit;*/
+                        echo '<script>
+                            $(document).ready(function() {
+                            $("#disband-team-sure").modal("show");
+                            } );
+                            </script>';
+            } else {
+                //echo "else";die();
+                           echo '<script>
+                            $(document).ready(function() {
+                            $("#disband-team").modal("show");
+                            } );
+                            </script>';
+                //echo"<script>disband(); alert('disbanding your team will result in a loss because some matches are not completed or disputed')</script>";
+            }
         }
     }
+}
+
 $is_admin = $_SESSION['user_data']['is_admin'];
 $is_userid = $_SESSION['user_data']['id'];
 include "common.php"; 
@@ -326,7 +358,11 @@ if ($is_admin) {
 }
 
 while ($r = mysql_fetch_assoc($res)) {
-    ?>      
+    
+                                                                      $matchId = $r['match_id'];
+                                                                     $result1 =  getTeamVs($matchId ,$teamid);
+                                                                     if($result1['id']){
+    ?>       
                                                             <tr>
                                                                 <td><?php echo $r[platform] ?></td>
                                                                 <td><?php
@@ -345,8 +381,7 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                     <?php
                                                                    // $sql2 = mysql_query("select team_name from team where id=$teamid");
                                                                    // $result1 = mysql_fetch_array($sql2);
-                                                                     $matchId = $r['match_id'];
-                                                                     $result1 =  getTeamVs($matchId ,$teamid);
+                                                                     
                                                                     if ($r['platform'] == 'PS4') {
                                                                         echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" /> &nbsp; ';
                                                                     } else {
@@ -359,7 +394,7 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                 <td><a href="matchdetails?Matchid=<?php echo encryptor('encrypt',$r[match_id]);  ?>">Match Details</a></td>
 
                                                             </tr>
-                                                                <?php }
+                                                                     <?php }}
                                                                 ?>
 
                                                     </tbody>
@@ -392,7 +427,11 @@ if ($is_admin) {
                                                 left join ps4_match on ps4_match.id = join_match.match_id 
                                                 where join_match.created_by = '$userid' and join_match.team_id ='$teamid'");
 }
-while ($r = mysql_fetch_assoc($res)) {
+while ($r = mysql_fetch_assoc($res)) {  
+    
+                                                                     $matchId = $r['match_id'];
+                                                                     $result1 =  getTeamVs($matchId ,$teamid);
+                                                                     if($result1['id']) {
     ?>      
                                                             <tr>
                                                                 <td><?php echo $r[platform] ?></td>
@@ -411,8 +450,7 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                 
                                                                 <td>
                                                                     <?php 
-                                                                     $matchId = $r['match_id'];
-                                                                     $result1 =  getTeamVs($matchId ,$teamid);
+                                                                     
                                                                     if ($r['platform'] == 'PS4') {
                                                                         echo '<img src="assets/images/playstation final.png" width="20" class="img-responsive" alt="" style="display:inline;" /> &nbsp; ';
                                                                     } else {
@@ -425,7 +463,7 @@ while ($r = mysql_fetch_assoc($res)) {
                                                                 <td><a href="matchdetails?Matchid=<?php echo encryptor('encrypt',$r[match_id]);  ?>">Match Details</a></td>
 
                                                             </tr>
-                                                                <?php }
+                                                                     <?php }}
                                                                 ?>
 
                                                     </tbody>
@@ -496,12 +534,85 @@ while ($r = mysql_fetch_assoc($res)) {
 
 </div>
 </div>
+<div id="disband-team-sure" class="modal fade">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Disband Match</h4>
+            </div>
+            <form method='post' id="disband_yes_sure" name="disband_yes_sure"  class="form-horizontal">
+                <div class="modal-body">
+                    <div id="div_wait"></div>
+                    <div class="form-group">
+                      <p class="text-center"> Are you sure you want to disband your team?
+                      </p>  
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label col-sm-8  back hidden-xs">&nbsp;</label>
+                        <div class="col-sm-2 input text-center">
+                            <button class="btn btn-primary" type="submit" name="disband_yes_sure" value="Join">Yes</button>
+                        </div>
+                        <div class="col-sm-1 input text-center">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+                       
+            <div class="modal-footer">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="disband-team" class="modal fade">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Disband Match</h4>
+            </div>
+            <form method='post' id="accept_match" name="accept_match"  class="form-horizontal">
+                <div class="modal-body">
+                    <div id="div_wait"></div>
+                    <div class="form-group">
+                      <p class="text-center"> Disbanding your team will result in a loss because some matches are not completed or disputed.
+                      </p>  
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label col-sm-8  back hidden-xs">&nbsp;</label>
+                        <div class="col-sm-2 input text-center">
+                            <button class="btn btn-primary" type="submit" name="disband_yes" value="Join" onclick="joinMatch();">Yes</button>
+                        </div>
+                        <div class="col-sm-1 input text-center">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+                       
+            <div class="modal-footer">
+
+            </div>
+        </div>
+
+    </div>
+</div>
 <?php ?>
 <script>
 //$(document).ready(function() {
 //$('#example').DataTable();
 ////$("#join_team").modal("show");
 //} );
+
     function acceptMatch(str, id) {
         $("#join_team").modal("show");
         $("#claim_title").val(str);
@@ -525,6 +636,7 @@ $query = "SELECT count(*) AS total FROM team_list where team_id=$teamid";
 $result1 = mysql_query($query);
 $values = mysql_fetch_assoc($result1);
 $num_rows = $values['total'];
+
 
 if (isset($_POST['submit'])) {
     if ($var == $a and $num_rows == 1) {

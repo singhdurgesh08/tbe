@@ -35,6 +35,8 @@ mysql_query($query);
 	{
 		
 		$row = mysql_fetch_assoc($run);
+                
+               $lastisertId =  encryptor('encrypt',$lastisertId)
 		
 		//fetch products from the database
 		//$results = $db->query("SELECT * FROM products");
@@ -108,8 +110,8 @@ mysql_query($query);
         <input type="hidden" name="notify_url" value="<?php echo HOSTNAME; ?>ipn.php">
 
         <!-- Specify URLs -->
-          <input type='hidden' name='cancel_return' value='<?php echo HOSTNAME; ?>cancel.php?payid=<?php echo $lastisertId ;?>'>
-		<input type='hidden' name='return' value='<?php echo HOSTNAME; ?>success.php?payid=<?php echo $lastisertId ;?>'>
+          <input type='hidden' name='cancel_return' value='<?php echo HOSTNAME; ?>cancel?payid=<?php echo $lastisertId ;?>'>
+		<input type='hidden' name='return' value='<?php echo HOSTNAME; ?>success?payid=<?php echo $lastisertId ;?>'>
 
         
         <!-- Display the payment button. -->
