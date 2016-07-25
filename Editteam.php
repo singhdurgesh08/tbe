@@ -236,10 +236,12 @@ if (file_exists("upload/" . $filename)) {
                                             {
                                                if($r['created_by'] == $is_userid) {
                                                     ?><a href="teamdetails?action=Leave&usersid=<?php echo encryptor('encrypt',$r['user_id']);?>&teamid=<?php echo encryptor('encrypt',$r['team_id']);?>">Terminate</a>
-                                                <?php } else { ?> 
+                                                <?php } else { 
+												   if($r['user_id'] == $is_userid) {
+												   ?> 
                                                     <a href="teamdetails?action=Leave&usersid=<?php echo encryptor('encrypt',$r['user_id']);?>&teamid=<?php echo encryptor('encrypt',$r['team_id']);?>">Leave</a>
                                                      <?php
-                                                   } }  ?>
+												   } } }  ?>
                                             
                                         </td>
                                     </tr>

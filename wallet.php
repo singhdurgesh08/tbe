@@ -352,7 +352,9 @@ if ($_POST['transfer_btn']=="Transfer") {
         },
   
       submitHandler: function(form) {
-                 form.submit(); 
+               if (confirm("Are you sure you are going to Transfer amount correct username ?")) {
+			  form.submit();
+			}
         }
     });
          $('#add_wallet').validate({
@@ -388,7 +390,9 @@ if ($_POST['transfer_btn']=="Transfer") {
         },
   
       submitHandler: function(form) {
-                 form.submit(); 
+			if (confirm("Are you sure you are going to withdraw  correct Paypal Email ?")) {
+			  form.submit();
+			}
         }
     });
   });

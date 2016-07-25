@@ -50,7 +50,7 @@ include "login-header.php";
                                       </td>
                                         <td><?php echo $result['amount'] ?></td>
                                         <td>
-                                            <?php echo date("Y-m-d", strtotime($result['created_date'])) . " EST " . date("h:i A", strtotime($result['start_date'])); ?>
+                                            <?php echo date("Y-m-d", strtotime($result['created_date'])) . " EST " . date("h:i A", strtotime($result['created_date'])); ?>
                                             </a>
                                         </td>
                                     

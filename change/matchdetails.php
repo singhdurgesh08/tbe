@@ -135,13 +135,9 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                     <?php } else { ?>
                                         <img src="<?php echo HOSTNAME; ?>/assets/images/teamss.jpg" class="img-circle" alt="Cinque Terre" width="64" height="66"> 
                                     <?php } ?>
-                                     <?php if($finalimage1['Status'] =='1') { ?>
                                     <a href="teamdetails?teamid=<?php echo encryptor("encrypt",$finalimage1['id']) ; ?>">
                                         <?php echo "<h4> " . ucfirst($finalimage1['team_name']) . "</h4>"; ?>
                                     </a>
-                                     <?php } else { ?>
-                                         <?php echo "<h4> " . ucfirst($finalimage1['team_name']) . "</h4>"; ?>
-                                     <?php }  ?>
                                     <?php /* if ($platform == 'PS4') { ?>
                                         <a href="myprofile.php?usersid=<?php echo $detail['id']; ?>">
                                             <?php echo "<h4> " . ucfirst($detail['plastation']) . "</h4>"; ?>
@@ -176,13 +172,9 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                     <?php } else { ?>
                                         <img src="<?php echo HOSTNAME; ?>/assets/images/teamss.jpg" class="img-circle" alt="Cinque Terre" width="64" height="66"> 
                                         <?php } ?>
-                                   <?php if($finalimage2['Status'] =='1') { ?>
                                     <a href="teamdetails?teamid=<?php echo encryptor("encrypt",$finalimage2['id']) ; ?>">
                                     <?php echo "<h4> " . ucfirst($finalimage2['team_name']) . "</h4>"; ?>
                                     </a>
-                                   <?php }else {  ?>
-                                    <?php echo "<h4> " . ucfirst($finalimage2['team_name']) . "</h4>"; ?>
-                                    <?php } ?>
                                         <?php /* if ($platform == 'PS4') { ?>
                                         <a href="myprofile.php?usersid=<?php echo $detail1['id']; ?>">
                                         <?php echo "<h4> " . ucfirst($detail1['plastation']) . "</h4>"; ?>
@@ -210,17 +202,9 @@ if (($opponentreporttime) && empty($hostreporttime)) {
 
                                             </tr>
                                             <tr>
-                                                <td>
-                                                      <?php if($finalimage1['Status'] =='1') { ?>
-                                                    <b> Host :-   <a href="teamdetails?teamid=<?php echo encryptor("encrypt",$finalimage1['id']) ; ?>">
-                                                  <?php echo  ucfirst($finalimage1['team_name']) ; ?>
-                                                 </a></b>
-                                                  <?php } else { ?>
-                                                    <b> Host :-  
-                                                   <?php echo  ucfirst($finalimage1['team_name']) ; ?>
-                                                  </b>
-                                                     <?php }  ?>
-                                                </td>
+                                                <td><b> Host :-   <a href="teamdetails?teamid=<?php echo encryptor("encrypt",$finalimage1['id']) ; ?>">
+                                        <?php echo  ucfirst($finalimage1['team_name']) ; ?>
+                                    </a></b></td>
                                                 <td><b> Amount :- </b> <i class='fa fa-usd' aria-hidden='true'></i> <?php echo $r['amount']; ?><br></td>
                                                 <td></td>
                                                 <td></td>
@@ -239,13 +223,9 @@ if (($opponentreporttime) && empty($hostreporttime)) {
                                                 ?> 
                                                 <tr>
                                                     <td><b>
-                                                            <?php if($rteam['Status'] =='1') { ?>
                                                             <a href="teamdetails?teamid=<?php echo encryptor("encrypt",$rteam['id']) ; ?>">
                                                                 <?php echo $rteam['team_name']; ?>
                                                             </a>
-                                                            <?php }else{ ?>
-                                                             <?php echo $rteam['team_name']; ?>
-                                                            <?php } ?>
 
                                                         </b></td>
                                                     <td></td>

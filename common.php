@@ -324,8 +324,8 @@ function getadminReportMatch($ids){
     //return $rteam1['team_image'];
 }
 function adminProfitMatch($ids,$userId,$amount){ 
-    
-      mysql_query("INSERT INTO `admin_profit_match` (`match_id`,`amount`, `created_by`, `status`, `created_date`) VALUES ('$ids','$amount', '$userId', '1', now())");
+     $datetime = date("Y-m-d H:i:s");
+      mysql_query("INSERT INTO `admin_profit_match` (`match_id`,`amount`, `created_by`, `status`, `created_date`) VALUES ('$ids','$amount', '$userId', '1', '$datetime')");
      
 }
 
