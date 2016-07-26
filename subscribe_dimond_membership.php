@@ -44,6 +44,7 @@ mysql_query($query);
 		//while($row = mysql_fetch_assoc($run))
 		//{
 			//echo "<pre>"; print_r($row);
+                $lastisertId =  encryptor('encrypt',$lastisertId)
 	?>
 <div class="home_tab_section">
     <div class="container">
@@ -110,8 +111,8 @@ mysql_query($query);
         <input type="hidden" name="currency_code" value="USD">
         
         <!-- Specify URLs -->
-          <input type='hidden' name='cancel_return' value='<?php echo HOSTNAME; ?>cancel.php?payid=<?php echo $lastisertId ;?>'>
-    	 <input type='hidden' name='return' value='<?php echo HOSTNAME; ?>success.php?payid=<?php echo $lastisertId ;?>'>
+          <input type='hidden' name='cancel_return' value='<?php echo HOSTNAME; ?>cancel?payid=<?php echo $lastisertId ;?>'>
+    	 <input type='hidden' name='return' value='<?php echo HOSTNAME; ?>success?payid=<?php echo $lastisertId ;?>'>
 
 <!--        <input type="image" name="submit" border="0"
         src="<?php echo HOSTNAME; ?>assets/images/paypal_paynow.png" alt="PayPal - The safer, easier way to pay online">-->

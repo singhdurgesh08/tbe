@@ -388,7 +388,7 @@ if (isset($_POST['update']))
                                 $num_rows2 = $values2['totalinvite']; 
                                 
                                 if($num_rows2 >= 1) {
-                                    echo"<script>alert('$name already Invited or  Your Team member .')</script>";
+                                    echo"<script>alert('$name has already been invited to your team .')</script>";
                                      exit();
                                 }
                                  if ($result != '') 

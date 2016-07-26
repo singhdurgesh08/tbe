@@ -324,7 +324,7 @@ if ($_GET['action'] == "updateTeam") {
      $gamemode = $_GET['gamemode'];
      $platform = $_GET['platform'];
      
-     $query = "select id,team_name FROM team where created_by ='$userid' and game_Mode ='$gamemode' and platform ='$platform'";
+     $query = "select id,team_name FROM team where created_by ='$userid' and game_Mode ='$gamemode' and platform ='$platform' and Status ='1'";
      $result = mysql_query($query);
     $resultArray = array();
     while ($row = mysql_fetch_assoc($result)) {

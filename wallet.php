@@ -117,8 +117,7 @@ if ($_POST['withdrawal']=="withdrawal") {
              $msg = "
             <div class='alert alert-success'>
             <button class='close' data-dismiss='alert'>&times;</button>
-            <strong>Success!</strong>  Withdrawal  Request Sent to TBE. very soon you will get Monry in your paypal Account
-            </div>
+            <strong>Success!</strong>  Withdraw request has been sent check your paypal account.</div>
             ";
             }else {
             $msg = "<div class='alert alert-danger'>
