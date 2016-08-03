@@ -1,6 +1,4 @@
-
-<?php
- session_start();
+<?php  session_start();
  if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login");
     exit();

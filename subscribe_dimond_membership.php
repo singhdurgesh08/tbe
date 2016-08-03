@@ -1,7 +1,7 @@
 <?php 
  session_start();
 if($_SESSION['user_data']['user_name'] ==''){
-header("location: login.php");
+header("location: login");
 exit();
 }
  //include "constant.php";
@@ -109,7 +109,7 @@ mysql_query($query);
         <input type="hidden" name="item_number" value="<?php echo $row['payment_id']; ?>">
         <input type="hidden" name="amount" value="<?php echo $row['payment_gross']; ?>">
         <input type="hidden" name="currency_code" value="USD">
-        
+         <INPUT TYPE="hidden" name="charset" value="utf-8">
         <!-- Specify URLs -->
           <input type='hidden' name='cancel_return' value='<?php echo HOSTNAME; ?>cancel?payid=<?php echo $lastisertId ;?>'>
     	 <input type='hidden' name='return' value='<?php echo HOSTNAME; ?>success?payid=<?php echo $lastisertId ;?>'>

@@ -50,13 +50,13 @@ if (isset($_POST['submit']))
                 $pass = $rows['user_pass']; //FETCHING PASS
                 $pass = encryptor('decrypt',$pass);
                 $to = $rows['user_email'];
-                $from = "From: Admin\r\n";
+                $from = "From: tbesportsgamingllc@gmail.com\r\n";
                 $subject = " Forgot Password";
                 //  $content = "Your Password is : = " . $pass;
                 $message = "
-                        Hello , $email
+                        Hello , 
                         <br /><br />
-                         We got requested to reset for  password,
+                         We got requested to reset your  password,
                         <br /><br />
                         <br /><br />
                         Your login Credential.
@@ -64,7 +64,7 @@ if (isset($_POST['submit']))
                         <br />Password : $pass
 
                         <br />
-                        if you have any query to Please contact me support@tbesportsgaming.com.
+                        if you have any questions please contacts us via chat.
                         <br /><br />
 
                         <br /><br />
@@ -73,7 +73,7 @@ if (isset($_POST['submit']))
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                 // More headers
-                $headers .= 'From: support@tbesportsgaming.com' . "\r\n";
+                $headers .= 'From: tbesportsgamingllc@gmail.com' . "\r\n";
                 $sentmail = mail($to, $subject, $message, $headers);
 
                 if ($sentmail == 1) {
@@ -81,7 +81,7 @@ if (isset($_POST['submit']))
                 $msg = "<div class='alert alert-success'>
                 <button class='close' data-dismiss='alert'>&times;</button>
                 We've sent an email to $to.
-                         There you can see your detail. 
+                         There you can see your detail. Your Message could be in spam Please check
                 </div>";
             } else {
                 $msg = "<div class='alert alert-danger'>

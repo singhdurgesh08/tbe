@@ -94,6 +94,26 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
 		    	
 			</div>
 		</div>
+    <div>
+        <?php 
+ $userId = $_SESSION['user_data']['id'];
+ $user_name = $_SESSION['user_data']['user_name'];
+ $finalimage = $_SESSION['user_data']['user_image'];
+ if ($finalimage) {
+    $image = HOSTNAME . "upload/" . $finalimage;
+} else {
+    $image = HOSTNAME . "assets/images/profile-1.png";
+}
+?>
+
+        <script src="http://www.shoutbox.com/chat/chat.js.php"></script>
+<script>var chat = new Chat(5);</script>
+<style>
+.shoutBoxContainer {
+ height:450px;
+}
+</style>
+    </div>
 </div>
 </div>							
 <div id="join_team" class="modal fade">
@@ -204,7 +224,6 @@ $('#example').DataTable();
 } );
 
 </script>
-
 
 
 <?php

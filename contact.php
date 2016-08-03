@@ -39,10 +39,9 @@ if ($_SESSION['user_data']['user_name'] == '') {
 </div>
     <div class="row">
         <div class="col-sm12 text-center">
-            <p>Twitter- @TBESportsGaming<br>
-                Instagram- @TBESportsGaming<br>
-                support@tbesportsgaming.com
- </p>
+            <p>
+                Twitter- @tbesportsonline<br>
+            </p>
         </div>
 </div>
     <div class="row">

@@ -1,4 +1,9 @@
 <?php 
+if (! isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off' ) {
+    /*$redirect_url = "https://www.tbesportsgaming.com". $_SERVER['REQUEST_URI'];
+    header("Location: $redirect_url");
+    exit();*/
+}
      date_default_timezone_set('US/Eastern');
       error_reporting(0);
 	include "constant.php";
@@ -10,9 +15,10 @@
 	include "config.php"; 
 	  $result = mysql_query("select sum(payment_gross) AS value_sum from payments where user_id ='$userid' and payment_type ='ADD' and payment_status ='1'"); 
 	  $row = mysql_fetch_array($result);
-          $sum = $row['value_sum'];
+           $sum = $row['value_sum'];
 	  
-	  $result2 = mysql_query("select sum(payment_gross) AS value_sum_withdraw from payments where user_id ='$userid' and payment_type ='Withdrawal' and payment_status ='1'"); 
+          //echo "select sum(payment_gross) AS value_sum_withdraw from payments where user_id ='$userid' and payment_type ='Withdrawal' and payment_status ='1' or payment_status ='2'";
+	  $result2 = mysql_query("select sum(payment_gross) AS value_sum_withdraw from payments where user_id ='$userid' and payment_type ='Withdrawal' and (payment_status ='1' or payment_status ='2')"); 
 	  $row2 = mysql_fetch_array($result2);
           $withdraw = $row2['value_sum_withdraw']; 
 	  

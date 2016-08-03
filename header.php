@@ -1,9 +1,19 @@
 <?php  error_reporting(0);
  session_start();
+ //echo "<pre>"; print_r($_SERVER);
+ 
+if (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) =="http" ) {
+    //$redirect_url = "https://www.tbesportsgaming.com". $_SERVER['REQUEST_URI'];
+  //  header("Location: $redirect_url");
+   // exit();
+}
+
+
  if ($_SESSION['user_data']['user_name'] != '') {
     header("location: home");
     exit();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -93,7 +93,7 @@ if (isset($_POST['Login']))
 				    
 					<div class="col-sm-12">
                            
-                               <form method='post' action='login.php' id="login" class="form-horizontal login_form">
+                               <form method='post' action='login' id="login" class="form-horizontal login_form">
 							<fieldset>
 								<div class="form-group">
 <!--									<label for="login_email" class="control-label col-sm-6">Email address</label>-->

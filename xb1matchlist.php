@@ -122,7 +122,7 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
                                 <?php
                                 $userid = $_SESSION['user_data']['id'];
                                 if ($des == "") {
-                                    $res = mysql_query("Select * from team where created_by = '$userid' and platform ='XB1'");
+                                    $res = mysql_query("Select * from team where created_by = '$userid' and platform ='XB1' and Status ='1'");
                                 } $i = 1;
                                 while ($result = mysql_fetch_array($res)) {
                                     ?>

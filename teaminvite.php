@@ -1,5 +1,5 @@
 <?php 
-  ob_start();
+ ob_start();
  session_start();
   if ($_SESSION['user_data']['user_name'] == '') {
     header("location: login.php");
@@ -7,9 +7,7 @@
    }
 include "login-header.php";?>
 <?php include "nav.php";?>
-<?php include "config.php"; 
-//echo $userid;
-?>
+<?php include "config.php"; ?>
 
 
 <div class="home_tab_section">
@@ -69,16 +67,38 @@ include "login-header.php";?>
                                                 <td><?php echo date("Y-M-d h:i A",strtotime($r['join_date'])); ?></td>                                              
                                             </td>
                                             <td>
-                                            <a href="teaminvite?teamids=<?php echo $r['team_id']; ?>&action=accept"> Accept </a>&nbsp;|&nbsp;</a>
+                                            <a href="Teaminvite?teamids=<?php echo $r[team_id]; ?>&action=accept"> Accept </a>&nbsp;|&nbsp;</a>
+                                            <?php
+
+                                                  if ($_GET['action'] =='accept')
+                                                    {
+
+                                                      ob_start();
+                                                      $usr =  $r[user_id];
+                                                      $ids = $_GET['teamids'];
+                                                      $query =mysql_query("UPDATE team_list SET player_status='1' WHERE team_id = $ids and user_id=$usr");
+                                                      header("location: Teaminvite"); exit;
+                                                    }
+                                            ?>
+                                            <a href="Teaminvite.php?teamid=<?php echo $r[team_id]; ?>"> Decline </a>
+                                            <?php
+                                               if (isset($_GET['teamid']) && is_numeric($_GET['teamid']))
+                                                  {
+                                                        ob_start();
+                                                        $ids = $_GET['teamid'];
+                                                        $result = mysql_query("DELETE FROM team_list WHERE user_id =$userid and team_id = '$ids'");
+                                                        header("location: Teaminvite"); exit;
+                                                  }  
+                                            ?>
                                             
-                                            <a href="teaminvite?teamid=<?php echo $r['team_id']; ?>"> Decline </a>
-                                     
+                                      <?php 
+                                       }
+                                   ?>
                                             </td>
                                       
                                          </tr>
-                                        <?php 
-                                       }
-                                   ?>
+                                         <?php    
+                                        ?>
                 </tbody>
             </table>
 
@@ -86,55 +106,11 @@ include "login-header.php";?>
     </div>
 </div>
 </div>
-
 <script>
 $(document).ready(function() {
 $('#example').DataTable();
 } );
 </script>
-<?php
-if ($_GET['action'] == 'accept') {
-    $teamid = $_GET['teamids'];
-    $sql =mysql_query("Select * from team where id= $teamid");
-        $result = mysql_fetch_array($sql);
-        $var = trim($result['game_Mode']);
-        $a = "1v1 Mycourt"; $b ="2v2 Mycourt"; $c ="3v3 Mycourt"; $d ="Quick Match"; $e ="Myteam";
-        $query = "SELECT count(*) AS total FROM team_list where team_id=$teamid and player_status = '1'"; 
-        $result1 = mysql_query($query); 
-        $values = mysql_fetch_assoc($result1); 
-        $num_rows = $values['total']; 
-        if($var == $a and $num_rows == 1) {
-        echo "<script>alert('Sorry ! Team has been full.')</script>";
-        exit();
-    } elseif ($var == $b and $num_rows == 2) {
-        echo "<script>alert('Sorry ! Team has been full.')</script>";
-        exit();
-    } elseif ($var == $c and $num_rows == 3) {
-        echo "<script>alert('Sorry ! Team has been full.')</script>";
-        exit();
-    } elseif ($var == $d and $num_rows == 1) {
-        echo "<script>alert('Sorry ! Team has been full.')</script>";
-        exit();
-    } elseif ($var == $e and $num_rows == 1) {
-        echo "<script>alert('Sorry ! Team has been full.')</script>";
-        exit();
-    } else {
-
-        $query = mysql_query("UPDATE team_list SET player_status='1' WHERE team_id = $teamid and user_id = $userid");
-        header("location: teaminvite");
-        exit;
-    }
-}
-?>
-
-<?php
-if (isset($_GET['teamid']) && is_numeric($_GET['teamid'])) {
-    $ids = $_GET['teamid'];
-    $result = mysql_query("DELETE FROM team_list WHERE team_id = $ids and user_id = $userid and player_status='0'");
-    header("location: teaminvite");
-    exit;
-}
-?>
 <?php 
     include "footer.php";
 ?>

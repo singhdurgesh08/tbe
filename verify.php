@@ -34,7 +34,7 @@ if(mysql_num_rows($run)>0)
    $msg = "
              <div class='alert alert-success'>
        <button class='close' data-dismiss='alert'>&times;</button>
-       <strong>WoW !</strong>  Your Account is Now Activated : <a href='login'>Login here</a>
+       <strong>Wow !</strong>  Your Account is Now Activated : <a href='login'>Login here</a>
           </div>
           "; 
   }

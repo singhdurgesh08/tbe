@@ -91,7 +91,7 @@ $teamid = encryptor('decrypt',$teamid);
                             <td>
                                 <a href="teamdetails?teamid=<?php echo encryptor('encrypt',$r[0]); ?>"> View Team </a>  
                                  <?php 
-                                    if ($is_admin == "1" || $userid ==$r['created_by']) {
+                                   if ($is_admin == "1") {
                                         echo ('| <a href=teamlist?teamid='. encryptor('encrypt',$r[id]) . ' >Delete</a>');
                                         if (isset($_GET['teamid']) && is_numeric($_GET['teamid']))
                                             {

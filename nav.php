@@ -127,7 +127,7 @@
 
                     <li class="<?php if(ereg("ps4",$file)>0) echo " active"; ?>"><a href="ps4">PS4</a></li>
                      <li class="<?php if(ereg("xb1",$file)>0) echo " active"; ?>"><a href="xb1">XB1</a></li>
-                    <li class="<?php if(ereg("top50goals",$file)>0) echo " active"; ?>"><a href="http://tbesportsgaming.com/forum/index" target="_balnk">Forum</a></li>
+                    <li class="<?php if(ereg("top50goals",$file)>0) echo " active"; ?>"><a href="http://www.tbesportsgaming.com/forum/index" target="_blank">Forum</a></li>
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle">SUPPORT <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -147,6 +147,7 @@
                             <li> <a href="subscribe_membership">Membership</a></li>
                             <li><a href="wallet">Wallet</a></li>
                             <li><a href="teaminvite">Team Invites</a>
+                            <li><a href="withdraw">Withdraw History</a>
                             <?php 
                                 $res = mysql_query("Select * from users where id = $userid");
                                 $record = mysql_fetch_array($res);

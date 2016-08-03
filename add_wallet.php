@@ -108,6 +108,9 @@ mysql_query($query);
         <input type="hidden" name="amount" value="<?php echo $row['payment_gross']; ?>">
         <input type="hidden" name="currency_code" value="USD">
         <input type="hidden" name="notify_url" value="<?php echo HOSTNAME; ?>ipn.php">
+       <INPUT TYPE="hidden" name="charset" value="utf-8">
+       
+
 
         <!-- Specify URLs -->
           <input type='hidden' name='cancel_return' value='<?php echo HOSTNAME; ?>cancel?payid=<?php echo $lastisertId ;?>'>

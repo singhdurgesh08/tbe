@@ -104,7 +104,7 @@ if (isset($_POST['submit']))
 
         if($game == $Game_Mode AND $new == $platform)
          {
-            echo "<script>alert('Game Mode $game in platform $new is already exists')</script>";
+            echo "<script>alert('Game Mode $game in platform $new already exists')</script>";
             exit();
          }
     }

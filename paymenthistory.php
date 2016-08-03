@@ -48,13 +48,15 @@ include "login-header.php";
                                  $sql = mysql_query("select * from payments order By payment_id desc ");
                                 while($result = mysql_fetch_array($sql))
                                     {
+                                    $userid = $result['user_id'];
+                                    $userid = encryptor('encrypt',$userid); 
                                ?>
                                 <tr>
                                     <td><?php echo $result['payment_id'] ?></td>
                                     <td><?php echo $result['item_number'] ?></td>
                                     <td><?php echo $result['payment_type'] ?></td>
                                     <td>
-                                         <a href="myprofile.php?usersid=<?php echo $result['user_id']; ?>">
+                                         <a href="myprofile.php?usersid=<?php echo $userid; ?>">
                                            <b><?php echo $result['user_id']; ?></b>
                                         </a>
                                       </td>
@@ -62,7 +64,7 @@ include "login-header.php";
                                     <td><?php echo $result['currency_code'] ?></td>
                                     <td><?php  if($result['payment_status'] =='0'){ echo "Pending";} else { echo "Approved";}?></td>
                                     <td>
-                                        <?php echo date("Y-m-d",strtotime($result['payment_date'])) . " EST ".date("h:i A",strtotime($$result['payment_date'])); ?>
+                                        <?php echo date("Y-m-d",strtotime($result['payment_date'])) . " EST ".date("h:i A",strtotime($result['payment_date'])); ?>
                                         
                                     </td>
                                     <td><?php echo $result['payment_email'] ?></td>

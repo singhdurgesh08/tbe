@@ -117,7 +117,7 @@ if ($_POST['withdrawal']=="withdrawal") {
              $msg = "
             <div class='alert alert-success'>
             <button class='close' data-dismiss='alert'>&times;</button>
-            <strong>Success!</strong>  Withdraw request has been sent check your paypal account.</div>
+            <strong>Success!</strong>  Please wait 24-48 hours for your payment to be processed thank you.</div>
             ";
             }else {
             $msg = "<div class='alert alert-danger'>
@@ -184,7 +184,7 @@ if ($_POST['transfer_btn']=="Transfer") {
         }else {
             $msg = "<div class='alert alert-danger'>
                 <button class='close' data-dismiss='alert'>&times;</button>
-                <strong>Sorry!</strong> User  $user_name is not exits
+                <strong>Sorry!</strong> User  $user_name not available
                 </div>";
         }
         
@@ -216,7 +216,7 @@ if ($_POST['transfer_btn']=="Transfer") {
 
                             <div class="row">
                                 <div class="col-sm-8 text-center">
-                                    <input type="text" id="add_amount" name="add_amount" class="form-control" placeholder="Enter Amount ($5 minimum)" required=""/>
+                                    <input type="text" id="add_amount" name="add_amount" class="form-control" placeholder="Enter Amount ($1 minimum)" required=""/>
                                 </div>
                             </div>
                              <div class="row">
@@ -257,7 +257,7 @@ if ($_POST['transfer_btn']=="Transfer") {
                             </div>
                              <div class="row">
                                 <div class="col-sm-8 text-center">
-                                    <input type="text" id="add_amount" name="add_amount"   class="form-control" placeholder="Enter Amount ($5 minimum)" required="" />
+                                    <input type="text" id="add_amount" name="add_amount"   class="form-control" placeholder="Enter Amount ($10 minimum)" required="" />
                                 </div>
                             </div>
                              <div class="row">
@@ -299,7 +299,7 @@ if ($_POST['transfer_btn']=="Transfer") {
                             </div>
                              <div class="row">
                                 <div class="col-sm-8 text-center">
-                                    <input type="text" id="transfer_amount" name="transfer_amount"   class="form-control" placeholder="Enter Amount ($5 minimum)" required=""/>
+                                    <input type="text" id="transfer_amount" name="transfer_amount"   class="form-control" placeholder="Enter Amount ($1 minimum)" required=""/>
                                 </div>
                             </div>
                              <div class="row">
@@ -340,13 +340,13 @@ if ($_POST['transfer_btn']=="Transfer") {
         rules: {
         transfer_amount: {
         required: true,
-        range: [5, 100]
+        range: [1, 100]
         }
         },
         messages: {
         transfer_amount: {
         required: "Amount is required.",
-        range: "Please Enter Amount Between 5 to 100 dollar."
+        range: "Please Enter Amount Between 1 to 100 dollar."
         }
         },
   
@@ -360,13 +360,13 @@ if ($_POST['transfer_btn']=="Transfer") {
         rules: {
         add_amount: {
         required: true,
-        range: [5, 100]
+        range: [1, 100]
         }
         },
         messages: {
         add_amount: {
         required: "Amount is required.",
-        range: "Please Enter Amount Between 5 to 100 dollar."
+        range: "Please Enter Amount Between 1 to 100 dollar."
         }
         },
   
@@ -378,13 +378,13 @@ if ($_POST['transfer_btn']=="Transfer") {
         rules: {
         add_amount: {
         required: true,
-        range: [5, 100]
+        range: [10, 100]
         }
         },
         messages: {
         add_amount: {
         required: "Amount is required.",
-        range: "Please Enter Amount Between 5 to 100 dollar."
+        range: "Please Enter Amount Between 10 to 100 dollar."
         }
         },
   

@@ -205,7 +205,7 @@ if ($_GET['action'] == "postmatch") {
         $row = mysql_fetch_array($result);
         $sum = $row['value_sum'];
 
-        $result2 = mysql_query("select sum(payment_gross) AS value_sum_withdraw from payments where user_id ='$userid' and payment_type ='Withdrawal' and payment_status ='1'");
+        $result2 = mysql_query("select sum(payment_gross) AS value_sum_withdraw from payments where user_id ='$userid' and payment_type ='Withdrawal' and (payment_status ='1' or payment_status ='2')");
         $row2 = mysql_fetch_array($result2);
         $withdraw = $row2['value_sum_withdraw'];
         $totalcredit = number_format($sum, 2) - number_format($withdraw, 2);
@@ -274,7 +274,7 @@ if ($_GET['action'] == "accept_match") {
         $row = mysql_fetch_array($result);
         $sum = $row['value_sum'];
 
-        $result2 = mysql_query("select sum(payment_gross) AS value_sum_withdraw from payments where user_id ='$userid' and payment_type ='Withdrawal' and payment_status ='1'");
+        $result2 = mysql_query("select sum(payment_gross) AS value_sum_withdraw from payments where user_id ='$userid' and payment_type ='Withdrawal' and ( payment_status ='1' or payment_status ='2')");
         $row2 = mysql_fetch_array($result2);
         $withdraw = $row2['value_sum_withdraw'];
         $totalcredit = number_format($sum) - number_format($withdraw);

@@ -24,6 +24,13 @@ if (isset($_POST['disband_yes'])) {
              while ($rows = mysql_fetch_array($jointeamdetail)) {  
                   
                    $matchid = $rows['match_id'];
+                   $resmatch = mysql_query("select match_status from ps4_match where id = $matchid"); 
+                    $resultmatch = mysql_fetch_array($resmatch) ;
+                    $status = $resultmatch['match_status'];
+                    if($status == 1) 
+                    {  
+                      cancleMatch($matchids);
+                    }
                     //echo "UPDATE join_match SET Match_play_status = '1' WHERE match_id='$matchid' and Match_play_status = '0'"; die;
                    mysql_query("UPDATE join_match SET Match_play_status = '2' WHERE team_id='$teamid' and created_by = '$usersid' and Match_play_status = '0'");
                    mysql_query("UPDATE join_match SET Match_play_status = '1' WHERE match_id='$matchid' and Match_play_status = '0'");
@@ -51,6 +58,13 @@ if (isset($_POST['disband_yes_sure'])) {
              while ($rows = mysql_fetch_array($jointeamdetail)) {  
                   
                    $matchid = $rows['match_id'];
+                   $resmatch = mysql_query("select match_status from ps4_match where id = $matchid"); 
+                    $resultmatch = mysql_fetch_array($resmatch) ;
+                    $status = $resultmatch['match_status'];
+                    if($status == 1) 
+                    {  
+                      cancleMatch($matchids);
+                    }
                     //echo "UPDATE join_match SET Match_play_status = '1' WHERE match_id='$matchid' and Match_play_status = '0'"; die;
                    mysql_query("UPDATE join_match SET Match_play_status = '2' WHERE team_id='$teamid' and created_by = '$usersid' and Match_play_status = '0'");
                    mysql_query("UPDATE join_match SET Match_play_status = '1' WHERE match_id='$matchid' and Match_play_status = '0'");

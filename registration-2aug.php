@@ -120,11 +120,10 @@ if (isset($_POST['submit'])) {
     }
 
    if(trim($msg) ==""){
-       $mailpass = $user_pass;
        $user_pass = encryptor('encrypt',$user_pass); 
        $confirm_pass = encryptor('encrypt',$confirm_pass);
      $query= "INSERT INTO `users` (`id`, `first_name`, `last_name`, `user_name`, `user_email`, `user_pass`, `confirm_pass`, `Address`, `gamertag`, `paypal_email`, `DOB`, `city`, `State`, `zip`, `Country`, `membership_id`, `createddate`, `agree`, `is_admin`, `image_name`, `status`, `xbox`, `plastation`, `facebook`, `twitter`, `twitch`, `steam`, `skype`, `youtube`) 
-             VALUES (NULL, '', '', '$user_name', '$user_email', '$user_pass', '$confirm_pass', '', '', '', '', '', '', '', '', '', now(), '', '0', '', '1', '', '', '', '', '', '', '', '')";
+             VALUES (NULL, '', '', '$user_name', '$user_email', '$user_pass', '$confirm_pass', '', '', '', '', '', '', '', '', '', now(), '', '0', '', '0', '', '', '', '', '', '', '', '')";
         mysql_query($query);
        $used_id = mysql_insert_id();
        if (!empty($used_id)) {
@@ -133,7 +132,7 @@ if (isset($_POST['submit'])) {
             $toEmail = $user_email;
             $subject = "Confirm Registration";
             $code = md5(uniqid(rand()));
-            /*$message = "     
+            $message = "     
               Hello ,
               <br /><br />
               Welcome to TBESportsGaming community.<br/>
@@ -141,44 +140,23 @@ if (isset($_POST['submit'])) {
               <br /><br />
               <a href='$actual_link?id=$used_id&code=$code'>Click HERE to Activate </a>
               <br /><br />
-              Thanks,<br />Admin";*/
-            
-            $message = "     
-              Hello ,
-              <br /><br />
-              Welcome to TBESportsGaming community.<br/>
-              <br />
-              Your login Credential.
-              <br />Email    : $user_email 
-              <br />Password : $mailpass
-              <br /><br />
-              Thanks,<br />Support";
+              Thanks,<br />Admin";
 
 
             $headers = "MIME-Version: 1.0" . "\r\n";
             $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
             // More headers
             $headers .= 'From:tbesportsgamingllc@gmail.com' . "\r\n";
-             /*$msg = "
-            <div class='alert alert-success'>
-            <button class='close' data-dismiss='alert'>&times;</button>
-            <strong>Success!</strong>  Registration successfullly completed.   </div>";*/
-            
             //var_dump($mailHeaders);die();
-            // echo"<script>alert('Registration successfullly completed')</script>";
             if (mail($toEmail, $subject, $message, $headers)) {
-                
-               /* $msg = "
+                // echo"<script>alert('Registration successfullly completed')</script>";
+                $msg = "
             <div class='alert alert-success'>
             <button class='close' data-dismiss='alert'>&times;</button>
             <strong>Success!</strong>  We've sent an email to $toEmail.
                  Please click on the confirmation link in the email to create your account. Your Message could be in spam Please check
             </div>
-            ";*/
-                $msg = "
-            <div class='alert alert-success'>
-            <button class='close' data-dismiss='alert'>&times;</button>
-            <strong>Success!</strong>  Registration successfullly completed.   </div>";
+            ";
             }
         }else {
              $msg = "<div class='alert alert-danger'>
@@ -211,7 +189,7 @@ if(!empty($_GET["id"])) {
 
         <div class="row">
             <div class="col-sm-12">
-                <form method='post' action='registration' class="form-horizontal" id="registration">
+                <form method='post' action='registration.php' class="form-horizontal" id="registration">
                     <fieldset>
                         <div class="form-group">
                             <label for="user_name" class="control-label col-sm-4">User Name</label>

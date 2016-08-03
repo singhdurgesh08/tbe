@@ -1,8 +1,8 @@
-<?php
-session_start();
+<?php session_start();
+     ob_start();
 if(session_destroy())
 	{
 		session_destroy();
-	header("Location:/tbe/");
+	header("Location:/");
 	}
 ?>
