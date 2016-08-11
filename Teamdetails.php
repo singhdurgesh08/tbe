@@ -405,7 +405,9 @@ while ($r = mysql_fetch_assoc($res)) {
     
                                                                       $matchId = $r['match_id'];
                                                                      $result1 =  getTeamVs($matchId ,$teamid);
+
                                                                      if($result1['id']){
+                                                                        
     ?>       
                                                             <tr>
                                                                 <td><?php echo $r[platform] ?></td>
@@ -475,6 +477,7 @@ while ($r = mysql_fetch_assoc($res)) {
     
                                                                      $matchId = $r['match_id'];
                                                                      $result1 =  getTeamVs($matchId ,$teamid);
+
                                                                      if($result1['id']) {
     ?>      
                                                             <tr>

@@ -1,8 +1,9 @@
-<?php if (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) =="http" ) {
-    $redirect_url = "https://www.tbesportsgaming.com". $_SERVER['REQUEST_URI'];
+<?php
+//// if (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) =="http" ) {
+    //$redirect_url = "https://www.tbesportsgaming.com". $_SERVER['REQUEST_URI'];
    // header("Location: $redirect_url");
   //  exit();
-}
+//}
      date_default_timezone_set('US/Eastern');
       error_reporting(0);
 	include "constant.php";

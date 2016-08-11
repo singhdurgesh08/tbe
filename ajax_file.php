@@ -286,7 +286,7 @@ if ($_GET['action'] == "accept_match") {
          
          $teamdetail = mysql_query("select platform from team where id ='$teamid'");
          $rowdetail = mysql_fetch_array($teamdetail);
-         $platform = $teamdetail['platform'];
+         $platform = $rowdetail['platform'];
          // Gamer Tag check Will Come Here 
         $userdetail = mysql_query("select plastation,xbox from users where id ='$userid'");
         $user_detail = mysql_fetch_array($userdetail);
