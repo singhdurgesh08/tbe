@@ -140,12 +140,13 @@
                     <li class="dropdown">
                         <a class="dropbtn" id="nav" href="#" data-toggle="dropdown" class="dropdown-toggle" style="color:red;background-color: yellow;"><strong><?php echo substr($_SESSION['user_data']['user_name'],0,20);?> &nbsp;</strong><b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="home">Home</a> </li>
+<!--                            <li><a href="home">Home</a> </li>-->
                             <li><a href="myprofile?usersid=<?php echo encryptor('encrypt',$userid); ?>">My Profile</a></li>
                              <li> <a href="editprofile">Edit Profile</a></li>
-                             <li> <a href="teamlist">Team List</a></li>
+                             <li><a href="wallet">Wallet</a></li>
+                             
                             <li> <a href="subscribe_membership">Membership</a></li>
-                            <li><a href="wallet">Wallet</a></li>
+                            <li> <a href="teamlist">Team List</a></li>
                             <li><a href="teaminvite">Team Invites</a>
                             <li><a href="withdraw">Withdraw History</a>
                             <?php 

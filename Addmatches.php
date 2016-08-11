@@ -33,7 +33,7 @@ $matchtype = $_GET['matchtype'];
         },
   
       submitHandler: function(form) {
-          clickAndDisable(form);
+         // clickAndDisable(form);
                $.ajax({
                     url: "ajax_file.php?action=postmatch&user_id=<?php echo $userid; ?>",
                     type: "post",

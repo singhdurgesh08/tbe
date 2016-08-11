@@ -3,8 +3,8 @@
  //echo "<pre>"; print_r($_SERVER);
  
 if (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) =="http" ) {
-    //$redirect_url = "https://www.tbesportsgaming.com". $_SERVER['REQUEST_URI'];
-  //  header("Location: $redirect_url");
+    $redirect_url = "https://www.tbesportsgaming.com". $_SERVER['REQUEST_URI'];
+   // header("Location: $redirect_url");
    // exit();
 }
 
@@ -22,6 +22,8 @@ if (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) =="http" ) {
 	include "constant.php";
 	$baseurl = HOSTNAME; ?>
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>TBESportsGaming</title>
         <link rel="shortcut icon" href="<?php echo $baseurl; ?>assets/images/favicon.ico" type="image/x-icon">
         <link rel="icon" href="<?php echo $baseurl; ?>assets/images/favicon.ico" type="image/x-icon">

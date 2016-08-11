@@ -106,13 +106,20 @@ if ((isset($_GET['matchid']) && is_numeric($_GET['matchid'])) && $_GET['action']
 }
 ?>
 
-        <script src="http://www.shoutbox.com/chat/chat.js.php"></script>
-<script>var chat = new Chat(5);</script>
+<!-- <script src="http://www.shoutbox.com/chat/chat.js.php"></script>
+<script>
+    
+    var chat = new Chat(<?php echo $userId;?>,"<?php echo $user_name;?>","<?php echo $image;?>");
+    console.log(chat);
+     chat.traductions.enterYourTextHere = "Enter your Message "; 
+   chat.smileys["(oo)"] = "<img src='http://www.shoutbox.com/chat/smileys/(lol).gif'>";
+
+</script>
 <style>
 .shoutBoxContainer {
  height:450px;
 }
-</style>
+</style>-->
     </div>
 </div>
 </div>							
@@ -218,11 +225,11 @@ function joinMatch(){
     
 }
 
-
+<?php if ($is_admin == "1") { ?>
 $(document).ready(function() {
 $('#example').DataTable();
 } );
-
+<?php } ?>
 </script>
 
 

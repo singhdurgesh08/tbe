@@ -1,8 +1,7 @@
-<?php 
-if (! isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off' ) {
-    /*$redirect_url = "https://www.tbesportsgaming.com". $_SERVER['REQUEST_URI'];
-    header("Location: $redirect_url");
-    exit();*/
+<?php if (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) =="http" ) {
+    $redirect_url = "https://www.tbesportsgaming.com". $_SERVER['REQUEST_URI'];
+   // header("Location: $redirect_url");
+  //  exit();
 }
      date_default_timezone_set('US/Eastern');
       error_reporting(0);
@@ -44,6 +43,8 @@ if (! isset($_SERVER['HTTPS']) or $_SERVER['HTTPS'] == 'off' ) {
 <head>
     
 	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>TBESportsGaming</title>
         <link rel="shortcut icon" href="<?php echo $baseurl; ?>assets/images/favicon.ico" type="image/x-icon">
         <link rel="icon" href="<?php echo $baseurl; ?>assets/images/favicon.ico" type="image/x-icon">
