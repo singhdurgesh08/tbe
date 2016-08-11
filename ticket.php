@@ -27,7 +27,7 @@ $('#example2').DataTable();
                 <div class="jumbotron">
                     <div class="row">
                       <div class="col-sm-10 text-center">
-                      <h2>Ticket's</h2>
+                      <h2>Ticket Center</h2>
                  </div>
                  <div class="col-sm-2 text-center">
                      <a href="createticket" class="btn btn-lg btn-block btn-success"> Create Ticket </a> 
@@ -57,10 +57,10 @@ $('#example2').DataTable();
                                     <div class="tabset-cashier col-md-12 ng-isolate-scope">
                                         <ul class="nav nav-tabs">
                                             <li role="presentation" class="ng-isolate-scope active">
-                                                <a href="#1" data-toggle="tab">New Ticket's</a>
+                                                <a href="#1" data-toggle="tab">Open ticket</a>
                                             </li>
                                             <li role="presentation" class="ng-isolate-scope">
-                                                <a href="#2" data-toggle="tab">Closed Ticket's</a>
+                                                <a href="#2" data-toggle="tab">closed ticket</a>
                                             </li>
 
                                         </ul>

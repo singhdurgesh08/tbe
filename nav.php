@@ -144,7 +144,6 @@
                             <li><a href="myprofile?usersid=<?php echo encryptor('encrypt',$userid); ?>">My Profile</a></li>
                              <li> <a href="editprofile">Edit Profile</a></li>
                              <li><a href="wallet">Wallet</a></li>
-                             
                             <li> <a href="subscribe_membership">Membership</a></li>
                             <li> <a href="teamlist">Team List</a></li>
                             <li><a href="teaminvite">Team Invites</a>

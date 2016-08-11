@@ -292,7 +292,7 @@ if (file_exists("upload/" . $filename)) {
                     <div class="login_form_page">
                               <div class="row">
                                       <div class="col-sm-12 text-center">
-                                          <h6 class="login_title"><br class="hidden-xs">Team invite's </h6>
+                                          <h6 class="login_title"><br class="hidden-xs">Team Invite </h6>
                                       </div>
                               </div>
                         <div class="row">

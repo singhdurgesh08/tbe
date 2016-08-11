@@ -299,7 +299,7 @@ if ($_POST['transfer_btn']=="Transfer") {
                             </div>
                              <div class="row">
                                 <div class="col-sm-8 text-center">
-                                    <input type="text" id="transfer_amount" name="transfer_amount"   class="form-control" placeholder="Enter Amount ($1 minimum)" required=""/>
+                                    <input type="text" id="transfer_amount" name="transfer_amount"   class="form-control" placeholder="Enter Amount ($5 minimum)" required=""/>
                                 </div>
                             </div>
                              <div class="row">
@@ -340,13 +340,13 @@ if ($_POST['transfer_btn']=="Transfer") {
         rules: {
         transfer_amount: {
         required: true,
-        range: [1, 100]
+        range: [5, 100]
         }
         },
         messages: {
         transfer_amount: {
         required: "Amount is required.",
-        range: "Please Enter Amount Between 1 to 100 dollar."
+        range: "Please Enter Amount Between 5 to 100 dollar."
         }
         },
   
